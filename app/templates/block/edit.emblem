@@ -1,0 +1,3 @@
+= input type='text' value=model.content placeholder='Content'
+br
+button click="save this" Save

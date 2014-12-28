@@ -1,0 +1,6 @@
+p: button click="newBlock" Add Block
+
+grid-ster
+	each block in model
+		grid-block block=block action="editBlock"
+			block.content

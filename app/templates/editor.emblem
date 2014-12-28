@@ -1,0 +1,14 @@
+button#toJSON To JSON
+.testEquation.equation
+.loadingMessage.fontSizeSmaller Please wait a moment, while fonts/images load...
+
+eq-menu
+
+p JSON:
+div#ContentJSON style="margin: 20px; border: solid 1px #000" &nbsp;
+
+textarea#TextJSON
+br
+button#JSONtoEqEd Render Equation
+
+div#renderedEq
