@@ -3,4 +3,4 @@ p
 	|&nbsp;&nbsp;&nbsp;
 	button click="pdf" Print to PDF
 
-grid-ster grid=model action='editBlock'
+layout-interface grid=model action='editBlock'

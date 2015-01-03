@@ -1,5 +1,5 @@
 class IndexRoute extends Ember.Route
 
-	model: -> @session.me.grids.firstObject
+	model: -> @session.me.layouts.firstObject
 
 `export default IndexRoute`

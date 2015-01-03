@@ -2,6 +2,6 @@ attr = DS.attr
 
 class User extends DS.Model
 	name: attr()
-	grids: DS.hasMany 'grid'
+	layouts: DS.hasMany 'layout'
 
 `export default User`

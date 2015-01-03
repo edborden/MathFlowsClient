@@ -6,7 +6,7 @@ class Block extends DS.Model
 	row: attr "number"
 	width: attr "number"
 	height: attr "number"
-	grid: DS.belongsTo 'grid'
+	layout: DS.belongsTo 'layout'
 	isNew: attr 'boolean'
 
 `export default Block`

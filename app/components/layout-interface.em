@@ -1,14 +1,15 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
 
-class GridSterComponent extends Ember.Component with ElRegister
+class LayoutInterfaceComponent extends Ember.Component with ElRegister
 
-	layoutName: 'components/grid-ster'
+	layoutName: 'components/layout-interface'
 	tagName: 'ul'
 	classNames: ['gridster']
 
 	gridster: null
 
 	didInsertElement: ->
+		@_super()
 		@gridster = Ember.$(@element).gridster(
 			widget_margins: [10, 10],
 			widget_base_dimensions: [200, 100]
@@ -21,12 +22,9 @@ class GridSterComponent extends Ember.Component with ElRegister
 				stop: @runSync
 		).data('gridster')
 
-	runSync: (e) ->
-		el = e.target
-		el = el.parentElement if el.tagName is 'SPAN'
-		obj = Ember.$(el).data 'emberObject'
-		parent = obj.parentView		
-		parent.syncChangedBlocks()
+	runSync: ->
+		obj = Ember.$(".gridster").data 'emberObject'
+		obj.syncChangedBlocks()
 
 	syncChangedBlocks: ->
 		for diffBlock in @blocksDiff 
@@ -57,4 +55,4 @@ class GridSterComponent extends Ember.Component with ElRegister
 		editBlock: (block) ->
 			@sendAction 'action',block
 
-`export default GridSterComponent`
+`export default LayoutInterfaceComponent`
