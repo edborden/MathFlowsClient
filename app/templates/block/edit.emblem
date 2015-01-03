@@ -1,3 +1,5 @@
-= input type='text' value=model.content placeholder='Content'
-br
-button click="save this" Save
+p: button click="delete model" Delete Block
+p
+	|Edit Content:
+	= input type='text' value=model.content placeholder='Content'
+	button click="save model" Save

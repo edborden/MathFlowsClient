@@ -1,4 +1,4 @@
-`import SessionService from 'stalkers-client/services/session'`
+`import SessionService from 'math-flows-client/services/session'`
 
 initializer =
 	name:'services'

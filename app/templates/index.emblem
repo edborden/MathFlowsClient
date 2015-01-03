@@ -1,6 +1,6 @@
-p: button click="newBlock" Add Block
+p 
+	button click="newBlock" Add Block
+	|&nbsp;&nbsp;&nbsp;
+	button click="pdf" Print to PDF
 
-grid-ster
-	each block in model
-		grid-block block=block action="editBlock"
-			block.content
+grid-ster grid=model action='editBlock'

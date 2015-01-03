@@ -7,8 +7,9 @@ class SessionService extends Ember.Object
 	
 	open: ->
 		return new Ember.RSVP.Promise (resolve) =>
-			if localStorage.fbtoken?
-				@store.find('session', {token: localStorage.fbtoken}).then(
+			token = localStorage.mathFlowsToken
+			if token?
+				@store.find('session', {token: token}).then(
 					(response) => 
 						@model = response.objectAt(0)
 						resolve()
@@ -16,15 +17,15 @@ class SessionService extends Ember.Object
 						localStorage.clear() if error.status is 401
 						resolve()
 				)
-			else 
-				resolve()
+			else
+				@post('issue').then => resolve()
 
 	post: (token) ->
 		return new Ember.RSVP.Promise (resolve) =>
 			@store.createRecord('session',{token: token}).save().then(
 				(response) => 
 					@model = response
-					localStorage.fbtoken = @token
+					localStorage.mathFlowsToken = @token
 					resolve()
 				(error) => 
 					@close() if error.status is 401

@@ -14,7 +14,9 @@
     "ember-qunit-notifications": "0.0.4",
     "qunit": "~1.15.0",
     "bootstrap": "~3.3.1",
-    "gridster.js": "https://github.com/ducksboard/gridster.js.git#~0.5.6"
+    "gridster.js": "https://github.com/ducksboard/gridster.js.git#~0.5.6",
+    "jspdf": "https://github.com/MrRio/jsPDF.git#~1.0.272",
+    "html2canvas": "https://github.com/niklasvh/html2canvas.git#~0.4.1"
   },
   "resolutions": {
     "handlebars": "2.0.0"

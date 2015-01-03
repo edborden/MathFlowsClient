@@ -5,6 +5,8 @@ class Router extends Ember.Router
 
 Router.map ->
 	@route 'block', ->
+		@route 'new'
 		@route 'edit', {path: '/edit/:block_id'}
+	@route 'editor'
 
 `export default Router`

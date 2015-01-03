@@ -22,6 +22,11 @@ var mergeTrees = require('broccoli-merge-trees');
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
+// jsPDF
+app.import('bower_components/jspdf/dist/jspdf.min.js');
+
+// jspdf HTML2Canvas
+app.import('bower_components/html2canvas/build/html2canvas.min.js');
 
 // Gridster
 app.import('bower_components/gridster.js/dist/jquery.gridster.min.js');
