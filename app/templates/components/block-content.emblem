@@ -1,5 +1,5 @@
 each snippet in block.snippets
 	if snippet.equation
-		rendered-equation equation=snippet.content
+		rendered-equation src=snippet.equationFormatted
 	else
 		snippet.content

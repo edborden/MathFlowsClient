@@ -1,4 +1,4 @@
 button click="toJson" Save Equation
-.editorEquation.equation
-
-eq-menu
+#toolbar
+textarea#latexInput rows="3" cols="40"
+img#equation align="middle"

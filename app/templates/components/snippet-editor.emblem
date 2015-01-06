@@ -1,6 +1,6 @@
 p	
 	if snippet.equation
-		rendered-equation equation=snippet.content
+		rendered-equation src=snippet.equationFormatted
 	else
 		= input type="text" value=snippet.content
 		button click="save" Save

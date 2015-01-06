@@ -17,14 +17,17 @@ class BlockController extends Ember.Controller
 		createSnippet: -> 
 			snippet = @store.createRecord('snippet',{block:@model})
 			snippet.save().then => @model.snippets.pushObject snippet
-		createEquation: ->
-			@creatingEquation = true
+		createEquation: -> 
+			@toggleProperty 'creatingEquation'
 			false
-		newEquation: (equationJson) ->
+		newEquation: (equationObj) ->
+			@creatingEquation = false
+			url = equationObj.exportEquation 'urlencoded'
+			latex =  equationObj.exportEquation 'latex'
 			snippet = @store.createRecord 'snippet',
 				block:@model
-				content:equationJson
-				equation:true
-			snippet.save().then => @model.snippets.pushObject snippet			
+				content: latex
+				equation: url
+			snippet.save()#.then => @model.snippets.pushObject snippet			
 
 `export default BlockController`
