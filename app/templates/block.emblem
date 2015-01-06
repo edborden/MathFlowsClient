@@ -1,0 +1,15 @@
+p 
+	button click="back" Back
+	button click="destroyBlock model" Delete Block
+p Edit Content:
+
+each snippet in model.snippets
+	snippet-editor snippet=snippet saveButton='saveSnippet' destroyButton='destroySnippet'
+
+p 
+	button click="createSnippet" Add Content
+	button click="createEquation" Add Equation
+
+if creatingEquation
+	/partial 'editor'
+	equation-editor action="newEquation" symbolSizeConfig=size.symbolSizeConfig

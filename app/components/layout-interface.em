@@ -11,7 +11,7 @@ class LayoutInterfaceComponent extends Ember.Component with ElRegister
 	didInsertElement: ->
 		@_super()
 		@gridster = Ember.$(@element).gridster(
-			widget_margins: [10, 10],
+			widget_margins: [5, 5],
 			widget_base_dimensions: [200, 100]
 			max_cols: 4
 			min_cols: 4
@@ -20,7 +20,7 @@ class LayoutInterfaceComponent extends Ember.Component with ElRegister
 				stop: @runSync
 			draggable:
 				stop: @runSync
-		).data('gridster')
+		).data 'gridster'
 
 	runSync: ->
 		obj = Ember.$(".gridster").data 'emberObject'
@@ -32,7 +32,7 @@ class LayoutInterfaceComponent extends Ember.Component with ElRegister
 			obj.syncAttrsToEl()
 
 	+volatile
-	blockElArray: -> Ember.$('.blockEl')
+	blockElArray: -> Ember.$('.block')
 
 	# Block elements that are different from their models
 	+volatile
@@ -45,11 +45,6 @@ class LayoutInterfaceComponent extends Ember.Component with ElRegister
 	heightIsDiff: (el,obj) -> obj.height isnt parseInt $(el).attr('data-sizey')
 	rowIsDiff: (el,obj) -> obj.row isnt parseInt $(el).attr('data-row')
 	colIsDiff: (el,obj) -> obj.col isnt parseInt $(el).attr('data-col')
-
-	syncBlockAttrsToEl: (block) ->
-		el = e.target
-		obj = Ember.$(el).data 'emberObject'
-		obj.syncAttrsToEl()
 
 	actions:
 		editBlock: (block) ->

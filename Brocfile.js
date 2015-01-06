@@ -22,11 +22,13 @@ var mergeTrees = require('broccoli-merge-trees');
 // please specify an object with the list of modules as keys
 // along with the exports of each module as its value.
 
+// jspdf dependencies
+app.import('bower_components/html2canvas/build/html2canvas.min.js');
+//app.import('bower_components/jspdf/dist/jspdf.plugin.svgToPdf.js');
+
 // jsPDF
 app.import('bower_components/jspdf/dist/jspdf.min.js');
-
-// jspdf HTML2Canvas
-app.import('bower_components/html2canvas/build/html2canvas.min.js');
+//app.import('bower_components/svgToPdf.js/svgToPdf.js');
 
 // Gridster
 app.import('bower_components/gridster.js/dist/jquery.gridster.min.js');
@@ -209,7 +211,7 @@ app.import('bower_components/equation-editor/src/app/js/addWrapperUtil.js');
 app.import('bower_components/equation-editor/src/app/js/keyboardInteraction.js');
 app.import('bower_components/equation-editor/src/app/js/menuInteraction.js');
 app.import('bower_components/equation-editor/src/app/js/clipboard.js');
-app.import('bower_components/equation-editor/src/app/js/equationEditor.js');
-app.import('bower_components/equation-editor/src/app/js/latexGenerator.js');
+//app.import('bower_components/equation-editor/src/app/js/equationEditor.js');
+//app.import('bower_components/equation-editor/src/app/js/latexGenerator.js');
 
 module.exports = mergeTrees([app.toTree(),equationEditorFonts,equationEditorImages,equationEditorMenuImages]);

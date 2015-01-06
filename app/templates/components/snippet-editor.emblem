@@ -1,0 +1,7 @@
+p	
+	if snippet.equation
+		rendered-equation equation=snippet.content
+	else
+		= input type="text" value=snippet.content
+		button click="save" Save
+	button click="destroy" Delete

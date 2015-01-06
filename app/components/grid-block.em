@@ -2,9 +2,9 @@
 
 class GridBlockComponent extends Ember.Component with ElRegister
 
-	#layoutName: 'components/grid-block'
+	layoutName: 'components/block-content'
 	tagName: 'li'
-	classNames: ['blockEl']
+	classNames: ['block']
 
 	attributeBindings: ['data-sizex','data-sizey','data-row','data-col']
 	"data-sizex": ~> @block.width
@@ -19,12 +19,9 @@ class GridBlockComponent extends Ember.Component with ElRegister
 
 	didInsertElement: ->
 		@_super()
-		Ember.run.next @,=>	
-			if @block.isNew			
-				@gridster.add_widget @element
-				@syncAttrsToEl()
-			else
-				@syncElToAttrs()
+		if @block.isNew			
+			@gridster.add_widget @element
+			@syncAttrsToEl()
 
 	syncAttrsToEl: ->
 		@block.width = $(@element).attr('data-sizex')
@@ -32,11 +29,5 @@ class GridBlockComponent extends Ember.Component with ElRegister
 		@block.row = $(@element).attr('data-row')
 		@block.col = $(@element).attr('data-col')
 		@block.save()
-
-	syncElToAttrs: ->
-		$(@element).attr('data-sizex',@block.width)
-		$(@element).attr('data-sizey',@block.height)
-		$(@element).attr('data-row',@block.row)
-		$(@element).attr('data-col',@block.col)
 			
 `export default GridBlockComponent`
