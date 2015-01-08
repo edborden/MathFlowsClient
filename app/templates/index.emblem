@@ -1,6 +1,5 @@
 p 
 	button click="newBlock" Add Block
 	|&nbsp;&nbsp;&nbsp;
-	button click="pdf" Print to PDF
-
+	a href=model.pdfLink Download PDF
 layout-interface grid=model action="editBlock"

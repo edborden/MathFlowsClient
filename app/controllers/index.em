@@ -7,10 +7,4 @@ class IndexController extends Ember.Controller
 
 		editBlock: (block) -> @transitionToRoute 'block',block
 
-		pdf: ->
-			html = Ember.$('.gridster')
-			pdf = new jsPDF 'p','pt','a4'
-			pdf.addHTML html, ->
-				pdf.output 'datauri'
-
 `export default IndexController`

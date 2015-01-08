@@ -3,18 +3,28 @@
 class LayoutInterfaceComponent extends Ember.Component with ElRegister
 
 	layoutName: 'components/layout-interface'
-	tagName: 'ul'
-	classNames: ['gridster']
+	classNames: ['layout-interface','gridster']
 
 	gridster: null
 
+	in: ~> 1.5 * 72
+	rows: 8
+	cols: 3
+	widget_margin: ~> 0.08*@in
+	widget_base_width: ~> 
+		working_space = 7.5*@in - ((@cols-1) * 2 * @widget_margin) 
+		working_space / @cols
+	widget_base_height: ~>
+		working_space = 10.5*@in - ((@rows-1) * 2 * @widget_margin)		
+		working_space / @rows
+
 	didInsertElement: ->
 		@_super()
-		@gridster = Ember.$(@element).gridster(
-			widget_margins: [5, 5],
-			widget_base_dimensions: [200, 100]
-			max_cols: 4
-			min_cols: 4
+		@gridster = Ember.$(@element).children().first().gridster(
+			widget_margins: [@widget_margin,@widget_margin],
+			widget_base_dimensions: [@widget_base_width, @widget_base_height]
+			max_cols: @cols
+			min_cols: @cols
 			resize: 
 				enabled: true
 				stop: @runSync
@@ -23,7 +33,7 @@ class LayoutInterfaceComponent extends Ember.Component with ElRegister
 		).data 'gridster'
 
 	runSync: ->
-		obj = Ember.$(".gridster").data 'emberObject'
+		obj = Ember.$(".layout-interface").data 'emberObject'
 		obj.syncChangedBlocks()
 
 	syncChangedBlocks: ->

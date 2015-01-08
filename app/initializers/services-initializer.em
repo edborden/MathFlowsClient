@@ -14,5 +14,6 @@ initializer =
 		#Inject into app factories
 		['controller','route','model','adapter'].forEach (type) ->
 			application.inject type, 'session', 'service:session'
+		application.inject 'model:layout', 'session', 'service:session'
 
 `export default initializer`
