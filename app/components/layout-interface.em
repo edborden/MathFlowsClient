@@ -9,13 +9,13 @@ class LayoutInterfaceComponent extends Ember.Component with ElRegister
 
 	in: ~> 1.5 * 72
 	rows: 8
-	cols: 3
+	cols: 4
 	widget_margin: ~> 0.08*@in
 	widget_base_width: ~> 
 		working_space = 7.5*@in - ((@cols-1) * 2 * @widget_margin) 
 		working_space / @cols
 	widget_base_height: ~>
-		working_space = 10.5*@in - ((@rows-1) * 2 * @widget_margin)		
+		working_space = 10*@in - ((@rows-1) * 2 * @widget_margin)		
 		working_space / @rows
 
 	didInsertElement: ->

@@ -12,4 +12,4 @@ p
 
 if creatingEquation
 	/partial 'editor'
-	equation-editor action="newEquation" symbolSizeConfig=size.symbolSizeConfig
+	equation-editor action="newEquation"

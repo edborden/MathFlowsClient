@@ -26,8 +26,8 @@ class BlockController extends Ember.Controller
 			latex =  equationObj.exportEquation 'latex'
 			snippet = @store.createRecord 'snippet',
 				block:@model
-				content: latex
-				equation: url
+				equation: latex
+				image: url
 			snippet.save()#.then => @model.snippets.pushObject snippet			
 
 `export default BlockController`
