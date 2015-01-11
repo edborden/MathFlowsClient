@@ -1,0 +1,3 @@
+ul
+	each widget in widgets
+		widget-renderer widget=widget action="editWidget" layoutName=widgetRendererTemplate

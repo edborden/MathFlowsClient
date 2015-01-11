@@ -1,3 +1,0 @@
-ul
-	each block in grid.blocks
-		grid-block block=block action="editBlock"

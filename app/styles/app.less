@@ -1,25 +1,31 @@
 @grey: #393939;
 @orange: #FF5A09;
+@lgrey:#6E6E6E;
 
 @in: 1.5 * 72;
 
 @import "bootstrap";
 @import "gridster";
+@import "font-awesome";
+
+@brand-primary: @orange;
 
 body {
     font-size: 16px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
     color: #444;
-    margin: 30px 40px;
     background-color: @grey;
 }
 
-.layout-interface {
-    padding:0.42px * @in;
+.grid-editor {
     margin: 0 auto;
+    font-size: 1px / 6 * @in;
+}
+
+.page-editor {
+    padding:0.42px * @in;
     width:@in * 8.5px;
     height: @in * 11px;
-    font-size: 1px / 6 * @in;
 }
 
 #logo {
@@ -28,4 +34,26 @@ body {
 
 #tagline {
     color: white;
+}
+
+.side-nav {
+    margin-top: 15px;
+    position:fixed;
+    border: solid 2px @lgrey;
+    border-radius: 5px;
+    .text-center;
+    padding:5px;
+    .btn {
+        .btn-sm;
+        width:125px;
+        i {
+            .pull-right;
+            .fa;
+        }
+    }
+}
+
+.main {
+    margin-top: 15px;
+    margin-bottom: 15px;
 }

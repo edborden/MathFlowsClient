@@ -1,0 +1,4 @@
+if widget.image
+	img src=widget.image
+else
+	widget.content

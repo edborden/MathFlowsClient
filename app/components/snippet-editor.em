@@ -3,10 +3,10 @@ class SnippetEditorComponent extends Ember.Component
 	layoutName: 'components/snippet-editor'
 
 	actions:
-		save: ->
+		savePressed: ->
 			@sendAction 'saveButton',@snippet
 
-		destroy: ->
+		deletePressed: ->
 			@sendAction 'destroyButton',@snippet
 
 `export default SnippetEditorComponent`

@@ -8,4 +8,14 @@ class Block extends DS.Model
 	layout: DS.belongsTo 'layout'
 	snippets: DS.hasMany 'snippet'
 
+	pixelWidth: ~> 
+		blockMarginSpace = (@width - 1) * @layout.blockMargin
+		blockWidthWithoutMargin = @layout.blockBaseWidth * @width
+		blockMarginSpace + blockWidthWithoutMargin
+	pixelHeight: ~>
+		blockMarginSpace = (@height - 1) * @layout.blockMargin
+		blockHeightWithoutMargin = @layout.blockBaseHeight * @height
+		blockMarginSpace + blockHeightWithoutMargin
+
+
 `export default Block`

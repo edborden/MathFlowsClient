@@ -1,15 +1,26 @@
-p 
-	button click="back" Back
-	button click="destroyBlock model" Delete Block
-p Edit Content:
+.container-fluid
+	.row
+		.col-xs-2
+			.side-nav
+				h2#logo MathFlows
+				h5#tagline Workflows for math teachers
+				p 
+					button.btn.btn-primary click="back"
+						|Back&nbsp;&nbsp;
+						i.fa-mail-reply
+				p
+					button.btn.btn-default click="destroyBlock model"
+						|Delete Block&nbsp;&nbsp;
+						i.fa-eraser
+				p
+					button.btn.btn-default click="makeSnippet" Add Content
+				p
+					button.btn.btn-default click="makeEquation" Add Equation
+		.col-xs-10.main
+			block-editor class="block-editor" grid=model widgets=model.snippets
 
-each snippet in model.snippets
-	snippet-editor snippet=snippet saveButton='saveSnippet' destroyButton='destroySnippet'
+			if creatingEquation
+				equation-editor action="newEquation"
 
-p 
-	button click="createSnippet" Add Content
-	button click="createEquation" Add Equation
-
-if creatingEquation
-	/partial 'editor'
-	equation-editor action="newEquation"
+			if activeSnippet
+				snippet-editor snippet=activeSnippet saveButton='saveSnippet' destroyButton='destroySnippet'

@@ -1,0 +1,5 @@
+each snippet in widget.snippets
+	if snippet.image
+		img src=snippet.image
+	else
+		snippet.content

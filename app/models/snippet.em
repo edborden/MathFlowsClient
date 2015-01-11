@@ -5,5 +5,9 @@ class Snippet extends DS.Model
 	block: DS.belongsTo 'block'
 	equation: attr()
 	image: attr()
+	col: attr "number"
+	row: attr "number"
+	width: attr "number"
+	height: attr "number"
 
 `export default Snippet`

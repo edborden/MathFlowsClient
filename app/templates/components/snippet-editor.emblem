@@ -3,5 +3,5 @@ p
 		image-snippet src=snippet.image
 	else
 		= input type="text" value=snippet.content
-		button click="save" Save
-	button click="destroy" Delete
+		button click="savePressed" Save
+	button click="deletePressed" Delete

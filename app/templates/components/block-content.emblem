@@ -1,5 +1,0 @@
-each snippet in block.snippets
-	if snippet.image
-		image-snippet src=snippet.image
-	else
-		snippet.content
