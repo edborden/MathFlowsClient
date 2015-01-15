@@ -2,8 +2,6 @@
 @orange: #FF5A09;
 @lgrey:#6E6E6E;
 
-@in: 1.5 * 72;
-
 @import "bootstrap";
 @import "gridster";
 @import "font-awesome";
@@ -17,15 +15,14 @@ body {
     background-color: @grey;
 }
 
-.grid-editor {
-    margin: 0 auto;
-    font-size: 1px / 6 * @in;
+.position-renderer {
+    position:absolute;
 }
 
-.page-editor {
-    padding:0.42px * @in;
-    width:@in * 8.5px;
-    height: @in * 11px;
+.grid-editor {
+    margin: 0 auto;
+    font-size: 12px;
+    line-height: 18px;
 }
 
 #logo {

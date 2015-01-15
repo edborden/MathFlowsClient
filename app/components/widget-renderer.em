@@ -5,8 +5,8 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 	tagName: 'li'
 
 	attributeBindings: ['data-sizex','data-sizey','data-row','data-col']
-	"data-sizex": ~> @widget.width
-	"data-sizey": ~> @widget.height
+	"data-sizex": ~> @widget.colSpan
+	"data-sizey": ~> @widget.rowSpan
 	"data-row": ~> @widget.row
 	"data-col": ~> @widget.col
 
@@ -22,8 +22,8 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 			@syncAttrsToEl()
 
 	syncAttrsToEl: ->
-		@widget.width = $(@element).attr('data-sizex')
-		@widget.height = $(@element).attr('data-sizey')
+		@widget.colSpan = $(@element).attr('data-sizex')
+		@widget.rowSpan = $(@element).attr('data-sizey')
 		@widget.row = $(@element).attr('data-row')
 		@widget.col = $(@element).attr('data-col')
 		@widget.save()

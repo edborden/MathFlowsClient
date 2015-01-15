@@ -1,32 +1,33 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
-`import RandomId from 'math-flows-client/mixins/random-id'`
 
-class GridEditorComponent extends Ember.Component with ElRegister,RandomId
+class GridEditorComponent extends Ember.Component with ElRegister
 
 	## Must be set elsewhere
 
 	grid: null
-	widgets: null
-	rows: null
-	cols: null
-	widgetMargin: null
-	widgetBaseWidth: null
-	widgetBaseHeight: null
 	widgetRendererTemplate: null
 	action: null
 
 	##
 
+	widgets: ~> @grid.childPositions
+	cols: ~> @grid.layout.cols
+	widgetMargin: ~> @grid.layout.gridsterInsideMargin
+	widgetBaseWidth: ~> @grid.layout.colWidth
+	widgetBaseHeight: ~> @grid.layout.rowHeight
+
 	classNames: ['grid-editor','gridster']
 	layoutName: 'components/grid-editor'
 	gridster: null
+
+	attributeBindings: ['style']
+	style: ~> "height:#{@grid.layout.height}px;width:#{@grid.layout.width}px;padding:#{@grid.layout.gridsterOutsideMargin}px;"
 
 	didInsertElement: ->
 		@_super()
 		@gridster = Ember.$(@element).children().first().gridster(
 			widget_margins: [@widgetMargin,@widgetMargin],
 			widget_base_dimensions: [@widgetBaseWidth, @widgetBaseHeight]
-			namespace: "#" + @randomId
 			max_cols: @cols
 			min_cols: @cols
 			resize: 
@@ -55,8 +56,8 @@ class GridEditorComponent extends Ember.Component with ElRegister,RandomId
 			obj = Ember.$(el).data('emberObject').widget
 			@widthIsDiff(el,obj) or @heightIsDiff(el,obj) or @rowIsDiff(el,obj) or @colIsDiff(el,obj)
 			
-	widthIsDiff: (el,obj) -> obj.width isnt parseInt $(el).attr('data-sizex')
-	heightIsDiff: (el,obj) -> obj.height isnt parseInt $(el).attr('data-sizey')
+	widthIsDiff: (el,obj) -> obj.colSpan isnt parseInt $(el).attr('data-sizex')
+	heightIsDiff: (el,obj) -> obj.colSpan isnt parseInt $(el).attr('data-sizey')
 	rowIsDiff: (el,obj) -> obj.row isnt parseInt $(el).attr('data-row')
 	colIsDiff: (el,obj) -> obj.col isnt parseInt $(el).attr('data-col')
 

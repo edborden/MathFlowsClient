@@ -2,6 +2,7 @@ attr = DS.attr
 
 class User extends DS.Model
 	name: attr()
-	layouts: DS.hasMany 'layout'
+	flows: DS.hasMany 'flow'
+	guest: attr()
 
 `export default User`

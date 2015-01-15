@@ -1,3 +1,0 @@
-ul id=randomId
-	each snippet in widgets
-		widget-renderer widget=snippet layoutName='components/snippet-renderer'

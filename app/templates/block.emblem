@@ -8,16 +8,16 @@
 					button.btn.btn-primary click="back"
 						|Back&nbsp;&nbsp;
 						i.fa-mail-reply
-				p
-					button.btn.btn-default click="destroyBlock model"
-						|Delete Block&nbsp;&nbsp;
-						i.fa-eraser
+				/p
+				/	button.btn.btn-default click="destroyBlock model"
+				/		|Delete Block&nbsp;&nbsp;
+				/		i.fa-eraser
 				p
 					button.btn.btn-default click="makeSnippet" Add Content
 				p
 					button.btn.btn-default click="makeEquation" Add Equation
 		.col-xs-10.main
-			block-editor class="block-editor" grid=model widgets=model.snippets
+			grid-editor grid=model widgetRendererTemplate="components/snippet-renderer" action="editSnippet"
 
 			if creatingEquation
 				equation-editor action="newEquation"

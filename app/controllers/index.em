@@ -2,9 +2,9 @@ class IndexController extends Ember.Controller
 
 	actions:
 		newBlock: ->
-			block = @store.createRecord('block')
-			@model.blocks.pushObject block
+			position = @store.createRecord 'position',{page:@model}
+			@model.childPositions.pushObject position
 
-		editBlock: (block) -> @transitionToRoute 'block',block
+		editBlock: (position) -> @transitionToRoute 'block',position.block
 
 `export default IndexController`

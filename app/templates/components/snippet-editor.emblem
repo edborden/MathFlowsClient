@@ -1,6 +1,6 @@
 p	
 	if snippet.image
-		image-snippet src=snippet.image
+		img src=snippet.image
 	else
 		= input type="text" value=snippet.content
 		button click="savePressed" Save

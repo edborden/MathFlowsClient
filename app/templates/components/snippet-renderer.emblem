@@ -1,4 +1,1 @@
-if widget.image
-	img src=widget.image
-else
-	widget.content
+snippet-content snippet=widget.snippet
