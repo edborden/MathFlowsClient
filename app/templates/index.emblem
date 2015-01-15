@@ -1,20 +1,19 @@
 .container-fluid
 	.row
-		.col-xs-2
-			.side-nav
-				h2#logo MathFlows
-				h5#tagline Workflows for math teachers
-				p
-					button.btn.btn-primary
-						|Login&nbsp;&nbsp;
-						i.fa-facebook
-				p 
-					button.btn.btn-default click="newBlock"
-						|Add Block&nbsp;&nbsp;
-						i.fa-plus
-				p
-					a.btn.btn-default.btn-sm href=model.pdfLink 
-						|Get PDF&nbsp;&nbsp;
-						i.fa-download
-		.col-xs-10.main
+		.col-xs-2.side-nav			
+			h2#logo MathFlows
+			h5#tagline Workflows for math teachers
+			p
+				button.btn.btn-primary
+					|Login&nbsp;&nbsp;
+					i.fa-facebook
+			p 
+				button.btn.btn-default click="newBlock"
+					|Add Block&nbsp;&nbsp;
+					i.fa-plus
+			p
+				a.btn.btn-default.btn-sm href=model.pdfLink 
+					|Get PDF&nbsp;&nbsp;
+					i.fa-download
+		.col-xs-10
 			grid-editor grid=model widgetRendererTemplate="components/block-renderer" action="editBlock"

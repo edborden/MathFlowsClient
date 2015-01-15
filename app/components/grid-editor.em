@@ -1,6 +1,7 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
+`import RandomId from 'math-flows-client/mixins/random-id'`
 
-class GridEditorComponent extends Ember.Component with ElRegister
+class GridEditorComponent extends Ember.Component with ElRegister,RandomId
 
 	## Must be set elsewhere
 
@@ -28,6 +29,7 @@ class GridEditorComponent extends Ember.Component with ElRegister
 		@gridster = Ember.$(@element).children().first().gridster(
 			widget_margins: [@widgetMargin,@widgetMargin],
 			widget_base_dimensions: [@widgetBaseWidth, @widgetBaseHeight]
+			namespace: "#" + @randomId
 			max_cols: @cols
 			min_cols: @cols
 			resize: 

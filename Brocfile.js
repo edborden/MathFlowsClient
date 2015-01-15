@@ -16,7 +16,7 @@ var fontAwesomeFonts = pickFiles('bower_components/components-font-awesome/fonts
 });
 
 // Gridster
-app.import('bower_components/gridster.js/dist/jquery.gridster.min.js');
+app.import('bower_components/gridster.js/dist/jquery.gridster.js');
 app.import('bower_components/gridster.js/dist/jquery.gridster.min.css');
 
 module.exports = mergeTrees([app.toTree(),fontAwesomeFonts]);
