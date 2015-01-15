@@ -16,4 +16,4 @@
 					|Get PDF&nbsp;&nbsp;
 					i.fa-download
 		.col-xs-10
-			grid-editor grid=model widgetRendererTemplate="components/block-renderer" action="editBlock"
+			grid-editor grid=model widgets=model.blocks widgetRendererTemplate="components/block-renderer" action="editBlock"

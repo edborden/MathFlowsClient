@@ -6,12 +6,12 @@ class GridEditorComponent extends Ember.Component with ElRegister,RandomId
 	## Must be set elsewhere
 
 	grid: null
+	widgets: null
 	widgetRendererTemplate: null
 	action: null
 
 	##
 
-	widgets: ~> @grid.childPositions
 	cols: ~> @grid.layout.cols
 	widgetMargin: ~> @grid.layout.gridsterInsideMargin
 	widgetBaseWidth: ~> @grid.layout.colWidth

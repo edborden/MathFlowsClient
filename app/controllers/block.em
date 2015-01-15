@@ -11,16 +11,15 @@ class BlockController extends Ember.Controller
 		destroySnippet: (snippet) ->
 			@activeSnippet = null
 			snippet.destroyRecord()
-		#destroyBlock: (block) ->
-		#	block.deleteRecord()
-		#	@send 'back'
-		#	block.save()
+		destroyBlock: (block) ->
+			block.deleteRecord()
+			@send 'back'
+			block.save()
 		back: -> 
 			@creatingEquation = false
 			@transitionToRoute 'index'
 		makeSnippet: -> 
-			position = @store.createRecord('position',{block:@model})
-			@model.childPositions.pushObject position
+			@store.createRecord('snippet',{block:@model})
 		makeEquation: -> 
 			@toggleProperty 'creatingEquation'
 			false
@@ -29,10 +28,10 @@ class BlockController extends Ember.Controller
 			url = equationObj.exportEquation 'urlencoded'
 			latex =  equationObj.exportEquation 'latex'
 			snippet = @store.createRecord 'snippet',
-				block:@model
 				equation: latex
 				image: url
-		editSnippet: (position) ->
-			@activeSnippet = position.snippet
+				block: @model
+		editSnippet: (snippet) ->
+			@activeSnippet = snippet		
 
 `export default BlockController`

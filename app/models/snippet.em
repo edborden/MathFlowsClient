@@ -4,6 +4,13 @@ class Snippet extends DS.Model
 	content: attr()
 	equation: attr()
 	image: attr()
-	position: DS.belongsTo 'position'
+	
+	block: DS.belongsTo 'block'
+
+	#position
+	row: attr "number"
+	col: attr "number"
+	rowSpan: attr "number"
+	colSpan: attr "number"
 
 `export default Snippet`
