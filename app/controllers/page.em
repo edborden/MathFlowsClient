@@ -1,4 +1,4 @@
-class IndexController extends Ember.Controller
+class PageController extends Ember.Controller
 
 	actions:
 		newBlock: -> @store.createRecord 'block',{page:@model}
@@ -7,4 +7,4 @@ class IndexController extends Ember.Controller
 			@store.createRecord('page', {document:@model.document}).save().then (response) =>
 				@transitionToRoute 'page',response
 
-`export default IndexController`
+`export default PageController`

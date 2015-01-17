@@ -6,7 +6,6 @@ class GridEditorComponent extends Ember.Component with ElRegister,RandomId
 	## Must be set elsewhere
 
 	grid: null
-	widgets: null
 	widgetRendererTemplate: null
 	action: null
 

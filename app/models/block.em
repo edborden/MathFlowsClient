@@ -12,4 +12,6 @@ class Block extends DS.Model
 	rowSpan: attr "number"
 	colSpan: attr "number"
 
+	children: ~> @snippets
+
 `export default Block`
