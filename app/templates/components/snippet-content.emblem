@@ -1,4 +1,4 @@
 if snippet.image
-	img src=snippet.image
+	img.img-responsive src=snippet.image
 else
 	snippet.content

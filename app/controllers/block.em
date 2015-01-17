@@ -1,7 +1,6 @@
 class BlockController extends Ember.Controller
 
 	creatingEquation: false
-
 	activeSnippet: null
 
 	actions:
@@ -32,6 +31,10 @@ class BlockController extends Ember.Controller
 				image: url
 				block: @model
 		editSnippet: (snippet) ->
-			@activeSnippet = snippet		
+			@activeSnippet = snippet
+		fileLoaded: (file) ->
+			snippet = @store.createRecord 'snippet',
+				image: file.data
+				block: @model
 
 `export default BlockController`
