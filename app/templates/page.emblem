@@ -15,6 +15,10 @@
 				button.btn.btn-default click="newPage"
 					|Add Page&nbsp;&nbsp;
 					i.fa-plus
+			p 
+				button.btn.btn-default click="removePage"
+					|Delete Page&nbsp;&nbsp;
+					i.fa-minus
 			p
 				a.btn.btn-default.btn-sm href=model.pdfLink 
 					|Get PDF&nbsp;&nbsp;
