@@ -22,12 +22,14 @@ class SessionService extends Ember.Object
 
 	post: (token) ->
 		return new Ember.RSVP.Promise (resolve) =>
-			@store.createRecord('session',{token: token}).save().then(
+			@store.createRecord('session',{token:token}).save().then(
 				(response) => 
+					console.log 'success'
 					@model = response
 					localStorage.mathFlowsToken = @token
 					resolve()
 				(error) => 
+					console.log 'error'
 					console.log error
 					@close() if error.status is 401
 					resolve()

@@ -7,18 +7,13 @@ module.exports = function(environment) {
     baseURL: '/',
     locationType: 'auto',
     apiHostName: 'http://localhost:3000',
-    EmberENV: {
-      FEATURES: {
-        // Here you can enable experimental features on an ember canary build
-        // e.g. 'with-controller': true
-      }
-    },
-
-    APP: {
-      // Here you can pass flags/options to your application instance
-      // when it is created
-    }
+    redirectUri: 'http://localhost:4200',
+    torii: {providers: {}},
+    APP: {},
+    EmberENV: {FEATURES: {}}
   };
+
+
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;
@@ -41,8 +36,17 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.apiHostName = 'http://mathflows.herokuapp.com'
+    ENV.apiHostName = 'http://mathflows.herokuapp.com',
+    ENV.redirectUri = 'http://mathflows.com'
   }
+
+  ENV.torii.providers['google-offline'] = {
+    redirectUri: ENV.redirectUri,
+    scope: 'email profile',
+    accessType: 'offline',
+    approvalPrompt: 'force',
+    apiKey: '432493008033-vfsneq433m69ssvdbao0maq89iu19avh.apps.googleusercontent.com'
+  };
 
   return ENV;
 };

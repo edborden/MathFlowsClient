@@ -4,9 +4,9 @@
 			h2#logo MathFlows
 			h5#tagline Workflows for math teachers
 			p
-				button.btn.btn-primary
+				button.btn.btn-primary click="authenticate"
 					|Login&nbsp;&nbsp;
-					i.fa-facebook
+					i.fa-google
 			p 
 				button.btn.btn-default click="newBlock"
 					|Add Block&nbsp;&nbsp;
