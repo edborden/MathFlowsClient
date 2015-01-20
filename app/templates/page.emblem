@@ -3,10 +3,11 @@
 		.col-xs-2.side-nav			
 			h2#logo MathFlows
 			h5#tagline Workflows for math teachers
-			p
-				button.btn.btn-primary click="authenticate"
-					|Login&nbsp;&nbsp;
-					i.fa-google
+			if session.me.guest
+				p
+					button.btn.btn-primary click="authenticate"
+						|Login&nbsp;&nbsp;
+						i.fa-google
 			p 
 				button.btn.btn-default click="newBlock"
 					|Add Block&nbsp;&nbsp;

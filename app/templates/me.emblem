@@ -5,4 +5,7 @@
 			h5#tagline Workflows for math teachers
 
 		.col-xs-10
-			h1 = model.name
+			img.profile-pic src=model.pic
+			span.name = model.name
+			each folder in model.folders
+				folder.name

@@ -1,5 +1,7 @@
 class IndexRoute extends Ember.Route
 
-	model: -> @session.me.flows.firstObject.documents.firstObject.pages.firstObject
+	beforeModel: -> @replaceWith 'me' unless @session.me.guest
+
+	model: -> @session.me.folders.firstObject.flows.firstObject.documents.firstObject.pages.firstObject
 
 `export default IndexRoute`

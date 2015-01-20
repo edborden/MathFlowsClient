@@ -4,6 +4,7 @@ class Flow extends DS.Model
 
 	documents: DS.hasMany 'document'
 	layout: DS.belongsTo 'layout'
-	user: DS.belongsTo 'user'
+	folder: DS.belongsTo 'folder'
+	name: attr()
 
 `export default Flow`
