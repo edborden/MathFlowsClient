@@ -19,7 +19,7 @@
 				file-picker fileLoaded="fileLoaded" preview=false readAs="readAsDataURL"
 					button.btn.btn-default Add Image
 		.col-xs-10
-			grid-editor grid=model widgets=model.snippets widgetRendererTemplate="components/snippet-renderer" action="editSnippet"
+			block-editor grid=model
 
 			if creatingEquation
 				equation-editor action="newEquation"

@@ -31,4 +31,4 @@
 							|Page&nbsp;
 							page.number
 		.col-xs-10
-			grid-editor grid=model widgetRendererTemplate="components/block-renderer" action="editBlock"
+			page-editor grid=model

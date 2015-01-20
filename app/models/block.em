@@ -3,8 +3,8 @@ attr = DS.attr
 class Block extends DS.Model
 	
 	snippets: DS.hasMany 'snippet'
-	layout: DS.belongsTo 'layout'
 	page: DS.belongsTo 'page'
+	layout: ~> @page.layout
 
 	#position
 	row: attr "number"
@@ -12,6 +12,8 @@ class Block extends DS.Model
 	rowSpan: attr "number"
 	colSpan: attr "number"
 
-	children: ~> @snippets
+	width: attr "number"
+	height: attr "number"
+	colWidth: attr "number"
 
 `export default Block`

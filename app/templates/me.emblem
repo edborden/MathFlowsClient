@@ -1,5 +1,8 @@
-h1 Hi,
-br
-h1 = model.name
-br
-img src=model.pic
+.container-fluid
+	.row
+		.col-xs-2.side-nav
+			h2#logo MathFlows
+			h5#tagline Workflows for math teachers
+
+		.col-xs-10
+			h1 = model.name

@@ -9,7 +9,7 @@ class ApplicationRoute extends Ember.Route
 		authenticate: ->
 			@torii.open('google-offline').then (authData) => 
 				console.log authData
-				@session.post(authData.authorizationCode).then =>
+				@session.post(authData.authorizationCode,authData.redirectUri).then =>
 					@transitionTo 'me'
 
 `export default ApplicationRoute`

@@ -10,6 +10,8 @@ class Layout extends DS.Model
 	height: attr "number"
 	outsideMargin: attr "number"
 	insideMargin: attr "number"
+	blockCols: attr "number"
+	blockRowHeight: attr "number"
 	gridsterOutsideMargin: ~> @outsideMargin - @gridsterInsideMargin
 	gridsterInsideMargin: ~> @insideMargin / 2
 

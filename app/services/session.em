@@ -20,9 +20,9 @@ class SessionService extends Ember.Object
 			else
 				@post('issue').then => resolve()
 
-	post: (token) ->
+	post: (token,redirectUri) ->
 		return new Ember.RSVP.Promise (resolve) =>
-			@store.createRecord('session',{token:token}).save().then(
+			@store.createRecord('session',{token:token,redirectUri:redirectUri}).save().then(
 				(response) => 
 					console.log 'success'
 					@model = response

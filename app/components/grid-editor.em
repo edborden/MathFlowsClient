@@ -5,22 +5,25 @@ class GridEditorComponent extends Ember.Component with ElRegister
 	## Must be set elsewhere
 
 	grid: null
+	widgets: null
 	widgetRendererTemplate: null
 	action: null
+	cols: null
+	widgetMargin: null
+	widgetBaseWidth: null
+	widgetBaseHeight: null
+	height: null
+	width: null
+	padding: null
 
 	##
-
-	cols: ~> @grid.layout.cols
-	widgetMargin: ~> @grid.layout.gridsterInsideMargin
-	widgetBaseWidth: ~> @grid.layout.colWidth
-	widgetBaseHeight: ~> @grid.layout.rowHeight
 
 	classNames: ['grid-editor','gridster']
 	layoutName: 'components/grid-editor'
 	gridster: null
 
 	attributeBindings: ['style']
-	style: ~> "height:#{@grid.layout.height}px;width:#{@grid.layout.width}px;padding:#{@grid.layout.gridsterOutsideMargin}px;"
+	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;"
 
 	didInsertElement: ->
 		@_super()
