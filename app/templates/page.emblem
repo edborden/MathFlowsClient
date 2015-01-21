@@ -32,4 +32,5 @@
 							|Page&nbsp;
 							page.number
 		.col-xs-10
-			page-editor grid=model
+			if model.isLoaded
+				page-editor grid=model

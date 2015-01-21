@@ -4,7 +4,7 @@ attr = DS.attr
 
 class Document extends DS.Model
 
-	pages: DS.hasMany 'page'
+	pages: DS.hasMany 'page', {async:true}
 	flow: DS.belongsTo 'flow'
 	pdfLink: ~> config.apiHostName+'/documents/'+@id+'?token='+@session.token
 	layout: ~> @flow.layout
