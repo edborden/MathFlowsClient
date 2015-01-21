@@ -6,5 +6,6 @@ class Flow extends DS.Model
 	layout: DS.belongsTo 'layout'
 	folder: DS.belongsTo 'folder'
 	name: attr()
+	multipleDocuments: ~> @documents.length > 1
 
 `export default Flow`

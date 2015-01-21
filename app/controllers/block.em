@@ -1,5 +1,6 @@
 class BlockController extends Ember.Controller
 
+	originPageModel: null
 	creatingEquation: false
 	activeSnippet: null
 
@@ -16,7 +17,10 @@ class BlockController extends Ember.Controller
 			block.save()
 		back: -> 
 			@creatingEquation = false
-			@transitionToRoute 'index'
+			if @originPageModel
+				@transitionToRoute 'page',@originPageModel
+			else
+				@transitionToRoute 'me'
 		makeSnippet: -> 
 			@store.createRecord('snippet',{block:@model})
 		makeEquation: -> 

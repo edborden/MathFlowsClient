@@ -1,0 +1,13 @@
+.tree
+	span
+		span.tree-caret click="toggle"
+			if expanded
+				i.fa.fa-caret-down
+			else
+				i.fa.fa-caret-right
+		span
+			if iconName
+				i.fa class=iconName
+		tree-over tree=tree
+	if expanded
+		div.indented = yield

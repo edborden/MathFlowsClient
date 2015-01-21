@@ -19,14 +19,51 @@ body {
     padding:20px;
 }
 
-.position-renderer {
+.snippet-renderer {
     position:absolute;
+}
+
+.indented {
+    padding-left: 20px;
+}
+
+.tree span {
+    padding:5px;
+}
+
+.black-text {
+    color:black;
+}
+
+.inline {
+    display:inline-block;
+}
+
+.tree-spacing {
+    padding-top:5px;
+    padding-bottom: 5px;
 }
 
 .grid-editor {
     margin: 0 auto;
     font-size: 12px;
     line-height: 18px;
+}
+
+span.tree-caret {
+    width:14px;
+    display:inline-block;
+    color: @orange;
+}
+
+.tree-icon {
+    color: @orange;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+span.doc-icon {
+    padding-left: 20px;
 }
 
 #logo {
@@ -39,10 +76,9 @@ body {
     .text-center;
     padding:5px;
     .btn {
-        .btn-sm;
-        width:125px;
+        .btn-xs;
+        width:100px;
         i {
-            .pull-right;
             .fa;
         }
     }

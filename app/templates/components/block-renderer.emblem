@@ -1,3 +1,2 @@
 each snippet in widget.snippets
-	position-renderer position=snippet positionLayout=widget.layout
-		snippet-content snippet=snippet
+	snippet-renderer snippet=snippet

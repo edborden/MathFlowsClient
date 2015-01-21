@@ -3,9 +3,28 @@
 		.col-xs-2.side-nav
 			h2#logo MathFlows
 			h5#tagline Workflows for math teachers
+			button.btn.btn-primary click="newFolder"
+				|New Folder&nbsp;&nbsp;
+				i.fa-plus
 
 		.col-xs-10
-			img.profile-pic src=model.pic
-			span.name = model.name
+			div
+				img.profile-pic src=model.pic
+				span.name = model.name
 			each folder in model.folders
-				folder.name
+				tree-accordian tree=folder iconName="fa-archive"
+					each flow in folder.flows
+						tree-accordian tree=flow iconName="fa-th-large"
+							if flow.documents
+								each document in flow.documents
+										.tree-spacing
+											span.doc-icon
+												i.fa.fa-file-o
+											doc-over tree=document
+							else
+								.tree-spacing: button.btn.btn-primary.btn-xs click="newDoc flow"
+									|Create Document&nbsp;&nbsp;
+									i.fa.fa-plus
+					.indented.tree-spacing: button.btn.btn-primary.btn-xs click="newFlow folder"
+						|New Flow&nbsp;&nbsp;
+						i.fa.fa-plus

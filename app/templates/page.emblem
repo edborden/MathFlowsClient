@@ -8,6 +8,11 @@
 					button.btn.btn-primary click="authenticate"
 						|Login&nbsp;&nbsp;
 						i.fa-google
+			else
+				p
+					link-to 'me' class="btn btn-primary"
+						|Account&nbsp;&nbsp;
+						i.fa-user			
 			p 
 				button.btn.btn-default click="newBlock"
 					|Add Block&nbsp;&nbsp;
