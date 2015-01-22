@@ -1,4 +1,4 @@
-p	
+p.black-text	
 	if snippet.image
 		img src=snippet.image
 	else

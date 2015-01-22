@@ -5,12 +5,19 @@ class BlockController extends Ember.Controller
 	activeSnippet: null
 
 	actions:
+		registerEditor: (editor) ->
+			@editor = editor
 		saveSnippet: (snippet) ->
 			snippet.save()
 			@activeSnippet = null
 		destroySnippet: (snippet) ->
 			@activeSnippet = null
+			block = snippet.block
+			id = @findSnippetEl snippet
+			el = Ember.$('#'+id)
+			@editor.gridster.remove_widget el
 			snippet.destroyRecord()
+			el.remove()
 		destroyBlock: (block) ->
 			block.deleteRecord()
 			@send 'back'
@@ -40,5 +47,9 @@ class BlockController extends Ember.Controller
 			snippet = @store.createRecord 'snippet',
 				image: file.data
 				block: @model
+
+	findSnippetEl: (snippet) ->
+		target = @editor.childViews.findBy 'widget',snippet
+		id = target.element.id
 
 `export default BlockController`

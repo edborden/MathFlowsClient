@@ -17,10 +17,10 @@
 						tree-accordian tree=flow iconName="fa-th-large"
 							if flow.documents
 								each document in flow.documents
-										.tree-spacing
-											span.doc-icon
-												i.fa.fa-file-o
-											doc-over tree=document
+									.tree-spacing
+										span.doc-icon
+											i.fa.fa-file-o
+										doc-over tree=document
 							else
 								.tree-spacing: button.btn.btn-primary.btn-xs click="newDoc flow"
 									|Create Document&nbsp;&nbsp;

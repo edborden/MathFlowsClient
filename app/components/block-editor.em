@@ -6,6 +6,7 @@ class PageEditorComponent extends GridEditorComponent
 	widgets: ~> @grid.snippets 
 	widgetRendererTemplate: "components/snippet-renderer" 
 	action: "editSnippet"
+	registerAction: 'registerEditor'
 
 	cols: ~> @grid.layout.blockCols
 	widgetMargin: ~> 0
@@ -14,5 +15,9 @@ class PageEditorComponent extends GridEditorComponent
 	height: ~> @grid.height
 	width: ~> @grid.width
 	padding: ~> 0
+
+	didInsertElement: ->
+		@sendAction 'registerAction',@
+		@_super()
 
 `export default PageEditorComponent`

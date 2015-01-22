@@ -19,7 +19,7 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 		@_super()
 		if @widget.isNew			
 			@gridster.add_widget @element
-			@syncAttrsToEl()			
+			@syncAttrsToEl()
 			 
 	syncAttrsToEl: ->
 		@widget.colSpan = $(@element).attr('data-sizex')

@@ -19,7 +19,8 @@
 				file-picker fileLoaded="fileLoaded" preview=false readAs="readAsDataURL"
 					button.btn.btn-default Add Image
 		.col-xs-10
-			block-editor grid=model
+			if model.isLoaded
+				block-editor grid=model
 
 			if creatingEquation
 				equation-editor action="newEquation"
