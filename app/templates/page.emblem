@@ -14,8 +14,12 @@
 						|Account&nbsp;&nbsp;
 						i.fa-user			
 			p 
-				button.btn.btn-default click="newBlock"
-					|Add Block&nbsp;&nbsp;
+				button.btn.btn-default click="newQuestion"
+					|Add Question&nbsp;&nbsp;
+					i.fa-plus
+			p 
+				button.btn.btn-default click="newDirections"
+					|Add Directions&nbsp;&nbsp;
 					i.fa-plus
 			p 
 				button.btn.btn-default click="newPage"

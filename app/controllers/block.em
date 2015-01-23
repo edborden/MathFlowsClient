@@ -42,7 +42,7 @@ class BlockController extends Ember.Controller
 				image: url
 				block: @model
 		editSnippet: (snippet) ->
-			@activeSnippet = snippet
+			@activeSnippet = snippet unless snippet.questionNumber
 		fileLoaded: (file) ->
 			snippet = @store.createRecord 'snippet',
 				image: file.data
