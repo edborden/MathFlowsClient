@@ -41,12 +41,14 @@ class GridEditorComponent extends Ember.Component with ElRegister
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks()
+		obj.syncChangedBlocks().then -> obj.rerender() if obj.grid.isPage				
 
 	syncChangedBlocks: ->
+		promiseArray = []
 		for diffWidget in @widgetsDiff 
 			obj = Ember.$(diffWidget).data 'emberObject'
-			obj.syncAttrsToEl()
+			promiseArray.push obj.syncAttrsToEl()
+		return Ember.RSVP.all promiseArray
 
 	+volatile
 	widgetElArray: -> Ember.$('.gs-w')

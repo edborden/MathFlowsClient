@@ -17,15 +17,18 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 
 	didInsertElement: ->
 		@_super()
-		if @widget.isNew			
-			@gridster.add_widget @element
-			@syncAttrsToEl()
+		window.grid = @gridster
+		if @widget.isNew
+			Ember.run.next @, =>
+				@gridster.add_widget @element,parseInt(@widget.colSpan),parseInt(@widget.rowSpan)
+				@syncAttrsToEl()
 			 
 	syncAttrsToEl: ->
-		@widget.colSpan = $(@element).attr('data-sizex')
-		@widget.rowSpan = $(@element).attr('data-sizey')
-		@widget.row = $(@element).attr('data-row')
-		@widget.col = $(@element).attr('data-col')
-		@widget.save()
+		return new Ember.RSVP.Promise (resolve) =>
+			@widget.colSpan = $(@element).attr('data-sizex')
+			@widget.rowSpan = $(@element).attr('data-sizey')
+			@widget.row = $(@element).attr('data-row')
+			@widget.col = $(@element).attr('data-col')
+			@widget.save().then => resolve()
 
 `export default WidgetRendererComponent`

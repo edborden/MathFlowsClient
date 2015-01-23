@@ -4,6 +4,8 @@ class Snippet extends DS.Model
 	content: attr()
 	equation: attr()
 	image: attr()
+	questionNumber: attr 'boolean'
+	plainContent: ~> if @equation or @image or @questionNumber then false else true
 	
 	block: DS.belongsTo 'block'
 

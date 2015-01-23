@@ -1,4 +1,9 @@
 if snippet.image
 	img.img-responsive src=snippet.image
-else
+if snippet.plainContent
 	snippet.content
+if snippet.questionNumber
+	if grid.isPage
+		questionnumber snippet.block grid
+	else
+		|#

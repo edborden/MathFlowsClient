@@ -9,11 +9,13 @@ class Block extends DS.Model
 	#position
 	row: attr "number"
 	col: attr "number"
-	rowSpan: attr "number"
-	colSpan: attr "number"
+	rowSpan: attr "number", {defaultValue:2}
+	colSpan: attr "number", {defaultValue:2}
 
 	width: attr "number"
 	height: attr "number"
 	colWidth: attr "number"
+
+	question: attr "boolean"
 
 `export default Block`

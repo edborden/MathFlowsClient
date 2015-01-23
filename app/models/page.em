@@ -7,5 +7,8 @@ class Page extends DS.Model
 	layout: DS.belongsTo 'layout'
 	pdfLink: ~> @document.pdfLink
 	number: ~> @document.pages.indexOf(@) + 1
+	questionBlocks: ~>
+		@blocks.filterBy 'question',true
+	isPage:true
 
 `export default Page`
