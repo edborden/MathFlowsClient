@@ -3,11 +3,11 @@ class PageController extends Ember.Controller
 	needs: ['block']
 
 	actions:
-		newQuestion: -> @store.createRecord 'block',{page:@model,question:true}
-		newDirections: -> @store.createRecord 'block',{page:@model,question:false}
-		editBlock: (block) -> 
+		newQuestion: -> @store.createRecord 'position',{page:@model,question:true}
+		newDirections: -> @store.createRecord 'position',{page:@model,question:false}
+		editBlock: (position) -> 
 			@controllers.block.originPageModel = @model
-			@transitionToRoute 'block',block
+			@transitionToRoute 'block',position.block
 		newPage: ->
 			@store.createRecord('page', {document:@model.document}).save().then (response) =>
 				@transitionToRoute 'page',response

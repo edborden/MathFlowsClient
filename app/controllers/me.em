@@ -1,8 +1,8 @@
 class MeController extends Ember.Controller
 
 	actions:
-		docEdit: (doc) ->
-			@transitionToRoute 'page',doc.pages.firstObject
+		docEdit: (document) ->
+			@transitionToRoute 'document',document
 		newDoc: (flow) ->
 			@store.createRecord('document',{flow:flow}).save()
 		newFolder: -> @store.createRecord('folder',{user:@session.me}).save()

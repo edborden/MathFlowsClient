@@ -2,7 +2,7 @@ attr = DS.attr
 
 class Flow extends DS.Model
 
-	documents: DS.hasMany 'document'
+	documents: DS.hasMany 'document', {async:true}
 	layout: DS.belongsTo 'layout'
 	folder: DS.belongsTo 'folder'
 	name: attr()

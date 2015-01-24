@@ -1,2 +1,2 @@
-each snippet in widget.snippets
+each snippet in widget.block.snippets
 	snippet-renderer snippet=snippet grid=grid

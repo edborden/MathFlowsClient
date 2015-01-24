@@ -3,7 +3,7 @@
 class PageEditorComponent extends GridEditorComponent
 
 	grid: null
-	widgets: ~> @grid.blocks
+	widgets: ~> @grid.positions
 	widgetRendererTemplate: "components/block-renderer"
 	action: "editBlock"
 

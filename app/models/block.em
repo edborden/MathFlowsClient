@@ -3,14 +3,9 @@ attr = DS.attr
 class Block extends DS.Model
 	
 	snippets: DS.hasMany 'snippet'
-	page: DS.belongsTo 'page'
-	layout: ~> @page.layout
+	layout: ~> @positions.firstObject.page.layout
 
-	#position
-	row: attr "number"
-	col: attr "number"
-	rowSpan: attr "number", {defaultValue:2}
-	colSpan: attr "number", {defaultValue:2}
+	positions: DS.hasMany 'position'
 
 	width: attr "number"
 	height: attr "number"

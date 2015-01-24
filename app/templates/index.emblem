@@ -1,1 +1,1 @@
-render 'page' this.model
+render 'document' model.documents.firstObject

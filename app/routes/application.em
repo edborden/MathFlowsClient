@@ -1,6 +1,11 @@
 class ApplicationRoute extends Ember.Route
 
-	beforeModel: -> @session.open()
+	beforeModel: -> 
+		@session.open().then =>
+			if @session.me.guest
+				@replaceWith 'index'
+			else
+				@replaceWith 'me'
 	
 	actions:
 		logout: ->

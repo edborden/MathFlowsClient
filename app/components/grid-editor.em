@@ -41,7 +41,7 @@ class GridEditorComponent extends Ember.Component with ElRegister
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks().then -> obj.rerender() if obj.grid.isPage				
+		obj.syncChangedBlocks().then -> obj.rerender() if obj.grid.isPage
 
 	syncChangedBlocks: ->
 		promiseArray = []
