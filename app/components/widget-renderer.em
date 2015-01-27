@@ -21,7 +21,10 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 		if @widget.isNew
 			Ember.run.next @, =>
 				@gridster.add_widget @element,parseInt(@widget.colSpan),parseInt(@widget.rowSpan)
-				@syncAttrsToEl().then => @parentView.rerender()
+				@syncAttrsToEl().then => 
+					if @grid.isPage
+						@parentView.rerender()
+						@grid.reloadOtherDocuments()
 			 
 	syncAttrsToEl: ->
 		return new Ember.RSVP.Promise (resolve) =>

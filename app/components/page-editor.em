@@ -7,12 +7,14 @@ class PageEditorComponent extends GridEditorComponent
 	widgetRendererTemplate: "components/block-renderer"
 	action: "editBlock"
 
-	cols: ~> @grid.layout.cols
-	widgetMargin: ~> @grid.layout.gridsterInsideMargin
-	widgetBaseWidth: ~> @grid.layout.colWidth
-	widgetBaseHeight: ~> @grid.layout.rowHeight
-	height: ~> @grid.layout.height
-	width: ~> @grid.layout.width
-	padding: ~> @grid.layout.gridsterOutsideMargin
+	pageLayout: ~> @grid.layout
+
+	cols: ~> @pageLayout.page_cols
+	widgetMargin: ~> @pageLayout.gridsterInsideMargin
+	widgetBaseWidth: ~> @pageLayout.pageColWidth
+	widgetBaseHeight: ~> @pageLayout.pageRowHeight
+	height: ~> @pageLayout.pageHeight
+	width: ~> @pageLayout.pageWidth
+	padding: ~> @pageLayout.gridsterOutsideMargin
 
 `export default PageEditorComponent`

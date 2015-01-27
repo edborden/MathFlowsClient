@@ -11,6 +11,7 @@ class Document extends DS.Model
 	multiplePages: ~> @pages.length > 1
 	number: ~> @flow.documents.indexOf(@) + 1
 	name: ~> "Version " + @number
+	copyFrom: DS.belongsTo 'document'
 
 	+volatile
 	questionBlocksSorted: -> 

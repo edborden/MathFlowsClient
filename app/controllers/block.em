@@ -19,6 +19,7 @@ class BlockController extends Ember.Controller
 			snippet.destroyRecord()
 			el.remove()
 		destroyBlock: (block) ->
+			block.positions.forEach (position) -> position.deleteRecord() if position?
 			block.deleteRecord()
 			@send 'back'
 			block.save()

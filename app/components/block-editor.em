@@ -1,6 +1,6 @@
 `import GridEditorComponent from 'math-flows-client/components/grid-editor'`
 
-class PageEditorComponent extends GridEditorComponent
+class BlockEditorComponent extends GridEditorComponent
 
 	grid: null
 	widgets: ~> @grid.snippets 
@@ -8,16 +8,18 @@ class PageEditorComponent extends GridEditorComponent
 	action: "editSnippet"
 	registerAction: 'registerEditor'
 
+	position: ~> @grid.positions.firstObject
+
 	cols: ~> @grid.layout.blockCols
 	widgetMargin: ~> 0
-	widgetBaseWidth: ~> @grid.colWidth
+	widgetBaseWidth: ~> @position.colWidth
 	widgetBaseHeight: ~> @grid.layout.blockRowHeight
-	height: ~> @grid.height
-	width: ~> @grid.width
+	height: ~> @position.height
+	width: ~> @position.width
 	padding: ~> 0
 
 	didInsertElement: ->
 		@sendAction 'registerAction',@
 		@_super()
 
-`export default PageEditorComponent`
+`export default BlockEditorComponent`

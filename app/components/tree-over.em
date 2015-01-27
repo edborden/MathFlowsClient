@@ -19,7 +19,6 @@ class TreeOverComponent extends Ember.Component
 		saveClicked: ->
 			@tree.save() if @tree.isDirty
 			@isEditing = false
-		deleteClicked: ->
-			@tree.destroyRecord()
+		deleteClicked: -> @tree.destroyRecord()
 			
 `export default TreeOverComponent`

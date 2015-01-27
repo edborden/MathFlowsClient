@@ -14,10 +14,9 @@ class Snippet extends DS.Model
 	col: attr "number"
 	rowSpan: attr "number"
 	colSpan: attr "number"
-	x: attr "number"
+	x: (position) -> (@col-1)*position.colWidth
 	y: attr "number"
-
-	width: attr "number"
+	width: (position) -> @colSpan * position.colWidth
 	height: attr "number"
 
 `export default Snippet`

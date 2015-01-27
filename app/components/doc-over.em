@@ -9,6 +9,6 @@ class DocOverComponent extends TreeOverComponent
 		editClicked: -> 
 			@sendAction 'action', @tree
 		copyClicked: ->
-			@sendAction 'copyAction',@tree.flow
+			@sendAction 'copyAction',@tree
 			
 `export default DocOverComponent`
