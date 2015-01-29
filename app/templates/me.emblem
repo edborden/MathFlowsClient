@@ -3,9 +3,14 @@
 		.col-xs-2.side-nav
 			h2#logo MathFlows
 			h5#tagline Workflows for math teachers
-			button.btn.btn-primary click="newFolder"
-				|New Folder&nbsp;&nbsp;
-				i.fa-plus
+			p
+				button.btn.btn-primary click="newFolder"
+					|New Folder&nbsp;&nbsp;
+					i.fa-plus
+			p
+				button.btn.btn-primary click="editHeader"
+					|Edit Header&nbsp;&nbsp;
+					i.fa-edit
 
 		.col-xs-10
 			div

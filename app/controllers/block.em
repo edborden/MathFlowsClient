@@ -30,7 +30,7 @@ class BlockController extends Ember.Controller
 			else
 				@transitionToRoute 'me'
 		makeSnippet: -> 
-			@store.createRecord('snippet',{block:@model})
+			@store.createRecord('snippet',{block:@model,colSpan:3,rowSpan:1})
 		makeEquation: -> 
 			@toggleProperty 'creatingEquation'
 			false

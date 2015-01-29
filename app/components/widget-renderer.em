@@ -15,15 +15,20 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 
 	gridster: ~> @parentView.gridster
 
+	coords: ~> @gridster.dom_to_coords Ember.$(@element)
+
 	didInsertElement: ->
 		@_super()
 		window.grid = @gridster
+		#console.log @parentView
+		#console.log @element
 		if @widget.isNew
 			Ember.run.next @, =>
 				@gridster.add_widget @element,parseInt(@widget.colSpan),parseInt(@widget.rowSpan)
 				@syncAttrsToEl().then => 
 					if @grid.isPage
-						@parentView.rerender()
+						console.log 'ispage'
+						#@parentView.rerender()
 						@grid.reloadOtherDocuments()
 			 
 	syncAttrsToEl: ->

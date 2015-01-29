@@ -38,10 +38,28 @@ class GridEditorComponent extends Ember.Component with ElRegister
 			draggable:
 				stop: @runSync
 		).data 'gridster'
+		@setUnpositionedWidgets()
+		window.viewtest = @
+
+	setUnpositionedWidgets: ->
+		@unpositionedWidgets.forEach (el) =>
+			view = Ember.$(el).data('emberObject')
+			model = view.widget
+			next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
+			@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
+			view.syncAttrsToEl()
+
+	unpositionedWidgets: ~> 
+		@widgetElArray.reject (el) ->
+			model = Ember.$(el).data('emberObject').widget
+			model.row? and model.col?
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks().then -> obj.rerender() if obj.grid.isPage
+		obj.syncChangedBlocks().then -> 
+			if obj.grid.isPage
+				console.log 'gridispage'
+				#obj.rerender() 
 
 	syncChangedBlocks: ->
 		promiseArray = []
@@ -51,12 +69,12 @@ class GridEditorComponent extends Ember.Component with ElRegister
 		return Ember.RSVP.all promiseArray
 
 	+volatile
-	widgetElArray: -> Ember.$('.gs-w')
+	widgetElArray: -> Ember.A $.makeArray Ember.$('.gs-w')
 
 	# Block elements that are different from their models
 	+volatile
 	widgetsDiff: -> 
-		@widgetElArray.filter (idx,el) =>
+		@widgetElArray.filter (el) =>
 			obj = Ember.$(el).data('emberObject').widget
 			@widthIsDiff(el,obj) or @heightIsDiff(el,obj) or @rowIsDiff(el,obj) or @colIsDiff(el,obj)
 			
