@@ -12,6 +12,19 @@ class Page extends DS.Model
 	isPage:true
 	positions: DS.hasMany 'position'
 
+	loadedPositions:false
+	posNumber: 0
+
+	+observer positions
+	onPositionChange: ->
+		unless @loadedPositions
+			if @positions.length > @posNumber
+				@stablePositions = Ember.A []
+				@stablePositions.addObjects @positions
+				@loadedPositions = true
+
+	stablePositions: null
+
 	reloadOtherDocuments: ->
 		otherDocuments = @document.flow.documents.filter (document) => document isnt @document
 		otherDocuments.forEach (document) -> document.reload()

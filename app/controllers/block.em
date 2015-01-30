@@ -12,14 +12,16 @@ class BlockController extends Ember.Controller
 			@activeSnippet = null
 		destroySnippet: (snippet) ->
 			@activeSnippet = null
-			block = snippet.block
 			id = @findSnippetEl snippet
 			el = Ember.$('#'+id)
 			@editor.gridster.remove_widget el
 			snippet.destroyRecord()
 			el.remove()
+			@model.stableSnippets.removeObject snippet
 		destroyBlock: (block) ->
-			block.positions.forEach (position) -> position.deleteRecord() if position?
+			block.positions.forEach (position) -> 
+				position.page.stablePositions.removeObject position
+				position.deleteRecord()
 			block.deleteRecord()
 			@send 'back'
 			block.save()
@@ -29,8 +31,10 @@ class BlockController extends Ember.Controller
 				@transitionToRoute 'page',@originPageModel
 			else
 				@transitionToRoute 'me'
-		makeSnippet: -> 
-			@store.createRecord('snippet',{block:@model,colSpan:3,rowSpan:1})
+		makeSnippet: (params=null) ->
+			params = {block:@model,colSpan:3,rowSpan:1} unless params?
+			snippet = @store.createRecord('snippet',params)
+			@model.stableSnippets.addObject snippet
 		makeEquation: -> 
 			@toggleProperty 'creatingEquation'
 			false
@@ -38,16 +42,18 @@ class BlockController extends Ember.Controller
 			@creatingEquation = false
 			url = equationObj.exportEquation 'urlencoded'
 			latex =  equationObj.exportEquation 'latex'
-			snippet = @store.createRecord 'snippet',
+			params =
 				equation: latex
 				image: url
 				block: @model
+			@send 'makeSnippet',params
 		editSnippet: (snippet) ->
 			@activeSnippet = snippet unless snippet.questionNumber
 		fileLoaded: (file) ->
-			snippet = @store.createRecord 'snippet',
+			params =
 				image: file.data
 				block: @model
+			@send 'makeSnippet',params
 
 	findSnippetEl: (snippet) ->
 		target = @editor.childViews.findBy 'widget',snippet

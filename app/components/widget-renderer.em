@@ -19,18 +19,10 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 
 	didInsertElement: ->
 		@_super()
-		window.grid = @gridster
-		#console.log @parentView
-		#console.log @element
 		if @widget.isNew
-			Ember.run.next @, =>
-				@gridster.add_widget @element,parseInt(@widget.colSpan),parseInt(@widget.rowSpan)
-				@syncAttrsToEl().then => 
-					if @grid.isPage
-						console.log 'ispage'
-						#@parentView.rerender()
-						@grid.reloadOtherDocuments()
-			 
+			@addToGrid()
+			@syncAttrsToEl().then => @grid.reloadOtherDocuments() if @grid.isPage
+				
 	syncAttrsToEl: ->
 		return new Ember.RSVP.Promise (resolve) =>
 			@widget.colSpan = $(@element).attr('data-sizex')
@@ -38,5 +30,7 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 			@widget.row = $(@element).attr('data-row')
 			@widget.col = $(@element).attr('data-col')
 			@widget.save().then => resolve()
+
+	addToGrid: -> @gridster.add_widget @element,parseInt(@widget.colSpan),parseInt(@widget.rowSpan)
 
 `export default WidgetRendererComponent`

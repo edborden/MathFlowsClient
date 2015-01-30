@@ -3,7 +3,7 @@
 class BlockEditorComponent extends GridEditorComponent
 
 	grid: null
-	widgets: ~> @grid.snippets 
+	widgets: ~> @grid.stableSnippets 
 	widgetRendererTemplate: "components/snippet-renderer" 
 	action: "editSnippet"
 	registerAction: 'registerEditor'

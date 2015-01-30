@@ -13,11 +13,18 @@ class Document extends DS.Model
 	name: ~> "Version " + @number
 	copyFrom: DS.belongsTo 'document'
 
+	#reset page stablepositions when a new block is added to a sister document and reloadotherdocuments is called
+	reload: ->
+		@pages.forEach (page) -> 
+			page.posNumber = page.stablePositions.length
+			page.loadedPositions = false
+		@_super()
+
+
 	+volatile
 	questionBlocksSorted: -> 
 		questionPositionsSorted = @pages.getEach 'questionPositionsSorted'
 		questionPositionsSorted = [].concat.apply [], questionPositionsSorted
-		console.log questionPositionsSorted.length
 		questionPositionsSorted.getEach 'block'
 
 `export default Document`

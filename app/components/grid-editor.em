@@ -39,7 +39,6 @@ class GridEditorComponent extends Ember.Component with ElRegister
 				stop: @runSync
 		).data 'gridster'
 		@setUnpositionedWidgets()
-		window.viewtest = @
 
 	setUnpositionedWidgets: ->
 		@unpositionedWidgets.forEach (el) =>
@@ -56,11 +55,8 @@ class GridEditorComponent extends Ember.Component with ElRegister
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks().then -> 
-			if obj.grid.isPage
-				console.log 'gridispage'
-				#obj.rerender() 
-
+		obj.syncChangedBlocks().then -> obj.rerender() if obj.grid.isPage
+				
 	syncChangedBlocks: ->
 		promiseArray = []
 		for diffWidget in @widgetsDiff 

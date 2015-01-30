@@ -3,8 +3,12 @@ class PageController extends Ember.Controller
 	needs: ['block']
 
 	actions:
-		newQuestion: -> @store.createRecord 'position',{page:@model,question:true,rowSpan:3,colSpan:2}
-		newDirections: -> @store.createRecord 'position',{page:@model,question:false,rowSpan:2,colSpan:4}
+		newQuestion: -> 
+			pos = @store.createRecord('position',{page:@model,question:true,rowSpan:3,colSpan:2})
+			@model.stablePositions.addObject pos
+		newDirections: -> 
+			pos = @store.createRecord 'position',{page:@model,question:false,rowSpan:2,colSpan:4}
+			@model.stablePositions.addObject pos
 		editBlock: (position) -> 
 			@controllers.block.originPageModel = @model
 			@transitionToRoute 'block',position.block

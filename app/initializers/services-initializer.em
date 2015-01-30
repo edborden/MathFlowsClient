@@ -15,5 +15,6 @@ initializer =
 		['controller','route','model','adapter'].forEach (type) ->
 			application.inject type, 'session', 'service:session'
 		application.inject 'model:document', 'session', 'service:session'
+		application.inject 'model:block', 'session', 'service:session'
 
 `export default initializer`
