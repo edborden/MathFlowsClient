@@ -29,7 +29,7 @@ class WidgetRendererComponent extends Ember.Component with ElRegister
 			@widget.rowSpan = $(@element).attr('data-sizey')
 			@widget.row = $(@element).attr('data-row')
 			@widget.col = $(@element).attr('data-col')
-			@widget.save().then => resolve()
+			@widget.save().then -> resolve()
 
 	addToGrid: -> @gridster.add_widget @element,parseInt(@widget.colSpan),parseInt(@widget.rowSpan)
 

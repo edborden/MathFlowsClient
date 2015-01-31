@@ -46,9 +46,10 @@ class GridEditorComponent extends Ember.Component with ElRegister
 			model = view.widget
 			next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
 			@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
-			view.syncAttrsToEl()
+			view.syncAttrsToEl().then => @rerender()
 
-	unpositionedWidgets: ~> 
+	+volatile
+	unpositionedWidgets: -> 
 		@widgetElArray.reject (el) ->
 			model = Ember.$(el).data('emberObject').widget
 			model.row? and model.col?
@@ -75,7 +76,7 @@ class GridEditorComponent extends Ember.Component with ElRegister
 			@widthIsDiff(el,obj) or @heightIsDiff(el,obj) or @rowIsDiff(el,obj) or @colIsDiff(el,obj)
 			
 	widthIsDiff: (el,obj) -> obj.colSpan isnt parseInt $(el).attr('data-sizex')
-	heightIsDiff: (el,obj) -> obj.colSpan isnt parseInt $(el).attr('data-sizey')
+	heightIsDiff: (el,obj) -> obj.rowSpan isnt parseInt $(el).attr('data-sizey')
 	rowIsDiff: (el,obj) -> obj.row isnt parseInt $(el).attr('data-row')
 	colIsDiff: (el,obj) -> obj.col isnt parseInt $(el).attr('data-col')
 

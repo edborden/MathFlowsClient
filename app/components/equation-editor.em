@@ -1,5 +1,7 @@
 class EquationEditorComponent extends Ember.Component
 
+	classNames: ['equation-editor']
+
 	actions:
 		saveEquation: -> @sendAction 'action',@output
 
