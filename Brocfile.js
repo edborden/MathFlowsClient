@@ -17,4 +17,7 @@ var fontAwesomeFonts = pickFiles('bower_components/components-font-awesome/fonts
 app.import('bower_components/gridster.js/dist/jquery.gridster.js');
 app.import('bower_components/gridster.js/dist/jquery.gridster.min.css');
 
+// Keen.io
+app.import('bower_components/keen-js/dist/keen.min.js');
+
 module.exports = mergeTrees([app.toTree(),fontAwesomeFonts]);

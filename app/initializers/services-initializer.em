@@ -1,4 +1,5 @@
 `import SessionService from 'math-flows-client/services/session'`
+`import KeenService from 'math-flows-client/services/keen'`
 
 initializer =
 	name:'services'
@@ -7,14 +8,16 @@ initializer =
 
 		#Register service objects
 		application.register 'service:session', SessionService, {singleton: true}
+		application.register 'service:keen', KeenService, {singleton: true}
+		services = ['session','keen']
 
 		#Setup service objects
 		application.inject 'service:session', 'store', 'store:main'
+		application.inject 'service:keen', 'session', 'service:session'
 
 		#Inject into app factories
-		['controller','route','model','adapter'].forEach (type) ->
-			application.inject type, 'session', 'service:session'
-		application.inject 'model:document', 'session', 'service:session'
-		application.inject 'model:block', 'session', 'service:session'
+		['controller','route','model:document','model:block','adapter'].forEach (type) ->
+			services.forEach (service) ->
+				application.inject type, service, 'service:' + service
 
 `export default initializer`
