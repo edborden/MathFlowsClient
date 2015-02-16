@@ -8,5 +8,6 @@ class User extends DS.Model
 	guest: attr()
 	header: DS.belongsTo 'block'
 	headerPosition: DS.belongsTo 'position'
+	group: DS.belongsTo 'group'
 
 `export default User`

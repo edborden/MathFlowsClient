@@ -16,5 +16,14 @@ class ApplicationRoute extends Ember.Route
 			@torii.open('google-offline').then (authData) => 
 				@session.post(authData.authorizationCode,authData.redirectUri).then =>
 					@transitionTo 'me'
+		openModal: (name,model) ->
+			@render name,
+				into: 'application'
+				outlet: 'modal'
+				model: model
+		closeModal: ->
+			@disconnectOutlet
+				outlet: 'modal'
+				parentView: 'application'
 
 `export default ApplicationRoute`

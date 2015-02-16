@@ -1,6 +1,6 @@
-`import TreeOverComponent from 'math-flows-client/components/tree-over'`
+`import MouseOverComponent from 'math-flows-client/components/mouse-over'`
 
-class DocOverComponent extends TreeOverComponent
+class DocOverComponent extends MouseOverComponent
 	action: 'docEdit'
 	copyAction: 'newDoc'
 	canCopy:true

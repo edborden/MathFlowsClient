@@ -16,7 +16,7 @@ initializer =
 		application.inject 'service:keen', 'session', 'service:session'
 
 		#Inject into app factories
-		['controller','route','model:document','model:block','adapter'].forEach (type) ->
+		['controller','route','model:document','model:block','model:group','adapter'].forEach (type) ->
 			services.forEach (service) ->
 				application.inject type, service, 'service:' + service
 

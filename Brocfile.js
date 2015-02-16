@@ -20,4 +20,7 @@ app.import('bower_components/gridster.js/dist/jquery.gridster.min.css');
 // Keen.io
 app.import('bower_components/keen-js/dist/keen.min.js');
 
+// Bootstrap Modal
+app.import('bower_components/bootstrap/js/modal.js');
+
 module.exports = mergeTrees([app.toTree(),fontAwesomeFonts]);

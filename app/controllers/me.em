@@ -9,5 +9,9 @@ class MeController extends Ember.Controller
 		newFlow: (folder) -> @store.createRecord('flow',{folder:folder}).save()
 		editHeader: -> 
 			@transitionToRoute 'block',@session.me.header
+		newGroup: ->
+			group = @store.createRecord('group').save()
+			@model.group = group
+		invite: (email) -> @store.createRecord('invitation',{email:email}).save()
 
 `export default MeController`

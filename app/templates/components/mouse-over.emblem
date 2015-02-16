@@ -1,0 +1,11 @@
+unless isEditing
+	span = model.name
+else
+	= input type="text" value=model.name
+	i.fa.fa-save.tree-icon click="saveClicked"
+if showEdit
+	span.tree-buttons
+		i.fa.fa-edit.tree-icon click="editClicked"
+		if canCopy
+			i.fa.fa-copy.tree-icon click="copyClicked"
+		i.fa.fa-trash-o.tree-icon click="deleteClicked"

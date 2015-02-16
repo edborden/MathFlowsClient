@@ -1,0 +1,2 @@
+= input type='text' placeholder="What's their email?" value=email
+button.btn.btn-primary.btn-xs click="inviteClicked" Send invitation

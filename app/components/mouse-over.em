@@ -1,6 +1,6 @@
-class TreeOverComponent extends Ember.Component
-	tree:null
-	layoutName: 'components/tree-over'
+class MouseOverComponent extends Ember.Component
+	model:null
+	layoutName: 'components/mouse-over'
 	mouseOver: false
 	classNames: ['inline']
 	isEditing:false
@@ -17,8 +17,8 @@ class TreeOverComponent extends Ember.Component
 			@isEditing = true
 			false
 		saveClicked: ->
-			@tree.save() if @tree.isDirty
+			@model.save() if @model.isDirty
 			@isEditing = false
-		deleteClicked: -> @tree.destroyRecord()
+		deleteClicked: -> @model.destroyRecord()
 			
-`export default TreeOverComponent`
+`export default MouseOverComponent`

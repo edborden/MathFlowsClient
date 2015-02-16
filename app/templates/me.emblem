@@ -12,20 +12,20 @@
 					|Edit Header&nbsp;&nbsp;
 					i.fa-edit
 
-		.col-xs-10
-			div
+		.col-xs-6
+			.text-center
 				img.profile-pic src=model.pic
 				span.name = model.name
 			each folder in model.folders
-				tree-accordian tree=folder iconName="fa-archive"
+				tree-accordian model=folder iconName="fa-archive"
 					each flow in folder.flows
-						tree-accordian tree=flow iconName="fa-th-large"
+						tree-accordian model=flow iconName="fa-th-large"
 							if flow.documents
 								each document in flow.documents
 									.tree-spacing
 										span.doc-icon
 											i.fa.fa-file-o
-										doc-over tree=document
+										doc-over model=document
 							else
 								.tree-spacing: button.btn.btn-primary.btn-xs click="newDoc flow"
 									|Create Document&nbsp;&nbsp;
@@ -33,3 +33,24 @@
 					.indented.tree-spacing: button.btn.btn-primary.btn-xs click="newFlow folder"
 						|New Flow&nbsp;&nbsp;
 						i.fa.fa-plus
+
+		.col-xs-4
+			/.side-nav
+				/if model.group
+				/	div: mouse-over model=model.group
+				/	if model.group.usersWithoutMe
+				/		each user in model.group.usersWithoutMe
+				/			div = user.name
+				/	else
+				/		h5 There isn't anyone in your group!
+				/		button.btn.btn-primary click="openModal 'modal/invite' model" Invite Someone
+				/else
+				/	div You aren't part of a group. Groups let you easily share your tests with other teachers in your department.
+				/	div 
+				/		button.btn.btn-primary click="newGroup"
+				/			|Create a Group&nbsp;&nbsp;
+				/			i.fa-plus
+
+			.invitation 
+				p Do you have a friend or colleague that you think would like MathFlows?
+				invite-box

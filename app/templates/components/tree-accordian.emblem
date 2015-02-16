@@ -8,6 +8,6 @@
 		span
 			if iconName
 				i.fa class=iconName
-		tree-over tree=tree
+		mouse-over model=model
 	if expanded
 		div.indented = yield
