@@ -1,7 +1,8 @@
 attr = DS.attr
 
 class Invitation extends DS.Model
-
-	email: attr()
+	referrer: DS.belongsTo 'user'
+	referralEmail: attr()
+	referral: DS.belongsTo 'user'
 
 `export default Invitation`

@@ -12,10 +12,10 @@ class SessionService extends Ember.Object
 				@store.find('session', {token: token}).then(
 					(response) => 
 						@model = response.objectAt(0)
-						resolve()
+						resolve response
 					(error) -> 
 						localStorage.clear() if error.status is 401
-						resolve()
+						resolve error
 				)
 			else
 				@post('issue').then => resolve()

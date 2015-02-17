@@ -8,5 +8,6 @@ Router.map ->
 	@route 'page', {path: '/page/:page_id'}
 	@route 'me'
 	@route 'document', {path: '/document/:document_id'}
+	@route 'invitation', {path: '/invitation/:invitation_id'}
 
 `export default Router`

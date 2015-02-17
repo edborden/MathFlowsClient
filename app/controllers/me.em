@@ -12,6 +12,6 @@ class MeController extends Ember.Controller
 		newGroup: ->
 			group = @store.createRecord('group').save()
 			@model.group = group
-		invite: (email) -> @store.createRecord('invitation',{email:email}).save()
+		invite: (email) -> @store.createRecord('invitation',{referrer:@model,referralEmail:email}).save()
 
 `export default MeController`
