@@ -7,8 +7,8 @@ class KeenService extends Ember.Object
 		host: "api.keen.io/3.0"
 		requestType: "jsonp"
 
-	pageView: ->
-		@client.addEvent 'pageView', 
+	log_session: ->
+		@client.addEvent 'session', 
 			#page: window.location.href
 			#time: new Date().toISOString()
 			referrer: document.referrer

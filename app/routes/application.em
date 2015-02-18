@@ -7,7 +7,7 @@ class ApplicationRoute extends Ember.Route
 				@session.open().then => @sessionSuccessHandler()
 
 	sessionSuccessHandler: ->
-		@keen.pageView()
+		@keen.log_session()
 
 	actions:
 		logout: ->
