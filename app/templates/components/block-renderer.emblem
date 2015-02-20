@@ -1,2 +1,1 @@
-each snippet in widget.block.snippets
-	snippet-renderer snippet=snippet grid=grid position=widget
+equation-renderer block=position.block

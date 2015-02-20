@@ -1,7 +1,5 @@
 class PageController extends Ember.Controller
 
-	needs: ['block']
-
 	actions:
 		newQuestion: -> 
 			pos = @store.createRecord('position',{page:@model,question:true,rowSpan:3,colSpan:2})
@@ -23,5 +21,15 @@ class PageController extends Ember.Controller
 					@transitionToRoute 'page',firstPage
 				else
 					@send 'newPage'
+		savePage: ->
+			@savePage()
+
+		editingBlock: (block) ->
+			activeBlock = block
+
+	activeBlock: null
+
+	savePage: -> 
+		@model.blocks.forEach (block) -> block.save() if block.isDirty
 
 `export default PageController`

@@ -1,3 +1,0 @@
-ul
-	each widget in widgets
-		widget-renderer widget=widget grid=grid action="editWidget" layoutName=widgetRendererTemplate

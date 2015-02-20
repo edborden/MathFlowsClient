@@ -9,7 +9,7 @@ var mergeTrees = require('broccoli-merge-trees');
 
 // Font-Awesome
 var fontAwesomeFonts = pickFiles('bower_components/components-font-awesome/fonts', {
-    srcDir: '/',
+	srcDir: '/',
 	destDir: '/fonts'
 });
 
@@ -23,4 +23,11 @@ app.import('bower_components/keen-js/dist/keen.min.js');
 // Bootstrap Modal
 app.import('bower_components/bootstrap/js/modal.js');
 
-module.exports = mergeTrees([app.toTree(),fontAwesomeFonts]);
+// MathQuill
+app.import('vendor/mathquill/mathquill.js');
+var mathQuillFonts = pickFiles('vendor/mathquill/font', {
+    srcDir: '/',
+	destDir: '/fonts'
+});
+
+module.exports = mergeTrees([app.toTree(),fontAwesomeFonts,mathQuillFonts]);

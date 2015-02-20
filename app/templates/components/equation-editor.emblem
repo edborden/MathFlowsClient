@@ -1,4 +1,0 @@
-#toolbar
-textarea#latexInput.black-text rows="3" cols="40"
-img#equation align="middle"
-p: button.black-text click="saveEquation" Save Equation

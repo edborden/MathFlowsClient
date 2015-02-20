@@ -42,4 +42,4 @@
 							page.number
 		.col-xs-10
 			if model.isLoaded
-				page-editor grid=model
+				page-editor page=model

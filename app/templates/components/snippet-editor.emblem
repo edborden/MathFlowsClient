@@ -1,7 +1,0 @@
-p.black-text	
-	if snippet.image
-		img src=snippet.image
-	else
-		= input type="text" value=snippet.content
-		button click="savePressed" Save
-	button click="deletePressed" Delete

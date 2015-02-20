@@ -7,6 +7,7 @@
 @import "bootstrap";
 @import "gridster";
 @import "font-awesome";
+@import "mathquill";
 
 @brand-primary: @orange;
 @brand-warning: @yellow;
@@ -19,22 +20,33 @@ body {
     padding:20px;
 }
 
-img#equation {
-    padding:10px;
-    background:white;
-    margin-left:20px;
+img.fraction {
+    width:24px;
+    height:22px;
+}
+img.sqrt {
+    height:22px;
+    width:34px;
 }
 
-.equation-editor {
-    margin:auto;
-    width:75%;
-    border: solid 1px white;
-    height: 300px;
-    margin-top:100px;
+.mathquill-editable {
+    border-color:transparent;
+    overflow:hidden;
 }
 
-.snippet-renderer {
+.equationEditorMenu {
+    width:300px;
+    .btn-group;
     position:absolute;
+    z-index:10;
+    button {
+        .btn;
+        width:22px;
+        .btn-primary;
+        img {
+            height:10px;
+        }        
+    }
 }
 
 .indented {

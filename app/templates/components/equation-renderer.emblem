@@ -1,0 +1,3 @@
+.content
+if displayEquationEditorMenu
+	equation-menu action='insertLatex'

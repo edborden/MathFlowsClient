@@ -1,0 +1,3 @@
+ul
+	each position in page.stablePositions
+		position-renderer position=position
