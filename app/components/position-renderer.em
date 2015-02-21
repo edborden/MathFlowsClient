@@ -2,20 +2,28 @@
 
 class PositionRendererComponent extends Ember.Component with ElRegister
 
+	isEditing: false
+
+	classNames: ['position-renderer']
+
 	layoutName: "components/block-renderer"
 	tagName: 'li'
 
 	page: ~> @position.page
 
 	action: "editPosition"
-	doubleClick: -> 
-		@sendAction 'action',@position
 
-	attributeBindings: ['data-sizex','data-sizey','data-row','data-col']
+	doubleClick: -> 
+		Ember.$(@element).focus()
+		@isEditing = true
+	focusOut: -> @isEditing = false
+
+	attributeBindings: ['data-sizex','data-sizey','data-row','data-col','tabindex']
 	"data-sizex": ~> @position.colSpan
 	"data-sizey": ~> @position.rowSpan
 	"data-row": ~> @position.row
 	"data-col": ~> @position.col
+	tabindex: 0
 
 	gridster: ~> @parentView.gridster
 

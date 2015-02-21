@@ -1,1 +1,8 @@
-equation-renderer block=position.block
+if isEditing
+	.block-menu
+		button.btn.btn-default
+			i.fa.fa-trash
+if position.block
+	if position.block.question
+		.question-number: position.questionNumber
+	equation-renderer block=position.block position=position

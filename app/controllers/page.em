@@ -7,9 +7,6 @@ class PageController extends Ember.Controller
 		newDirections: -> 
 			pos = @store.createRecord 'position',{page:@model,question:false,rowSpan:2,colSpan:4}
 			@model.stablePositions.addObject pos
-		editBlock: (position) -> 
-			@controllers.block.originPageModel = @model
-			@transitionToRoute 'block',position.block
 		newPage: ->
 			@store.createRecord('page', {document:@model.document}).save().then (response) =>
 				@transitionToRoute 'page',response

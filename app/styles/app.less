@@ -12,6 +12,12 @@
 @brand-primary: @orange;
 @brand-warning: @yellow;
 
+.position-renderer:focus {
+    border-color:transparent;
+    box-shadow:transparent;
+    outline:0 none;
+}
+
 body {
     font-size: 16px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -20,18 +26,27 @@ body {
     padding:20px;
 }
 
-img.fraction {
-    width:24px;
-    height:22px;
+.block-menu {
+    position:absolute;
+    left:-20px;
+    z-index:100;
 }
-img.sqrt {
-    height:22px;
-    width:34px;
+
+.question-number {
+    display: inline-block;
+    vertical-align:top;
+    padding-right: 2px;
 }
 
 .mathquill-editable {
     border-color:transparent;
     overflow:hidden;
+}
+
+.equation-renderer-container {
+    display: inline-block;
+    vertical-align:top;
+    margin-top:-3px;
 }
 
 .equationEditorMenu {
@@ -42,7 +57,7 @@ img.sqrt {
     button {
         .btn;
         width:22px;
-        .btn-primary;
+        .btn-default;
         img {
             height:10px;
         }        

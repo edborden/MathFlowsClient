@@ -2,14 +2,23 @@ class EquationRendererComponent extends Ember.Component
 
 	block:null
 
+	classNames: ['equation-renderer-container']
+
 	layoutName: 'components/equation-renderer'
 
 	mathquill: ~>
 		Ember.$(@element).children().first().mathquill('textbox')
 
 	didInsertElement: ->
+		@setWidth()
 		@mathquill.mathquill('latex',@block.content)
 		Ember.$('.cursor').remove()
+
+	setWidth: ->
+		thisJq = Ember.$(@element)
+		parentWidth = @position.width
+		pageNumberWidth = thisJq.parent().children().first().outerWidth()
+		thisJq.width(parentWidth-pageNumberWidth)
 
 	actions:
 		insertLatex: (latex) ->
