@@ -53,7 +53,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks().then -> obj.rerender()
+		obj.syncChangedBlocks().then -> obj.page.document.refreshQuestionNumbers()
 				
 	syncChangedBlocks: ->
 		promiseArray = []

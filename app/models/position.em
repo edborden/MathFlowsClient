@@ -14,7 +14,10 @@ class Position extends DS.Model
 	block: DS.belongsTo 'block'
 	page: DS.belongsTo 'page'
 
-	blockQuestion: ~> @block.question
+	questionBlock: ~> @block.question
+
+	questionNumber: ~> 
+		@page.document.questionPositionsSorted.indexOf(@) + 1 + "."
 
 	question: attr() #proxy for block in API#BlockController#Create
 
