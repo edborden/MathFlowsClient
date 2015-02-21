@@ -13,10 +13,13 @@ class Document extends DS.Model
 	name: ~> "Version " + @number
 	copyFrom: DS.belongsTo 'document'
 
-	+volatile
-	questionBlocksSorted: -> 
-		questionPositionsSorted = @pages.getEach 'questionPositionsSorted'
-		questionPositionsSorted = [].concat.apply [], questionPositionsSorted
-		questionPositionsSorted.getEach 'block'
+	refreshQuestionNumbers: ->
+		@notifyPropertyChange 'questionPositionsSorted'
+		@pages.forEach (page) -> page.refreshQuestionNumbers()
 
+	questionPositionsSorted: ~> 
+		allPositions = @pages.getEach 'stablePositions'
+		allPositionsFlat = [].concat.apply [], allPositions
+		questionPositionsSorted = allPositionsFlat.filterBy('questionBlock').sortBy 'pageNumber','row','col'
+		
 `export default Document`
