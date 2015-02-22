@@ -2,12 +2,12 @@
 	span
 		span.tree-caret click="toggle"
 			if expanded
-				i.fa.fa-caret-down
+				i.fa-caret-down
 			else
-				i.fa.fa-caret-right
+				i.fa-caret-right
 		span
 			if iconName
-				i.fa class=iconName
+				i class=iconName
 		mouse-over model=model
 	if expanded
 		div.indented = yield

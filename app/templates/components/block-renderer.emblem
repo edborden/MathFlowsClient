@@ -1,7 +1,18 @@
 if isEditing
 	.block-menu
-		button.btn.btn-default
-			i.fa.fa-trash
+		button click="deleteBlock"
+			i.fa-trash
+		if position.questionBlock
+			button click="deleteNumber"
+				span.fa-stack
+					span.fa-stack-1x.bigger #
+					i.fa-ban.fa-stack-2x.text-danger
+		else
+			button.bigger click="addNumber"
+				span #
+		file-picker fileLoaded="fileLoaded" preview=false readAs="readAsDataURL"
+			button.btn.btn-default
+				i.fa-image	
 if position.block
 	if position.block.question
 		.question-number: position.questionNumber

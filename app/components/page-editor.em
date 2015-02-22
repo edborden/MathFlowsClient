@@ -53,7 +53,9 @@ class PageEditorComponent extends Ember.Component with ElRegister
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks().then -> obj.page.document.refreshQuestionNumbers()
+		obj.syncChangedBlocks().then -> 
+			obj.page.document.refreshQuestionNumbers()
+			obj.rerender()
 				
 	syncChangedBlocks: ->
 		promiseArray = []
@@ -77,8 +79,19 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	rowIsDiff: (el,obj) -> obj.row isnt parseInt $(el).attr('data-row')
 	colIsDiff: (el,obj) -> obj.col isnt parseInt $(el).attr('data-col')
 
+	deleteBlock: 'deleteBlock'
+	addNumber: 'addNumber'
+	deleteNumber: 'deleteNumber'
 	actions:
-		editWidget: (widget) ->
-			@sendAction 'action',widget
+		deleteBlock: (block) ->
+			@sendAction 'deleteBlock',block
+			@page.document.refreshQuestionNumbers()
+		addNumber: (block) ->
+			block.question = true
+			block.save()
+			@page.document.refreshQuestionNumbers()
+			@rerender()
+		deleteNumber: (block) ->
+			@sendAction 'deleteNumber',block
 
 `export default PageEditorComponent`

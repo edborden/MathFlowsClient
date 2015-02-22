@@ -33,7 +33,9 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 		@_super()
 		if @position.isNew
 			@addToGrid()
-			@syncAttrsToEl().then => @page.reloadOtherDocuments() if @page.isPage
+			@syncAttrsToEl().then => 
+				@page.reloadOtherDocuments()
+				@page.document.refreshQuestionNumbers()
 				
 	syncAttrsToEl: ->
 		return new Ember.RSVP.Promise (resolve) =>
@@ -44,5 +46,16 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@position.save().then -> resolve()
 
 	addToGrid: -> @gridster.add_widget @element,parseInt(@position.colSpan),parseInt(@position.rowSpan)
+
+	deleteBlock: 'deleteBlock'
+	addNumber: 'addNumber'
+	deleteNumber: 'deleteNumber'
+	actions:
+		deleteBlock: ->
+			@sendAction 'deleteBlock',@position.block
+		addNumber: ->
+			@sendAction 'addNumber',@position.block
+		deleteNumber: ->
+			@sendAction 'deleteNumber',@position.block
 
 `export default PositionRendererComponent`

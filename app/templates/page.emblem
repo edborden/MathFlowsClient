@@ -14,21 +14,13 @@
 						|Account&nbsp;&nbsp;
 						i.fa-user			
 			p 
-				button.btn.btn-default click="newQuestion"
-					|Add Question&nbsp;&nbsp;
+				button.btn.btn-default click="addBlock"
+					|Add Block&nbsp;&nbsp;
 					i.fa-plus
 			p 
-				button.btn.btn-default click="newDirections"
-					|Add Directions&nbsp;&nbsp;
-					i.fa-plus
-			p 
-				button.btn.btn-default click="newPage"
+				button.btn.btn-default click="addPage"
 					|Add Page&nbsp;&nbsp;
 					i.fa-plus
-			p 
-				button.btn.btn-default click="removePage"
-					|Delete Page&nbsp;&nbsp;
-					i.fa-minus
 			p
 				a.btn.btn-default.btn-sm href=model.pdfLink 
 					|Get PDF&nbsp;&nbsp;
@@ -40,6 +32,11 @@
 						link-to "page" page class="btn btn-warning"
 							|Page&nbsp;
 							page.number
+				hr
+				p 
+					button.btn.btn-default click="deletePage"
+						|Delete Page&nbsp;&nbsp;
+						i.fa-minus
 		.col-xs-10
 			if model.isLoaded
 				page-editor page=model

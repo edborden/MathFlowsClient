@@ -18,6 +18,8 @@
     outline:0 none;
 }
 
+i {.fa;}
+
 body {
     font-size: 16px;
     font-family: 'Helvetica Neue', Arial, sans-serif;
@@ -26,10 +28,28 @@ body {
     padding:20px;
 }
 
+.bigger {
+    font-size:110%;
+    font-weight: bold;
+}
+
 .block-menu {
+    .btn-group-vertical;
     position:absolute;
-    left:-20px;
+    left:-28px;
     z-index:100;
+    button {
+        .btn;
+        .btn-default;
+        width:22px;
+    }
+    .fa-stack {
+        font-size:75%;
+        .bigger {
+            font-size: 150%;
+            font-weight: bold;
+        }
+    }
 }
 
 .question-number {
@@ -119,9 +139,6 @@ span.doc-icon {
     .btn {
         .btn-xs;
         width:115px;
-        i {
-            .fa;
-        }
     }
 }
 

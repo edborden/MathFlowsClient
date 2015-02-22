@@ -24,15 +24,15 @@
 								each document in flow.documents
 									.tree-spacing
 										span.doc-icon
-											i.fa.fa-file-o
+											i.fa-file-o
 										doc-over model=document
 							else
 								.tree-spacing: button.btn.btn-primary.btn-xs click="newDoc flow"
 									|Create Document&nbsp;&nbsp;
-									i.fa.fa-plus
+									i.fa-plus
 					.indented.tree-spacing: button.btn.btn-primary.btn-xs click="newFlow folder"
 						|New Flow&nbsp;&nbsp;
-						i.fa.fa-plus
+						i.fa-plus
 
 		.col-xs-4
 			/.side-nav
