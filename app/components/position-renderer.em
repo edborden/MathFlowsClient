@@ -50,6 +50,7 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 	deleteBlock: 'deleteBlock'
 	addNumber: 'addNumber'
 	deleteNumber: 'deleteNumber'
+	addImage: 'addImage'
 	actions:
 		deleteBlock: ->
 			@sendAction 'deleteBlock',@position.block
@@ -57,5 +58,10 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@sendAction 'addNumber',@position.block
 		deleteNumber: ->
 			@sendAction 'deleteNumber',@position.block
+		fileLoaded: (file) ->
+			params =
+				image: file.data
+				block: @model
+			@send 'addImage',params
 
 `export default PositionRendererComponent`

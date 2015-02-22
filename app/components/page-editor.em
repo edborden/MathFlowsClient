@@ -7,12 +7,12 @@ class PageEditorComponent extends Ember.Component with ElRegister
 
 	pageLayout: ~> @page.layout
 
-	cols: ~> @pageLayout.page_cols
+	cols: ~> @pageLayout.cols
 	widgetMargin: ~> @pageLayout.gridsterInsideMargin
-	widgetBaseWidth: ~> @pageLayout.pageColWidth
-	widgetBaseHeight: ~> @pageLayout.pageRowHeight
-	height: ~> @pageLayout.pageHeight
-	width: ~> @pageLayout.pageWidth
+	widgetBaseWidth: ~> @pageLayout.colWidth
+	widgetBaseHeight: ~> @pageLayout.rowHeight
+	height: ~> @pageLayout.height
+	width: ~> @pageLayout.width
 	padding: ~> @pageLayout.gridsterOutsideMargin
 
 	classNames: ['grid-editor','gridster']

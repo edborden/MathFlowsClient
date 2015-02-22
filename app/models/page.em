@@ -6,8 +6,20 @@ class Page extends DS.Model
 	pdfLink: ~> @document.pdfLink
 	number: ~> @document.pages.indexOf(@) + 1
 
-	isPage:true
 	positions: DS.hasMany 'position'
+
+	reloadOtherDocuments: ->
+		otherDocuments = @document.flow.documents.filter (document) => document isnt @document
+		otherDocuments.forEach (document) -> 
+			document.reload().then (document) -> 
+				document.pages.forEach (page) ->
+					page.syncStablePositions()
+
+	refreshQuestionNumbers: ->
+		@stablePositions.forEach (position) -> position.notifyPropertyChange 'questionNumber'
+
+	## TEMPORARY FIX FOR EMBER DATA WONKINESS. HAS_MANY RELATIONSHIPS RELOAD ON ANY CHANGE CAUSING VIEWS TO RE-RENDER, BREAKING GRIDSTER.
+	stablePositions: null
 
 	loadedPositions:false
 
@@ -19,20 +31,8 @@ class Page extends DS.Model
 				@stablePositions.addObjects @positions
 				@loadedPositions = true
 
-	refreshQuestionNumbers: ->
-		@stablePositions.forEach (position) -> position.notifyPropertyChange 'questionNumber'
-
-	stablePositions: null
-
 	syncStablePositions: ->
 		@positions.forEach (position) =>
 			@stablePositions.addObject position unless @stablePositions.contains position
-
-	reloadOtherDocuments: ->
-		otherDocuments = @document.flow.documents.filter (document) => document isnt @document
-		otherDocuments.forEach (document) -> 
-			document.reload().then (document) -> 
-				document.pages.forEach (page) ->
-					page.syncStablePositions()
-
+	##
 `export default Page`

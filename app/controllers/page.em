@@ -13,7 +13,7 @@ class PageController extends Ember.Controller
 				else
 					@send 'newPage'
 		addBlock: -> 
-			pos = @store.createRecord('position',{page:@model,question:true,rowSpan:3,colSpan:2})
+			pos = @store.createRecord('position',{page:@model,rowSpan:3,colSpan:2})
 			@model.stablePositions.addObject pos
 		deleteBlock: (block) ->
 			block.positions.forEach (position) -> 

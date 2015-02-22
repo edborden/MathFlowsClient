@@ -2,17 +2,15 @@ attr = DS.attr
 
 class Layout extends DS.Model
 
-	pageCols: attr "number"
-	pageRowHeight: attr "number"
-	pageColWidth: attr "number"
-	pageWidth: attr "number"
-	pageHeight: attr "number"
-	pageOutsideMargin: attr "number"
-	pageInsideMargin: attr "number"
-	blockCols: attr "number"
-	blockRowHeight: attr "number"
+	cols: attr "number"
+	rowHeight: attr "number"
+	colWidth: attr "number"
+	width: attr "number"
+	height: attr "number"
+	outsideMargin: attr "number"
+	insideMargin: attr "number"
 
-	gridsterOutsideMargin: ~> @pageOutsideMargin - @gridsterInsideMargin
-	gridsterInsideMargin: ~> @pageInsideMargin / 2
+	gridsterOutsideMargin: ~> @outsideMargin - @gridsterInsideMargin
+	gridsterInsideMargin: ~> @insideMargin / 2
 
 `export default Layout`

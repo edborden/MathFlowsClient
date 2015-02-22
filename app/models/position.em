@@ -19,6 +19,4 @@ class Position extends DS.Model
 	questionNumber: ~> 
 		@page.document.questionPositionsSorted.indexOf(@) + 1 + "."
 
-	question: attr() #proxy for block in API#BlockController#Create
-
 `export default Position`
