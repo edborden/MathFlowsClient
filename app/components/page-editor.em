@@ -81,7 +81,8 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	deleteBlock: 'deleteBlock'
 	addNumber: 'addNumber'
 	deleteNumber: 'deleteNumber'
-	addImage: 'addImage'	
+	addImage: 'addImage'
+	openModal: 'openModal'
 	actions:
 		deleteBlock: (block) ->
 			@sendAction 'deleteBlock',block
@@ -95,5 +96,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			@sendAction 'deleteNumber',block
 		addImage: (params) ->
 			@sendAction 'addImage',params
+		openGraphModal: (block) ->
+			@sendAction 'openModal','modal/graph',block
 
 `export default PageEditorComponent`

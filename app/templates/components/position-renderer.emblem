@@ -12,6 +12,8 @@ if isEditing
 				span #
 		button click="openFileDialog"
 			i.fa-image	
+		button click="openGraphModal"
+			i.fa-line-chart	
 
 if position.block
 	if position.block.question

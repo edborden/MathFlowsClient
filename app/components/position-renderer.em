@@ -53,6 +53,7 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 	addNumber: 'addNumber'
 	deleteNumber: 'deleteNumber'
 	addImage: 'addImage'
+	openGraphModal: 'openGraphModal'
 	actions:
 		deleteBlock: ->
 			@sendAction 'deleteBlock',@position.block
@@ -65,6 +66,8 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@sendAction 'addImage',file
 		openFileDialog: ->
 			@filePickerInput.click()
+		openGraphModal: ->
+			@sendAction 'openGraphModal',@position.block
 
 	readFile: (event) ->
 		file = event.target.files[0]

@@ -1,0 +1,2 @@
+modal-dialog ok="screenshot" close="closeModal" class="calculator-modal" large=true
+	graph-maker
