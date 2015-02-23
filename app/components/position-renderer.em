@@ -2,21 +2,18 @@
 
 class PositionRendererComponent extends Ember.Component with ElRegister
 
-	isEditing: false
-
 	classNames: ['position-renderer']
-
-	layoutName: "components/block-renderer"
 	tagName: 'li'
-
 	page: ~> @position.page
 
+	isEditing: false
 	action: "editPosition"
-
 	doubleClick: -> 
 		Ember.$(@element).focus()
 		@isEditing = true
 	focusOut: -> @isEditing = false
+
+	filePickerInput: ~> Ember.$(@element).children('.file-picker')
 
 	attributeBindings: ['data-sizex','data-sizey','data-row','data-col','tabindex']
 	"data-sizex": ~> @position.colSpan
@@ -31,11 +28,16 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 
 	didInsertElement: ->
 		@_super()
+		@filePickerInput.hide()
 		if @position.isNew
 			@addToGrid()
 			@syncAttrsToEl().then => 
 				@page.reloadOtherDocuments()
 				@page.document.refreshQuestionNumbers()
+		@filePickerInput.on 'change', @readFile.bind(this)
+
+	willDestroyElement: ->
+		@filePickerInput.off 'change', @readFile.bind(this)
 				
 	syncAttrsToEl: ->
 		return new Ember.RSVP.Promise (resolve) =>
@@ -59,9 +61,21 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 		deleteNumber: ->
 			@sendAction 'deleteNumber',@position.block
 		fileLoaded: (file) ->
-			params =
-				image: file.data
-				block: @model
-			@send 'addImage',params
+			file.block = @position.block
+			@sendAction 'addImage',file
+		openFileDialog: ->
+			@filePickerInput.click()
+
+	readFile: (event) ->
+		file = event.target.files[0]
+		reader = new FileReader()
+
+		reader.onload = (event) =>
+			@send 'fileLoaded',
+				type: file.type
+				binary: event.target.result
+				size: file.size
+
+		reader.readAsDataURL file
 
 `export default PositionRendererComponent`

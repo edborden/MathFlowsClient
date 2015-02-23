@@ -1,6 +1,5 @@
 class TreeAccordianComponent extends Ember.Component
 
-	layoutName: 'components/tree-accordian'
 	expanded:false
 	iconName:null
 	mouseOver: false

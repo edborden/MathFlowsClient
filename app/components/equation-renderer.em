@@ -1,10 +1,9 @@
 class EquationRendererComponent extends Ember.Component
-
-	block:null
-
+	
 	classNames: ['equation-renderer-container']
 
-	layoutName: 'components/equation-renderer'
+	position:null
+	block: ~> @position.block
 
 	mathquill: ~>
 		Ember.$(@element).children().first().mathquill('textbox')

@@ -10,10 +10,13 @@ if isEditing
 		else
 			button.bigger click="addNumber"
 				span #
-		file-picker fileLoaded="fileLoaded" preview=false readAs="readAsDataURL"
-			button.btn.btn-default
-				i.fa-image	
+		button click="openFileDialog"
+			i.fa-image	
+
 if position.block
 	if position.block.question
 		.question-number: position.questionNumber
-	equation-renderer block=position.block position=position
+	equation-renderer position=position
+	if position.block.images
+		img.img-responsive src=position.block.images.firstObject.binary
+	input.file-picker type="file" value=file accept=accept

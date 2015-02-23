@@ -7,5 +7,6 @@ class Block extends DS.Model
 	user: DS.belongsTo 'user'
 	question: attr "boolean"
 	content: attr()
+	images: DS.hasMany 'image'
 
 `export default Block`

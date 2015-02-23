@@ -3,8 +3,6 @@
 
 class InviteBoxComponent extends Ember.Component with EmberValidations.Mixin
 
-	layoutName: 'components/invite-box'
-
 	validations:
 		email:
 			format: 

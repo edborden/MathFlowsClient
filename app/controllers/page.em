@@ -29,5 +29,7 @@ class PageController extends Ember.Controller
 			block.question = false
 			block.save()
 			@model.document.refreshQuestionNumbers()
+		addImage: (params) ->
+			@store.createRecord('image',params).save()
 
 `export default PageController`

@@ -16,7 +16,6 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	padding: ~> @pageLayout.gridsterOutsideMargin
 
 	classNames: ['grid-editor','gridster']
-	layoutName: 'components/page-editor'
 	gridster: null
 
 	attributeBindings: ['style']
@@ -82,6 +81,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	deleteBlock: 'deleteBlock'
 	addNumber: 'addNumber'
 	deleteNumber: 'deleteNumber'
+	addImage: 'addImage'	
 	actions:
 		deleteBlock: (block) ->
 			@sendAction 'deleteBlock',block
@@ -93,5 +93,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			@rerender()
 		deleteNumber: (block) ->
 			@sendAction 'deleteNumber',block
+		addImage: (params) ->
+			@sendAction 'addImage',params
 
 `export default PageEditorComponent`
