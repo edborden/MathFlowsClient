@@ -20,5 +20,5 @@ if position.block
 		.question-number: position.questionNumber
 	equation-renderer position=position
 	if position.block.images
-		img.img-responsive src=position.block.images.firstObject.binary
+		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=position.block.images.firstObject
 	input.file-picker type="file" value=file accept=accept

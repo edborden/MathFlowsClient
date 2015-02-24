@@ -12,12 +12,15 @@ class EquationRendererComponent extends Ember.Component
 		@setWidth()
 		@mathquill.mathquill('latex',@block.content)
 		Ember.$('.cursor').remove()
+		@sendAction 'setEquationContainerHeight',Ember.$(@element).height()
 
 	setWidth: ->
 		thisJq = Ember.$(@element)
 		parentWidth = @position.width
 		pageNumberWidth = thisJq.parent().children().first().outerWidth()
 		thisJq.width(parentWidth-pageNumberWidth)
+
+	setEquationContainerHeight: 'setEquationContainerHeight'
 
 	actions:
 		insertLatex: (latex) ->
@@ -33,6 +36,9 @@ class EquationRendererComponent extends Ember.Component
 	keyDown: -> 
 		@checkIfInsideEquation()
 		true
+
+	#checkIfHeightChanged: ->
+	#	Ember.$(@element).outerHeight()
 
 	checkIfInsideEquation: ->
 		if Ember.$('.hasCursor').hasClass('mathquill-rendered-math') or Ember.$('.hasCursor').parents('.mathquill-rendered-math').length isnt 0

@@ -12,6 +12,14 @@
 @brand-primary: @orange;
 @brand-warning: @yellow;
 
+img.block-image {
+    width: auto;
+    height: auto;
+    position:absolute;
+    right:0px;
+    bottom:0px;
+}
+
 .position-renderer:focus {
     border-color:transparent;
     box-shadow:transparent;
@@ -66,12 +74,13 @@ body {
 .mathquill-editable {
     border-color:transparent;
     overflow:hidden;
+    padding:0px;
 }
 
 .equation-renderer-container {
     display: inline-block;
     vertical-align:top;
-    margin-top:-3px;
+    margin-top:-1px;
 }
 
 .equationEditorMenu {

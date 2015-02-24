@@ -6,8 +6,6 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 	tagName: 'li'
 	page: ~> @position.page
 
-	isEditing: false
-	action: "editPosition"
 	doubleClick: -> 
 		Ember.$(@element).focus()
 		@isEditing = true
@@ -68,6 +66,7 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@filePickerInput.click()
 		openGraphModal: ->
 			@sendAction 'openGraphModal',@position.block
+		setEquationContainerHeight: (height) -> @equationContainerHeight = height
 
 	readFile: (event) ->
 		file = event.target.files[0]
@@ -80,5 +79,13 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 				size: file.size
 
 		reader.readAsDataURL file
+
+	equationContainerHeight: 0
+
+	availableImageHeight: ~>
+		@position.height - @equationContainerHeight
+
+	availableImageWidth: ~>
+		@position.width
 
 `export default PositionRendererComponent`
