@@ -6,7 +6,7 @@ class User extends DS.Model
 	pic: attr()
 	folders: DS.hasMany 'folder'
 	guest: attr()
-	header: DS.belongsTo 'block'
+	headers: DS.hasMany 'position'
 	headerPosition: DS.belongsTo 'position'
 	group: DS.belongsTo 'group'
 

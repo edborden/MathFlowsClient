@@ -11,6 +11,7 @@ class Position extends DS.Model
 	width: attr "number"
 	height: attr "number"
 
+	user: DS.belongsTo 'user', {inverse: 'headers'}
 	block: DS.belongsTo 'block'
 	page: DS.belongsTo 'page'
 
