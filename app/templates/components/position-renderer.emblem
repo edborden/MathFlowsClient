@@ -19,6 +19,6 @@ if position.block
 	if position.block.question
 		.question-number: position.questionNumber
 	equation-renderer position=position
-	if position.block.images
-		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=position.block.images.firstObject
-	input.file-picker type="file" value=file accept=accept
+	if position.block.image
+		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=position.block.image
+	input.file-picker type="file" accept="image/*"

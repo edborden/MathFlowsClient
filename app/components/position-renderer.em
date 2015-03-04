@@ -1,4 +1,5 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
+`import Notify from 'ember-notify'`
 
 class PositionRendererComponent extends Ember.Component with ElRegister
 
@@ -59,9 +60,9 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@sendAction 'addNumber',@position.block
 		deleteNumber: ->
 			@sendAction 'deleteNumber',@position.block
-		fileLoaded: (file) ->
-			file.block = @position.block
-			@sendAction 'addImage',file
+		imageLoaded: (file) ->
+				file.block = @position.block
+				@sendAction 'addImage',file
 		openFileDialog: ->
 			@filePickerInput.click()
 		openGraphModal: ->
@@ -71,21 +72,20 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 	readFile: (event) ->
 		file = event.target.files[0]
 		reader = new FileReader()
-
-		reader.onload = (event) =>
-			@send 'fileLoaded',
-				type: file.type
-				binary: event.target.result
-				size: file.size
-
-		reader.readAsDataURL file
+		if file.type.slice(0,5) is 'image'
+			reader.onload = (event) =>
+				@send 'imageLoaded',
+					ext: file.type
+					binary: event.target.result
+					block: @position.block
+			reader.readAsDataURL file
+		else
+			Notify.warning "The file you choose must be an image."
 
 	equationContainerHeight: 0
 
-	availableImageHeight: ~>
-		@position.height - @equationContainerHeight
+	availableImageHeight: ~> @position.height - @equationContainerHeight
 
-	availableImageWidth: ~>
-		@position.width
+	availableImageWidth: ~> @position.width
 
 `export default PositionRendererComponent`

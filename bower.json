@@ -21,6 +21,7 @@
     "handlebars": "2.0.0"
   },
   "devDependencies": {
-    "keen-js": "~3.2.2"
+    "keen-js": "~3.2.2",
+    "cloudinary_js": "~1.0.22"
   }
 }

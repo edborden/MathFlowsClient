@@ -27,6 +27,7 @@ class ApplicationRoute extends Ember.Route
 				outlet: 'modal'
 				parentView: 'application'
 		addImage: (params) ->
-			@store.createRecord('image',params).save()
+			model = @store.createRecord 'image',params
+			model.setDimensions().then -> model.validate().then -> model.save()
 
 `export default ApplicationRoute`

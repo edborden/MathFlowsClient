@@ -30,4 +30,10 @@ var mathQuillFonts = pickFiles('vendor/mathquill/font', {
 	destDir: '/fonts'
 });
 
+// Resize
+app.import('vendor/js-image-resize/resize.js');
+
+// Cloudinary
+app.import('bower_components/cloudinary_js/js/jquery.cloudiary.js');
+
 module.exports = mergeTrees([app.toTree(),fontAwesomeFonts,mathQuillFonts]);

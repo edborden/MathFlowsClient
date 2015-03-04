@@ -6,6 +6,6 @@ class Block extends DS.Model
 	layout: ~> @session.me.layout
 	question: attr "boolean"
 	content: attr()
-	images: DS.hasMany 'image'
+	image: DS.belongsTo 'image'
 
 `export default Block`
