@@ -44,11 +44,14 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 	deleteBlock: 'deleteBlock'
 	addNumber: 'addNumber'
 	deleteNumber: 'deleteNumber'
+	deleteImage: 'deleteImage'
 	addImage: 'addImage'
 	openGraphModal: 'openGraphModal'
 	actions:
 		deleteBlock: ->
 			@sendAction 'deleteBlock',@position.block
+		deleteImage: ->
+			@sendAction 'deleteImage',@position.block
 		addNumber: ->
 			@sendAction 'addNumber',@position.block
 		deleteNumber: ->

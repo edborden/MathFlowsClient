@@ -4,16 +4,20 @@ if isEditing
 			i.fa-trash
 		if position.questionBlock
 			button click="deleteNumber"
-				span.fa-stack
-					span.fa-stack-1x.bigger #
-					i.fa-ban.fa-stack-2x.text-danger
+				i.remove-overlay.fa-times
+				span.bigger #
 		else
 			button.bigger click="addNumber"
 				span #
-		button click="openFileDialog"
-			i.fa-image	
-		button click="openGraphModal"
-			i.fa-line-chart	
+		if position.block.image
+			button click="deleteImage"
+				i.remove-overlay.fa-times
+				i.fa-image	
+		else
+			button click="openFileDialog"
+				i.fa-image	
+			button click="openGraphModal"
+				i.fa-line-chart	
 
 if position.block
 	if position.block.question

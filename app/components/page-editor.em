@@ -79,6 +79,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	colIsDiff: (el,obj) -> obj.col isnt parseInt $(el).attr('data-col')
 
 	deleteBlock: 'deleteBlock'
+	deleteImage: 'deleteImage'
 	addNumber: 'addNumber'
 	deleteNumber: 'deleteNumber'
 	addImage: 'addImage'
@@ -92,6 +93,8 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			block.save()
 			@page.document.refreshQuestionNumbers()
 			@rerender()
+		deleteImage: (block) ->
+			@sendAction 'deleteImage',block
 		deleteNumber: (block) ->
 			@sendAction 'deleteNumber',block
 		addImage: (params) ->
