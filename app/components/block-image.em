@@ -6,6 +6,6 @@ class BlockImageComponent extends Ember.Component
 
 	style: ~> "max-height:#{@availableHeight}px;max-width:#{@availableWidth}px"
 
-	src: ~> @image.binary
+	src: ~> "http://res.cloudinary.com/hmb9zxcjb/image/upload/" + @image.cloudinaryId
 
 `export default BlockImageComponent`

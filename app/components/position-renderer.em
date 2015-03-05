@@ -12,8 +12,6 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 		@isEditing = true
 	focusOut: -> @isEditing = false
 
-	filePickerInput: ~> Ember.$(@element).children('.file-picker')
-
 	attributeBindings: ['data-sizex','data-sizey','data-row','data-col','tabindex']
 	"data-sizex": ~> @position.colSpan
 	"data-sizey": ~> @position.rowSpan
@@ -27,16 +25,11 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 
 	didInsertElement: ->
 		@_super()
-		@filePickerInput.hide()
 		if @position.isNew
 			@addToGrid()
 			@syncAttrsToEl().then => 
 				@page.reloadOtherDocuments()
 				@page.document.refreshQuestionNumbers()
-		@filePickerInput.on 'change', @readFile.bind(this)
-
-	willDestroyElement: ->
-		@filePickerInput.off 'change', @readFile.bind(this)
 				
 	syncAttrsToEl: ->
 		return new Ember.RSVP.Promise (resolve) =>
@@ -60,27 +53,16 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@sendAction 'addNumber',@position.block
 		deleteNumber: ->
 			@sendAction 'deleteNumber',@position.block
-		imageLoaded: (file) ->
-				file.block = @position.block
-				@sendAction 'addImage',file
 		openFileDialog: ->
-			@filePickerInput.click()
+			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',sources:['local', 'url',],show_powered_by:false}, (error, result) => 
+				@sendAction 'addImage',
+					block: @position.block
+					cloudinaryId: result[0].public_id
+					width: result[0].width
+					height: result[0].height
 		openGraphModal: ->
 			@sendAction 'openGraphModal',@position.block
 		setEquationContainerHeight: (height) -> @equationContainerHeight = height
-
-	readFile: (event) ->
-		file = event.target.files[0]
-		reader = new FileReader()
-		if file.type.slice(0,5) is 'image'
-			reader.onload = (event) =>
-				@send 'imageLoaded',
-					ext: file.type
-					binary: event.target.result
-					block: @position.block
-			reader.readAsDataURL file
-		else
-			Notify.warning "The file you choose must be an image."
 
 	equationContainerHeight: 0
 

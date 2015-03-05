@@ -21,4 +21,3 @@ if position.block
 	equation-renderer position=position
 	if position.block.image
 		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=position.block.image
-	input.file-picker type="file" accept="image/*"
