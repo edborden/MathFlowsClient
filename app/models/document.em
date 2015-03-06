@@ -5,20 +5,21 @@ attr = DS.attr
 class Document extends DS.Model
 
 	pages: DS.hasMany 'page'
+	stablePages: ~> @pages.rejectBy 'isDeleted' #https://github.com/emberjs/data/issues/2666
 	flow: DS.belongsTo 'flow'
 	pdfLink: ~> config.apiHostName+'/documents/'+@id+'.pdf?token='+@session.token
 	layout: ~> @flow.layout
-	multiplePages: ~> @pages.length > 1
-	number: ~> @flow.documents.indexOf(@) + 1
+	multiplePages: ~> @stablePages.length > 1
+	number: ~> @flow.stableDocuments.indexOf(@) + 1
 	name: ~> "Version " + @number
 	copyFrom: DS.belongsTo 'document'
 
 	refreshQuestionNumbers: ->
 		@notifyPropertyChange 'questionPositionsSorted'
-		@pages.forEach (page) -> page.refreshQuestionNumbers()
+		@stablePages.forEach (page) -> page.refreshQuestionNumbers()
 
 	questionPositionsSorted: ~> 
-		allPositions = @pages.getEach 'stablePositions'
+		allPositions = @stablePages.getEach 'stablePositions'
 		allPositionsFlat = [].concat.apply [], allPositions
 		questionPositionsSorted = allPositionsFlat.filterBy('questionBlock').sortBy 'pageNumber','row','col'
 		

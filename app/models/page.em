@@ -4,15 +4,15 @@ class Page extends DS.Model
 	layout: DS.belongsTo 'layout'
 	document: DS.belongsTo 'document'
 	pdfLink: ~> @document.pdfLink
-	number: ~> @document.pages.indexOf(@) + 1
+	number: ~> @document.stablePages.indexOf(@) + 1
 
 	positions: DS.hasMany 'position'
 
 	reloadOtherDocuments: ->
-		otherDocuments = @document.flow.documents.filter (document) => document isnt @document
+		otherDocuments = @document.flow.stableDocuments.filter (document) => document isnt @document
 		otherDocuments.forEach (document) -> 
 			document.reload().then (document) -> 
-				document.pages.forEach (page) ->
+				document.stablePages.forEach (page) ->
 					page.syncStablePositions()
 
 	refreshQuestionNumbers: ->

@@ -16,12 +16,12 @@
 			.text-center
 				img.profile-pic src=model.pic
 				span.name = model.name
-			each folder in model.folders
+			each folder in model.stableFolders
 				tree-accordian model=folder iconName="fa-archive"
-					each flow in folder.flows
+					each flow in folder.stableFlows
 						tree-accordian model=flow iconName="fa-th-large"
-							if flow.documents
-								each document in flow.documents
+							if flow.stableDocuments
+								each document in flow.stableDocuments
 									.tree-spacing
 										span.doc-icon
 											i.fa-file-o

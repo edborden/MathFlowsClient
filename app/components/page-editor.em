@@ -35,6 +35,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 				stop: @runSync
 		).data 'gridster'
 		@setUnpositionedWidgets()
+		@sendAction 'registerEditor',@
 
 	setUnpositionedWidgets: ->
 		@unpositionedWidgets.forEach (el) =>
@@ -84,6 +85,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	deleteNumber: 'deleteNumber'
 	addImage: 'addImage'
 	openModal: 'openModal'
+	registerEditor: 'registerEditor'
 	actions:
 		deleteBlock: (block) ->
 			@sendAction 'deleteBlock',block

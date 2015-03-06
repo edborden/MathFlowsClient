@@ -7,8 +7,8 @@ class DocOverComponent extends MouseOverComponent
 
 	actions:
 		editClicked: -> 
-			@sendAction 'action', @tree
+			@sendAction 'action', @model
 		copyClicked: ->
-			@sendAction 'copyAction',@tree
+			@sendAction 'copyAction',@model
 			
 `export default DocOverComponent`

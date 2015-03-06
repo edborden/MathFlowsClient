@@ -5,6 +5,7 @@ class User extends DS.Model
 	name: attr()
 	pic: attr()
 	folders: DS.hasMany 'folder'
+	stableFolders: ~> @folders.rejectBy 'isDeleted' #https://github.com/emberjs/data/issues/2666
 	guest: attr()
 	headers: DS.hasMany 'position'
 	headerPosition: DS.belongsTo 'position'

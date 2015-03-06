@@ -10,6 +10,7 @@ class Position extends DS.Model
 	colWidth: ~> @width / 16
 	width: attr "number"
 	height: attr "number"
+	pageNumber: ~> @page.number
 
 	user: DS.belongsTo 'user', {inverse: 'headers'}
 	block: DS.belongsTo 'block'

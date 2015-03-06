@@ -4,6 +4,7 @@ class MouseOverComponent extends Ember.Component
 	classNames: ['inline']
 	isEditing:false
 	showEdit: ~> not @isEditing and @mouseOver
+	layoutName: 'components/mouse-over'
 
 	mouseEnter: -> 
 		@mouseOver = true

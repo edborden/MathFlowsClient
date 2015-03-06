@@ -27,7 +27,7 @@
 					i.fa-download
 			if model.document.multiplePages
 				hr
-				each page in model.document.pages
+				each page in model.document.stablePages
 					p 
 						link-to "page" page class="btn btn-warning"
 							|Page&nbsp;

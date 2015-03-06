@@ -6,12 +6,12 @@ class PageController extends Ember.Controller
 				@transitionToRoute 'page',response
 		deletePage: ->
 			document = @model.document
-			@model.destroyRecord().then =>
-				firstPage = document.pages.firstObject
-				if firstPage?
-					@transitionToRoute 'page',firstPage
-				else
-					@send 'newPage'
+			@model.destroyRecord()
+			firstPage = document.pages.firstObject
+			if firstPage?
+				@transitionToRoute 'page',firstPage
+			else
+				@send 'newPage'
 		addBlock: -> 
 			pos = @store.createRecord('position',{page:@model,rowSpan:3,colSpan:2})
 			@model.stablePositions.addObject pos
@@ -31,5 +31,13 @@ class PageController extends Ember.Controller
 			@model.document.refreshQuestionNumbers()
 		deleteImage: (block) ->
 			block.image.destroyRecord()
+		registerEditor: (editor) ->
+			@editor = editor
+
+	editor: null #PageEditor instance
+
+	+observer model
+	onModelChange: ->
+		@editor.rerender() if @editor?
 
 `export default PageController`
