@@ -6,5 +6,6 @@ class Folder extends DS.Model
 	flows: DS.hasMany 'flows'
 	stableFlows: ~> @flows.rejectBy 'isDeleted' #https://github.com/emberjs/data/issues/2666
 	name: attr()
+	open: attr "boolean"
 
 `export default Folder`

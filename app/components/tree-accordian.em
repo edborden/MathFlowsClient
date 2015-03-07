@@ -1,6 +1,6 @@
 class TreeAccordianComponent extends Ember.Component
 
-	expanded:false
+	expanded: ~> @model.open
 	iconName:null
 	mouseOver: false
 
@@ -11,6 +11,8 @@ class TreeAccordianComponent extends Ember.Component
 		@mouseOver = false
 
 	actions:
-		toggle: -> @toggleProperty 'expanded'
+		toggle: -> 
+			@model.toggleProperty('open')
+			@model.save()
 			
 `export default TreeAccordianComponent`
