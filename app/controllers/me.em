@@ -11,5 +11,11 @@ class MeController extends Ember.Controller
 			group = @store.createRecord('group').save()
 			@model.group = group
 		invite: (email) -> @store.createRecord('invitation',{referrer:@model,referralEmail:email}).save()
+		drop: (object,options) -> 
+			object.isDraggingObject = false
+			folder = options.target.model
+			object.folder = folder
+			object.save()
+			@model.notifyPropertyChange 'topFolders'
 
 `export default MeController`

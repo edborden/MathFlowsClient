@@ -9,5 +9,6 @@ class Flow extends DS.Model
 	name: attr()
 	open: attr "boolean"
 	multipleDocuments: ~> @documents.length > 1
+	isFlow:true
 
 `export default Flow`

@@ -1,13 +1,14 @@
 .tree
-	span
-		span.tree-caret click="toggle"
-			if expanded
-				i.fa-caret-down
-			else
-				i.fa-caret-right
+	draggable-object content=model
 		span
-			if iconName
-				i class=iconName
-		mouse-over model=model
+			span.tree-caret click="toggle"
+				if expanded
+					i.fa-caret-down
+				else
+					i.fa-caret-right
+			span
+				if iconName
+					i class=iconName
+			mouse-over model=model
 	if expanded
 		div.indented = yield

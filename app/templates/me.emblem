@@ -16,24 +16,8 @@
 			.text-center
 				img.profile-pic src=model.pic
 				span.name = model.name
-			each folder in model.stableFolders
-				tree-accordian model=folder iconName="fa-archive"
-					each flow in folder.stableFlows
-						tree-accordian model=flow iconName="fa-th-large"
-							if flow.stableDocuments
-								each document in flow.stableDocuments
-									.tree-spacing
-										span.doc-icon
-											i.fa-file-o
-										doc-over model=document
-							else
-								.tree-spacing: button.btn.btn-primary.btn-xs click="newDoc flow"
-									|Create Document&nbsp;&nbsp;
-									i.fa-plus
-					.indented.tree-spacing: button.btn.btn-primary.btn-xs click="newFlow folder"
-						|New Flow&nbsp;&nbsp;
-						i.fa-plus
-
+			each folder in model.topFolders
+				folder-accordian model=folder iconName="fa-archive"
 		.col-xs-4
 			/.side-nav
 				/if model.group

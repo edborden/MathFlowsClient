@@ -6,6 +6,7 @@ class User extends DS.Model
 	pic: attr()
 	folders: DS.hasMany 'folder'
 	stableFolders: ~> @folders.rejectBy 'isDeleted' #https://github.com/emberjs/data/issues/2666
+	topFolders: ~> @stableFolders.rejectBy 'folder'
 	guest: attr()
 	headers: DS.hasMany 'position'
 	group: DS.belongsTo 'group'

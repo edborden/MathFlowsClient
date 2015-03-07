@@ -10,9 +10,17 @@ class TreeAccordianComponent extends Ember.Component
 	mouseLeave: ->
 		@mouseOver = false
 
+	drop: 'drop'
+
 	actions:
 		toggle: -> 
 			@model.toggleProperty('open')
 			@model.save()
+		drop: (object,options) ->
+			@sendAction 'drop',object,options
+
+	dragging: ~> @model.isDraggingObject
+
+	classNameBindings: ['dragging']
 			
 `export default TreeAccordianComponent`
