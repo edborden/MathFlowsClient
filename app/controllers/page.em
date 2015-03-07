@@ -18,9 +18,8 @@ class PageController extends Ember.Controller
 		deleteBlock: (block) ->
 			block.positions.forEach (position) -> 
 				position.page.stablePositions.removeObject position
-				position.deleteRecord()
-			block.deleteRecord()
-			block.save()
+				position.deleteRecord() #doesn't save deletion, happens on backend
+			block.destroyRecord()
 		addNumber: (block) ->
 			block.question = true
 			block.save()

@@ -24,11 +24,11 @@ class EquationRendererComponent extends Ember.Component
 
 	actions:
 		insertLatex: (latex) ->
-			console.log latex
 			Ember.$(@element).focus()
 			@displayEquationEditorMenu = true
 			@mathquill.mathquill('cmd',latex)
 
+	+volatile
 	output: -> @mathquill.mathquill 'latex'
 
 	click: -> @checkIfInsideEquation()
@@ -48,7 +48,20 @@ class EquationRendererComponent extends Ember.Component
 
 	focusOut: -> 
 		@displayEquationEditorMenu = false
-		unless @block.content is @output()
-			@block.content = @output()
-			@block.save()			
+		output = @cleanOutput
+		unless @block.content is output
+			@block.content = output
+			@block.save()
+
+	#https://github.com/mathquill/mathquill/issues/382
+	+volatile
+	cleanOutput: ->
+		ar = @output.split " "
+		for string,index in ar
+			unless string.charAt(0) is "$" and string.charAt(string.length - 1) is "$"
+				string = string.replace "$", "\\$"
+				string = string.replace "\\\\$","\\$"
+				ar.splice index,1,string
+		ar.join " "	
+
 `export default EquationRendererComponent`

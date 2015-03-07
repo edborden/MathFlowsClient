@@ -8,7 +8,7 @@
 					|New Folder&nbsp;&nbsp;
 					i.fa-plus
 			p
-				button.btn.btn-primary click="editHeader"
+				link-to 'headers' class="btn btn-primary"
 					|Edit Header&nbsp;&nbsp;
 					i.fa-edit
 

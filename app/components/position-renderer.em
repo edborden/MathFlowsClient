@@ -5,7 +5,9 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 
 	classNames: ['position-renderer']
 	tagName: 'li'
+	position: null
 	page: ~> @position.page
+	block: ~> @position.block
 
 	doubleClick: -> 
 		Ember.$(@element).focus()
@@ -68,9 +70,7 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 		setEquationContainerHeight: (height) -> @equationContainerHeight = height
 
 	equationContainerHeight: 0
-
 	availableImageHeight: ~> @position.height - @equationContainerHeight
-
 	availableImageWidth: ~> @position.width
 
 `export default PositionRendererComponent`

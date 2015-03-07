@@ -3,8 +3,6 @@
 class PageEditorComponent extends Ember.Component with ElRegister
 
 	page: null
-	action: "editBlock"
-
 	pageLayout: ~> @page.layout
 
 	cols: ~> @pageLayout.cols
@@ -43,7 +41,9 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			model = view.position
 			next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
 			@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
-			view.syncAttrsToEl().then => @rerender()
+			view.syncAttrsToEl().then => 
+				@page.document.refreshQuestionNumbers()
+				@rerender()
 
 	+volatile
 	unpositionedWidgets: -> 
