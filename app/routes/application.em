@@ -4,6 +4,7 @@ class ApplicationRoute extends Ember.Route
 		@session.open().then (success) =>
 			@sessionSuccessHandler()
 			(error) =>
+				console.log error
 				@session.open().then => @sessionSuccessHandler()
 
 	sessionSuccessHandler: ->
@@ -14,9 +15,10 @@ class ApplicationRoute extends Ember.Route
 			@session.close()
 			@transitionTo 'index'
 		authenticate: ->
-			@torii.open('google-offline').then (authData) => 
-				@session.post(authData.authorizationCode,authData.redirectUri).then =>
-					@transitionTo 'me'
+			@transitionTo('loading').then =>
+				@torii.open('google-offline').then (authData) => 
+					@session.post(authData.authorizationCode,authData.redirectUri).then =>
+						@transitionTo 'me'
 		openModal: (name,model) ->
 			@render name,
 				into: 'application'

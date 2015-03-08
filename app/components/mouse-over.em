@@ -13,12 +13,14 @@ class MouseOverComponent extends Ember.Component
 		@mouseOver = false
 
 	actions:
-		editClicked: -> 
+		nameClicked: -> 
 			@isEditing = true
+			Ember.run.next @, => Ember.$(@element).children().first().focus()
 			false
-		saveClicked: ->
-			@model.save() if @model.isDirty
-			@isEditing = false
 		deleteClicked: -> @model.destroyRecord()
+
+	focusOut: ->
+		@model.save() if @model.isDirty
+		@isEditing = false
 			
 `export default MouseOverComponent`

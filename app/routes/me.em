@@ -1,8 +1,6 @@
 class MeRoute extends Ember.Route
 
-	beforeModel: ->
-		@replaceWith 'index' if @session.me.guest
-
+	beforeModel: -> @replaceWith 'index' if @session.me.guest
 
 	model: -> @session.me
 

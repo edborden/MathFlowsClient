@@ -1,11 +1,11 @@
 unless isEditing
-	span = model.name
+	span click="nameClicked" = model.name
 else
 	= input type="text" value=model.name
-	i.fa-save.tree-icon click="saveClicked"
+	/i.fa-save.tree-icon click="saveClicked"
 if showEdit
 	span.tree-buttons
-		i.fa-edit.tree-icon click="editClicked"
 		if canCopy
+			i.fa-edit.tree-icon click="editClicked"
 			i.fa-copy.tree-icon click="copyClicked"
 		i.fa-trash-o.tree-icon click="deleteClicked"

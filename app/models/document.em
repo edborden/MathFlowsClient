@@ -10,8 +10,7 @@ class Document extends DS.Model
 	pdfLink: ~> config.apiHostName+'/documents/'+@id+'.pdf?token='+@session.token
 	layout: ~> @flow.layout
 	multiplePages: ~> @stablePages.length > 1
-	number: ~> @flow.stableDocuments.indexOf(@) + 1
-	name: ~> "Version " + @number
+	name: attr()
 	copyFrom: DS.belongsTo 'document'
 
 	refreshQuestionNumbers: ->

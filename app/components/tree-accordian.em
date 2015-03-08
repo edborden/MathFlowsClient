@@ -11,6 +11,7 @@ class TreeAccordianComponent extends Ember.Component
 		@mouseOver = false
 
 	drop: 'drop'
+	docEdit: 'docEdit'
 
 	actions:
 		toggle: -> 
@@ -18,6 +19,8 @@ class TreeAccordianComponent extends Ember.Component
 			@model.save()
 		drop: (object,options) ->
 			@sendAction 'drop',object,options
+		docEdit: (doc) ->
+			@sendAction 'docEdit',doc
 
 	dragging: ~> @model.isDraggingObject
 
