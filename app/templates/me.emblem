@@ -18,6 +18,8 @@
 				span.name = model.name
 			each folder in model.topFolders
 				folder-accordian model=folder iconName="fa-archive"
+			draggable-object-target action='deleteDrop' class="delete-drop"
+				i.fa-lg.fa-trash-o
 		.col-xs-4
 			/.side-nav
 				/if model.group

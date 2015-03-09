@@ -14,8 +14,10 @@ class MeController extends Ember.Controller
 		drop: (object,options) -> 
 			object.isDraggingObject = false
 			folder = options.target.model
-			object.folder = folder
-			object.save()
-			@model.notifyPropertyChange 'topFolders'
+			unless object is folder
+				object.folder = folder
+				object.save()
+				@model.notifyPropertyChange 'topFolders'
+		deleteDrop: (object) -> object.destroyRecord()
 
 `export default MeController`

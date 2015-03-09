@@ -12,6 +12,6 @@ class HeadersController extends Ember.Controller
 		registerEditor: (editor) ->
 			@editor = editor
 
-	editor: null #PageEditor instance
+	editor: null #PageEditor instance, not used here
 
 `export default HeadersController`

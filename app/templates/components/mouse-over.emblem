@@ -8,4 +8,3 @@ if showEdit
 		if canCopy
 			i.fa-edit.tree-icon click="editClicked"
 			i.fa-copy.tree-icon click="copyClicked"
-		i.fa-trash-o.tree-icon click="deleteClicked"

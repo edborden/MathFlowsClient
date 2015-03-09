@@ -9,6 +9,7 @@ class ApplicationRoute extends Ember.Route
 
 	sessionSuccessHandler: ->
 		@keen.log_session()
+		Ember.$(".center-spinner").hide()
 
 	actions:
 		logout: ->

@@ -9,6 +9,5 @@ Router.map ->
 	@route 'me'
 	@route 'document', {path: '/document/:document_id'}
 	@route 'headers'
-	@route 'application_loading'
 
 `export default Router`

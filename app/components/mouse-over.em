@@ -17,7 +17,6 @@ class MouseOverComponent extends Ember.Component
 			@isEditing = true
 			Ember.run.next @, => Ember.$(@element).children().first().focus()
 			false
-		deleteClicked: -> @model.destroyRecord()
 
 	focusOut: ->
 		@model.save() if @model.isDirty
