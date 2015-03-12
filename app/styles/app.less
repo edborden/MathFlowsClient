@@ -14,45 +14,6 @@
 
 .click-fix {cursor: pointer;}
 
-.delete-drop {
-    border: solid 1px @orange;
-    color: @orange;
-    padding:10px;
-    margin-top: 20px;
-    display: inline-block;
-}
-
-.dragging {
-    border: solid 1px @orange;
-}
-
-img.block-image {
-    width: auto;
-    height: auto;
-    position:absolute;
-    right:0px;
-    bottom:0px;
-}
-
-i.remove-overlay {
-    position:absolute;
-    bottom:-3px;
-    right:-2px;
-    .fa;
-    .text-danger;
-}
-
-.position-renderer:focus {
-    border-color:transparent;
-    box-shadow:transparent;
-    outline:0 none;
-}
-
-.calculator {
-    width:99%;
-    height:400px;
-}
-
 i {.fa;}
 
 body {
@@ -63,158 +24,227 @@ body {
     padding:20px;
 }
 
-.bigger {
-    font-size:110%;
-    font-weight: bold;
-}
+input, .modal {color:black;}
 
-.block-menu {
-    .btn-group-vertical;
-    position:absolute;
-    left:-28px;
-    z-index:100;
-    button {
-        .btn;
-        .btn-default;
-        width:22px;
+.inline {display:inline-block;}
+
+// DRAG AND DROP
+
+    .delete-drop {
+        border: solid 1px @orange;
+        color: @orange;
+        padding:10px;
+        margin-top: 20px;
+        display: inline-block;
+        position:absolute;
+        top:0px;
+        right:20px;
     }
-    .fa-stack {
-        font-size:75%;
-        .bigger {
-            font-size: 150%;
-            font-weight: bold;
+
+    .dragging {
+        border: solid 1px @orange;
+    }
+
+// BLOCK IMAGE COMPONENT
+
+    img.block-image {
+        width: auto;
+        height: auto;
+        position:absolute;
+        right:0px;
+        bottom:0px;
+    }
+
+// POSITION / BLOCK / EQUATION
+
+    .grid-editor {
+        margin: 0 auto;
+        font-size: 12px;
+        line-height: 18px;
+    }
+
+    .mathquill-editable {
+        border-color:transparent;
+        overflow:hidden;
+        padding:0px;
+    }
+
+    .equation-renderer-container {
+        display: inline-block;
+        vertical-align:top;
+        margin-top:-1px;
+    }
+
+    .position-renderer:focus {
+        border-color:transparent;
+        box-shadow:transparent;
+        outline:0 none;
+    }
+
+    .question-number {
+        display: inline-block;
+        vertical-align:top;
+        padding-right: 2px;
+    }
+
+// SMALL BUTTON MENU
+
+    .horizontal-tiny-button-menu {
+        width:300px;
+        .btn-group;
+        .tiny-button-menu;
+    }
+
+    .menu-button {
+        .btn;
+        width:22px;
+        .btn-default;
+        img {height:10px;}        
+    }
+
+    .vertical-tiny-button-menu {
+        .btn-group-vertical;
+        .tiny-button-menu;
+        left:-28px;
+    }
+
+    .bigger {
+        font-size: 120%;
+        font-weight: bold;
+    }
+
+    .tiny-button-menu {
+        font-size:12px;
+        position:absolute;
+        z-index:10;
+        button {.menu-button}
+    }
+
+// OVERLAY
+
+    .remove-overlay {
+        .overlay;
+        .text-danger;
+    }
+
+    .add-overlay {
+        .overlay;
+        color:black;
+    }
+
+    .overlay {
+        position:absolute;
+        bottom:-3px;
+        right:-2px;
+    }
+
+    .overlay-container {
+        position:relative;
+        .add-overlay {
+            font-size: smaller;
+            right:-6px;
+            bottom:0px;
         }
     }
-}
 
-.question-number {
-    display: inline-block;
-    vertical-align:top;
-    padding-right: 2px;
-}
+// TREE NAV / ACCORDIAN / MOUSEOVER
 
-.mathquill-editable {
-    border-color:transparent;
-    overflow:hidden;
-    padding:0px;
-}
-
-.equation-renderer-container {
-    display: inline-block;
-    vertical-align:top;
-    margin-top:-1px;
-}
-
-.equationEditorMenu {
-    width:300px;
-    .btn-group;
-    position:absolute;
-    z-index:10;
-    button {
-        .btn;
-        width:22px;
-        .btn-default;
-        img {
-            height:10px;
-        }        
+    .indented {
+       padding-left: 10px; 
     }
-}
 
-.indented {
-    padding-left: 20px;
-}
-
-.tree span {
-    padding:5px;
-}
-
-.black-text {
-    color:black;
-}
-
-.inline {
-    display:inline-block;
-}
-
-.tree-spacing {
-    padding-top:5px;
-    padding-bottom: 5px;
-}
-
-.grid-editor {
-    margin: 0 auto;
-    font-size: 12px;
-    line-height: 18px;
-}
-
-span.tree-caret {
-    width:14px;
-    display:inline-block;
-    color: @orange;
-}
-
-.tree-icon {
-    color: @orange;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-
-span.doc-icon {
-    padding-left: 20px;
-}
-
-#logo {
-    color:@orange;
-}
-
-.side-nav {
-    border: solid 2px @lgrey;
-    border-radius: 5px;
-    .text-center;
-    padding:5px;
-    .btn {
-        .btn-xs;
-        width:115px;
+    .over {
+        height:26px;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        display: inline-block;
     }
-}
 
-img.profile-pic {
-    .circle(40px);
-}
+    .tree-caret {
+        width:14px;
+        display:inline-block;
+        color: @orange;
 
-.circle(@dim) {
-        height: @dim;
-        width: @dim;
-        //border:1px solid transparent;
-        border-radius: 50%;
+    }
+
+    .tree-icon {
+        display: inline-block;
+        padding-right: 5px;
+        padding-left: 5px;
+    }
+
+    .tree-menu {
+        display:inline-block;
+        padding-left: 10px;
+        color:@orange;
+        i {
+            padding-left: 5px;
+        }
+    }
+
+// ME
+
+    .account {
+        padding-bottom: 22px;
+    }
+
+    .account-menu {
+        button {
+            .btn;
+            .btn-xs;
+            position:relative;
+        }
+       padding-bottom:15px;
+    }
+
+    img.profile-pic {
+        .circle(40px);
+    }
+
+    .circle(@dim) {
+            height: @dim;
+            width: @dim;
+            //border:1px solid transparent;
+            border-radius: 50%;
+            .text-center;
+    }
+
+    .name {
+        font-size:150%;
+        padding-left: 10px;
+        height:40px;
+    }
+
+    .invitation {
+        //margin-top: 100px;
+        button {
+            margin-left:15px;
+        }
+    }
+
+// CALCULATOR
+
+    .calculator {
+        width:100%;
+        height:400px;
+    }
+
+// SIDE-NAV
+
+    #logo {
+        color:@orange;
+    }
+
+    .side-nav {
+        border: solid 2px @lgrey;
+        border-radius: 5px;
         .text-center;
-}
-
-span.tree-buttons {
-    position:absolute;
-    padding:0px;
-}
-
-.name {
-    font-size:150%;
-    padding-left: 10px;
-    height:40px;
-}
-
-.modal {
-    .black-text;
-}
-
-.invitation {
-    //margin-top: 100px;
-    button {
-        margin-left:15px;
+        padding:5px;
+        .btn {
+            .btn-xs;
+            width:115px;
+        }
     }
-}
-
-input {
-    .black-text;
-}
 
 // SPINNER //
 
@@ -223,7 +253,7 @@ input {
         position: fixed;
         height: 15%;    
         width: 25%;
-        top: 40%;
-        left: 40%;
+        top: 47%;
+        left: 47%;
         padding: 10px;
     }

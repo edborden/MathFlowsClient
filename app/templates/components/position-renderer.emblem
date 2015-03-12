@@ -1,14 +1,11 @@
 if isEditing
-	.block-menu
+	.vertical-tiny-button-menu
 		button click="deleteBlock"
 			i.fa-trash.text-danger
-		if position.questionBlock
-			button click="deleteNumber"
-				i.remove-overlay.fa-times
-				span.bigger #
-		else
-			button.bigger click="addNumber"
-				span #
+		button click="toggleNumber"
+			span.bigger #
+			if position.questionBlock
+					i.remove-overlay.fa-times
 		if position.block.image
 			button click="deleteImage"
 				i.remove-overlay.fa-times

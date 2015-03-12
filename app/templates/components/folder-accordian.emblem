@@ -1,33 +1,17 @@
-.tree
-	draggable-object-target action="drop" model=model
-		draggable-object content=model
-			span
-				span.tree-caret click="toggle"
-					if expanded
-						i.fa-caret-down
-					else
-						i.fa-caret-right
-				span
-					if iconName
-						i class=iconName
-				mouse-over model=model
-	if expanded
-		if model.stableFolders
-			each folder in model.stableFolders
-				folder-accordian model=folder iconName="fa-archive" class="indented"
+draggable-object-target action="drop" model=model		
+	tree-over model=model draggable=true
+		.overlay-container click="newFlow model"
+			i.add-overlay.fa-plus
+			i.fa-th-large
+if model.open
+	.indented
+		each folder in model.stableFolders
+			tree-accordian model=folder layoutName="components/folder-accordian" class="indented"			
+
 		each flow in model.stableFlows						
-			tree-accordian model=flow iconName="fa-th-large" class="indented"
-				if flow.stableDocuments
-					each document in flow.stableDocuments
-						.tree-spacing
-							span.doc-icon
-								i.fa-file-o
-							doc-over model=document
-				else
-					.tree-spacing: button.btn.btn-primary.btn-xs click="newDoc flow"
-						|Create Document&nbsp;&nbsp;
-						i.fa-plus
-		unless model.stableFolders
-			.indented: .indented.tree-spacing: button.btn.btn-primary.btn-xs click="newFlow model"
-				|New Flow&nbsp;&nbsp;
-				i.fa-plus
+			tree-accordian model=flow layoutName="components/flow-accordian" class="indented"
+
+		each student in model.stableStudents
+			span.doc-icon
+				i.fa-user
+			tree-over model=student

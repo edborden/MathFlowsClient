@@ -4,22 +4,43 @@
 			h2#logo MathFlows
 			h5#tagline Workflows for math teachers
 			p
-				button.btn.btn-primary click="newFolder"
-					|New Folder&nbsp;&nbsp;
-					i.fa-plus
-			p
 				link-to 'headers' class="btn btn-primary"
 					|Edit Header&nbsp;&nbsp;
 					i.fa-edit
+			p
+				button.btn.btn-primary click="importStudents"
+					|Import Students&nbsp;&nbsp;
+					i.fa-google
 
 		.col-xs-6
-			.text-center
+			.account
 				img.profile-pic src=model.pic
 				span.name = model.name
-			each folder in model.topFolders
-				folder-accordian model=folder iconName="fa-archive"
-			draggable-object-target action='deleteDrop' class="delete-drop"
-				i.fa-lg.fa-trash-o
+				draggable-object-target action='deleteDrop' class="delete-drop"
+					i.fa-lg.fa-trash-o
+
+			.row
+				.col-xs-6 
+					.account-menu
+						.inline Tests&nbsp;&nbsp;
+						button.btn-primary click="newFlowFolder"
+							i.add-overlay.fa-plus
+							i.fa-folder
+
+					each folder in model.topFlowFolders
+						tree-accordian layoutName="components/folder-accordian" model=folder
+
+				.col-xs-6
+					if model.premium
+						.account-menu
+							.inline Students&nbsp;&nbsp;
+							button.btn-primary click="newStudentFolder"
+								i.add-overlay.fa-plus
+								i.fa-folder
+						each folder in model.topStudentFolders
+							tree-accordian layoutName="components/folder-accordian" model=folder
+						else 
+							p No students yet!
 		.col-xs-4
 			/.side-nav
 				/if model.group

@@ -32,8 +32,10 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			draggable:
 				stop: @runSync
 		).data 'gridster'
-		@setUnpositionedWidgets()
+		@runSync()
 		@sendAction 'registerEditor',@
+
+	needsRerender: false
 
 	setUnpositionedWidgets: ->
 		@unpositionedWidgets.forEach (el) =>
@@ -41,9 +43,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			model = view.position
 			next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
 			@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
-			view.syncAttrsToEl().then => 
-				@page.document.refreshQuestionNumbers()
-				@rerender()
+			@needsRerender = true
 
 	+volatile
 	unpositionedWidgets: -> 
@@ -53,15 +53,16 @@ class PageEditorComponent extends Ember.Component with ElRegister
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
+		obj.setUnpositionedWidgets()
 		obj.syncChangedBlocks().then -> 
-			obj.page.document.refreshQuestionNumbers()
-			obj.rerender()
+		obj.page.document.flow.refreshQuestionNumbers() if obj.needsRerender
 				
 	syncChangedBlocks: ->
 		promiseArray = []
 		for diffWidget in @widgetsDiff 
 			obj = Ember.$(diffWidget).data 'emberObject'
 			promiseArray.push obj.syncAttrsToEl()
+			@needsRerender = true
 		return Ember.RSVP.all promiseArray
 
 	+volatile
@@ -81,8 +82,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 
 	deleteBlock: 'deleteBlock'
 	deleteImage: 'deleteImage'
-	addNumber: 'addNumber'
-	deleteNumber: 'deleteNumber'
+	toggleNumber: 'toggleNumber'
 	addImage: 'addImage'
 	openModal: 'openModal'
 	registerEditor: 'registerEditor'
@@ -90,15 +90,10 @@ class PageEditorComponent extends Ember.Component with ElRegister
 		deleteBlock: (block) ->
 			@sendAction 'deleteBlock',block
 			@page.document.refreshQuestionNumbers()
-		addNumber: (block) ->
-			block.question = true
-			block.save()
-			@page.document.refreshQuestionNumbers()
-			@rerender()
 		deleteImage: (block) ->
 			@sendAction 'deleteImage',block
-		deleteNumber: (block) ->
-			@sendAction 'deleteNumber',block
+		toggleNumber: (block) ->
+			@sendAction 'toggleNumber',block
 		addImage: (params) ->
 			@sendAction 'addImage',params
 		openGraphModal: (block) ->

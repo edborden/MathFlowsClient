@@ -4,9 +4,11 @@ class User extends DS.Model
 	layout: DS.belongsTo 'layout'
 	name: attr()
 	pic: attr()
+	premium: attr 'boolean'
 	folders: DS.hasMany 'folder'
 	stableFolders: ~> @folders.rejectBy 'isDeleted' #https://github.com/emberjs/data/issues/2666
-	topFolders: ~> @stableFolders.rejectBy 'folder'
+	topFlowFolders: ~> @stableFolders.rejectBy('folder').filterBy 'flowFolder'
+	topStudentFolders: ~> @stableFolders.rejectBy('folder').filterBy 'studentFolder'
 	guest: attr()
 	headers: DS.hasMany 'position'
 	group: DS.belongsTo 'group'

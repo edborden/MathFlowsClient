@@ -1,0 +1,20 @@
+.tree-caret click="toggle"
+	if model.hasChildren
+		if model.open
+			i.fa-caret-down
+		else
+			i.fa-caret-right
+
+if draggable
+	draggable-object content=model class="tree-icon"
+		i class=model.iconName
+else
+	.tree-icon: i class=model.iconName
+
+if isEditing
+	= input type="text" value=model.name size=8 class="name-editor"
+else
+	span click="nameClicked" = model.name
+if showMenu
+	.tree-menu
+		yield

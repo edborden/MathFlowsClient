@@ -1,7 +1,5 @@
 class TreeAccordianComponent extends Ember.Component
 
-	expanded: ~> @model.open
-	iconName:null
 	mouseOver: false
 
 	mouseEnter: -> 
@@ -11,16 +9,19 @@ class TreeAccordianComponent extends Ember.Component
 		@mouseOver = false
 
 	drop: 'drop'
-	docEdit: 'docEdit'
+	editDocument: 'editDocument'
+	copyDocument: 'copyDocument'
+	newFlow: 'newFlow'
 
 	actions:
-		toggle: -> 
-			@model.toggleProperty('open')
-			@model.save()
 		drop: (object,options) ->
 			@sendAction 'drop',object,options
-		docEdit: (doc) ->
-			@sendAction 'docEdit',doc
+		editDocument: (document) ->
+			@sendAction 'editDocument',document
+		copyDocument: (document) ->
+			@sendAction 'copyDocument',document
+		newFlow: (folder) ->
+			@sendAction 'newFlow',folder
 
 	dragging: ~> @model.isDraggingObject
 

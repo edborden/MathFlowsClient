@@ -53,15 +53,25 @@ class EquationRendererComponent extends Ember.Component
 			@block.content = output
 			@block.save()
 
-	#https://github.com/mathquill/mathquill/issues/382
+	
 	+volatile
 	cleanOutput: ->
+
+		# Add back in leading \ to $
+		#https://github.com/mathquill/mathquill/issues/382
 		ar = @output.split " "
 		for string,index in ar
 			unless string.charAt(0) is "$" and string.charAt(string.length - 1) is "$"
 				string = string.replace "$", "\\$"
 				string = string.replace "\\\\$","\\$"
 				ar.splice index,1,string
-		ar.join " "	
+		output = ar.join " "
+
+		#fix for pasted text adding in \text{}
+		if output.match /\\text{.*}/
+			for match in output.match /\\text{.*}/
+				output = output.replace match,match.substring(6,match.length-1)
+
+		return output
 
 `export default EquationRendererComponent`

@@ -1,11 +1,12 @@
 class MeController extends Ember.Controller
 
 	actions:
-		docEdit: (document) ->
+		editDocument: (document) ->
 			@transitionToRoute 'document',document
-		newDoc: (document) ->
+		copyDocument: (document) ->
 			@store.createRecord('document',{copyFrom:document,flow:document.flow}).save()
-		newFolder: -> @store.createRecord('folder',{user:@session.me}).save()
+		newFlowFolder: -> @store.createRecord('folder',{user:@session.me,flowFolder:true}).save()
+		newStudentFolder: -> @store.createRecord('folder',{user:@session.me,studentFolder:true}).save()
 		newFlow: (folder) -> @store.createRecord('flow',{folder:folder}).save()
 		newGroup: ->
 			group = @store.createRecord('group').save()
@@ -14,10 +15,13 @@ class MeController extends Ember.Controller
 		drop: (object,options) -> 
 			object.isDraggingObject = false
 			folder = options.target.model
-			unless object is folder
+			unless object is folder or object.isDocument #don't let an item get dropped on itself
 				object.folder = folder
 				object.save()
-				@model.notifyPropertyChange 'topFolders'
+				@model.notifyPropertyChange 'topFlowFolders'
+				@model.notifyPropertyChange 'topStudentFolders'
 		deleteDrop: (object) -> object.destroyRecord()
+		newStudent: (block) ->
+			@sendAction 'openModal','modal/student',block
 
 `export default MeController`

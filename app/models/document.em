@@ -4,6 +4,7 @@ attr = DS.attr
 
 class Document extends DS.Model
 
+	iconName: "fa-file-text-o"
 	pages: DS.hasMany 'page'
 	stablePages: ~> @pages.rejectBy 'isDeleted' #https://github.com/emberjs/data/issues/2666
 	flow: DS.belongsTo 'flow'
@@ -12,6 +13,7 @@ class Document extends DS.Model
 	multiplePages: ~> @stablePages.length > 1
 	name: attr()
 	copyFrom: DS.belongsTo 'document'
+	isDocument: true
 
 	refreshQuestionNumbers: ->
 		@notifyPropertyChange 'questionPositionsSorted'

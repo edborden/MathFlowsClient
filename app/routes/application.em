@@ -18,8 +18,10 @@ class ApplicationRoute extends Ember.Route
 		authenticate: ->
 			@transitionTo('loading').then =>
 				@torii.open('google-offline').then (authData) => 
-					@session.post(authData.authorizationCode,authData.redirectUri).then =>
-						@transitionTo 'me'
+					console.log authData
+					@session.post(authData.authorizationCode,authData.redirectUri).then => @transitionTo 'me'
+					(error) -> console.log error
+
 		openModal: (name,model) ->
 			@render name,
 				into: 'application'

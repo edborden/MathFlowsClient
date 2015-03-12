@@ -44,8 +44,7 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 	addToGrid: -> @gridster.add_widget @element,parseInt(@position.colSpan),parseInt(@position.rowSpan)
 
 	deleteBlock: 'deleteBlock'
-	addNumber: 'addNumber'
-	deleteNumber: 'deleteNumber'
+	toggleNumber: 'toggleNumber'
 	deleteImage: 'deleteImage'
 	addImage: 'addImage'
 	openGraphModal: 'openGraphModal'
@@ -54,10 +53,8 @@ class PositionRendererComponent extends Ember.Component with ElRegister
 			@sendAction 'deleteBlock',@position.block
 		deleteImage: ->
 			@sendAction 'deleteImage',@position.block
-		addNumber: ->
-			@sendAction 'addNumber',@position.block
-		deleteNumber: ->
-			@sendAction 'deleteNumber',@position.block
+		toggleNumber: ->
+			@sendAction 'toggleNumber',@position.block
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',sources:['local', 'url',],show_powered_by:false}, (error, result) => 
 				@sendAction 'addImage',

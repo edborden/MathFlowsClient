@@ -20,14 +20,11 @@ class PageController extends Ember.Controller
 				position.page.stablePositions.removeObject position
 				position.deleteRecord() #doesn't save deletion, happens on backend
 			block.destroyRecord()
-		addNumber: (block) ->
-			block.question = true
+		toggleNumber: (block) ->
+			block.toggleProperty 'question'
 			block.save()
 			@model.document.refreshQuestionNumbers()
-		deleteNumber: (block) ->
-			block.question = false
-			block.save()
-			@model.document.refreshQuestionNumbers()
+			@editor.rerender()
 		deleteImage: (block) ->
 			block.image.destroyRecord()
 		registerEditor: (editor) ->
