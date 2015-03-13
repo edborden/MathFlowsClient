@@ -1,0 +1,13 @@
+draggable-object-target action="drop" model=model		
+	tree-over model=model draggable=true
+		.overlay-container click="newStudent model"
+			i.add-overlay.fa-plus
+			i.fa-user
+if model.open
+	.indented
+		each folder in model.stableFolders
+			tree-accordian model=folder layoutName="components/studentfolder-accordian" class="indented"			
+
+		each student in model.stableStudents
+			.indented						
+				tree-over model=student draggable=true

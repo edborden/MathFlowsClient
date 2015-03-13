@@ -1,8 +1,8 @@
 .modal-dialog class=large:modal-lg
 	.modal-content
-		//.modal-header
-		//	button.close type='button' data-dismiss="modal" aria-hidden="true" &times;
-		//	h4.modal-title: = title
+		if title
+			.modal-header
+				h4.modal-title = title
 		.modal-body = yield
 		.modal-footer
 			button.btn.btn-primary click='ok' OK

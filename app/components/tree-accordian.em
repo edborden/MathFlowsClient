@@ -12,6 +12,7 @@ class TreeAccordianComponent extends Ember.Component
 	editDocument: 'editDocument'
 	copyDocument: 'copyDocument'
 	newFlow: 'newFlow'
+	newStudent: 'newStudent'
 
 	actions:
 		drop: (object,options) ->
@@ -22,6 +23,8 @@ class TreeAccordianComponent extends Ember.Component
 			@sendAction 'copyDocument',document
 		newFlow: (folder) ->
 			@sendAction 'newFlow',folder
+		newStudent: (folder) ->
+			@sendAction 'newStudent',folder
 
 	dragging: ~> @model.isDraggingObject
 

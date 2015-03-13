@@ -28,7 +28,7 @@
 							i.fa-folder
 
 					each folder in model.topFlowFolders
-						tree-accordian layoutName="components/folder-accordian" model=folder
+						tree-accordian layoutName="components/flowfolder-accordian" model=folder
 
 				.col-xs-6
 					if model.premium
@@ -38,7 +38,7 @@
 								i.add-overlay.fa-plus
 								i.fa-folder
 						each folder in model.topStudentFolders
-							tree-accordian layoutName="components/folder-accordian" model=folder
+							tree-accordian layoutName="components/studentfolder-accordian" model=folder
 						else 
 							p No students yet!
 		.col-xs-4

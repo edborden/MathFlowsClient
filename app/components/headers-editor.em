@@ -3,7 +3,7 @@
 class HeadersEditorComponent extends PageEditorComponent
 
 	user: null
-	page: {document: {refreshQuestionNumbers: -> return}}
+	page: {document: {flow: {refreshQuestionNumbers: -> return}}}
 	pageLayout: ~> @user.layout
 	height: 200
 

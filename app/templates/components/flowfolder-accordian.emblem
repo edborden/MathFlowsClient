@@ -6,12 +6,7 @@ draggable-object-target action="drop" model=model
 if model.open
 	.indented
 		each folder in model.stableFolders
-			tree-accordian model=folder layoutName="components/folder-accordian" class="indented"			
+			tree-accordian model=folder layoutName="components/flowfolder-accordian" class="indented"			
 
 		each flow in model.stableFlows						
 			tree-accordian model=flow layoutName="components/flow-accordian" class="indented"
-
-		each student in model.stableStudents
-			span.doc-icon
-				i.fa-user
-			tree-over model=student

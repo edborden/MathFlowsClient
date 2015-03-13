@@ -1,0 +1,7 @@
+modal-dialog title="Add a student" ok="newStudent" close="closeModal"
+	p
+		|Name:&nbsp;&nbsp;
+		= input type="text" value=model.name
+	p
+		|Email:&nbsp;&nbsp;
+		= input type="text" value=model.email

@@ -19,6 +19,7 @@ class TreeOverComponent extends Ember.Component
 	editDoc: 'editDoc'
 	copyDoc: 'copyDoc'
 	newFlow: 'newFlow'
+	newStudent: 'newStudent'
 
 	actions:
 		toggle: -> 
@@ -34,5 +35,7 @@ class TreeOverComponent extends Ember.Component
 			@sendAction 'copyDoc',@model
 		newFlow: (folder) ->
 			@sendAction 'newFlow',folder
+		newStudent: (folder) ->
+			@sendAction 'newStudent',folder
 			
 `export default TreeOverComponent`

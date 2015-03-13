@@ -1,5 +1,7 @@
 class MeController extends Ember.Controller
 
+	openModal: 'openModal'
+
 	actions:
 		editDocument: (document) ->
 			@transitionToRoute 'document',document
@@ -21,7 +23,8 @@ class MeController extends Ember.Controller
 				@model.notifyPropertyChange 'topFlowFolders'
 				@model.notifyPropertyChange 'topStudentFolders'
 		deleteDrop: (object) -> object.destroyRecord()
-		newStudent: (block) ->
-			@sendAction 'openModal','modal/student',block
+		newStudent: (folder) ->
+			model = @store.createRecord 'student',{folder:folder}
+			@send 'openModal','modal/student',model
 
 `export default MeController`

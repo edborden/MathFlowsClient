@@ -43,6 +43,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			model = view.position
 			next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
 			@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
+			console.log 'setUnpositionedWidgets set needsRerender'
 			@needsRerender = true
 
 	+volatile
@@ -55,13 +56,17 @@ class PageEditorComponent extends Ember.Component with ElRegister
 		obj = Ember.$(".grid-editor").data 'emberObject'
 		obj.setUnpositionedWidgets()
 		obj.syncChangedBlocks().then -> 
-		obj.page.document.flow.refreshQuestionNumbers() if obj.needsRerender
+		if obj.needsRerender
+			obj.needsRerender = false
+			console.log 'runSync'
+			obj.page.document.flow.refreshQuestionNumbers() 	
 				
 	syncChangedBlocks: ->
 		promiseArray = []
 		for diffWidget in @widgetsDiff 
 			obj = Ember.$(diffWidget).data 'emberObject'
 			promiseArray.push obj.syncAttrsToEl()
+			console.log 'setUnpositionedWidgets set needsRerender'
 			@needsRerender = true
 		return Ember.RSVP.all promiseArray
 
