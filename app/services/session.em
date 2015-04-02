@@ -1,8 +1,8 @@
 class SessionService extends Ember.Object
 
-	loggedIn: ~> if @model? then return true else return false
+	loggedIn: ~> @model?
 	model: null
-	token: ~> if @model? then return @model.token else return null
+	token: ~> if @model? then @model.token else null
 	me: ~> @model.user
 	
 	open: ->
