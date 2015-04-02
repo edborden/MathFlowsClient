@@ -1,4 +1,4 @@
-class KeenService extends Ember.Object
+class KeenService extends Ember.Service
 
 	client: ~> new Keen
 		projectId: "54dcf35546f9a747ff1d341c"
