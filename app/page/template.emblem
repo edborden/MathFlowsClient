@@ -25,9 +25,9 @@
 				a.btn.btn-default.btn-sm href=model.pdfLink 
 					|Get PDF&nbsp;&nbsp;
 					i.fa-download
-			if model.document.multiplePages
+			if model.test.multiplePages
 				hr
-				each page in model.document.stablePages
+				each page in model.test.pages
 					p 
 						link-to "page" page class="btn btn-warning"
 							|Page&nbsp;

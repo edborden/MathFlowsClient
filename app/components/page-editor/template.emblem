@@ -1,3 +1,3 @@
 ul
-	each position in page.stablePositions
-		position-renderer position=position
+	each block in page.stableBlocks
+		block-renderer block=block

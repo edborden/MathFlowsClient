@@ -1,38 +1,27 @@
 attr = DS.attr
 
 class Page extends DS.Model
-	layout: DS.belongsTo 'layout'
-	document: DS.belongsTo 'document'
-	pdfLink: ~> @document.pdfLink
-	number: ~> @document.stablePages.indexOf(@) + 1
+	test: DS.belongsTo 'test'
+	pdfLink: ~> @test.pdfLink
+	number: ~> @test.pages.indexOf(@) + 1
 
-	positions: DS.hasMany 'position'
-
-	reloadOtherDocuments: ->
-		otherDocuments = @document.flow.stableDocuments.filter (document) => document isnt @document
-		otherDocuments.forEach (document) -> 
-			document.reload().then (document) -> 
-				document.stablePages.forEach (page) ->
-					page.syncStablePositions()
-
-	refreshQuestionNumbers: ->
-		@stablePositions.forEach (position) -> position.notifyPropertyChange 'questionNumber'
+	blocks: DS.hasMany 'block'
 
 	## TEMPORARY FIX FOR EMBER DATA WONKINESS. HAS_MANY RELATIONSHIPS RELOAD ON ANY CHANGE CAUSING VIEWS TO RE-RENDER, BREAKING GRIDSTER.
-	stablePositions: null
+	stableBlocks: null
 
-	loadedPositions:false
+	loadedBlocks:false
 
-	+observer positions
-	onPositionChange: ->
-		unless @loadedPositions
-			if @positions.length > 0
-				@stablePositions = Ember.A []
-				@stablePositions.addObjects @positions
-				@loadedPositions = true
+	+observer blocks
+	onBlocksChange: ->
+		unless @loadedBlocks
+			if @blocks.length > 0
+				@stableBlocks = Ember.A []
+				@stableBlocks.addObjects @blocks
+				@loadedBlocks = true
 
-	syncStablePositions: ->
-		@positions.forEach (position) =>
-			@stablePositions.addObject position unless @stablePositions.contains position
+	#syncStableBlocks: ->
+	#	@blocks.forEach (block) =>
+	#		@stableBlocks.addObject block unless @stableBlocks.contains block
 	##
 `export default Page`

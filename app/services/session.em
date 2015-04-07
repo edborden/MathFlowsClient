@@ -29,7 +29,6 @@ class SessionService extends Ember.Service
 					localStorage.mathFlowsToken = @token
 					resolve()
 				(error) => 
-					console.log 'error'
 					console.log error
 					@close() if error.status is 401
 					resolve()

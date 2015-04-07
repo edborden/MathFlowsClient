@@ -1,1 +1,1 @@
-render 'document' model.documents.firstObject
+render 'test' session.me.folders.firstObject.tests.firstObject

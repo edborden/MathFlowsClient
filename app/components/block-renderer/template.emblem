@@ -4,9 +4,9 @@ if isEditing
 			i.fa-trash.text-danger
 		button click="toggleNumber"
 			span.bigger #
-			if position.questionBlock
+			if block.question
 					i.remove-overlay.fa-times
-		if position.block.image
+		if block.image
 			button click="deleteImage"
 				i.remove-overlay.fa-times
 				i.fa-image	
@@ -16,9 +16,9 @@ if isEditing
 			button click="openGraphModal"
 				i.fa-line-chart	
 
-if position.block
-	if position.block.question
-		.question-number: position.questionNumber
-	equation-renderer position=position
-	if position.block.image
-		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=position.block.image
+if block
+	if block.question
+		.question-number: block.questionNumber
+	equation-renderer block=block
+	if block.image
+		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image

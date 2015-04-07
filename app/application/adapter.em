@@ -1,6 +1,6 @@
 `import config from 'math-flows-client/config/environment'`
 
-class ApplicationAdapter extends DS.RESTAdapter
+class ApplicationAdapter extends DS.ActiveModelAdapter
 	host: config.apiHostName
 
 	#crossdomain

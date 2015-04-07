@@ -3,15 +3,14 @@
 class PageEditorComponent extends Ember.Component with ElRegister
 
 	page: null
-	pageLayout: ~> @page.layout
 
-	cols: ~> @pageLayout.cols
-	widgetMargin: ~> @pageLayout.gridsterInsideMargin
-	widgetBaseWidth: ~> @pageLayout.colWidth
-	widgetBaseHeight: ~> @pageLayout.rowHeight
-	height: ~> @pageLayout.height
-	width: ~> @pageLayout.width
-	padding: ~> @pageLayout.gridsterOutsideMargin
+	cols: ~> 4
+	widgetMargin: ~> 9 / 2
+	widgetBaseWidth: ~> 128.25
+	widgetBaseHeight: ~> 18
+	height: ~> 11 * 72 #11 inches
+	width: ~> 8.5 * 72 #8.5 inches
+	padding: ~> (0.5 * 72) - (9 / 2)
 
 	classNames: ['grid-editor','gridster']
 	gridster: null
@@ -32,42 +31,31 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			draggable:
 				stop: @runSync
 		).data 'gridster'
-		@runSync()
 		@sendAction 'registerEditor',@
 
-	needsRerender: false
+	#setUnpositionedWidgets: ->
+	#	@unpositionedWidgets.forEach (el) =>
+	#		view = Ember.$(el).data('emberObject')
+	#		model = view.block
+	#		next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
+	#		@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
 
-	setUnpositionedWidgets: ->
-		@unpositionedWidgets.forEach (el) =>
-			view = Ember.$(el).data('emberObject')
-			model = view.position
-			next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
-			@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
-			console.log 'setUnpositionedWidgets set needsRerender'
-			@needsRerender = true
 
-	+volatile
-	unpositionedWidgets: -> 
-		@widgetElArray.reject (el) ->
-			model = Ember.$(el).data('emberObject').position
-			model.row? and model.col?
+	#+volatile
+	#unpositionedWidgets: -> 
+	#	@widgetElArray.reject (el) ->
+	#		model = Ember.$(el).data('emberObject').position
+	#		model.row? and model.col?
 
 	runSync: ->
 		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.setUnpositionedWidgets()
-		obj.syncChangedBlocks().then -> 
-		if obj.needsRerender
-			obj.needsRerender = false
-			console.log 'runSync'
-			obj.page.document.flow.refreshQuestionNumbers() 	
+		obj.syncChangedBlocks().then -> obj.page.test.refreshQuestionNumbers()
 				
 	syncChangedBlocks: ->
 		promiseArray = []
 		for diffWidget in @widgetsDiff 
 			obj = Ember.$(diffWidget).data 'emberObject'
 			promiseArray.push obj.syncAttrsToEl()
-			console.log 'setUnpositionedWidgets set needsRerender'
-			@needsRerender = true
 		return Ember.RSVP.all promiseArray
 
 	+volatile
@@ -77,7 +65,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	+volatile
 	widgetsDiff: -> 
 		@widgetElArray.filter (el) =>
-			obj = Ember.$(el).data('emberObject').position
+			obj = Ember.$(el).data('emberObject').block
 			@widthIsDiff(el,obj) or @heightIsDiff(el,obj) or @rowIsDiff(el,obj) or @colIsDiff(el,obj)
 			
 	widthIsDiff: (el,obj) -> obj.colSpan isnt parseInt $(el).attr('data-sizex')

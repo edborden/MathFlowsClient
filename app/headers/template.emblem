@@ -12,4 +12,4 @@
 					|Add Header&nbsp;&nbsp;
 					i.fa-plus
 		.col-xs-10
-			headers-editor user=model
+			headers-editor user=session.me

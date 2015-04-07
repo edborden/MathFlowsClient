@@ -2,9 +2,6 @@ class EquationRendererComponent extends Ember.Component
 	
 	classNames: ['equation-renderer-container']
 
-	position:null
-	block: ~> @position.block
-
 	mathquill: ~>
 		Ember.$(@element).children().first().mathquill('textbox')
 
@@ -14,11 +11,13 @@ class EquationRendererComponent extends Ember.Component
 		Ember.$('.cursor').remove()
 		@sendAction 'setEquationContainerHeight',Ember.$(@element).height()
 
+	+observer block.width
 	setWidth: ->
 		thisJq = Ember.$(@element)
-		parentWidth = @position.width
+		parentWidth = @block.width
 		pageNumberWidth = thisJq.parent().children().first().outerWidth()
-		thisJq.width(parentWidth-pageNumberWidth)
+		width = parentWidth-pageNumberWidth
+		thisJq.width(width)
 
 	setEquationContainerHeight: 'setEquationContainerHeight'
 
@@ -53,7 +52,6 @@ class EquationRendererComponent extends Ember.Component
 			@block.content = output
 			@block.save()
 
-	
 	+volatile
 	cleanOutput: ->
 

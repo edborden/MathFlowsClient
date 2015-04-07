@@ -7,7 +7,7 @@ Router.map ->
 	@route 'block', {path: '/block/:block_id'}
 	@route 'page', {path: '/page/:page_id'}
 	@route 'me'
-	@route 'document', {path: '/document/:document_id'}
+	@route 'test', {path: '/test/:test_id'}
 	@route 'headers'
 
 `export default Router`

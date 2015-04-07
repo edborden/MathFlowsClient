@@ -2,23 +2,20 @@ class PageController extends Ember.Controller
 
 	actions:
 		addPage: ->
-			@store.createRecord('page', {document:@model.document}).save().then (response) =>
+			@store.createRecord('page', {test:@model.test}).save().then (response) =>
 				@transitionToRoute 'page',response
 		deletePage: ->
-			document = @model.document
+			test = @model.test
 			@model.destroyRecord()
-			firstPage = document.pages.firstObject
+			firstPage = test.pages.firstObject
 			if firstPage?
 				@transitionToRoute 'page',firstPage
 			else
-				@send 'newPage'
+				@send 'addPage'
 		addBlock: -> 
-			pos = @store.createRecord('position',{page:@model,rowSpan:3,colSpan:2})
-			@model.stablePositions.addObject pos
+			block = @store.createRecord('block',{page:@model,rowSpan:3,colSpan:2})
+			@model.blocks.addObject block
 		deleteBlock: (block) ->
-			block.positions.forEach (position) -> 
-				position.page.stablePositions.removeObject position
-				position.deleteRecord() #doesn't save deletion, happens on backend
 			block.destroyRecord()
 		toggleNumber: (block) ->
 			block.toggleProperty 'question'

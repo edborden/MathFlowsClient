@@ -2,12 +2,8 @@ class HeadersController extends Ember.Controller
 
 	actions:
 		addHeader: -> 
-			pos = @store.createRecord('position',{user:@model,rowSpan:1,colSpan:2,question:false})
-			@model.stableHeaders.addObject pos
+			@store.createRecord('block',{user:@model,rowSpan:1,colSpan:2,question:false})
 		deleteBlock: (block) ->
-			block.positions.forEach (position) -> 
-				position.user.stableHeaders.removeObject position
-				position.deleteRecord() #doesn't save deletion, happens on backend
 			block.destroyRecord()
 		registerEditor: (editor) ->
 			@editor = editor
