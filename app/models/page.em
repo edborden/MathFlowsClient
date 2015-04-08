@@ -1,6 +1,8 @@
+`import Model from 'math-flows-client/lib/model'`
+
 attr = DS.attr
 
-class Page extends DS.Model
+class Page extends Model
 	test: DS.belongsTo 'test'
 	pdfLink: ~> @test.pdfLink
 	number: ~> @test.pages.indexOf(@) + 1

@@ -14,11 +14,11 @@
 						|Account&nbsp;&nbsp;
 						i.fa-user			
 			p 
-				button.btn.btn-default click="addBlock"
+				button.btn.btn-default click="createBlock"
 					|Add Block&nbsp;&nbsp;
 					i.fa-plus
 			p 
-				button.btn.btn-default click="addPage"
+				button.btn.btn-default click="createPage"
 					|Add Page&nbsp;&nbsp;
 					i.fa-plus
 			p

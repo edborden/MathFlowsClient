@@ -2,8 +2,6 @@
 
 class PageEditorComponent extends Ember.Component with ElRegister
 
-	page: null
-
 	cols: ~> 4
 	widgetMargin: ~> 9 / 2
 	widgetBaseWidth: ~> 128.25
@@ -13,7 +11,6 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	padding: ~> (0.5 * 72) - (9 / 2)
 
 	classNames: ['grid-editor','gridster']
-	gridster: null
 
 	attributeBindings: ['style']
 	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;"
@@ -27,11 +24,28 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			min_cols: @cols
 			resize: 
 				enabled: true
-				stop: @runSync
+				stop: @syncChangedBlocks
 			draggable:
-				stop: @runSync
+				stop: @syncChangedBlocks
 		).data 'gridster'
 		@sendAction 'registerEditor',@
+				
+	syncChangedBlocks: ->
+		for el in Ember.A $.makeArray Ember.$('.gs-w')
+			obj = Ember.$(el).data('emberObject')
+			obj.syncIfOutOfSync() if obj?
+
+	openModal: 'openModal'
+	registerEditor: 'registerEditor'
+	saveModel: 'saveModel'
+	destroyModel: 'destroyModel'
+	actions:
+		openGraphModal: (block) ->
+			@sendAction 'openModal','modal/graph',block
+		saveModel: (model) -> 
+			model.test.refreshQuestionNumbers() if model.isABlock
+			@sendAction 'saveModel',model
+		destroyModel: (model) -> @sendAction 'destroyModel',model
 
 	#setUnpositionedWidgets: ->
 	#	@unpositionedWidgets.forEach (el) =>
@@ -46,50 +60,5 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	#	@widgetElArray.reject (el) ->
 	#		model = Ember.$(el).data('emberObject').position
 	#		model.row? and model.col?
-
-	runSync: ->
-		obj = Ember.$(".grid-editor").data 'emberObject'
-		obj.syncChangedBlocks().then -> obj.page.test.refreshQuestionNumbers()
-				
-	syncChangedBlocks: ->
-		promiseArray = []
-		for diffWidget in @widgetsDiff 
-			obj = Ember.$(diffWidget).data 'emberObject'
-			promiseArray.push obj.syncAttrsToEl()
-		return Ember.RSVP.all promiseArray
-
-	+volatile
-	widgetElArray: -> Ember.A $.makeArray Ember.$('.gs-w')
-
-	# Block elements that are different from their models
-	+volatile
-	widgetsDiff: -> 
-		@widgetElArray.filter (el) =>
-			obj = Ember.$(el).data('emberObject').block
-			@widthIsDiff(el,obj) or @heightIsDiff(el,obj) or @rowIsDiff(el,obj) or @colIsDiff(el,obj)
-			
-	widthIsDiff: (el,obj) -> obj.colSpan isnt parseInt $(el).attr('data-sizex')
-	heightIsDiff: (el,obj) -> obj.rowSpan isnt parseInt $(el).attr('data-sizey')
-	rowIsDiff: (el,obj) -> obj.row isnt parseInt $(el).attr('data-row')
-	colIsDiff: (el,obj) -> obj.col isnt parseInt $(el).attr('data-col')
-
-	deleteBlock: 'deleteBlock'
-	deleteImage: 'deleteImage'
-	toggleNumber: 'toggleNumber'
-	addImage: 'addImage'
-	openModal: 'openModal'
-	registerEditor: 'registerEditor'
-	actions:
-		deleteBlock: (block) ->
-			@sendAction 'deleteBlock',block
-			@page.document.refreshQuestionNumbers()
-		deleteImage: (block) ->
-			@sendAction 'deleteImage',block
-		toggleNumber: (block) ->
-			@sendAction 'toggleNumber',block
-		addImage: (params) ->
-			@sendAction 'addImage',params
-		openGraphModal: (block) ->
-			@sendAction 'openModal','modal/graph',block
 
 `export default PageEditorComponent`

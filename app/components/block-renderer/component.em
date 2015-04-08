@@ -2,11 +2,10 @@
 `import Notify from 'ember-notify'`
 
 class BlockRendererComponent extends Ember.Component with ElRegister
+	store: Ember.inject.service()
 
 	classNames: ['block-renderer']
 	tagName: 'li'
-	block: null
-	page: ~> @block.page
 
 	doubleClick: -> 
 		Ember.$(@element).focus()
@@ -20,51 +19,57 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	"data-col": ~> @block.col
 	tabindex: 0
 
-	gridster: ~> @parentView.gridster
-
-	coords: ~> @gridster.dom_to_coords Ember.$(@element)
+	coords: -> @gridster.dom_to_coords Ember.$(@element)
 
 	didInsertElement: ->
+		window.test = @
 		@_super()
 		if @block.isNew
 			@addToGrid()
 			@syncAttrsToEl()
 				
 	syncAttrsToEl: ->
-		return new Ember.RSVP.Promise (resolve) =>
-			@block.colSpan = parseInt $(@element).attr('data-sizex')
-			@block.rowSpan = parseInt $(@element).attr('data-sizey')
-			@block.row = parseInt $(@element).attr('data-row')
-			@block.col = $(@element).attr('data-col')
-			@block.save().then -> resolve()
+			@block.colSpan = @coords().size_x
+			@block.rowSpan = @coords().size_y
+			@block.row = @coords().row
+			@block.col = @coords().col
+			@sendAction 'saveModel',@block
 
-	addToGrid: -> @gridster.add_widget @element,parseInt(@block.colSpan),parseInt(@block.rowSpan)
+	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan
 
-	deleteBlock: 'deleteBlock'
-	toggleNumber: 'toggleNumber'
-	deleteImage: 'deleteImage'
-	addImage: 'addImage'
+	syncIfOutOfSync: -> @syncAttrsToEl() if @outOfSync()
+	outOfSync: -> @widthIsDiff() or @heightIsDiff() or @rowIsDiff() or @colIsDiff()
+	widthIsDiff: -> @block.colSpan isnt @coords().size_x
+	heightIsDiff: -> @block.rowSpan isnt @coords().size_y
+	rowIsDiff: -> @block.row isnt @coords().row
+	colIsDiff: -> @block.col isnt @coords().col
+
+	destroyModel: 'destroyModel'
 	openGraphModal: 'openGraphModal'
+	saveModel: 'saveModel'
 	actions:
-		deleteBlock: ->
-			@sendAction 'deleteBlock',@block
-		deleteImage: ->
-			@sendAction 'deleteImage',@block
 		toggleNumber: ->
-			@sendAction 'toggleNumber',@block
+			@block.toggleProperty 'question'
+			@sendAction 'saveModel',@block
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',sources:['local', 'url',],show_powered_by:false}, (error, result) => 
-				@sendAction 'addImage',
+				image = @store.createRecord 'image',
 					block: @block
 					cloudinaryId: result[0].public_id
 					width: result[0].width
 					height: result[0].height
-		openGraphModal: ->
-			@sendAction 'openGraphModal',@block
+				@sendAction 'saveModel', image
+		openGraphModal: -> @sendAction 'openGraphModal',@block
 		setEquationContainerHeight: (height) -> @equationContainerHeight = height
+		saveModel: (model) -> @sendAction 'saveModel', model
+		destroyModel: (model) -> @sendAction 'destroyModel',model
 
 	equationContainerHeight: 0
 	availableImageHeight: ~> @block.height - @equationContainerHeight
 	availableImageWidth: ~> @block.width
+
+	+observer block.isDeleted
+	isDeleted: -> 
+		@gridster.remove_widget @element if @block.isDeleted
 
 `export default BlockRendererComponent`

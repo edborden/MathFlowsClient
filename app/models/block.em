@@ -1,10 +1,16 @@
+`import Model from 'math-flows-client/lib/model'`
+
 attr = DS.attr
+belongsTo = DS.belongsTo
 
-class Block extends DS.Model
-	user: DS.belongsTo 'user'
-	page: DS.belongsTo 'page'
-	image: DS.belongsTo 'image'
+class Block extends Model
+	
+	user: belongsTo 'user'
+	page: belongsTo 'page'
+	image: belongsTo 'image'
+	test: ~> @page.test
 
+	isABlock: true
 	question: attr "boolean"
 	content: attr()
 	row: attr "number"

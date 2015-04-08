@@ -21,7 +21,6 @@ class ApplicationRoute extends Ember.Route
 					console.log authData
 					@session.post(authData.authorizationCode,authData.redirectUri).then => @transitionTo 'me'
 					(error) -> console.log error
-
 		openModal: (name,model) ->
 			@render name,
 				into: 'application'
@@ -31,6 +30,19 @@ class ApplicationRoute extends Ember.Route
 			@disconnectOutlet
 				outlet: 'modal'
 				parentView: 'application'
-		addImage: (params) ->
-			@store.createRecord('image',params).save()
+		saveModel: (model) ->
+			if model.isDirty
+				model.save().then(
+					(success) => @notify.warning model.modelName + " saved."
+					(errors) => @send 'errors', errors.errors
+				)
+		destroyModel: (model) ->
+			model.destroyRecord().then(
+				(success) => @notify.warning model.modelName + " destroyed."
+				(errors) => @send 'errors', errors.errors
+			)
+		errors: (errors) -> 
+			for prop,array of errors
+				@notify.danger message for message in array
+
 `export default ApplicationRoute`

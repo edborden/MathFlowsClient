@@ -1,13 +1,13 @@
 if isEditing
 	.vertical-tiny-button-menu
-		button click="deleteBlock"
+		button click="'destroyModel' block"
 			i.fa-trash.text-danger
 		button click="toggleNumber"
 			span.bigger #
 			if block.question
 					i.remove-overlay.fa-times
 		if block.image
-			button click="deleteImage"
+			button click="'destroyModel' block.image"
 				i.remove-overlay.fa-times
 				i.fa-image	
 		else

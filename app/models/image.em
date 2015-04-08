@@ -1,6 +1,8 @@
+`import Model from 'math-flows-client/lib/model'`
+
 attr = DS.attr
 
-class Image extends DS.Model
+class Image extends Model
 	block: DS.belongsTo 'block'
 	height: attr "number"
 	width: attr "number"

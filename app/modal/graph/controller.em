@@ -3,11 +3,12 @@ class ModalGraphController extends Ember.Controller
 	actions:
 		screenshot: ->
 			@blobToCloudinary(@calculator.screenshot()).then (result) => 	
-				@send 'addImage',
+				image = @store.createRecord 'image',
 					block: @model
 					cloudinaryId: result.public_id
 					width: result.width
 					height: result.height
+				@send 'saveModel',image
 		registerCalculator: (calculator) ->
 			@calculator = calculator
 

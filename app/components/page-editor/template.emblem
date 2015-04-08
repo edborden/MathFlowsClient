@@ -1,3 +1,3 @@
 ul
 	each block in page.stableBlocks
-		block-renderer block=block
+		block-renderer block=block gridster=gridster

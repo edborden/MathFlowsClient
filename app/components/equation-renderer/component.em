@@ -20,6 +20,7 @@ class EquationRendererComponent extends Ember.Component
 		thisJq.width(width)
 
 	setEquationContainerHeight: 'setEquationContainerHeight'
+	saveModel: 'saveModel'
 
 	actions:
 		insertLatex: (latex) ->
@@ -50,7 +51,7 @@ class EquationRendererComponent extends Ember.Component
 		output = @cleanOutput
 		unless @block.content is output
 			@block.content = output
-			@block.save()
+			@sendAction 'saveModel',@block
 
 	+volatile
 	cleanOutput: ->
