@@ -33,7 +33,7 @@ class ApplicationRoute extends Ember.Route
 		saveModel: (model) ->
 			if model.isDirty
 				model.save().then(
-					(success) => @notify.warning model.modelName + " saved."
+					(success) => console.log model.modelName + " saved."
 					(errors) => @send 'errors', errors.errors
 				)
 		destroyModel: (model) ->

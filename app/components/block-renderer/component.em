@@ -33,11 +33,13 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			@block.row = @coords().row
 			@block.col = @coords().col
 			@sendAction 'saveModel',@block
+			@block.test.refreshQuestionNumbers()
 
 	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan
 
-	syncIfOutOfSync: -> @syncAttrsToEl() if @outOfSync()
+	syncIfOutOfSync: -> @syncAttrsToEl() if @outOfSync() and not @block.isDeleted
 	outOfSync: -> @widthIsDiff() or @heightIsDiff() or @rowIsDiff() or @colIsDiff()
+
 	widthIsDiff: -> @block.colSpan isnt @coords().size_x
 	heightIsDiff: -> @block.rowSpan isnt @coords().size_y
 	rowIsDiff: -> @block.row isnt @coords().row
@@ -46,6 +48,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	destroyModel: 'destroyModel'
 	openGraphModal: 'openGraphModal'
 	saveModel: 'saveModel'
+	syncChangedBlocks: 'syncChangedBlocks'
 	actions:
 		toggleNumber: ->
 			@block.toggleProperty 'question'
@@ -64,21 +67,22 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 		destroyModel: (model) -> @sendAction 'destroyModel',model
 		cutBlock: (model) -> 
 			@removeFromGrid()
-			model.page.stableBlocks.removeObject model
-			model.page = null
+			model.removeFromPage()
 			model.test.notifyPropertyChange 'clipboard'
-			model.row = null
-			model.col = null
 			@sendAction 'saveModel',model
+			@block.test.refreshQuestionNumbers()
 
 	equationContainerHeight: 0
 	availableImageHeight: ~> @block.height - @equationContainerHeight
 	availableImageWidth: ~> @block.width
 
 	+observer block.isDeleted
-	isDeleted: -> @removeFromGrid() if @block.isDeleted
+	isDeleted: -> 
+		if @block.isDeleted
+			@removeFromGrid()
+			@block.test.refreshQuestionNumbers()
 
-	removeFromGrid: -> @gridster.remove_widget @element
+	removeFromGrid: -> @gridster.remove_widget @element,true
 
 
 `export default BlockRendererComponent`

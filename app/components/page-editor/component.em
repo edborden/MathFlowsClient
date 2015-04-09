@@ -28,6 +28,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			draggable:
 				stop: @syncChangedBlocks
 		).data 'gridster'
+		Ember.run.next @,@syncChangedBlocks #account for blocks that will move up automatically if empty space above them
 				
 	syncChangedBlocks: ->
 		for el in Ember.A $.makeArray Ember.$('.gs-w')
@@ -38,11 +39,8 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	saveModel: 'saveModel'
 	destroyModel: 'destroyModel'
 	actions:
-		openGraphModal: (block) ->
-			@sendAction 'openModal','modal/graph',block
-		saveModel: (model) -> 
-			model.test.refreshQuestionNumbers() if model.isABlock
-			@sendAction 'saveModel',model
+		openGraphModal: (block) -> @sendAction 'openModal','modal/graph',block
+		saveModel: (model) -> @sendAction 'saveModel',model
 		destroyModel: (model) -> @sendAction 'destroyModel',model
 
 	+observer page

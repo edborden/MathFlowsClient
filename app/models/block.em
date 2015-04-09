@@ -10,7 +10,6 @@ class Block extends Model
 	image: belongsTo 'image'
 	test: belongsTo 'test'
 
-	isABlock: true
 	question: attr "boolean"
 	content: attr()
 	row: attr "number"
@@ -26,8 +25,14 @@ class Block extends Model
 
 	pageNumber: ~> @page.number
 
-	+computed page.test.questionBlocksSorted
+	+computed test.questionBlocksSorted
 	questionNumber: -> 
-		@page.test.questionBlocksSorted.indexOf(@) + 1 + "." if @page?
+		@test.questionBlocksSorted.indexOf(@) + 1 + "."
+
+	removeFromPage: ->
+		@page.stableBlocks.removeObject @
+		@page = null
+		@row = null
+		@col = null
 
 `export default Block`
