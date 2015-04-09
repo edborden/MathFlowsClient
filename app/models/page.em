@@ -7,9 +7,8 @@ class Page extends Model
 	pdfLink: ~> @test.pdfLink
 	number: ~> @test.pages.indexOf(@) + 1
 
-	blocks: DS.hasMany 'block'
-
 	## TEMPORARY FIX FOR EMBER DATA WONKINESS. HAS_MANY RELATIONSHIPS RELOAD ON ANY CHANGE CAUSING VIEWS TO RE-RENDER, BREAKING GRIDSTER.
+	blocks: DS.hasMany 'block'
 	stableBlocks: null
 
 	loadedBlocks:false
@@ -21,9 +20,5 @@ class Page extends Model
 				@stableBlocks = Ember.A []
 				@stableBlocks.addObjects @blocks
 				@loadedBlocks = true
-
-	#syncStableBlocks: ->
-	#	@blocks.forEach (block) =>
-	#		@stableBlocks.addObject block unless @stableBlocks.contains block
-	##
+				
 `export default Page`

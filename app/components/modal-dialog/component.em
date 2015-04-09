@@ -13,6 +13,6 @@ class ModalDialogComponent extends Ember.Component
 	actions:
 		ok: ->
 			@sendAction 'ok'
-			@sendAction 'close'
+			Ember.$('.modal-cancel').click()
 
 `export default ModalDialogComponent`

@@ -6,4 +6,4 @@
 		.modal-body = yield
 		.modal-footer
 			button.btn.btn-primary click='ok' OK
-			button.btn.btn-default data-dismiss="modal" Cancel
+			button.btn.btn-default.modal-cancel data-dismiss="modal" Cancel

@@ -37,6 +37,12 @@
 					button.btn.btn-default click="deletePage"
 						|Delete Page&nbsp;&nbsp;
 						i.fa-minus
+			if model.test.clipboard
+				hr
+				p #{model.test.clipboard.length} blocks in clipboard
+				button.btn.btn-warning click="paste"
+					|Paste&nbsp;&nbsp;
+					i.fa-paste			
 		.col-xs-10
 			if model.isLoaded
 				page-editor page=model

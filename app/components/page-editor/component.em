@@ -28,7 +28,6 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			draggable:
 				stop: @syncChangedBlocks
 		).data 'gridster'
-		@sendAction 'registerEditor',@
 				
 	syncChangedBlocks: ->
 		for el in Ember.A $.makeArray Ember.$('.gs-w')
@@ -36,7 +35,6 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			obj.syncIfOutOfSync() if obj?
 
 	openModal: 'openModal'
-	registerEditor: 'registerEditor'
 	saveModel: 'saveModel'
 	destroyModel: 'destroyModel'
 	actions:
@@ -47,18 +45,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 			@sendAction 'saveModel',model
 		destroyModel: (model) -> @sendAction 'destroyModel',model
 
-	#setUnpositionedWidgets: ->
-	#	@unpositionedWidgets.forEach (el) =>
-	#		view = Ember.$(el).data('emberObject')
-	#		model = view.block
-	#		next = @gridster.next_position parseInt(model.colSpan),parseInt(model.rowSpan)
-	#		@gridster.mutate_widget_in_gridmap Ember.$(el),view.coords,next
-
-
-	#+volatile
-	#unpositionedWidgets: -> 
-	#	@widgetElArray.reject (el) ->
-	#		model = Ember.$(el).data('emberObject').position
-	#		model.row? and model.col?
+	+observer page
+	onPageChange: -> @rerender()
 
 `export default PageEditorComponent`

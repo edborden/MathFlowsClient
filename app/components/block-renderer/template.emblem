@@ -1,7 +1,5 @@
 if isEditing
 	.vertical-tiny-button-menu
-		button click="'destroyModel' block"
-			i.fa-trash.text-danger
 		button click="toggleNumber"
 			span.bigger #
 			if block.question
@@ -15,6 +13,11 @@ if isEditing
 				i.fa-image	
 			button click="openGraphModal"
 				i.fa-line-chart	
+	.vertical-tiny-button-menu-second-row
+		button click="'destroyModel' block"
+			i.fa-trash.text-danger
+		button click="'cutBlock' block"
+			i.fa-cut
 
 if block
 	if block.question

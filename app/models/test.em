@@ -12,12 +12,32 @@ class Test extends DS.Model
 	copyFrom: DS.belongsTo 'test'
 	isTest: true
 
+	## CLIPBOARD
+
+	clipboard: ~> @stableBlocks.rejectBy 'page'
+
+	## QUESTION NUMBERS
+
 	refreshQuestionNumbers: -> @notifyPropertyChange 'questionBlocksSorted'
 
 	questionBlocksSorted: ~> 
 		allBlocks = @pages.getEach 'stableBlocks'
 		#allBlocks = allBlocks.getEach 'currentState'
 		allBlocksFlat = [].concat.apply [], allBlocks
-		allBlocksFlat.filterBy('question').sortBy 'pageNumber','row','col'
+		allBlocksFlat.filterBy('page').filterBy('question').sortBy 'pageNumber','row','col'
+
+	## TEMPORARY FIX FOR EMBER DATA WONKINESS. HAS_MANY RELATIONSHIPS RELOAD ON ANY CHANGE CAUSING VIEWS TO RE-RENDER, BREAKING GRIDSTER.
+	blocks: DS.hasMany 'block'
+	stableBlocks: null
+
+	loadedBlocks:false
+
+	+observer blocks
+	onBlocksChange: ->
+		unless @loadedBlocks
+			if @blocks.length > 0
+				@stableBlocks = Ember.A []
+				@stableBlocks.addObjects @blocks
+				@loadedBlocks = true
 		
 `export default Test`

@@ -8,7 +8,7 @@ class Block extends Model
 	user: belongsTo 'user'
 	page: belongsTo 'page'
 	image: belongsTo 'image'
-	test: ~> @page.test
+	test: belongsTo 'test'
 
 	isABlock: true
 	question: attr "boolean"
@@ -28,6 +28,6 @@ class Block extends Model
 
 	+computed page.test.questionBlocksSorted
 	questionNumber: -> 
-		@page.test.questionBlocksSorted.indexOf(@) + 1 + "."
+		@page.test.questionBlocksSorted.indexOf(@) + 1 + "." if @page?
 
 `export default Block`

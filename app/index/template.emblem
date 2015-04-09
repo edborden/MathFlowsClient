@@ -1,1 +1,1 @@
-render 'test' session.me.folders.firstObject.tests.firstObject
+render 'page' session.me.folders.firstObject.tests.firstObject.pages.firstObject

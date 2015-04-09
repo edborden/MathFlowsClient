@@ -22,9 +22,8 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	coords: -> @gridster.dom_to_coords Ember.$(@element)
 
 	didInsertElement: ->
-		window.test = @
 		@_super()
-		if @block.isNew
+		if @block.isDirty
 			@addToGrid()
 			@syncAttrsToEl()
 				
@@ -63,13 +62,23 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 		setEquationContainerHeight: (height) -> @equationContainerHeight = height
 		saveModel: (model) -> @sendAction 'saveModel', model
 		destroyModel: (model) -> @sendAction 'destroyModel',model
+		cutBlock: (model) -> 
+			@removeFromGrid()
+			model.page.stableBlocks.removeObject model
+			model.page = null
+			model.test.notifyPropertyChange 'clipboard'
+			model.row = null
+			model.col = null
+			@sendAction 'saveModel',model
 
 	equationContainerHeight: 0
 	availableImageHeight: ~> @block.height - @equationContainerHeight
 	availableImageWidth: ~> @block.width
 
 	+observer block.isDeleted
-	isDeleted: -> 
-		@gridster.remove_widget @element if @block.isDeleted
+	isDeleted: -> @removeFromGrid() if @block.isDeleted
+
+	removeFromGrid: -> @gridster.remove_widget @element
+
 
 `export default BlockRendererComponent`
