@@ -1,6 +1,4 @@
-`import ElRegister from 'math-flows-client/mixins/el-register'`
-
-class PageEditorComponent extends Ember.Component with ElRegister
+class PageEditorComponent extends Ember.Component
 
 	cols: ~> 4
 	widgetMargin: ~> 9 / 2
@@ -10,7 +8,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	width: ~> 8.5 * 72 #8.5 inches
 	padding: ~> (0.5 * 72) - (9 / 2)
 
-	classNames: ['grid-editor','gridster']
+	classNames: ['gridster']
 
 	attributeBindings: ['style']
 	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;".htmlSafe()

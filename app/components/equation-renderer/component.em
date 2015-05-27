@@ -9,6 +9,9 @@ class EquationRendererComponent extends Ember.Component
 		Ember.$('.cursor').remove()
 		@sendAction 'setEquationContainerHeight',Ember.$(@element).height()
 
+	willDestroyElement: ->
+		@mathquill = null # fixes destroyElement error
+
 	+observer block.width
 	setWidth: ->
 		thisJq = Ember.$(@element)
