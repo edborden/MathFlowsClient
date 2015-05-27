@@ -1,7 +1,5 @@
 class ModalDialogComponent extends Ember.Component
 
-	classNames: ['modal']
-
 	didInsertElement: ->
 		Ember.$(@element).modal(
 			keyboard: false

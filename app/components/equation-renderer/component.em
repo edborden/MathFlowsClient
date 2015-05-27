@@ -1,7 +1,5 @@
 class EquationRendererComponent extends Ember.Component
 	
-	classNames: ['equation-renderer-container']
-
 	mathquill: ~>
 		Ember.$(@element).children().first().mathquill('textbox')
 

@@ -4,7 +4,6 @@
 class BlockRendererComponent extends Ember.Component with ElRegister
 	store: Ember.inject.service()
 
-	classNames: ['block-renderer']
 	tagName: 'li'
 
 	doubleClick: -> 

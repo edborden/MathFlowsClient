@@ -13,7 +13,7 @@ class PageEditorComponent extends Ember.Component with ElRegister
 	classNames: ['grid-editor','gridster']
 
 	attributeBindings: ['style']
-	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;"
+	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;".htmlSafe()
 
 	didInsertElement: ->
 		@_super()
