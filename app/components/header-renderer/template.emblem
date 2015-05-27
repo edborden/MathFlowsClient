@@ -1,7 +1,0 @@
-if isEditing
-	.block-menu
-		button click="deleteBlock"
-			i.fa-trash.text-danger
-
-if position.block
-	equation-renderer position=position

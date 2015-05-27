@@ -11,7 +11,6 @@ class Folder extends DS.Model with ModelName
 	tests: hasMany 'test', {async:true}
 	name: attr()
 	open: attr "boolean"
-	isFolder: true
 	folder: belongsTo 'folder', {inverse: 'folders'}
 	folders: hasMany 'folder', {inverse: 'folder'}
 	testFolder: attr 'boolean'

@@ -1,3 +1,0 @@
-ul
-	each position in user.stableHeaders
-		header-renderer position=position

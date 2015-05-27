@@ -16,7 +16,6 @@ class Test extends DS.Model with ModelName
 	multiplePages: ~> @pages.length > 1
 	name: attr()
 	copyFrom: belongsTo 'test'
-	isTest: true
 
 	## CLIPBOARD
 

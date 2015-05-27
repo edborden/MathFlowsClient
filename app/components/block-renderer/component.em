@@ -32,7 +32,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			@block.row = @coords().row
 			@block.col = @coords().col
 			@sendAction 'saveModel',@block
-			@block.test.refreshQuestionNumbers()
+			@refreshQuestionNumbers()
 
 	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan
 
@@ -69,7 +69,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			model.removeFromPage()
 			model.test.notifyPropertyChange 'clipboard'
 			@sendAction 'saveModel',model
-			@block.test.refreshQuestionNumbers()
+			@refreshQuestionNumbers()
 
 	equationContainerHeight: 0
 	availableImageHeight: ~> @block.height - @equationContainerHeight
@@ -79,9 +79,10 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	isDeleted: -> 
 		if @block.isDeleted
 			@removeFromGrid()
-			@block.test.refreshQuestionNumbers()
+			@refreshQuestionNumbers()
 
 	removeFromGrid: -> @gridster.remove_widget @element,true
 
+	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test
 
 `export default BlockRendererComponent`
