@@ -17,7 +17,7 @@ class ApplicationRoute extends Ember.Route
 			@transitionTo 'index'
 		authenticate: ->
 			@transitionTo('loading').then =>
-				@torii.open('google-offline').then (authData) => 
+				@torii.open('google-oauth2').then (authData) => 
 					console.log authData
 					@session.post(authData.authorizationCode,authData.redirectUri).then => @transitionTo 'me'
 					(error) -> console.log error
