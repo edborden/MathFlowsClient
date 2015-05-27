@@ -1,5 +1,4 @@
 initializer =
-	name:'cloudinary'
 
 	initialize: ->
 

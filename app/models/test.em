@@ -4,6 +4,8 @@ attr = DS.attr
 
 class Test extends DS.Model
 
+	session: Ember.inject.service()
+
 	iconName: "fa-file-text-o"
 	pages: DS.hasMany 'page'
 	blocks: DS.hasMany 'block'

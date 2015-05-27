@@ -2,6 +2,7 @@
 
 class ApplicationAdapter extends DS.ActiveModelAdapter
 	host: config.apiHostName
+	session: Ember.inject.service()
 
 	#crossdomain
 	ajax: (url, method, hash) -> 

@@ -1,6 +1,8 @@
 attr = DS.attr
 
 class Group extends DS.Model
+
+	session: Ember.inject.service()
 	
 	name: attr()
 	users: DS.hasMany 'user'
