@@ -1,18 +1,22 @@
-attr = DS.attr
+`import ModelName from 'math-flows-client/mixins/model-name'`
 
-class Folder extends DS.Model
+attr = DS.attr
+belongsTo = DS.belongsTo
+hasMany = DS.hasMany
+
+class Folder extends DS.Model with ModelName
 
 	iconName: "fa-folder" 
-	user: DS.belongsTo 'user'#, {inverse: 'folders'}
-	tests: DS.hasMany 'test', {async:true}
+	user: belongsTo 'user'#, {inverse: 'folders'}
+	tests: hasMany 'test', {async:true}
 	name: attr()
 	open: attr "boolean"
 	isFolder: true
-	folder: DS.belongsTo 'folder', {inverse: 'folders'}
-	folders: DS.hasMany 'folder', {inverse: 'folder'}
+	folder: belongsTo 'folder', {inverse: 'folders'}
+	folders: hasMany 'folder', {inverse: 'folder'}
 	testFolder: attr 'boolean'
 	studentFolder: attr 'boolean'
-	students: DS.hasMany 'student'
+	students: hasMany 'student'
 	hasChildren: ~> @folders.length > 0 or @students.length > 0 or @tests.length > 0
 
 `export default Folder`

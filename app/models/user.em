@@ -1,15 +1,19 @@
-attr = DS.attr
+`import ModelName from 'math-flows-client/mixins/model-name'`
 
-class User extends DS.Model
+attr = DS.attr
+belongsTo = DS.belongsTo
+hasMany = DS.hasMany
+
+class User extends DS.Model with ModelName
 	name: attr()
 	pic: attr()
 	premium: attr 'boolean'
-	folders: DS.hasMany 'folder', {inverse: 'user'}
+	folders: hasMany 'folder', {inverse: 'user'}
 	topTestFolders: ~> @folders.rejectBy('folder').filterBy 'testFolder'
 	topStudentFolders: ~> @folders.rejectBy('folder').filterBy 'studentFolder'
 	guest: attr()
-	blocks: DS.hasMany 'block'
-	group: DS.belongsTo 'group'
+	blocks: hasMany 'block'
+	group: belongsTo 'group'
 
 	## TEMPORARY FIX FOR EMBER DATA WONKINESS. HAS_MANY RELATIONSHIPS RELOAD ON ANY CHANGE CAUSING VIEWS TO RE-RENDER, BREAKING GRIDSTER.
 	stableHeaders: null

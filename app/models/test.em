@@ -1,18 +1,21 @@
 `import config from 'math-flows-client/config/environment'`
+`import ModelName from 'math-flows-client/mixins/model-name'`
 
 attr = DS.attr
+belongsTo = DS.belongsTo
+hasMany = DS.hasMany
 
-class Test extends DS.Model
+class Test extends DS.Model with ModelName
 
 	session: Ember.inject.service()
 
 	iconName: "fa-file-text-o"
-	pages: DS.hasMany 'page'
-	blocks: DS.hasMany 'block'
+	pages: hasMany 'page'
+	blocks: hasMany 'block'
 	pdfLink: ~> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
 	multiplePages: ~> @pages.length > 1
 	name: attr()
-	copyFrom: DS.belongsTo 'test'
+	copyFrom: belongsTo 'test'
 	isTest: true
 
 	## CLIPBOARD

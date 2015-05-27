@@ -1,9 +1,10 @@
-`import Model from 'math-flows-client/lib/model'`
+`import ModelName from 'math-flows-client/mixins/model-name'`
 
 attr = DS.attr
 belongsTo = DS.belongsTo
+hasMany = DS.hasMany
 
-class Block extends Model
+class Block extends DS.Model with ModelName
 	
 	user: belongsTo 'user'
 	page: belongsTo 'page'
