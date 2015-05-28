@@ -7,10 +7,10 @@
 				link-to 'headers' class="btn btn-primary"
 					|Edit Header&nbsp;&nbsp;
 					i.fa-edit
-			p
-				button.btn.btn-primary click="importStudents"
-					|Import Students&nbsp;&nbsp;
-					i.fa-google
+			/p
+			/	button.btn.btn-primary click="importStudents"
+			/		|Import Students&nbsp;&nbsp;
+			/		i.fa-google
 
 		.col-xs-6
 			.account
@@ -23,12 +23,12 @@
 				.col-xs-6 
 					.account-menu
 						.inline Tests&nbsp;&nbsp;
-						button.btn-primary click="newFlowFolder"
+						button.btn-primary click="newTestFolder"
 							i.add-overlay.fa-plus
 							i.fa-folder
 
-					each folder in model.topFlowFolders
-						tree-accordian layoutName="components/flowfolder-accordian" model=folder
+					each folder in model.topTestFolders
+						tree-accordian model=folder
 
 				.col-xs-6
 					if model.premium
@@ -38,7 +38,7 @@
 								i.add-overlay.fa-plus
 								i.fa-folder
 						each folder in model.topStudentFolders
-							tree-accordian layoutName="components/studentfolder-accordian" model=folder
+							tree-accordian model=folder
 						else 
 							p No students yet!
 		.col-xs-4

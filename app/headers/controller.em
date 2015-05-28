@@ -2,7 +2,8 @@ class HeadersController extends Ember.Controller
 
 	actions:
 		addHeader: -> 
-			@store.createRecord('block',{user:@model,rowSpan:1,colSpan:2,question:false})
+			block = @store.createRecord('block',{user:@session.me,rowSpan:1,colSpan:2,question:false,content:"[Add content here.]"})
+			@session.me.stableBlocks.addObject block
 		deleteBlock: (block) ->
 			block.destroyRecord()
 

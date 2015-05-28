@@ -21,7 +21,7 @@ class TreeOverComponent extends Ember.Component
 
 	actions:
 		toggle: -> 
-			@model.toggleProperty('open')
+			@model.toggleProperty 'open'
 			@model.save()
 		nameClicked: -> 
 			@isEditing = true

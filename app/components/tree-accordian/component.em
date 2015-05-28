@@ -9,22 +9,19 @@ class TreeAccordianComponent extends Ember.Component
 		@mouseOver = false
 
 	drop: 'drop'
-	editDocument: 'editDocument'
-	copyDocument: 'copyDocument'
-	newFlow: 'newFlow'
-	newStudent: 'newStudent'
+	editObj: 'editObj'
+	copyObj: 'copyObj'
+	newObj: 'newObj'
 
 	actions:
 		drop: (object,options) ->
 			@sendAction 'drop',object,options
-		editDocument: (document) ->
-			@sendAction 'editDocument',document
-		copyDocument: (document) ->
-			@sendAction 'copyDocument',document
-		newFlow: (folder) ->
-			@sendAction 'newFlow',folder
-		newStudent: (folder) ->
-			@sendAction 'newStudent',folder
+		editObj: (obj) ->
+			@sendAction 'editObj',obj
+		copyObj: (obj) ->
+			@sendAction 'copyObj',obj
+		newObj: (containingFolder) ->
+			@sendAction 'newObj',containingFolder
 
 	dragging: ~> @model.isDraggingObject
 

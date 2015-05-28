@@ -15,7 +15,8 @@ class Test extends DS.Model with ModelName
 	pdfLink: ~> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
 	multiplePages: ~> @pages.length > 1
 	name: attr()
-	copyFrom: belongsTo 'test'
+	copyFromId: attr "number"
+	folder: belongsTo 'folder'
 
 	## CLIPBOARD
 

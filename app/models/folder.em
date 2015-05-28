@@ -17,5 +17,6 @@ class Folder extends DS.Model with ModelName
 	studentFolder: attr 'boolean'
 	students: hasMany 'student'
 	hasChildren: ~> @folders.length > 0 or @students.length > 0 or @tests.length > 0
+	children: ~> if @testFolder then @tests else @students
 
 `export default Folder`
