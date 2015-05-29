@@ -2,7 +2,7 @@ initializer =
 
 	initialize: (container,application) ->
 
-		services = ['session','keen']
+		services = ['session','keen','modaler']
 
 		#Inject into app factories
 		['controller','route'].forEach (type) ->

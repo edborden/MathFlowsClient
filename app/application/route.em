@@ -22,14 +22,9 @@ class ApplicationRoute extends Ember.Route
 					@session.post(authData.authorizationCode,authData.redirectUri).then => @transitionTo 'me'
 					(error) -> console.log error
 		openModal: (name,model) ->
-			@render name,
-				into: 'application'
-				outlet: 'modal'
-				model: model
+			@modaler.openModal name,model
 		closeModal: ->
-			@disconnectOutlet
-				outlet: 'modal'
-				parentView: 'application'
+			@modaler.closeModal()
 		saveModel: (model) ->
 			if model.isDirty
 				model.save().then(

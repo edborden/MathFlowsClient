@@ -37,7 +37,7 @@ class PageEditorComponent extends Ember.Component
 	saveModel: 'saveModel'
 	destroyModel: 'destroyModel'
 	actions:
-		openGraphModal: (block) -> @sendAction 'openModal','modal/graph',block
+		openGraphModal: (block) -> @sendAction 'openModal','graph-modal',block
 		saveModel: (model) -> @sendAction 'saveModel',model
 		destroyModel: (model) -> @sendAction 'destroyModel',model
 
