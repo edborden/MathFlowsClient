@@ -1,4 +1,4 @@
-.container-fluid.standard-padding
+.container-fluid
 	.row
 		.col-xs-2.side-nav			
 			h1#logo MathFlows

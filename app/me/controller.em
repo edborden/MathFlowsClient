@@ -19,6 +19,8 @@ class MeController extends Ember.Controller
 		newObj: (containingFolder) -> 
 			model = @store.createRecord('test',{folder:containingFolder,name:"New Test"})
 			@send 'saveModel',model
+			containingFolder.open = true
+			@send 'saveModel',containingFolder
 
 		#newGroup: ->
 		#	group = @store.createRecord('group').save()
@@ -29,7 +31,7 @@ class MeController extends Ember.Controller
 			folder = options.target.model
 			unless object is folder #don't let an item get dropped on itself
 				object.folder = folder
-				object.save()
+				@send 'saveModel',object
 				@model.notifyPropertyChange 'topTestFolders'
 				@model.notifyPropertyChange 'topStudentFolders'
 		deleteDrop: (object) -> object.destroyRecord()
