@@ -12,6 +12,7 @@ class Block extends DS.Model with ModelName
 	test: belongsTo 'test'
 
 	question: attr "boolean"
+	copyFromId: attr "number"
 	content: attr()
 	row: attr "number"
 	col: attr "number"

@@ -3,11 +3,23 @@ class MeController extends Ember.Controller
 	actions:
 		editObj: (test) ->
 			@transitionToRoute 'page',test.pages.firstObject
+
 		copyObj: (test) ->
-			@store.createRecord('test',{copyFromId:test.id}).save()
-		newTestFolder: -> @store.createRecord('folder',{user:@session.me,testFolder:true,name:"New Folder"}).save()
-		newStudentFolder: -> @store.createRecord('folder',{user:@session.me,studentFolder:true,name:"New Folder"}).save()
-		newObj: (containingFolder) -> @store.createRecord('test',{folder:containingFolder,name:"New Test"}).save()
+			model = @store.createRecord('test',{copyFromId:test.id})
+			@send 'saveModel',model
+
+		newTestFolder: -> 
+			model = @store.createRecord('folder',{user:@session.me,testFolder:true,name:"New Folder"})
+			@send 'saveModel',model
+
+		newStudentFolder: -> 
+			model = @store.createRecord('folder',{user:@session.me,studentFolder:true,name:"New Folder"})
+			@send 'saveModel',model
+
+		newObj: (containingFolder) -> 
+			model = @store.createRecord('test',{folder:containingFolder,name:"New Test"})
+			@send 'saveModel',model
+
 		#newGroup: ->
 		#	group = @store.createRecord('group').save()
 		#	@model.group = group

@@ -52,6 +52,8 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 		toggleNumber: ->
 			@block.toggleProperty 'question'
 			@sendAction 'saveModel',@block
+			@refreshQuestionNumbers()
+			@block.notifyPropertyChange 'width' #trigger width resize on equation box
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
 				image = @store.createRecord 'image',
@@ -70,6 +72,9 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			model.test.notifyPropertyChange 'clipboard'
 			@sendAction 'saveModel',model
 			@refreshQuestionNumbers()
+		copyBlock: (block) ->
+			model = @store.createRecord 'block', {copyFromId:block.id}
+			@sendAction 'saveModel',model
 
 	equationContainerHeight: 0
 	availableImageHeight: ~> @block.height - @equationContainerHeight

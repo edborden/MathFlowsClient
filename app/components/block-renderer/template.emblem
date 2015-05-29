@@ -16,6 +16,8 @@ if isEditing
 	.vertical-tiny-button-menu-second-row
 		button click="'destroyModel' block"
 			i.fa-trash.text-danger
+		button click="'copyBlock' block"
+			i.fa-copy
 		button click="'cutBlock' block"
 			i.fa-cut
 
