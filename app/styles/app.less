@@ -1,27 +1,48 @@
-@grey: #393939;
-@orange: #FF5A09;
-@lgrey:#6E6E6E;
-@salmon:#F3843E;
-@yellow:#FF9900;
-
 @import "bootstrap";
 @import "font-awesome";
 @import "mathquill";
 @import "pod-styles";
 
-@brand-primary: @orange;
-@brand-warning: @yellow;
+// COLORS
+
+    @grey: #393939;
+    @orange: #FF5A09;
+    @lgrey:#6E6E6E;
+    @salmon:#F3843E;
+    @yellow:#FF9900;
+
+    @brand-primary: @orange;
+    @brand-warning: @yellow;
+
+    .orange {color:@orange}
+    .yellow {color:@yellow}
 
 .click-fix {cursor: pointer;}
 
+.standard-padding {
+    padding:20px;
+}
+
 i {.fa;}
+
+.self-center {
+    top:50%;
+    position:absolute;
+    left:50%;
+    -webkit-transform: translateY(-50%) translateX(-50%);
+}
+
+.arrow-div {
+    height:300px;
+    .self-center {width:80%}
+}
 
 body {
     font-size: 16px;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: 'Droid Sans', sans-serif;
+    //font-family: 'Helvetica Neue', Arial, sans-serif;
     color: white;
     background-color: @grey;
-    padding:20px;
 }
 
 input {color:black;}
@@ -31,6 +52,104 @@ input {color:black;}
 .indented {
    padding-left: 10px; 
 }
+
+.intro-row {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.tagline {
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+.box {
+    background-color: white;
+    border-radius: 10px;
+}
+
+// SPLASH
+
+    .splash {
+        width:100%;
+        display: table;
+        table-layout: fixed;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        height:450px;
+        .left {
+            height:450px;
+            display: table-cell;
+            background-image: url("../assets/images/side-bg.jpg");
+            background-repeat: repeat-x;
+        }
+
+        .center {
+            display: table-cell;
+            width:790px;
+            height:450px;
+            background-image:url("../assets/images/splash.jpg");
+            .content {
+                position: relative;
+                left:10px;
+                top:40px;
+
+                h5 {
+                    width:300px;
+                    margin-top:40px;
+                    color:gray;
+                }
+            }
+        }
+
+        .right {
+            height:450px;
+            display: table-cell;
+            background-image: url("../assets/images/right-bg.jpg");
+            background-repeat: repeat-x;
+        }
+
+    }
+
+    .white-splash {
+        width:100%;
+        display: table;
+        table-layout: fixed;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        height:450px;
+        background-color: white;
+        color: @grey;
+        img {
+            border: 1px solid black;
+            border-radius: 3px;
+        }
+        .row {
+            padding-bottom: 20px;
+        }
+    }
+
+    .icon-feature {
+        display: block;
+        border-radius: 500px;
+        text-align: center;
+        width: 256px;
+        height: 256px;
+        padding-top: 70px;
+        font-size: 100px;
+        line-height: 100px;
+        margin-left: auto;
+        color: grey;
+        border: 8px solid grey;       
+    }
+
+    .big-bullets {
+        .left {
+            text-align: right
+        }
+
+    }
+
 
 // DRAG AND DROP
 
@@ -160,6 +279,7 @@ input {color:black;}
 
     #logo {
         color:@orange;
+        font-family: 'Damion', cursive;
     }
 
     .side-nav {

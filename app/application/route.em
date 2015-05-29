@@ -1,11 +1,14 @@
 class ApplicationRoute extends Ember.Route
 
 	beforeModel: -> 
-		@session.open().then (success) =>
-			@sessionSuccessHandler()
-			(error) =>
-				console.log error
-				@session.open().then => @sessionSuccessHandler()
+		if localStorage.mathFlowsToken
+			@session.open().then (success) =>
+				@sessionSuccessHandler()
+				(error) =>
+					console.log error
+					@session.open().then => @sessionSuccessHandler()
+		else
+			Ember.$(".center-spinner").hide()
 
 	sessionSuccessHandler: ->
 		@keen.log_session()

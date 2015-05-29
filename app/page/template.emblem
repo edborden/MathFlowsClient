@@ -1,12 +1,12 @@
-.container-fluid
+.container-fluid.standard-padding
 	.row
 		.col-xs-2.side-nav			
-			h2#logo MathFlows
+			h1#logo MathFlows
 			h5#tagline Workflows for math teachers
 			if session.me.guest
 				p
 					button.btn.btn-primary click="authenticate"
-						|Login&nbsp;&nbsp;
+						|SignUp&nbsp;&nbsp;
 						i.fa-google
 			else
 				p

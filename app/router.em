@@ -8,5 +8,6 @@ Router.map ->
 	@route 'page', {path: '/page/:page_id'}
 	@route 'me'
 	@route 'headers'
+	@route 'intro'
 
 `export default Router`

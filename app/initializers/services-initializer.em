@@ -9,4 +9,7 @@ initializer =
 			services.forEach (service) ->
 				application.inject type, service, 'service:' + service
 
+		# Router as Service
+		application.inject 'component:try-button', 'router', 'router:main'
+
 `export default initializer`

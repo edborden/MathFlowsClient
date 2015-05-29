@@ -1,1 +1,105 @@
-render 'page' session.me.folders.firstObject.tests.firstObject.pages.firstObject
+.container
+
+	.row.intro-row
+
+		.col-md-2.col-md-offset-10
+			button.btn.btn-xs.btn-primary click="authenticate"
+				|Login&nbsp;&nbsp;
+				i.fa-google
+
+.splash
+	.left
+	.center
+		.content
+			h1#logo MathFlows
+			h1.tagline
+				p Paper Testing
+				p Made Easy
+			p
+				try-button position=1
+			h5 A toolset designed specifically for math teachers to create and grade tests faster and hassle-free. ie. More time for happy hour.
+
+	.right
+
+.container
+
+	.row.intro-row
+
+		.col-md-12.text-center.tagline
+			h1.yellow If you're using a Word Processor to make tests, we need to talk...
+	.row.intro-row.text-center
+		.col-md-4
+			img.box src="../assets/images/word.jpg"
+			h3.tagline Built for longform writing
+		.col-md-4.arrow-div
+			.self-center
+				h1#logo MathFlows
+				i.fa-5x.fa-long-arrow-right
+				ul.fa-ul.text-left
+					li 
+						i.fa-li.fa-check
+						|Drag and drop interface
+					li 
+						i.fa-li.fa-check
+						|Easily change question order
+					li 
+						i.fa-li.fa-check
+						|Question numbers automatically sync to position					
+					li 
+						i.fa-li.fa-check
+						|No more fighting layouts with copy and paste
+				p
+					try-button position=2
+
+		.col-md-4
+			img.box src="../assets/images/mathflows.jpg"
+			h3.tagline.orange Built for layout!
+
+.white-splash
+	.container.text-center
+		.row
+			.col-md-12.tagline
+				h1 Tools math teachers need right at your fingertips
+		.row
+			.col-md-4.col-lg-offset-1
+				img src="../assets/images/equations.jpg"
+			.col-md-8.col-lg-6
+				h2 Inline Equation Editor
+				p Mix and match text and math inline. Editing and changing equations is as easy as typing a sentence.
+		.row
+			.col-md-4.col-lg-offset-1
+				img src="../assets/images/desmos.jpg"
+			.col-md-8.col-lg-6
+				h2 Desmos Graphing Calculator
+				p Graph functions, plot tables of data, evaluate equations, explore transformations, and much more -- then export instantly right into your question block. Without leaving the screen.
+		.row
+			.col-md-4.col-lg-offset-1
+				img src="../assets/images/images.jpg"
+			.col-md-8.col-lg-6
+				h2 Powerful Image Tools
+				p Import images in any format from your computer or from anywhere on the web via URL. Crop right on the screen before you add to your test.
+
+.container.tagline
+
+	.row.intro-row.text-center
+		.col-md-12
+			h1.yellow This is for you, paper-wielding edumacation ninja
+	.row.big-bullets
+		.col-md-5.left
+			i.icon-feature.fa-cogs
+		.col-md-6
+			p The bureaucrats have no idea why poorly designed and implemented digital workflows hinder you far more than they help.  Broken computers, setup-hassle, questions around security -- whatever it is that drives you into the warm embrace of paper, you should know this:
+			h3 You are not a second-class citizen.
+			h3 You are loved.
+			ul.fa-ul
+				li
+					i.fa-li.fa-lg.fa-cloud-download
+					|Generate pixel-perfect PDF's instantly, with one click, anytime.
+				li
+					i.fa-li.fa-lg.fa-refresh
+					|MathFlows is all about WYSIWYG: What you see is what you get.
+			try-button position=3
+	.row.text-center
+			h1.yellow It's a digital workflow for your analog lifestyle.
+	.row.intro-row
+		.col-lg-6.col-lg-offset-3
