@@ -53,7 +53,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			@block.toggleProperty 'question'
 			@sendAction 'saveModel',@block
 		openFileDialog: ->
-			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',sources:['local', 'url',],show_powered_by:false}, (error, result) => 
+			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
 				image = @store.createRecord 'image',
 					block: @block
 					cloudinaryId: result[0].public_id

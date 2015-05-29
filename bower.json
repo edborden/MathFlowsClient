@@ -17,7 +17,7 @@
     "bootstrap": "*",
     "components-font-awesome": "*",
     "keen-js": "~3.2.2",
-    "cloudinary_js": "~1.0.22",
+    "cloudinary_js": "*",
     "gridster.js": "https://github.com/ducksboard/gridster.js.git#~0.5.6"
   }
 }
