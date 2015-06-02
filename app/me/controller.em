@@ -24,19 +24,26 @@ class MeController extends Ember.Controller
 			containingFolder.open = true
 			@send 'saveModel',containingFolder
 
+		thisSomethingIsDragging: (something) ->
+			@somethingIsDragging = something
+
+		nothingIsDragging: ->
+			@somethingIsDragging = null
+
 		#newGroup: ->
 		#	group = @store.createRecord('group').save()
 		#	@model.group = group
 		#invite: (email) -> @store.createRecord('invitation',{referrer:@model,referralEmail:email}).save()
-		drop: (object,options) -> 
-			object.isDraggingObject = false
-			folder = options.target.model
-			unless object is folder #don't let an item get dropped on itself
-				object.folder = folder
-				@send 'saveModel',object
+		drop: (target,dropped) -> 
+			#don't let a folder get dropped on itself or drop on childFolder
+			#TODO: account for deeeeep childFolders
+			unless dropped is target or target.folder is dropped 
+				dropped.folder = target
+				dropped.send 'becomeDirty' #changing belongsTo doesn't becomeDirty, known issue: https://github.com/emberjs/data/issues/2122
+				@send 'saveModel',dropped
 				@model.notifyPropertyChange 'topTestFolders'
 				@model.notifyPropertyChange 'topStudentFolders'
-		deleteDrop: (object) -> object.destroyRecord()
+		deleteDrop: (target,dropped) -> @send 'destroyModel',dropped
 		#newStudent: (folder) ->
 		#	model = @store.createRecord 'student',{folder:folder}
 		#	@send 'openModal','modal/student',model

@@ -12,6 +12,8 @@ class TreeAccordianComponent extends Ember.Component
 	editObj: 'editObj'
 	copyObj: 'copyObj'
 	newObj: 'newObj'
+	thisSomethingIsDragging: 'thisSomethingIsDragging'
+	nothingIsDragging: 'nothingIsDragging'
 
 	actions:
 		drop: (object,options) ->
@@ -22,9 +24,8 @@ class TreeAccordianComponent extends Ember.Component
 			@sendAction 'copyObj',obj
 		newObj: (containingFolder) ->
 			@sendAction 'newObj',containingFolder
-
-	dragging: ~> @model.isDraggingObject
-
-	classNameBindings: ['dragging']
+		thisSomethingIsDragging: (something) ->
+			@sendAction 'thisSomethingIsDragging',something
+		nothingIsDragging: -> @sendAction 'nothingIsDragging'
 			
 `export default TreeAccordianComponent`

@@ -36,4 +36,11 @@ app.import('bower_components/blueimp-file-upload/js/jquery.iframe-transport.js')
 app.import('bower_components/blueimp-file-upload/js/jquery.fileupload.js');
 app.import('bower_components/cloudinary_js/js/jquery.cloudinary.js');
 
+// JQuery UI Draggable and Droppable
+app.import('bower_components/jquery-ui/ui/core.js');
+app.import('bower_components/jquery-ui/ui/widget.js');
+app.import('bower_components/jquery-ui/ui/mouse.js');
+app.import('bower_components/jquery-ui/ui/draggable.js');
+app.import('bower_components/jquery-ui/ui/droppable.js');
+
 module.exports = mergeTrees([app.toTree(),fontAwesomeFonts,mathQuillFonts]);

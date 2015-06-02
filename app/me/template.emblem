@@ -16,7 +16,7 @@
 			.account
 				img.profile-pic src=model.pic
 				span.name = model.name
-				draggable-object-target action='deleteDrop' class="delete-drop"
+				droppable-target drop='deleteDrop' class="delete-drop"
 					i.fa-lg.fa-trash-o
 
 			.row
@@ -28,7 +28,7 @@
 							i.fa-folder
 
 					each folder in model.topTestFolders
-						tree-accordian model=folder
+						tree-accordian model=folder somethingIsDragging=somethingIsDragging
 
 				.col-xs-6
 					if model.premium
@@ -38,7 +38,7 @@
 								i.add-overlay.fa-plus
 								i.fa-folder
 						each folder in model.topStudentFolders
-							tree-accordian model=folder
+							tree-accordian model=folder somethingIsDragging=somethingIsDragging
 						else 
 							p No students yet!
 		.col-xs-4

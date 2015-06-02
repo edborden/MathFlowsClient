@@ -34,6 +34,8 @@ class ApplicationRoute extends Ember.Route
 					(success) => console.log model.modelName + " saved."
 					(errors) => @send 'errors', errors.errors
 				)
+			else
+				console.log model.modelName + " isn't dirty."
 
 		destroyModel: (model) ->
 			model.destroyRecord().then(

@@ -36,7 +36,6 @@
     "ember-cli-less": "*",    
     "broccoli-merge-trees": "*",
     "broccoli-static-compiler": "*",     
-    "ember-drag-drop": "*",
     "ember-notify": "*",
     "ember-validations": "*",
     "torii": "*",

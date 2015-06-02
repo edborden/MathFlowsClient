@@ -1,13 +1,13 @@
-draggable-object-target action="drop" model=model		
-	tree-over model=model draggable=true
+droppable-target model=model		
+	tree-over model=model somethingIsDragging=somethingIsDragging
 		.overlay-container click="'newObj' model"
 			i.add-overlay.fa-plus
 			i class={model.testFolder:fa-file-text-o model.studentFolder:fa-user}
 if model.open
 	each folder in model.folders
-		.indented: tree-accordian model=folder class="indented"			
+		.indented: tree-accordian model=folder class="indented" somethingIsDragging=somethingIsDragging		
 
 	each child in model.children						
-		.indented: tree-over model=child class="indented" draggable=true
+		.indented: tree-over model=child class="indented" somethingIsDragging=somethingIsDragging
 			i.fa-edit click="'editObj' child"
 			i.fa-copy click="'copyObj' child"

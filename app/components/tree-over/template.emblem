@@ -2,16 +2,13 @@
 	if model.hasChildren
 		i class=model.open:fa-caret-down:fa-caret-right
 
-if draggable
-	draggable-object content=model class="tree-icon"
-		i class=model.iconName
-else
-	.tree-icon: i class=model.iconName
+.tree-icon class=dragging:grabbing:grabbable
+	i class=model.iconName
 
 if isEditing
 	= input value=model.name size=8 class="name-editor"
 else
-	span click="nameClicked" = model.name
+	span mouseDown="nameClicked" = model.name
 if showMenu
 	.tree-menu
 		yield
