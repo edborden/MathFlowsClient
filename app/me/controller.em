@@ -1,5 +1,7 @@
 class MeController extends Ember.Controller
 
+	model: ~> @session.me
+
 	actions:
 		editObj: (test) ->
 			@transitionToRoute 'page',test.pages.firstObject

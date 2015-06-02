@@ -1,10 +1,9 @@
 class EquationMenuComponent extends Ember.Component
 
-	classNames:['horizontal-tiny-button-menu']
+	action: 'insertLatex'
 
 	actions:
-		buttonClicked: (latex) -> @sendAction 'action',latex
-
-	click:-> false
+		insertLatex: (latex) -> 
+			@sendAction 'action',latex
 
 `export default EquationMenuComponent`

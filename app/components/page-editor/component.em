@@ -33,11 +33,9 @@ class PageEditorComponent extends Ember.Component
 			obj = Ember.$(el).data('emberObject')
 			obj.syncIfOutOfSync() if obj?
 
-	openModal: 'openModal'
 	saveModel: 'saveModel'
 	destroyModel: 'destroyModel'
 	actions:
-		openGraphModal: (block) -> @sendAction 'openModal','graph-modal',block
 		saveModel: (model) -> @sendAction 'saveModel',model
 		destroyModel: (model) -> @sendAction 'destroyModel',model
 

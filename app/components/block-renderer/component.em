@@ -3,6 +3,7 @@
 
 class BlockRendererComponent extends Ember.Component with ElRegister
 	store: Ember.inject.service()
+	modaler:Ember.inject.service()
 
 	tagName: 'li'
 
@@ -22,9 +23,12 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 
 	didInsertElement: ->
 		@_super()
+		isNew = @block.isNew
 		if @block.isDirty
 			@addToGrid()
 			@syncAttrsToEl()
+			if isNew
+				Ember.$(@element).find(".content").mousedown().mouseup()
 				
 	syncAttrsToEl: ->
 			@block.colSpan = @coords().size_x
@@ -45,7 +49,6 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	colIsDiff: -> @block.col isnt @coords().col
 
 	destroyModel: 'destroyModel'
-	openGraphModal: 'openGraphModal'
 	saveModel: 'saveModel'
 	syncChangedBlocks: 'syncChangedBlocks'
 	actions:
@@ -62,7 +65,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 					width: result[0].width
 					height: result[0].height
 				@sendAction 'saveModel', image
-		openGraphModal: -> @sendAction 'openGraphModal',@block
+		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 		setEquationContainerHeight: (height) -> @equationContainerHeight = height
 		saveModel: (model) -> @sendAction 'saveModel', model
 		destroyModel: (model) -> @sendAction 'destroyModel',model

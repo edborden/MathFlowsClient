@@ -42,7 +42,6 @@ i {.fa;}
 body {
     font-size: 16px;
     font-family: 'Droid Sans', sans-serif;
-    //font-family: 'Helvetica Neue', Arial, sans-serif;
     color: white;
     background-color: @grey;
 }
@@ -172,23 +171,16 @@ input {color:black;}
 
 // SMALL BUTTON MENU
 
-    .horizontal-tiny-button-menu {
-        width:300px;
-        .btn-group;
-        .tiny-button-menu;
-    }
-
-    .menu-button {
-        .btn;
-        width:22px;
-        .btn-default;
-        img {height:10px;}        
-    }
-
     .vertical-tiny-button-menu {
         .btn-group-vertical;
         .tiny-button-menu;
         left:-28px;
+        button {
+            .btn;
+            width:22px;
+            .btn-default;
+            img {height:10px}
+        }
     }
 
     .bigger {
@@ -200,7 +192,7 @@ input {color:black;}
         font-size:12px;
         position:absolute;
         z-index:10;
-        button {.menu-button}
+
     }
 
     .vertical-tiny-button-menu-second-row {
