@@ -9,14 +9,24 @@ class Test extends DS.Model with ModelName
 
 	session: Ember.inject.service()
 
+	# ATTRIBUTES AND ASSOCIATIONS
+
 	iconName: "fa-file-text-o"
 	pages: hasMany 'page'
 	blocks: hasMany 'block'
-	pdfLink: ~> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
-	multiplePages: ~> @pages.length > 1
 	name: attr()
 	copyFromId: attr "number"
 	folder: belongsTo 'folder'
+
+	## COMPUTED
+
+	pdfLink: ~> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
+	multiplePages: ~> @pages.length > 1
+
+	## INVALID BLOCKS
+
+	invalidBlocks: ~> @blocks.filterBy('page').filterBy 'invalid'
+	invalid: ~> @invalidBlocks.length isnt 0
 
 	## CLIPBOARD
 

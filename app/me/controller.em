@@ -30,10 +30,6 @@ class MeController extends Ember.Controller
 		nothingIsDragging: ->
 			@somethingIsDragging = null
 
-		#newGroup: ->
-		#	group = @store.createRecord('group').save()
-		#	@model.group = group
-		#invite: (email) -> @store.createRecord('invitation',{referrer:@model,referralEmail:email}).save()
 		drop: (target,dropped) -> 
 			#don't let a folder get dropped on itself or drop on childFolder
 			#TODO: account for deeeeep childFolders
@@ -43,7 +39,14 @@ class MeController extends Ember.Controller
 				@send 'saveModel',dropped
 				@model.notifyPropertyChange 'topTestFolders'
 				@model.notifyPropertyChange 'topStudentFolders'
+				
 		deleteDrop: (target,dropped) -> @send 'destroyModel',dropped
+
+		#newGroup: ->
+		#	group = @store.createRecord('group').save()
+		#	@model.group = group
+		#invite: (email) -> @store.createRecord('invitation',{referrer:@model,referralEmail:email}).save()
+
 		#newStudent: (folder) ->
 		#	model = @store.createRecord 'student',{folder:folder}
 		#	@send 'openModal','modal/student',model

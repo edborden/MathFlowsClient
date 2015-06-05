@@ -22,10 +22,11 @@
 					|Add Page&nbsp;&nbsp;
 					i.fa-plus
 			p
-				a.btn.btn-default.btn-sm href=model.pdfLink 
-					|Get PDF&nbsp;&nbsp;
-					i.fa-download
-			if model.test.multiplePages
+				a href=test.pdfLink
+					button.btn.btn-default.btn-sm disabled=test.invalid
+						|Get PDF&nbsp;&nbsp;
+						i.fa-download
+			if test.multiplePages
 				hr
 				each page in model.test.pages
 					p 
@@ -37,9 +38,9 @@
 					button.btn.btn-default click="deletePage"
 						|Delete Page&nbsp;&nbsp;
 						i.fa-minus
-			if model.test.clipboard
+			if test.clipboard
 				hr
-				p #{model.test.clipboard.length} blocks in clipboard
+				p #{test.clipboard.length} blocks in clipboard
 				button.btn.btn-warning click="paste"
 					|Paste&nbsp;&nbsp;
 					i.fa-paste			

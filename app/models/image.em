@@ -2,6 +2,7 @@
 
 attr = DS.attr
 belongsTo = DS.belongsTo
+hasMany = DS.hasMany
 
 class Image extends DS.Model with ModelName
 	block: belongsTo 'block'

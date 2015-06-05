@@ -15,6 +15,9 @@ class PageEditorComponent extends Ember.Component
 
 	didInsertElement: ->
 		@_super()
+
+		syncChangedBlocks = Ember.run.bind @,@syncChangedBlocks
+
 		@gridster = Ember.$(@element).children().first().gridster(
 			widget_margins: [@widgetMargin,@widgetMargin],
 			widget_base_dimensions: [@widgetBaseWidth, @widgetBaseHeight]
@@ -22,11 +25,11 @@ class PageEditorComponent extends Ember.Component
 			min_cols: @cols
 			resize: 
 				enabled: true
-				stop: @syncChangedBlocks
+				stop: syncChangedBlocks
 			draggable:
-				stop: @syncChangedBlocks
+				stop: syncChangedBlocks
 		).data 'gridster'
-		Ember.run.next @,@syncChangedBlocks #account for blocks that will move up automatically if empty space above them
+		Ember.run.next @,syncChangedBlocks #account for blocks that will move up automatically if empty space above them
 				
 	syncChangedBlocks: ->
 		for el in Ember.A $.makeArray Ember.$('.gs-w')

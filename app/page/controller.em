@@ -7,7 +7,8 @@ class PageController extends Ember.Controller
 			@store.createRecord('page', {test:@test}).save().then (response) =>
 				@transitionToRoute 'page',response
 		deletePage: ->
-			@model.stableBlocks.forEach (block) -> block.deleteRecord() unless block.isDeleted #delete blocks locally so they don't go to clipboard
+			if @model.stableBlocks
+				@model.stableBlocks.forEach (block) -> block.deleteRecord() unless block.isDeleted #delete blocks locally so they don't go to clipboard
 			@send 'destroyModel',@model
 			firstPage = @test.pages.firstObject
 			if firstPage?

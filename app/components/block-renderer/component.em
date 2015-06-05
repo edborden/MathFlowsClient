@@ -6,6 +6,9 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	modaler:Ember.inject.service()
 
 	tagName: 'li'
+	classNameBindings: ["invalid"]
+
+	invalid: ~> @block.invalid
 
 	doubleClick: -> 
 		Ember.$(@element).focus()
@@ -40,7 +43,9 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 
 	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan
 
-	syncIfOutOfSync: -> @syncAttrsToEl() if @outOfSync() and not @block.isDeleted
+	syncIfOutOfSync: -> 
+		@syncAttrsToEl() if @outOfSync() and not @block.isDeleted		
+
 	outOfSync: -> @widthIsDiff() or @heightIsDiff() or @rowIsDiff() or @colIsDiff()
 
 	widthIsDiff: -> @block.colSpan isnt @coords().size_x
