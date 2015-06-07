@@ -1,5 +1,4 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
-`import Notify from 'ember-notify'`
 
 class BlockRendererComponent extends Ember.Component with ElRegister
 	store: Ember.inject.service()

@@ -1,3 +1,6 @@
+if invalid
+	invalidation-popover block=block
+
 if isEditing
 	.vertical-tiny-button-menu
 		button click="toggleNumber"

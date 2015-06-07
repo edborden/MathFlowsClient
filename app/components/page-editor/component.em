@@ -32,9 +32,15 @@ class PageEditorComponent extends Ember.Component
 		Ember.run.next @,syncChangedBlocks #account for blocks that will move up automatically if empty space above them
 				
 	syncChangedBlocks: ->
+		for widget in @widgets()
+			widget.syncIfOutOfSync()
+
+	widgets: ->
+		array = []
 		for el in Ember.A $.makeArray Ember.$('.gs-w')
 			obj = Ember.$(el).data('emberObject')
-			obj.syncIfOutOfSync() if obj?
+			array.push obj if obj?
+		return array
 
 	saveModel: 'saveModel'
 	destroyModel: 'destroyModel'

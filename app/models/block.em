@@ -52,9 +52,17 @@ class Block extends DS.Model with ModelName
 	## INVALIDATIONS
 
 	invalidations: hasMany 'invalidation'
-	invalid: ~> @invalidations.length isnt 0
-	contentInvalidation: ~> @invalidations.filterBy('messageType',1).firstObject
-	positionInvalidation: ~> @invalidations.filterBy('messageType',2).firstObject
+	invalid: ~> @invalidations.firstObject?
+
+	+computed invalid
+	invalidationMessage: ->
+		if @invalid
+			if @invalidations.firstObject.messageType is 1
+				"Content doesn't fit in block."
+			else
+				"Block doesn't fit on the page."
+		else
+			""
 
 	+observer invalidations
 	onInvalidationsChange: ->
