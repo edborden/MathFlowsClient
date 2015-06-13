@@ -28,23 +28,31 @@ class ApplicationRoute extends Ember.Route
 					(error) -> console.log error
 				)
 
-		saveModel: (model) ->
+		saveModel: (model,successCallback,errorCallback) ->
 			if model.isDirty
 				model.save().then(
-					(success) => console.log model.modelName + " saved."
-					(errors) => @send 'errors', errors.errors
+					(success) => 
+						console.log model.modelName + " saved."
+						successCallback(success) if successCallback?
+					(errors) => 
+						@send 'errors', errors.errors
+						errorCallback(errors) if errorCallback?
 				)
-			else
-				console.log model.modelName + " isn't dirty."
 
-		destroyModel: (model) ->
+		destroyModel: (model,successCallback,errorCallback) ->
 			model.destroyRecord().then(
-				(success) => @notify.warning model.modelName + " destroyed."
-				(errors) => @send 'errors', errors.errors
+				(success) => 
+					console.log model.modelName + " destroyed."
+					successCallback(success) if successCallback?
+				(errors) =>
+					@send 'errors', errors.errors
+					errorCallback(errors) if errorCallback?
 			)
 
 		errors: (errors) -> 
 			for prop,array of errors
 				@notify.danger message for message in array
+
+		closeModal: -> @modaler.closeModal()
 
 `export default ApplicationRoute`

@@ -16,7 +16,7 @@ class PageController extends Ember.Controller
 			else
 				@send 'createPage'
 		createBlock: -> 
-			block = @store.createRecord('block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,content:""})
+			block = @store.createRecord('block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18})
 			@model.stableBlocks.addObject block
 			@test.blocks.addObject block
 		paste: ->

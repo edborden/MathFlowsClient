@@ -1,6 +1,7 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
+`import ModelActions from 'math-flows-client/mixins/model-actions'`
 
-class BlockRendererComponent extends Ember.Component with ElRegister
+class BlockRendererComponent extends Ember.Component with ElRegister,ModelActions
 	store: Ember.inject.service()
 	modaler:Ember.inject.service()
 
@@ -52,8 +53,6 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	rowIsDiff: -> @block.row isnt @coords().row
 	colIsDiff: -> @block.col isnt @coords().col
 
-	destroyModel: 'destroyModel'
-	saveModel: 'saveModel'
 	syncChangedBlocks: 'syncChangedBlocks'
 	actions:
 		toggleNumber: ->
@@ -70,9 +69,6 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 					height: result[0].height
 				@sendAction 'saveModel', image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
-		setEquationContainerHeight: (height) -> @equationContainerHeight = height
-		saveModel: (model) -> @sendAction 'saveModel', model
-		destroyModel: (model) -> @sendAction 'destroyModel',model
 		cutBlock: (model) -> 
 			@removeFromGrid()
 			model.removeFromPage()
@@ -83,8 +79,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			model = @store.createRecord 'block', {copyFromId:block.id}
 			@sendAction 'saveModel',model
 
-	equationContainerHeight: 0
-	availableImageHeight: ~> @block.height - @equationContainerHeight
+	availableImageHeight: ~> @block.height - @block.linesHeight
 	availableImageWidth: ~> @block.width
 
 	+observer block.isDeleted

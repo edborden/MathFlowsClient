@@ -27,6 +27,7 @@ if isEditing
 if block
 	if block.question
 		.question-number: block.questionNumber
-	equation-renderer block=block
+	each line in block.sortedLines
+		equation-renderer line=line
 	if block.image
 		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image

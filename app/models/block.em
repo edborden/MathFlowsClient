@@ -13,7 +13,6 @@ class Block extends DS.Model with ModelName
 
 	question: attr "boolean"
 	copyFromId: attr "number"
-	content: attr()
 	row: attr "number"
 	col: attr "number"
 	rowSpan: attr "number"
@@ -22,6 +21,7 @@ class Block extends DS.Model with ModelName
 	height: attr "number"
 	x: attr "number"
 	y: attr "number" #not used
+	linesHeight: attr "number"
 
 	colWidth: ~> @width / 16
 	pageNumber: ~> @page.number
@@ -68,5 +68,18 @@ class Block extends DS.Model with ModelName
 	onInvalidationsChange: ->
 		if @isLoaded and @test
 			@test.notifyPropertyChange 'invalidBlocks'
+
+	## LINES
+
+	lines: hasMany 'line'
+	sortedLines: ~> @lines.sortBy 'position'
+
+	lineAfter: (line) ->
+		lineIndex = @sortedLines.indexOf line
+		lineAfter = @lines.objectAt lineIndex+1
+
+	lineBefore: (line) ->
+		lineIndex = @sortedLines.indexOf line
+		lineBefore = @lines.objectAt lineIndex-1		
 
 `export default Block`

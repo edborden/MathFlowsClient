@@ -1,4 +1,6 @@
-class PageEditorComponent extends Ember.Component
+`import ModelActions from 'math-flows-client/mixins/model-actions'`
+
+class PageEditorComponent extends Ember.Component with ModelActions
 
 	cols: ~> 4
 	widgetMargin: ~> 9 / 2
@@ -41,12 +43,6 @@ class PageEditorComponent extends Ember.Component
 			obj = Ember.$(el).data('emberObject')
 			array.push obj if obj?
 		return array
-
-	saveModel: 'saveModel'
-	destroyModel: 'destroyModel'
-	actions:
-		saveModel: (model) -> @sendAction 'saveModel',model
-		destroyModel: (model) -> @sendAction 'destroyModel',model
 
 	+observer page
 	onPageChange: -> @rerender()
