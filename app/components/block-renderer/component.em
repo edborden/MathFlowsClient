@@ -1,9 +1,9 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
-`import ModelActions from 'math-flows-client/mixins/model-actions'`
 
-class BlockRendererComponent extends Ember.Component with ElRegister,ModelActions
+class BlockRendererComponent extends Ember.Component with ElRegister
 	store: Ember.inject.service()
 	modaler:Ember.inject.service()
+	modeler:Ember.inject.service()
 
 	tagName: 'li'
 	classNameBindings: ["invalid"]
@@ -38,7 +38,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister,ModelAction
 			@block.rowSpan = @coords().size_y
 			@block.row = @coords().row
 			@block.col = @coords().col
-			@sendAction 'saveModel',@block
+			@modeler.saveModel @block
 			@refreshQuestionNumbers()
 
 	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan
@@ -57,7 +57,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister,ModelAction
 	actions:
 		toggleNumber: ->
 			@block.toggleProperty 'question'
-			@sendAction 'saveModel',@block
+			@modeler.saveModel @block
 			@refreshQuestionNumbers()
 			@block.notifyPropertyChange 'width' #trigger width resize on equation box
 		openFileDialog: ->
@@ -67,17 +67,19 @@ class BlockRendererComponent extends Ember.Component with ElRegister,ModelAction
 					cloudinaryId: result[0].public_id
 					width: result[0].width
 					height: result[0].height
-				@sendAction 'saveModel', image
+				@modeler.saveModel image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 		cutBlock: (model) -> 
 			@removeFromGrid()
 			model.removeFromPage()
 			model.test.notifyPropertyChange 'clipboard'
-			@sendAction 'saveModel',model
+			@modeler.saveModel model
 			@refreshQuestionNumbers()
 		copyBlock: (block) ->
 			model = @store.createRecord 'block', {copyFromId:block.id}
-			@sendAction 'saveModel',model
+			@modeler.saveModel model
+		destroyModel: (model) ->
+			@modeler.destroyModel model
 
 	availableImageHeight: ~> @block.height - @block.linesHeight
 	availableImageWidth: ~> @block.width

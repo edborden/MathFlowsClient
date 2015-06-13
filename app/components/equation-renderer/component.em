@@ -1,13 +1,13 @@
-`import ModelActions from 'math-flows-client/mixins/model-actions'`
-
-class EquationRendererComponent extends Ember.Component with ModelActions
+class EquationRendererComponent extends Ember.Component
 
 	cleaner: Ember.inject.service()
 	store:Ember.inject.service()
 	focuser:Ember.inject.service()
+	enterer: Ember.inject.service()
+	modeler:Ember.inject.service()
 
 	line:null
-	block: ~> @line.block
+	block: Ember.computed.alias 'line.block'
 	
 	didInsertElement: ->
 		@setQuestionElement()
@@ -47,20 +47,13 @@ class EquationRendererComponent extends Ember.Component with ModelActions
 	keyDown: (ev) ->
 		switch ev.keyCode
 			when 13
-				thisPosition = @line.position
-				nextLine = @block.lineAfter(@line)
-				nextPosition = if nextLine? then nextLine.position else thisPosition + 1
-				newPosition = (thisPosition+nextPosition)/2
-				line = @store.createRecord 'line', {block:@block,content:"",position:newPosition} 
-				@sendAction 'saveModel',line
-				false
+				return
 			when 8
 				if @cleanedContent().length is 0 and @length is 0 and @block.lines.length isnt 1 and @block.sortedLines.firstObject isnt @line
 					block = @line.block
 					lineBefore = block.lineBefore @line
 					@focuser.focusLine lineBefore
-					onDestroy = Ember.run.bind block,-> this.reload() #refresh the block to check invalidations
-					@sendAction 'destroyModel',@line,onDestroy
+					@modeler.destroyModel(@line).then => @block.reload() #refresh the block to check invalidations
 					false
 				else
 					@length = @cleanedContent().length
@@ -85,7 +78,7 @@ class EquationRendererComponent extends Ember.Component with ModelActions
 		unless @line.isDeleted
 			@displayEquationEditorMenu = false
 			@line.content = @cleanedContent()
-			@sendAction 'saveModel',@line
+			@modeler.saveModel @line
 			@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
 
 `export default EquationRendererComponent`

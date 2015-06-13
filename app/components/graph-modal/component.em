@@ -1,8 +1,8 @@
 class GraphModalComponent extends Ember.Component
 
 	closeModal: 'closeModal'
-	saveModel: 'saveModel'
 	store:Ember.inject.service()
+	modeler:Ember.inject.service()
 
 	actions:
 		screenshot: ->
@@ -12,7 +12,7 @@ class GraphModalComponent extends Ember.Component
 					cloudinaryId: result.public_id
 					width: result.width
 					height: result.height
-				@sendAction 'saveModel',image
+				@modeler.saveModel image
 
 		registerCalculator: (calculator) ->
 			@calculator = calculator

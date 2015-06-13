@@ -1,6 +1,4 @@
-`import ModelActions from 'math-flows-client/mixins/model-actions'`
-
-class PageEditorComponent extends Ember.Component with ModelActions
+class PageEditorComponent extends Ember.Component
 
 	cols: ~> 4
 	widgetMargin: ~> 9 / 2
