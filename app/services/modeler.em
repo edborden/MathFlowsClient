@@ -5,7 +5,7 @@ class ModelerService extends Ember.Service
 			if model.isDirty
 				model.save().then(
 					(success) => 
-						console.log model.modelName + " saved."
+						console.log model.modelName + " saved.",model
 						resolve(success)
 					(errors) => 
 						@errors errors.errors

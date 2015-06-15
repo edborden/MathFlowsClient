@@ -3,7 +3,7 @@ class EquationRendererComponent extends Ember.Component
 	cleaner: Ember.inject.service()
 	store:Ember.inject.service()
 	focuser:Ember.inject.service()
-	enterer: Ember.inject.service()
+	keyboarder: Ember.inject.service()
 	modeler:Ember.inject.service()
 
 	line:null
@@ -13,6 +13,10 @@ class EquationRendererComponent extends Ember.Component
 		@setQuestionElement()
 		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
 		@setMathQuillContent()
+		@line.contentLength = @line.content.length
+		beforeKeyDown = Ember.run.bind @,@testKeyDown
+		@mathquill.on 'keydown',beforeKeyDown
+		#console.log $._data @element,"events"
 		@line.renderer = @		
 		@focuser.focusLine @line if @line.isNew
 		if @focuser.focusedLine is @line
@@ -23,7 +27,6 @@ class EquationRendererComponent extends Ember.Component
 	mathquill: null
 	setMathQuillContent: ->
 		@mathquill.mathquill('latex',@line.content)
-		@length = @line.content.length
 
 	+observer block.question
 	setQuestionElement: ->
@@ -42,26 +45,24 @@ class EquationRendererComponent extends Ember.Component
 		@checkIfInsideEquation()
 		true
 
-	length: null	
+	newContent:null
 
-	keyDown: (ev) ->
-		switch ev.keyCode
-			when 13
-				return
-			when 8
-				if @cleanedContent().length is 0 and @length is 0 and @block.lines.length isnt 1 and @block.sortedLines.firstObject isnt @line
-					block = @line.block
-					lineBefore = block.lineBefore @line
-					@focuser.focusLine lineBefore
-					@modeler.destroyModel(@line).then => @block.reload() #refresh the block to check invalidations
-					false
-				else
-					@length = @cleanedContent().length
-					Ember.run.next @,@checkIfInsideEquation
-					true
-			else
-				Ember.run.next @,@checkIfInsideEquation
-				true
+	testKeyDown: (ev) -> 
+		console.log ev
+		ev.preventDefault()
+		ev.stopPropagation()
+		ev.stopImmediatePropagation()
+		false
+
+	beforeKeyDown: (ev) ->
+		@cleanContent()
+		@newContent = null
+		keyCode = ev.keyCode
+		codesToHandle = Ember.A [13,8]
+		if codesToHandle.contains keyCode			
+			@newContent = @keyboarder.setup(@line).keyDown(keyCode)			
+		Ember.run.next @,@checkIfInsideEquation
+		@line.contentLength = @line.content.length
 
 	checkIfInsideEquation: ->
 		unless @isDestroyed
@@ -71,14 +72,14 @@ class EquationRendererComponent extends Ember.Component
 			else
 				@displayEquationEditorMenu = false
 
-	cleanedContent: ->
-		@cleaner.latex @mathquill.mathquill 'latex'	
+	cleanContent: ->
+		@line.content = if typeof @newContent is "string" then @newContent else @cleaner.latex @mathquill.mathquill 'latex'
 
 	focusOut: -> 
 		unless @line.isDeleted
 			@displayEquationEditorMenu = false
-			@line.content = @cleanedContent()
+			@cleanContent()
 			@modeler.saveModel @line
-			@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
+			@setMathQuillContent() #unless @isDestroyed#this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
 
 `export default EquationRendererComponent`

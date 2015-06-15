@@ -72,14 +72,6 @@ class Block extends DS.Model with ModelName
 	## LINES
 
 	lines: hasMany 'line'
-	sortedLines: ~> @lines.sortBy 'position'
-
-	lineAfter: (line) ->
-		lineIndex = @sortedLines.indexOf line
-		lineAfter = @lines.objectAt lineIndex+1
-
-	lineBefore: (line) ->
-		lineIndex = @sortedLines.indexOf line
-		lineBefore = @lines.objectAt lineIndex-1		
+	sortedLines: ~> @lines.sortBy 'position'	
 
 `export default Block`
