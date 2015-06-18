@@ -15,9 +15,9 @@ class EquationRendererComponent extends Ember.Component
 		@setMathQuillContent()
 		@setKeyDownHandler()
 		@line.renderer = @		
-		@focuser.focusLine @line if @line.isNew
+		@focuser.setFocusLine(@line,'start') if @line.isNew
 		if @focuser.focusedLine is @line
-			@focuser.focusElement @
+			@focuser.focusLine()
 		else
 			Ember.$(@element).find('.cursor').remove()
 
@@ -56,10 +56,11 @@ class EquationRendererComponent extends Ember.Component
 		@dontFocusOut = false
 		Ember.run.later @,@checkIfInsideEquation
 		keyCode = ev.keyCode
-		codesToHandle = Ember.A [13,8]
+		codesToHandle = Ember.A [13,8,37,38,39,40,46]
 		if codesToHandle.contains keyCode
 			@cleanContent()
 			@dontFocusOut = @keyboarder.setup(@line).keyDown(keyCode)
+			console.log 'dontFocusOut =',@dontFocusOut
 
 	checkIfInsideEquation: ->
 		unless @isDestroyed

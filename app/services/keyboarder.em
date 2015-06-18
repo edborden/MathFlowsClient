@@ -16,6 +16,8 @@ class KeyboarderService extends Ember.Service
 	lineAfter: ~> @block.lines.objectAt @lineIndex+1
 	lineBefore: ~> @block.lines.objectAt @lineIndex-1
 
+	cursorInsideEquation: false
+
 	##
 
 	setup: (line) ->
@@ -33,6 +35,7 @@ class KeyboarderService extends Ember.Service
 			unless stop
 				jqEl = Ember.$(el)
 				if jqEl.hasClass "mathquill-rendered-math"
+					@cursorInsideEquation = true if jqEl.find(".hasCursor").length isnt 0
 					if jqEl.children().first().hasClass "cursor" #cursor is at beginning of equation, take the equation to the next line
 						stop = true
 					else 
@@ -59,32 +62,80 @@ class KeyboarderService extends Ember.Service
 	nextPosition: ~> if @lineAfter? then @lineAfter.position else @position + 1
 
 	keyDown: (keyCode) ->
-		switch keyCode
-			when 13 #enter
-				newPosition = (@position+@nextPosition)/2
-				newLine = @store.createRecord 'line', {block:@block,content:@substringAfterCursor(),position:newPosition} 
-				@modeler.saveModel(newLine)
-				@line.content = @substringBeforeCursor()
-				@modeler.saveModel(@line)
+		unless @cursorInsideEquation
+			switch keyCode
+				when 13 #enter
+					console.log 'enter'
+					newPosition = (@position+@nextPosition)/2
+					newLine = @store.createRecord 'line', {block:@block,content:@substringAfterCursor(),position:newPosition} 
+					@modeler.saveModel(newLine)
+					@line.content = @substringBeforeCursor()
+					@modeler.saveModel(@line)
 
-				@focuser.focusLine newLine
+					@focuser.setFocusLine newLine,'start'
 
-				true
-
-			when 8 #backspace
-				if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
-
-					@lineBefore.content = @lineBefore.content + @line.content						
-					@modeler.saveModel(@lineBefore).then =>	
-						@focuser.focusLine @lineBefore
-						@modeler.destroyModel(@line).then =>
-							@block.reload() #reload block to get validations, in case deleting lines removed existing validations
 					true
-				else
+
+				when 8 # backspace
+					if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
+						console.log 'backspace, beginning of valid line'
+
+						@lineBefore.content = @lineBefore.content + @line.content						
+						@modeler.saveModel(@lineBefore).then =>	
+							@focuser.setFocusLine @lineBefore,'end'
+							@modeler.destroyModel(@line).then =>
+								@block.reload() #reload block to get validations, in case deleting lines removed existing validations
+						true
+					else
+						console.log 'backspace, no action'
+						false
+
+				when 46 # delete
+					if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
+						console.log 'delete, end of valid line'
+
+						@line.content = @line.content + @lineAfter.content
+						console.log @line.content
+						@modeler.saveModel(@line).then =>
+							@focuser.setFocusLine @line,@cursorPosition
+							@modeler.destroyModel(@lineAfter).then =>
+								@block.reload()
+						true
+					else
+						console.log 'delete, no action'
+						false
+
+				when 37 # left arrow
+
+					if @cursorPosition is 0 and @lineBefore?
+						console.log 'left arrow, beginning of line'
+
+						@focuser.setFocusLine @lineBefore,'end'
+						
 					false
 
-			else
-				false
+				when 38 # up arrow
+					if @lineBefore?
+						console.log 'up arrow, with valid line above'
+						@focuser.setFocusLine @lineBefore,@cursorPosition
+					false
+
+				when 39 # right arrow
+					if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
+						console.log 'right arrow, with valid line after'
+						@focuser.setFocusLine @lineAfter,'start'
+					false
+
+				when 40 # down arrow
+					if @lineAfter?
+						console.log 'down arrow, with valid line after'
+						@focuser.setFocusLine @lineAfter,@cursorPosition
+					false
+
+				else
+					false
+		else
+			false
 
 	getLengthOfEquation: (position) ->
 		ar = @line.content.split ""
