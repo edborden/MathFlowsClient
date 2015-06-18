@@ -11,6 +11,5 @@ class Line extends DS.Model with ModelName
 
 	## RENDERED ELEMENT
 	renderer: null
-	contentLength:null
 
 `export default Line`

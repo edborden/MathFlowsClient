@@ -14,7 +14,7 @@ class KeyboarderService extends Ember.Service
 
 	lineIndex: ~> @block.sortedLines.indexOf @line
 	lineAfter: ~> @block.lines.objectAt @lineIndex+1
-	lineBefore: ~> @block.lines.objectAt @lineIndex-1	
+	lineBefore: ~> @block.lines.objectAt @lineIndex-1
 
 	##
 
@@ -62,34 +62,32 @@ class KeyboarderService extends Ember.Service
 		switch keyCode
 			when 13 #enter
 				newPosition = (@position+@nextPosition)/2
-				line = @store.createRecord 'line', {block:@block,content:@substringAfterCursor(),position:newPosition} 
-				@modeler.saveModel line
-				return @substringBeforeCursor()
-			when 8 #backspace
-				if @cursorPosition is 0 and @block.lines.length isnt 1 and @block.sortedLines.firstObject isnt @line
-					console.log @line.contentLength
-					#on an empty line with another line above it: destroy the empty line then move up
-					if @line.contentLength is 0
-						@focuser.focusLine @lineBefore
-						@modeler.destroyModel(@line).then => @block.reload() #refresh the block to check invalidations
-						null
+				newLine = @store.createRecord 'line', {block:@block,content:@substringAfterCursor(),position:newPosition} 
+				@modeler.saveModel(newLine)
+				@line.content = @substringBeforeCursor()
+				@modeler.saveModel(@line)
 
-					#have content, with a line above it, add content to line above it and destroy line
-					else
-						lineBefore = @lineBefore
-						@lineBefore.content = @lineBefore.content + @line.content
-						@modeler.saveModel(@lineBefore).then =>
-							@modeler.destroyModel(@line).then => 
-								@block.reload().then =>
-									@focuser.focusLine lineBefore
-						null
+				@focuser.focusLine newLine
+
+				true
+
+			when 8 #backspace
+				if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
+
+					@lineBefore.content = @lineBefore.content + @line.content						
+					@modeler.saveModel(@lineBefore).then =>	
+						@focuser.focusLine @lineBefore
+						@modeler.destroyModel(@line).then =>
+							@block.reload() #reload block to get validations, in case deleting lines removed existing validations
+					true
 				else
-					null
+					false
+
 			else
-				null
+				false
 
 	getLengthOfEquation: (position) ->
-		ar = @cleanedContent().split ""
+		ar = @line.content.split ""
 		stop = false
 		length = 0
 		until stop

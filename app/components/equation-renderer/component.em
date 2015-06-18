@@ -13,10 +13,7 @@ class EquationRendererComponent extends Ember.Component
 		@setQuestionElement()
 		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
 		@setMathQuillContent()
-		@line.contentLength = @line.content.length
-		beforeKeyDown = Ember.run.bind @,@testKeyDown
-		@mathquill.on 'keydown',beforeKeyDown
-		#console.log $._data @element,"events"
+		@setKeyDownHandler()
 		@line.renderer = @		
 		@focuser.focusLine @line if @line.isNew
 		if @focuser.focusedLine is @line
@@ -24,14 +21,23 @@ class EquationRendererComponent extends Ember.Component
 		else
 			Ember.$(@element).find('.cursor').remove()
 
-	mathquill: null
 	setMathQuillContent: ->
 		@mathquill.mathquill('latex',@line.content)
 
+	setKeyDownHandler: ->
+		#set handler
+		onKeyDown = Ember.run.bind @,@onKeyDown
+		@mathquill.on 'keydown',onKeyDown
+
+		#reorder handlers for ember to run before mathquill
+		handlers = jQuery._data( @mathquill[0], "events" ).keydown
+		handler = handlers.pop()
+		handlers.splice(0, 0, handler)
+
 	+observer block.question
 	setQuestionElement: ->
-		if @block.question
-			@element.style.paddingLeft = @block.questionNumberWidth() + "px"
+		@element.style.paddingLeft = if @block.question
+			@block.questionNumberWidth() + "px"
 		else
 			@element.style.paddingLeft = 0
 
@@ -45,41 +51,29 @@ class EquationRendererComponent extends Ember.Component
 		@checkIfInsideEquation()
 		true
 
-	newContent:null
-
-	testKeyDown: (ev) -> 
-		console.log ev
-		ev.preventDefault()
-		ev.stopPropagation()
-		ev.stopImmediatePropagation()
-		false
-
-	beforeKeyDown: (ev) ->
-		@cleanContent()
-		@newContent = null
+	dontFocusOut: false
+	onKeyDown: (ev) ->
+		@dontFocusOut = false
+		Ember.run.later @,@checkIfInsideEquation
 		keyCode = ev.keyCode
 		codesToHandle = Ember.A [13,8]
-		if codesToHandle.contains keyCode			
-			@newContent = @keyboarder.setup(@line).keyDown(keyCode)			
-		Ember.run.next @,@checkIfInsideEquation
-		@line.contentLength = @line.content.length
+		if codesToHandle.contains keyCode
+			@cleanContent()
+			@dontFocusOut = @keyboarder.setup(@line).keyDown(keyCode)
 
 	checkIfInsideEquation: ->
 		unless @isDestroyed
 			cursorElement = Ember.$('.hasCursor')
-			if cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
-				@displayEquationEditorMenu = true
-			else
-				@displayEquationEditorMenu = false
+			@displayEquationEditorMenu = cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
 
 	cleanContent: ->
-		@line.content = if typeof @newContent is "string" then @newContent else @cleaner.latex @mathquill.mathquill 'latex'
+		@line.content = @cleaner.latex @mathquill.mathquill 'latex'
 
 	focusOut: -> 
-		unless @line.isDeleted
+		unless @dontFocusOut
 			@displayEquationEditorMenu = false
 			@cleanContent()
 			@modeler.saveModel @line
-			@setMathQuillContent() #unless @isDestroyed#this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
+			@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
 
 `export default EquationRendererComponent`
