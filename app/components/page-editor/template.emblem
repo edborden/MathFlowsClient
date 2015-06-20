@@ -1,4 +1,4 @@
 ul
-	each block in page.stableBlocks
+	each block in page.blocks
 		unless block.isDeleted
 			block-renderer block=block gridster=gridster

@@ -7,15 +7,15 @@ hasMany = DS.hasMany
 class Folder extends DS.Model with ModelName
 
 	iconName: "fa-folder" 
-	user: belongsTo 'user'#, {inverse: 'folders'}
-	tests: hasMany 'test', {async:true}
+	user: belongsTo 'user', {async:false}
+	tests: hasMany 'test'
 	name: attr()
 	open: attr "boolean"
-	folder: belongsTo 'folder', {inverse: 'folders'}
-	folders: hasMany 'folder', {inverse: 'folder'}
+	folder: belongsTo 'folder', {inverse: 'folders',async:false}
+	folders: hasMany 'folder', {inverse: 'folder',async:false}
 	testFolder: attr 'boolean'
 	studentFolder: attr 'boolean'
-	students: hasMany 'student'
+	students: hasMany 'student', {async:false}
 	hasChildren: ~> @folders.length > 0 or @students.length > 0 or @tests.length > 0
 	children: ~> if @testFolder then @tests else @students
 

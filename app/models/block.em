@@ -6,10 +6,10 @@ hasMany = DS.hasMany
 
 class Block extends DS.Model with ModelName
 	
-	user: belongsTo 'user'
-	page: belongsTo 'page'
-	image: belongsTo 'image'
-	test: belongsTo 'test'
+	user: belongsTo 'user', {async:false}
+	page: belongsTo 'page', {async:false}
+	image: belongsTo 'image', {async:false}
+	test: belongsTo 'test', {async:false}
 
 	question: attr "boolean"
 	copyFromId: attr "number"
@@ -51,7 +51,7 @@ class Block extends DS.Model with ModelName
 
 	## INVALIDATIONS
 
-	invalidations: hasMany 'invalidation'
+	invalidations: hasMany 'invalidation', {async:false}
 	invalid: ~> @invalidations.firstObject?
 
 	+computed invalid
@@ -71,7 +71,7 @@ class Block extends DS.Model with ModelName
 
 	## LINES
 
-	lines: hasMany 'line'
+	lines: hasMany 'line', {async:false}
 	sortedLines: ~> @lines.sortBy 'position'	
 
 `export default Block`

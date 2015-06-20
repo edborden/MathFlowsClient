@@ -2,7 +2,7 @@ class ModelerService extends Ember.Service
 
 	saveModel: (model) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
-			if model.isDirty
+			if model.hasDirtyAttributes
 				model.save().then(
 					(success) => 
 						console.log model.modelName + " saved.",model

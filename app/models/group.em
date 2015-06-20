@@ -5,7 +5,7 @@ class Group extends DS.Model
 	session: Ember.inject.service()
 	
 	name: attr()
-	users: DS.hasMany 'user'
+	users: DS.hasMany 'user', {async:false}
 	usersWithoutMe: ~> @users.reject (user) => user is @session.me
 
 `export default Group`

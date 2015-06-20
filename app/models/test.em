@@ -12,11 +12,11 @@ class Test extends DS.Model with ModelName
 	# ATTRIBUTES AND ASSOCIATIONS
 
 	iconName: "fa-file-text-o"
-	pages: hasMany 'page'
-	blocks: hasMany 'block'
+	pages: hasMany 'page', {async:false}
+	blocks: hasMany 'block', {async:false}
 	name: attr()
 	copyFromId: attr "number"
-	folder: belongsTo 'folder'
+	folder: belongsTo 'folder', {async:false}
 
 	## COMPUTED
 

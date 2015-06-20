@@ -5,7 +5,7 @@ belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
 class Image extends DS.Model with ModelName
-	block: belongsTo 'block'
+	block: belongsTo 'block', {async:false}
 	height: attr "number"
 	width: attr "number"
 	scale: attr "number", {defaultValue:5}

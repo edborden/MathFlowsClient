@@ -5,7 +5,7 @@ belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
 class Invalidation extends DS.Model with ModelName
-	block: belongsTo 'block'
+	block: belongsTo 'block', {async:false}
 	messageType: attr "number"
 	
 

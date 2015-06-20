@@ -27,7 +27,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	didInsertElement: ->
 		@_super()
 		isNew = @block.isNew
-		if @block.isDirty
+		if @block.hasDirtyAttributes
 			@addToGrid()
 			@syncAttrsToEl()
 			if isNew
