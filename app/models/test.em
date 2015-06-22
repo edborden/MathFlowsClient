@@ -37,9 +37,9 @@ class Test extends DS.Model with ModelName
 	refreshQuestionNumbers: -> @notifyPropertyChange 'questionBlocksSorted'
 
 	questionBlocksSorted: ~> 
-		allBlocks = @pages.getEach 'stableBlocks'
-		#allBlocks = allBlocks.getEach 'currentState'
-		allBlocksFlat = [].concat.apply [], allBlocks
-		allBlocksFlat.filterBy('page').filterBy('question').rejectBy('isDeleted').sortBy 'pageNumber','row','col'
+		allBlocksFlat = []
+		@pages.getEach('blocks').forEach (blockArray) ->
+			allBlocksFlat.pushObjects blockArray.toArray()
+		allBlocksFlat.filterBy('page').filterBy('question').sortBy 'pageNumber','row','col'
 		
 `export default Test`

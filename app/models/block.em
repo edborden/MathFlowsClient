@@ -27,7 +27,7 @@ class Block extends DS.Model with ModelName
 	pageNumber: ~> @page.number
 
 	removeFromPage: ->
-		@page.stableBlocks.removeObject @
+		@page.blocks.removeObject @
 		@page = null
 		@row = null
 		@col = null

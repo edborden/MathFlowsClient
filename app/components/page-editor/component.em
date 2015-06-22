@@ -13,8 +13,7 @@ class PageEditorComponent extends Ember.Component
 	attributeBindings: ['style']
 	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;".htmlSafe()
 
-	didInsertElement: ->
-		@_super()
+	didRender: ->
 
 		syncChangedBlocks = Ember.run.bind @,@syncChangedBlocks
 
@@ -43,6 +42,8 @@ class PageEditorComponent extends Ember.Component
 		return array
 
 	+observer page
-	onPageChange: -> @rerender()
+	onPageChange: -> 
+		console.log 'page changed',@
+		@rerender()
 
 `export default PageEditorComponent`
