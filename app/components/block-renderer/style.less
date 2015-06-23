@@ -1,5 +1,15 @@
+& {
+    background: #DDD;
+    z-index:auto;
+}
+
+&.active {
+    cursor: move;
+	border:solid 1px blue;	
+}
+
 &:focus {
-    border-color:transparent;
+    //border-color:transparent;
     box-shadow:transparent;
     outline:0 none;
 }
@@ -8,4 +18,14 @@
 
 .question-number {
     position:absolute;
+}
+
+&.static {
+	cursor:pointer;
+	.gs-resize-handle {display:none}
+}
+
+.gs-resize-handle {
+    bottom: -12px;
+    right: -12px;
 }

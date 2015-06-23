@@ -1,19 +1,22 @@
-`import ElRegister from 'math-flows-client/mixins/el-register'`
-
-class BlockRendererComponent extends Ember.Component with ElRegister
+class BlockRendererComponent extends Ember.Component
 	store: Ember.inject.service()
 	modaler:Ember.inject.service()
 	modeler:Ember.inject.service()
 
 	tagName: 'li'
-	classNameBindings: ["invalid"]
+	classNameBindings: ["invalid","active","static"]
+	classNames: ["gs-w"]
 
+	active:false
+	blockBeingDragged: false
+
+	static: ~> if @active then false else !@blockBeingDragged
 	invalid: ~> @block.invalid
 
-	doubleClick: -> 
+	click: -> 
 		Ember.$(@element).focus()
-		@isEditing = true
-	focusOut: -> @isEditing = false
+		@active = true
+	focusOut: -> @active = false
 
 	attributeBindings: ['data-sizex','data-sizey','data-row','data-col','tabindex']
 	"data-sizex": ~> @block.colSpan
@@ -25,7 +28,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 	coords: -> @gridster.dom_to_coords Ember.$(@element)
 
 	didInsertElement: ->
-		@_super()
+		@parent.on 'syncIfOutOfSync', @, @syncIfOutOfSync
 		isNew = @block.isNew
 		if @block.hasDirtyAttributes
 			@addToGrid()
@@ -41,10 +44,11 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			@modeler.saveModel @block
 			@refreshQuestionNumbers()
 
-	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan
+	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan,@block.col,@block.row
 
 	syncIfOutOfSync: -> 
-		@syncAttrsToEl() if @outOfSync() and not @block.isDeleted		
+		Ember.run.next @,=> #gridster isn't synced up yet
+			@syncAttrsToEl() if @outOfSync() and not @block.isDeleted		
 
 	outOfSync: -> @widthIsDiff() or @heightIsDiff() or @rowIsDiff() or @colIsDiff()
 
@@ -80,6 +84,7 @@ class BlockRendererComponent extends Ember.Component with ElRegister
 			@modeler.saveModel model
 		destroyModel: (model) ->
 			@modeler.destroyModel model
+		setBlockActive: -> @active = true
 
 	availableImageHeight: ~> @block.height - @block.linesHeight
 	availableImageWidth: ~> @block.width

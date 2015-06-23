@@ -1,4 +1,4 @@
-class PageEditorComponent extends Ember.Component
+class PageEditorComponent extends Ember.Component with Ember.Evented
 
 	cols: ~> 4
 	widgetMargin: ~> 9 / 2
@@ -13,37 +13,39 @@ class PageEditorComponent extends Ember.Component
 	attributeBindings: ['style']
 	style: ~> "height:#{@height}px;width:#{@width}px;padding:#{@padding}px;".htmlSafe()
 
-	didRender: ->
+	blockBeingDragged: false
+
+	didInsertElement: ->
 
 		syncChangedBlocks = Ember.run.bind @,@syncChangedBlocks
+		setBlockBeingDragged = Ember.run.bind @,@setBlockBeingDragged
 
 		@gridster = Ember.$(@element).children().first().gridster(
-			widget_margins: [@widgetMargin,@widgetMargin],
+			static_class: 'static'
+			widget_margins: [@widgetMargin,@widgetMargin]
 			widget_base_dimensions: [@widgetBaseWidth, @widgetBaseHeight]
+			shift_larger_widgets_down: true
 			max_cols: @cols
 			min_cols: @cols
 			resize: 
+				start: setBlockBeingDragged
 				enabled: true
 				stop: syncChangedBlocks
 			draggable:
+				start: setBlockBeingDragged
+				#items: ".gs_w:not(.static)"
 				stop: syncChangedBlocks
 		).data 'gridster'
+
 		Ember.run.next @,syncChangedBlocks #account for blocks that will move up automatically if empty space above them
 				
 	syncChangedBlocks: ->
-		for widget in @widgets()
-			widget.syncIfOutOfSync()
+		@blockBeingDragged = false
+		@trigger 'syncIfOutOfSync'
 
-	widgets: ->
-		array = []
-		for el in Ember.A $.makeArray Ember.$('.gs-w')
-			obj = Ember.$(el).data('emberObject')
-			array.push obj if obj?
-		return array
+	setBlockBeingDragged: -> @blockBeingDragged = true
 
-	+observer page
-	onPageChange: -> 
-		console.log 'page changed',@
-		@rerender()
+	didUpdateAttrs: ->
+		@gridster.remove_all_widgets()
 
 `export default PageEditorComponent`

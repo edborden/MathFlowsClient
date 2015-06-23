@@ -9,8 +9,7 @@ class PageController extends Ember.Controller
 			@modeler.saveModel(page).then (response) =>
 				@transitionToRoute 'page',response
 		deletePage: ->
-			if @model.stableBlocks
-				@model.stableBlocks.forEach (block) => block.deleteRecord() unless block.isDeleted #delete blocks locally so they don't go to clipboard
+			@model.blocks.forEach (block) => block.deleteRecord() #delete blocks locally so they don't go to clipboard
 			@modeler.destroyModel @model
 			firstPage = @test.pages.firstObject
 			if firstPage?
@@ -18,14 +17,12 @@ class PageController extends Ember.Controller
 			else
 				@send 'createPage'
 		createBlock: -> 
-			block = @store.createRecord('block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18})
-			@model.stableBlocks.addObject block
-			@test.blocks.addObject block
+			@store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18}
 		paste: ->
 			@test.clipboard.forEach (block) =>
 				block.page = @model
 				block.send 'becomeDirty'
-				@model.stableBlocks.addObject block
+				@model.blocks.addObject block
 			@test.notifyPropertyChange 'clipboard'
 				
 

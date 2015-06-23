@@ -47,9 +47,12 @@ class EquationRendererComponent extends Ember.Component
 			@displayEquationEditorMenu = true
 			@mathquill.mathquill('cmd',latex)
 
+	setBlockActive: 'setBlockActive'
+
 	click: -> 
 		@checkIfInsideEquation()
-		true
+		@sendAction 'setBlockActive'
+		false
 
 	dontFocusOut: false
 	onKeyDown: (ev) ->

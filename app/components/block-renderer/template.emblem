@@ -1,7 +1,7 @@
 if invalid
 	invalidation-popover block=block
 
-if isEditing
+if active
 	.vertical-tiny-button-menu
 		button click="toggleNumber"
 			span.bigger #
