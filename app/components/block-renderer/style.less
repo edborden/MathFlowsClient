@@ -1,10 +1,10 @@
-& {
+& .grid-stack-item-content {
     background: #DDD;
-    z-index:auto;
     border:solid 1px transparent;
+    word-wrap: break-word;
 }
 
-&.active {
+.active {
     cursor: move;
 	border-color: blue;	
 }
@@ -15,14 +15,14 @@
     outline:0 none;
 }
 
-&.invalid {border-color: red}
+.invalid {border-color: red}
 
 .question-number {
     position:absolute;
     margin-top:2px;
 }
 
-&.static {
+.static {
 	cursor:pointer;
 	.gs-resize-handle {display:none}
 }

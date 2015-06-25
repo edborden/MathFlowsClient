@@ -18,7 +18,7 @@
     "components-font-awesome": "*",
     "keen-js": "~3.2.2",
     "cloudinary_js": "*",
-    "gridster.js": "https://github.com/dsmorse/gridster.js.git#master",
+    "gridstack": "*",
     "jquery-ui":"*"
   }
 }

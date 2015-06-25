@@ -3,12 +3,11 @@ class BlockRendererComponent extends Ember.Component
 	modaler:Ember.inject.service()
 	modeler:Ember.inject.service()
 
-	gridster:null
+	gridstack:null
 	block:null
 
-	tagName: 'li'
 	classNameBindings: ["invalid","active","static"]
-	classNames: ["gs-w"]
+	classNames: ["grid-stack-item"]
 
 	willDestroyElement: -> @removeFromGrid()
 
@@ -23,14 +22,14 @@ class BlockRendererComponent extends Ember.Component
 		@active = true
 	focusOut: -> @active = false
 
-	attributeBindings: ['tabindex']
-	tabindex: 0
-
 	coords: -> @gridster.dom_to_coords Ember.$(@element)
 
 	didInsertElement: ->
 		@parent.on 'syncIfOutOfSync', @, @syncAttrsToEl
-		@addToGrid()
+		if @gridstack?
+			@addToGrid() 
+		else
+			Ember.run.next @,@addToGrid
 		isNew = @block.isNew
 		if @block.hasDirtyAttributes
 			@addToGrid()
@@ -47,7 +46,7 @@ class BlockRendererComponent extends Ember.Component
 		@modeler.saveModel @block
 		@refreshQuestionNumbers()
 
-	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan,@block.col,@block.row
+	addToGrid: -> @gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan
 
 	actions:
 		toggleNumber: ->
@@ -86,7 +85,7 @@ class BlockRendererComponent extends Ember.Component
 			@removeFromGrid()
 			@refreshQuestionNumbers()
 
-	removeFromGrid: -> @gridster.remove_widget @element,true
+	removeFromGrid: -> @gridstack.remove_widget @element
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test
 

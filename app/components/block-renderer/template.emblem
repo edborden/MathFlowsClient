@@ -1,33 +1,34 @@
-if invalid
-	invalidation-popover block=block
+.grid-stack-item-content
+	if invalid
+		invalidation-popover block=block
 
-if active
-	.vertical-tiny-button-menu
-		button click="toggleNumber"
-			span.bigger #
-			if block.question
+	if active
+		.vertical-tiny-button-menu
+			button click="toggleNumber"
+				span.bigger #
+				if block.question
+						i.remove-overlay.fa-times
+			if block.image
+				button click="'destroyModel' block.image"
 					i.remove-overlay.fa-times
-		if block.image
-			button click="'destroyModel' block.image"
-				i.remove-overlay.fa-times
-				i.fa-image	
-		else
-			button click="openFileDialog"
-				i.fa-image	
-			button click="openGraphModal"
-				i.fa-line-chart	
-	.vertical-tiny-button-menu-second-row
-		button click="'destroyModel' block"
-			i.fa-trash.text-danger
-		button click="'copyBlock' block"
-			i.fa-copy
-		button click="'cutBlock' block"
-			i.fa-cut
+					i.fa-image	
+			else
+				button click="openFileDialog"
+					i.fa-image	
+				button click="openGraphModal"
+					i.fa-line-chart	
+		.vertical-tiny-button-menu-second-row
+			button click="'destroyModel' block"
+				i.fa-trash.text-danger
+			button click="'copyBlock' block"
+				i.fa-copy
+			button click="'cutBlock' block"
+				i.fa-cut
 
-if block
-	if block.question
-		.question-number: block.questionNumber
-	each line in block.sortedLines
-		equation-renderer line=line
-	if block.image
-		block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image
+	if block
+		if block.question
+			.question-number: block.questionNumber
+		each line in block.sortedLines
+			equation-renderer line=line
+		if block.image
+			block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image

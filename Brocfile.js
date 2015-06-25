@@ -13,10 +13,6 @@ var fontAwesomeFonts = pickFiles('bower_components/components-font-awesome/fonts
 	destDir: '/fonts'
 });
 
-// Gridster
-app.import('bower_components/gridster.js/dist/jquery.gridster.js');
-app.import('bower_components/gridster.js/dist/jquery.gridster.min.css');
-
 // Keen.io
 app.import('bower_components/keen-js/dist/keen.min.js');
 
@@ -42,5 +38,10 @@ app.import('bower_components/jquery-ui/ui/widget.js');
 app.import('bower_components/jquery-ui/ui/mouse.js');
 app.import('bower_components/jquery-ui/ui/draggable.js');
 app.import('bower_components/jquery-ui/ui/droppable.js');
+app.import('bower_components/jquery-ui/ui/resizable.js');
+
+// Gridstack
+app.import('bower_components/lodash/lodash.js');
+app.import('bower_components/gridstack/src/gridstack.js');
 
 module.exports = mergeTrees([app.toTree(),fontAwesomeFonts,mathQuillFonts]);
