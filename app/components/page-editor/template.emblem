@@ -1,4 +1,4 @@
 ul
-	each block in page.blocks
+	each block in blocks
 		unless block.isDeleted
 			block-renderer block=block gridster=gridster blockBeingDragged=blockBeingDragged parent=this

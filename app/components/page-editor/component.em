@@ -17,11 +17,13 @@ class PageEditorComponent extends Ember.Component with Ember.Evented
 
 	didInsertElement: ->
 
+		console.log 'gridsterInit'
 		syncChangedBlocks = Ember.run.bind @,@syncChangedBlocks
 		setBlockBeingDragged = Ember.run.bind @,@setBlockBeingDragged
 
 		@gridster = Ember.$(@element).children().first().gridster(
 			static_class: 'static'
+			widget_selector: 'none'
 			widget_margins: [@widgetMargin,@widgetMargin]
 			widget_base_dimensions: [@widgetBaseWidth, @widgetBaseHeight]
 			shift_larger_widgets_down: true
@@ -33,19 +35,20 @@ class PageEditorComponent extends Ember.Component with Ember.Evented
 				stop: syncChangedBlocks
 			draggable:
 				start: setBlockBeingDragged
-				#items: ".gs_w:not(.static)"
 				stop: syncChangedBlocks
 		).data 'gridster'
 
-		Ember.run.next @,syncChangedBlocks #account for blocks that will move up automatically if empty space above them
-				
+		@blocks = @page.blocks
+
+		#Ember.run.next @,syncChangedBlocks #account for blocks that will move up automatically if empty space above them
+		
+	didUpdateAttrs: ->
+		@blocks = @page.blocks
+
 	syncChangedBlocks: ->
 		@blockBeingDragged = false
 		@trigger 'syncIfOutOfSync'
 
 	setBlockBeingDragged: -> @blockBeingDragged = true
-
-	didUpdateAttrs: ->
-		@gridster.remove_all_widgets()
 
 `export default PageEditorComponent`

@@ -3,9 +3,14 @@ class BlockRendererComponent extends Ember.Component
 	modaler:Ember.inject.service()
 	modeler:Ember.inject.service()
 
+	gridster:null
+	block:null
+
 	tagName: 'li'
 	classNameBindings: ["invalid","active","static"]
 	classNames: ["gs-w"]
+
+	willDestroyElement: -> @removeFromGrid()
 
 	active:false
 	blockBeingDragged: false
@@ -18,17 +23,14 @@ class BlockRendererComponent extends Ember.Component
 		@active = true
 	focusOut: -> @active = false
 
-	attributeBindings: ['data-sizex','data-sizey','data-row','data-col','tabindex']
-	"data-sizex": ~> @block.colSpan
-	"data-sizey": ~> @block.rowSpan
-	"data-row": ~> @block.row
-	"data-col": ~> @block.col
+	attributeBindings: ['tabindex']
 	tabindex: 0
 
 	coords: -> @gridster.dom_to_coords Ember.$(@element)
 
 	didInsertElement: ->
-		@parent.on 'syncIfOutOfSync', @, @syncIfOutOfSync
+		@parent.on 'syncIfOutOfSync', @, @syncAttrsToEl
+		@addToGrid()
 		isNew = @block.isNew
 		if @block.hasDirtyAttributes
 			@addToGrid()
@@ -37,27 +39,16 @@ class BlockRendererComponent extends Ember.Component
 				Ember.$(@element).find(".content").mousedown().mouseup()
 				
 	syncAttrsToEl: ->
-			@block.colSpan = @coords().size_x
-			@block.rowSpan = @coords().size_y
-			@block.row = @coords().row
-			@block.col = @coords().col
-			@modeler.saveModel @block
-			@refreshQuestionNumbers()
+		console.log @block.colSpan,@coords().size_x,@block.rowSpan,@coords().size_y,@block.row,@coords().row,@block.col,@coords().col
+		@block.colSpan = @coords().size_x
+		@block.rowSpan = @coords().size_y
+		@block.row = @coords().row
+		@block.col = @coords().col
+		@modeler.saveModel @block
+		@refreshQuestionNumbers()
 
 	addToGrid: -> @gridster.add_widget @element,@block.colSpan,@block.rowSpan,@block.col,@block.row
 
-	syncIfOutOfSync: -> 
-		Ember.run.next @,=> #gridster isn't synced up yet
-			@syncAttrsToEl() if @outOfSync() and not @block.isDeleted		
-
-	outOfSync: -> @widthIsDiff() or @heightIsDiff() or @rowIsDiff() or @colIsDiff()
-
-	widthIsDiff: -> @block.colSpan isnt @coords().size_x
-	heightIsDiff: -> @block.rowSpan isnt @coords().size_y
-	rowIsDiff: -> @block.row isnt @coords().row
-	colIsDiff: -> @block.col isnt @coords().col
-
-	syncChangedBlocks: 'syncChangedBlocks'
 	actions:
 		toggleNumber: ->
 			@block.toggleProperty 'question'

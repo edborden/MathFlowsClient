@@ -1,11 +1,12 @@
 & {
     background: #DDD;
     z-index:auto;
+    border:solid 1px transparent;
 }
 
 &.active {
     cursor: move;
-	border:solid 1px blue;	
+	border-color: blue;	
 }
 
 &:focus {
@@ -14,10 +15,11 @@
     outline:0 none;
 }
 
-&.invalid {border: solid 1px red}
+&.invalid {border-color: red}
 
 .question-number {
     position:absolute;
+    margin-top:2px;
 }
 
 &.static {
