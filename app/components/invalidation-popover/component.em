@@ -3,8 +3,8 @@ class InvalidationPopoverComponent extends Ember.Component
 	classNameBindings: ['left','right']
 	attributeBindings: ['style']
 
-	right: ~> true if @block.col is 3 or @block.col is 4
-	left: ~> true if @block.col is 1 or @block.col is 2
+	right: ~> true if @block.col is 2 or @block.col is 3
+	left: ~> true if @block.col is 0 or @block.col is 1
 
 	top: ~> (@block.height * 0.5).toString()
 

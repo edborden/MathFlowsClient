@@ -1,4 +1,7 @@
 class BlockRendererComponent extends Ember.Component
+
+	## SETUP
+
 	store: Ember.inject.service()
 	modaler:Ember.inject.service()
 	modeler:Ember.inject.service()
@@ -6,49 +9,91 @@ class BlockRendererComponent extends Ember.Component
 	gridstack:null
 	block:null
 
-	classNameBindings: ["invalid","active","static"]
+	attributeBindings: ["data-gs-no-resize","data-gs-no-move","tabindex"]
+	classNameBindings: ["invalid","active"]
 	classNames: ["grid-stack-item"]
 
-	willDestroyElement: -> @removeFromGrid()
+	"data-gs-no-resize":true
+	"data-gs-no-move":true
+	tabindex:0
 
 	active:false
 	blockBeingDragged: false
-
-	static: ~> if @active then false else !@blockBeingDragged
 	invalid: ~> @block.invalid
 
-	click: -> 
-		Ember.$(@element).focus()
-		@active = true
-	focusOut: -> @active = false
+	availableImageHeight: ~> @block.height - @block.linesHeight
+	availableImageWidth: ~> @block.width
 
-	coords: -> @gridster.dom_to_coords Ember.$(@element)
+	## EVENTS
 
 	didInsertElement: ->
-		@parent.on 'syncIfOutOfSync', @, @syncAttrsToEl
-		if @gridstack?
-			@addToGrid() 
-		else
-			Ember.run.next @,@addToGrid
+		@parent.on 'syncBlocks', @, @syncAttrsToEl
+		Ember.run.next @,@addToGrid
 		isNew = @block.isNew
 		if @block.hasDirtyAttributes
-			@addToGrid()
 			@syncAttrsToEl()
 			if isNew
 				Ember.$(@element).find(".content").mousedown().mouseup()
-				
+
+	+observer active
+	onActiveChange: ->
+		@gridstack.movable @element,@active
+		@gridstack.resizable @element,@active
+
+	willDestroyElement: -> @removeFromGrid()
+
+	click: -> 
+		Ember.$(@element).focus()
+		@setBlockActive()
+		
+	focusOut: -> 
+		@hideResizeHandle()
+		@active = false
+
+	+observer block.isDeleted
+	isDeleted: -> 
+		if @block.isDeleted
+			@removeFromGrid()
+			@refreshQuestionNumbers()
+
+	## HELPERS
+
+	showResizeHandle: ->
+		handle = Ember.$(@element).find(".ui-resizable-handle")
+		handle.show() if handle
+
+	hideResizeHandle: ->
+		handle = Ember.$(@element).find(".ui-resizable-handle")
+		handle.hide()		
+
+	coords: -> Ember.$(@element).data('_gridstack_node')
+
 	syncAttrsToEl: ->
-		console.log @block.colSpan,@coords().size_x,@block.rowSpan,@coords().size_y,@block.row,@coords().row,@block.col,@coords().col
-		@block.colSpan = @coords().size_x
-		@block.rowSpan = @coords().size_y
-		@block.row = @coords().row
-		@block.col = @coords().col
+		coords = @coords()
+		console.log coords.width,@block.colSpan,coords.height,@block.rowSpan
+		@block.colSpan = coords.width
+		@block.rowSpan = coords.height
+		@block.row = coords.y
+		@block.col = coords.x
 		@modeler.saveModel @block
 		@refreshQuestionNumbers()
 
 	addToGrid: -> @gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan
 
+	removeFromGrid: -> @gridstack.remove_widget @element
+
+	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test
+
+	setBlockActive: -> 
+		@active = true
+		@showResizeHandle()
+
+
+	## ACTIONS
+
 	actions:
+		contentsClicked: ->
+			@setBlockActive()
 		toggleNumber: ->
 			@block.toggleProperty 'question'
 			@modeler.saveModel @block
@@ -74,19 +119,5 @@ class BlockRendererComponent extends Ember.Component
 			@modeler.saveModel model
 		destroyModel: (model) ->
 			@modeler.destroyModel model
-		setBlockActive: -> @active = true
-
-	availableImageHeight: ~> @block.height - @block.linesHeight
-	availableImageWidth: ~> @block.width
-
-	+observer block.isDeleted
-	isDeleted: -> 
-		if @block.isDeleted
-			@removeFromGrid()
-			@refreshQuestionNumbers()
-
-	removeFromGrid: -> @gridstack.remove_widget @element
-
-	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test
 
 `export default BlockRendererComponent`

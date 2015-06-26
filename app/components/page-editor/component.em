@@ -12,23 +12,14 @@ class PageEditorComponent extends Ember.Component with Ember.Evented
 		@gridstack = Ember.$(@element).children('.grid-stack').gridstack(
 			auto:false
 			cell_height:18
-			#height:27
+			always_show_resize_handle:true
+			height:27
 			width:4
 			float:true
 			vertical_margin:9
 		).data 'gridstack'
 
-		@blocks = @page.blocks
-
-		#Ember.run.next @,syncChangedBlocks #account for blocks that will move up automatically if empty space above them
-		
-	didUpdateAttrs: ->
-		@blocks = @page.blocks
-
-	syncChangedBlocks: ->
-		@blockBeingDragged = false
-		@trigger 'syncIfOutOfSync'
-
-	setBlockBeingDragged: -> @blockBeingDragged = true
+		Ember.$(@element).on 'change', =>
+			@trigger 'syncBlocks'
 
 `export default PageEditorComponent`

@@ -2,9 +2,10 @@
     background: #DDD;
     border:solid 1px transparent;
     word-wrap: break-word;
+    cursor:pointer;
 }
 
-.active {
+& .grid-stack-item-content.active {
     cursor: move;
 	border-color: blue;	
 }
@@ -15,19 +16,9 @@
     outline:0 none;
 }
 
-.invalid {border-color: red}
+& .grid-stack-item-content.invalid {border-color: red}
 
 .question-number {
     position:absolute;
     margin-top:2px;
-}
-
-.static {
-	cursor:pointer;
-	.gs-resize-handle {display:none}
-}
-
-.gs-resize-handle {
-    bottom: -12px;
-    right: -12px;
 }
