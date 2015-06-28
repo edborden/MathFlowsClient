@@ -5,6 +5,7 @@ module.exports = function(environment) {
     modulePrefix: 'math-flows-client',
     environment: environment,
     baseURL: '/',
+    onLine: true,
     locationType: 'auto',
     apiHostName: 'http://localhost:3000',
     redirectUri: 'http://localhost:4200',
@@ -12,6 +13,11 @@ module.exports = function(environment) {
     APP: {},
     EmberENV: {FEATURES: {}}
   };
+
+  if (environment === 'offLine') {
+    ENV.environment = 'development';
+    ENV.onLine = false;
+  }
 
   if (environment === 'development') {
     // ENV.APP.LOG_RESOLVER = true;

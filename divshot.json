@@ -1,6 +1,7 @@
 {
   "name": "mathflows",
   "root": "./dist",
+  "prerender":true,
   "routes": {
     "/tests": "tests/index.html",
     "/tests/**": "tests/index.html",
