@@ -1,18 +1,6 @@
 .container-fluid
 	.row
-		.col-xs-2.side-nav			
-			h1#logo MathFlows
-			h5#tagline Workflows for math teachers
-			if session.me.guest
-				p
-					button.btn.btn-primary click="authenticate"
-						|SignUp&nbsp;&nbsp;
-						i.fa-google
-			else
-				p
-					link-to 'me' class="btn btn-primary"
-						|Account&nbsp;&nbsp;
-						i.fa-user			
+		.col-xs-2.side-nav					
 			p 
 				button.btn.btn-default click="createBlock"
 					|Add Block&nbsp;&nbsp;

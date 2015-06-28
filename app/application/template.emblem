@@ -1,3 +1,35 @@
+nav.navbar.navbar-default
+	.container
+
+		unless indexRoute
+			.navbar-header
+				link-to "index" class="navbar-brand logo" |MathFlows
+
+
+		.navbar-right
+
+			if session.loggedIn
+
+				if session.me.guest
+					button.btn.btn-xs.btn-primary.navbar-btn click="authenticate"
+						|SignUp&nbsp;&nbsp;
+						i.fa-google
+				else
+					unless meRoute
+						link-to 'me' class="btn btn-primary btn-xs navbar-btn"
+							|Account&nbsp;&nbsp;
+							i.fa-user
+
+					button.btn.btn-primary.btn-xs.navbar-btn click="logout"
+						|SignOut&nbsp;&nbsp;
+						i.fa-sign-out
+
+			else
+
+				button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
+					|Login&nbsp;&nbsp;
+					i.fa-google
+
 outlet
 ember-notify messageStyle='bootstrap'
 if modaler.showModal

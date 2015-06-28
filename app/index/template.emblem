@@ -1,17 +1,8 @@
-.container
-
-	.row.intro-row
-
-		.col-md-2.col-md-offset-10
-			button.btn.btn-xs.btn-primary click="authenticate"
-				|Login&nbsp;&nbsp;
-				i.fa-google
-
 .splash
 	.left
 	.center
 		.content
-			h1#logo MathFlows
+			h1.logo MathFlows
 			h1.tagline
 				p Paper Testing
 				p Made Easy
@@ -33,7 +24,7 @@
 			h3.tagline Built for longform writing
 		.col-md-4.arrow-div
 			.self-center
-				h1#logo MathFlows
+				h1.logo MathFlows
 				i.fa-5x.fa-long-arrow-right
 				ul.fa-ul.text-left
 					li 
