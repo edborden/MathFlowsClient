@@ -1,6 +1,7 @@
+`import ActiveModelAdapter from 'active-model-adapter'`
 `import config from 'math-flows-client/config/environment'`
 
-class ApplicationAdapter extends DS.ActiveModelAdapter
+class ApplicationAdapter extends ActiveModelAdapter
 	host: config.apiHostName
 	session: Ember.inject.service()
 

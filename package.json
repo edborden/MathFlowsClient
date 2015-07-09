@@ -34,6 +34,7 @@
     "ember-disable-proxy-controllers": "^1.0.0",
     "ember-export-application-global": "^1.0.2",
 
+    "active-model-adapter": "1.13.3",    
     "ember-cli-emblem": "*",
     "broccoli-ember-script": "git://github.com/kolybasov/broccoli-ember-script",
     "ember-cli-less": "*",    

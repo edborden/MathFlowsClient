@@ -19,6 +19,7 @@
     "keen-js": "~3.2.2",
     "cloudinary_js": "*",
     "gridstack": "*",
-    "jquery-ui":"*"
+    "jquery-ui":"*",
+    "active-model-adapter":"1.13.3"
   }
 }
