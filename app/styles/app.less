@@ -4,6 +4,15 @@
 @import "pod-styles";
 @import "gridstack";
 
+a.btn {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;    
+}
+
 // COLORS
 
     @grey: #393939;
@@ -24,6 +33,12 @@
 
 .standard-padding {
     padding:20px;
+}
+
+:focus {
+    //border-color:transparent;
+    box-shadow:transparent;
+    outline:0 none;
 }
 
 i {.fa}
@@ -303,7 +318,35 @@ input {color:black;}
         }
     }
 
-// SIDE-NAV
+// SIDE-NAV / PAGE-EDITOR
+
+    .page-editor {
+        margin: 0 auto;
+        width:874px;
+        .left-side {
+            .side-bar;
+            .btn-group-vertical {
+                border: 2px @grey solid;
+                border-right:0px;
+                
+            }
+        }
+        .right-side {
+            margin-left:744px;
+            .side-bar;
+        }
+    } 
+
+    .side-bar {
+        margin-top:10vh; 
+        position:fixed;
+        button {width:130px}
+        .btn-group-vertical {
+            border-radius: 5px;
+            margin-bottom: 10px;
+            display:block;    
+        }
+    }
 
     .side-nav {
         border: solid 2px @lgrey;

@@ -38,8 +38,9 @@ class Block extends DS.Model with ModelName
 	questionNumber: -> 
 		@test.questionBlocksSorted.indexOf(@) + 1 + "."
 
+	+computed question,questionNumber
 	questionNumberWidth: ->
-		if @question
+		questionNumberWidth = if @question
 			if @questionNumber < 10
 				14
 			else if @questionNumber < 100
@@ -48,6 +49,7 @@ class Block extends DS.Model with ModelName
 				34
 		else
 			0
+		questionNumberWidth.toString()
 
 	## INVALIDATIONS
 

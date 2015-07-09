@@ -1,13 +1,18 @@
 class KeyboarderService extends Ember.Service
 
+	##SETUP
+
 	modeler:Ember.inject.service()
 	store:Ember.inject.service()
 	focuser:Ember.inject.service()
+	cleaner:Ember.inject.service()
 
+	codesToHandle: Ember.A [13,8,37,38,39,40,46]
 	line:null
 	block: ~> @line.block if @line
 	position: ~> @line.position if @line
 	element:null
+	mathquill: null
 	cursorPosition:null
 	equations:null
 	stringPosition:null
@@ -15,18 +20,36 @@ class KeyboarderService extends Ember.Service
 	lineIndex: ~> @block.sortedLines.indexOf @line
 	lineAfter: ~> @block.lines.objectAt @lineIndex+1
 	lineBefore: ~> @block.lines.objectAt @lineIndex-1
+	nextPosition: ~> if @lineAfter? then @lineAfter.position else @position + 1
 
 	cursorInsideEquation: false
 
-	##
+	##RUN
 
-	setup: (line) ->
+	process: (line,keyCode,mathquill) ->
+		@setup(line,mathquill).keyDown(keyCode) if @codesToHandle.contains keyCode
+
+	setup: (line,mathquill) ->
 		@line = line
+		@mathquill = mathquill
 		@element = line.renderer.element
 		@cursorPosition = -1 #account for invisible textbox element
 		@equations = []
 		@setMetaData()
 		return @
+
+	keyDown: (keyCode) ->
+		unless @cursorInsideEquation
+			switch keyCode
+				when 13 then @enter()
+				when 8 then @backspace()
+				when 46 then @delete()
+				when 37 then @leftArrow()
+				when 38 then @upArrow()
+				when 39 then @rightArrow()
+				when 40 then @downArrow()
+
+	##HELPERS
 
 	setMetaData: ->
 		ar = Ember.$.makeArray Ember.$(@element).children('.content').children()
@@ -59,84 +82,6 @@ class KeyboarderService extends Ember.Service
 	substringBeforeCursor: -> @line.content.substr 0,@stringPosition
 	substringAfterCursor: -> @line.content.substr @stringPosition
 
-	nextPosition: ~> if @lineAfter? then @lineAfter.position else @position + 1
-
-	keyDown: (keyCode) ->
-		unless @cursorInsideEquation
-			switch keyCode
-				when 13 #enter
-					console.log 'enter'
-					newPosition = (@position+@nextPosition)/2
-					newLine = @store.createRecord 'line', {block:@block,content:@substringAfterCursor(),position:newPosition} 
-					@modeler.saveModel(newLine)
-					@line.content = @substringBeforeCursor()
-					@modeler.saveModel(@line)
-
-					@focuser.setFocusLine newLine,'start'
-
-					true
-
-				when 8 # backspace
-					if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
-						console.log 'backspace, beginning of valid line'
-
-						@lineBefore.content = @lineBefore.content + @line.content						
-						@modeler.saveModel(@lineBefore).then =>	
-							@focuser.setFocusLine @lineBefore,'end'
-							@modeler.destroyModel(@line).then =>
-								@block.reload() #reload block to get validations, in case deleting lines removed existing validations
-						true
-					else
-						console.log 'backspace, no action'
-						false
-
-				when 46 # delete
-					if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
-						console.log 'delete, end of valid line'
-
-						@line.content = @line.content + @lineAfter.content
-						console.log @line.content
-						@modeler.saveModel(@line).then =>
-							@focuser.setFocusLine @line,@cursorPosition
-							@modeler.destroyModel(@lineAfter).then =>
-								@block.reload()
-						true
-					else
-						console.log 'delete, no action'
-						false
-
-				when 37 # left arrow
-
-					if @cursorPosition is 0 and @lineBefore?
-						console.log 'left arrow, beginning of line'
-
-						@focuser.setFocusLine @lineBefore,'end'
-						
-					false
-
-				when 38 # up arrow
-					if @lineBefore?
-						console.log 'up arrow, with valid line above'
-						@focuser.setFocusLine @lineBefore,@cursorPosition
-					false
-
-				when 39 # right arrow
-					if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
-						console.log 'right arrow, with valid line after'
-						@focuser.setFocusLine @lineAfter,'start'
-					false
-
-				when 40 # down arrow
-					if @lineAfter?
-						console.log 'down arrow, with valid line after'
-						@focuser.setFocusLine @lineAfter,@cursorPosition
-					false
-
-				else
-					false
-		else
-			false
-
 	getLengthOfEquation: (position) ->
 		ar = @line.content.split ""
 		stop = false
@@ -144,7 +89,67 @@ class KeyboarderService extends Ember.Service
 		until stop
 			length = length + 1
 			position = position + 1
-			stop = true if ar[position] is "$"
+			stop = true if ar[position] is "$" or typeof ar[position] isnt 'string' #if equation isnt finished, it won't end with $, so have to look for undefined
+			console.log position
 		return length
+
+	enter: ->
+		console.log 'enter'
+		@focuser.focusedLine = null
+		@cleaner.clean @line,@mathquill
+		newPosition = (@position+@nextPosition)/2
+		newContent = @substringAfterCursor()
+		@line.content = @substringBeforeCursor()
+		@modeler.saveModel(@line).then =>
+			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
+			@modeler.saveModel(newLine)
+			Ember.run.next @,=> @focuser.setFocusLine newLine,'start'
+
+	backspace: ->
+		if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
+			console.log 'backspace, beginning of valid line'
+
+			@cleaner.clean @line,@mathquill
+			newContent = @lineBefore.content + @line.content
+			lineBefore = @lineBefore
+				#@focuser.setFocusLine @lineBefore,'end'
+			@modeler.destroyModel(@line).then =>
+					lineBefore.content = newContent
+					@modeler.saveModel(lineBefore).then =>	
+
+						@block.reload() #reload block to get validations, in case deleting lines removed existing validations
+
+	delete: ->
+		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
+			console.log 'delete, end of valid line'
+
+			@cleaner.clean @line,@mathquill
+			@line.content = @line.content + @lineAfter.content
+			console.log @line.content
+			@modeler.saveModel(@line).then =>
+				@focuser.setFocusLine @line,@cursorPosition+1
+				@modeler.destroyModel(@lineAfter).then =>
+					@block.reload()
+
+	leftArrow: ->
+		if @cursorPosition is 0 and @lineBefore?
+			console.log 'left arrow, beginning of line'
+
+			@focuser.setFocusLine @lineBefore,'end'
+
+	upArrow: ->
+		if @lineBefore?
+			console.log 'up arrow, with valid line above'
+			@focuser.setFocusLine @lineBefore,@cursorPosition
+
+	rightArrow: ->
+		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
+			console.log 'right arrow, with valid line after'
+			@focuser.setFocusLine @lineAfter,'start'
+
+	downArrow: ->
+		if @lineAfter?
+			console.log 'down arrow, with valid line after',@cursorPosition
+			@focuser.setFocusLine @lineAfter,@cursorPosition
 
 `export default KeyboarderService`

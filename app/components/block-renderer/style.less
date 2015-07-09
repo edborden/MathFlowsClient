@@ -1,11 +1,21 @@
-& .grid-stack-item-content {
+& {
+    overflow-y: visible;
+    margin-top:-1px;
+}
+
+.question-number {
+    position:absolute;
+    margin-top:2px;
+}
+
+& > .grid-stack-item-content {
     background: #DDD;
     border:solid 1px transparent;
     word-wrap: break-word;
     cursor:pointer;
 }
 
-& .grid-stack-item-content.active {
+&.active .grid-stack-item-content {
     cursor: move;
 	border-color: blue;	
 }
@@ -16,9 +26,4 @@
     outline:0 none;
 }
 
-& .grid-stack-item-content.invalid {border-color: red}
-
-.question-number {
-    position:absolute;
-    margin-top:2px;
-}
+&.invalid .grid-stack-item-content {border-color: red}

@@ -8,17 +8,18 @@ class BlockRendererComponent extends Ember.Component
 
 	gridstack:null
 	block:null
+	activeBlock:null
+	activeEquationLine: null
 
-	attributeBindings: ["data-gs-no-resize","data-gs-no-move","tabindex"]
-	classNameBindings: ["invalid","active"]
+	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
 	classNames: ["grid-stack-item"]
+	classNameBindings: ["active","invalid"]
 
 	"data-gs-no-resize":true
 	"data-gs-no-move":true
 	tabindex:0
 
-	active:false
-	blockBeingDragged: false
+	active: ~> @activeBlock is @block
 	invalid: ~> @block.invalid
 
 	availableImageHeight: ~> @block.height - @block.linesHeight
@@ -28,96 +29,90 @@ class BlockRendererComponent extends Ember.Component
 
 	didInsertElement: ->
 		@parent.on 'syncBlocks', @, @syncAttrsToEl
-		Ember.run.next @,@addToGrid
+		@active #initialize observer
+		if @gridstack?
+			@initializeRenderer()
+		else
+			Ember.run.next @, @initializeRenderer #run after render to allow gridstack/page-editor to initialize
+
+	initializeRenderer: ->
+		@addToGrid()
 		isNew = @block.isNew
-		if @block.hasDirtyAttributes
-			@syncAttrsToEl()
-			if isNew
-				Ember.$(@element).find(".content").mousedown().mouseup()
+		@syncAttrsToEl().then =>
+			Ember.run.next @,=>
+				Ember.$(@element).find(".content").mousedown().mouseup() if isNew
 
 	+observer active
 	onActiveChange: ->
 		@gridstack.movable @element,@active
 		@gridstack.resizable @element,@active
+		@setResizeHandle @active
 
-	willDestroyElement: -> @removeFromGrid()
+	willDestroyElement: -> 
+		@refreshQuestionNumbers()
+		@removeFromGrid()
+		@parent.off 'syncBlocks', @, @syncAttrsToEl
 
 	click: -> 
-		Ember.$(@element).focus()
+		console.log 'click'
+		@focusElement()
 		@setBlockActive()
 		
-	focusOut: -> 
-		@hideResizeHandle()
-		@active = false
-
-	+observer block.isDeleted
-	isDeleted: -> 
-		if @block.isDeleted
-			@removeFromGrid()
-			@refreshQuestionNumbers()
+	#focusOut: -> 
+	#	console.log 'focusOut',@block.id
+	#	@hideResizeHandle()
+	#	@setBlockInactive()			
 
 	## HELPERS
 
-	showResizeHandle: ->
-		handle = Ember.$(@element).find(".ui-resizable-handle")
-		handle.show() if handle
+	moveToTop: -> Ember.$(@element).parent().append Ember.$(@element)
 
-	hideResizeHandle: ->
+	setResizeHandle: (active) ->
 		handle = Ember.$(@element).find(".ui-resizable-handle")
-		handle.hide()		
+		if active
+			handle.show() if handle
+		else
+			handle.hide()		
 
 	coords: -> Ember.$(@element).data('_gridstack_node')
 
 	syncAttrsToEl: ->
-		coords = @coords()
-		console.log coords.width,@block.colSpan,coords.height,@block.rowSpan
-		@block.colSpan = coords.width
-		@block.rowSpan = coords.height
-		@block.row = coords.y
-		@block.col = coords.x
-		@modeler.saveModel @block
-		@refreshQuestionNumbers()
+		return new Ember.RSVP.Promise (resolve) =>
+			coords = @coords()
+			@block.colSpan = coords.width
+			@block.rowSpan = coords.height
+			@block.row = coords.y
+			@block.col = coords.x
+			@refreshQuestionNumbers()
+			@modeler.saveModel(@block).then -> resolve()
 
-	addToGrid: -> @gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan
+	addToGrid: -> 
+		assignPosition = not @block.col? or not @block.row?
+		@gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan,assignPosition
 
 	removeFromGrid: -> @gridstack.remove_widget @element
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test
 
-	setBlockActive: -> 
-		@active = true
-		@showResizeHandle()
+	focusElement: -> Ember.$(@element).focus()
 
-
-	## ACTIONS
+	##ACTIONS
 
 	actions:
-		contentsClicked: ->
-			@setBlockActive()
-		toggleNumber: ->
-			@block.toggleProperty 'question'
-			@modeler.saveModel @block
-			@refreshQuestionNumbers()
-			@block.notifyPropertyChange 'width' #trigger width resize on equation box
-		openFileDialog: ->
-			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
-				image = @store.createRecord 'image',
-					block: @block
-					cloudinaryId: result[0].public_id
-					width: result[0].width
-					height: result[0].height
-				@modeler.saveModel image
-		openGraphModal: -> @modaler.openModal 'graph-modal',@block
-		cutBlock: (model) -> 
-			@removeFromGrid()
-			model.removeFromPage()
-			model.test.notifyPropertyChange 'clipboard'
-			@modeler.saveModel model
-			@refreshQuestionNumbers()
-		copyBlock: (block) ->
-			model = @store.createRecord 'block', {copyFromId:block.id}
-			@modeler.saveModel model
-		destroyModel: (model) ->
-			@modeler.destroyModel model
+		contentsClicked: -> @setBlockActive()
+
+		activeEquationLine: (mathquill) ->
+			@activeEquationLine = mathquill unless @activeEquationLine is mathquill
+
+		inactiveEquationLine: (mathquill) ->
+			@activeEquationLine = null if @activeEquationLine is mathquill
+
+	setActiveBlock: 'setActiveBlock'
+	setBlockActive: -> 
+		@sendAction 'setActiveBlock',@block
+
+	setInactiveBlock: 'setInactiveBlock'
+	setBlockInactive: ->
+		@sendAction 'setInactiveBlock',@block
 
 `export default BlockRendererComponent`

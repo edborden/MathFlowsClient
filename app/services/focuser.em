@@ -7,8 +7,12 @@ class FocuserService extends Ember.Service
 
 	setFocusLine: (line,cursorPosition) ->
 		@focusedLine = line
-		@cursorPosition = cursorPosition
-		@cursorPosition = 'start' if @cursorPosition is 0 # fix for putting cursor at the beginning, because 0 will click textbox
+
+		if cursorPosition is 0
+			@cursorPosition = 'start'  # fix for putting cursor at the beginning, because 0 will click textbox
+		else
+			@cursorPosition = cursorPosition
+
 		@focusLine()
 
 	focusLine: ->
@@ -18,14 +22,10 @@ class FocuserService extends Ember.Service
 		switch @cursorPosition
 			when 'start'
 				textbox = content.children().first()
-				@click textbox.next()
-				e = $.Event("keydown")
-				e.bubbles = true
-				e.cancelable = true
-				e.charCode = 37
-				e.keyCode = 37
-				e.which = 37
-				textbox.trigger(e)
+				firstEl = textbox.next()
+				unless firstEl.hasClass 'cursor'
+					@click firstEl
+					@leftArrow textbox
 
 			when 'end'
 				@click content.children().last()
@@ -37,5 +37,14 @@ class FocuserService extends Ember.Service
 					@click Ember.$(content.children()[@cursorPosition])
 
 	click: (el) -> el.mousedown().mouseup()
+
+	leftArrow: (el) ->
+		e = $.Event("keydown")
+		e.bubbles = true
+		e.cancelable = true
+		e.charCode = 37
+		e.keyCode = 37
+		e.which = 37
+		el.trigger e	
 
 `export default FocuserService`

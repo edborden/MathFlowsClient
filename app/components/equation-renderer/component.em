@@ -1,5 +1,7 @@
 class EquationRendererComponent extends Ember.Component
 
+	##SETUP
+
 	cleaner: Ember.inject.service()
 	store:Ember.inject.service()
 	focuser:Ember.inject.service()
@@ -8,21 +10,50 @@ class EquationRendererComponent extends Ember.Component
 
 	line:null
 	block: Ember.computed.alias 'line.block'
+	questionNumberWidth: Ember.computed.alias 'block.questionNumberWidth'
+	blockRenderer: null
+
+	attributeBindings: ['style']
+	style: ~> "padding-left:#{@questionNumberWidth}px".htmlSafe()
+
+	##EVENTS
+
+	didInitAttrs: ->
+		@line.renderer = @		
 	
 	didInsertElement: ->
-		@setQuestionElement()
 		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
 		@setMathQuillContent()
 		@setKeyDownHandler()
-		@line.renderer = @		
-		@focuser.setFocusLine(@line,'start') if @line.isNew
-		if @focuser.focusedLine is @line
-			@focuser.focusLine()
-		else
-			Ember.$(@element).find('.cursor').remove()
+		Ember.$(@element).find('.cursor').remove()
 
-	setMathQuillContent: ->
-		@mathquill.mathquill('latex',@line.content)
+	onKeyDown: (ev) ->
+		@keyboarder.process @line,ev.keyCode,@mathquill	
+		Ember.run.next @,@checkIfInsideEquation
+		true
+
+	focusOut: -> 
+		console.log 'focusOut'
+		@removeEquationEditorMenu()
+		@cleaner.clean @line,@mathquill
+		@modeler.saveModel @line
+		#@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
+
+	click: -> 
+		@checkIfInsideEquation()
+		@sendAction()
+		false
+
+	+observer line.content
+	contentChanged: -> 
+		@setMathQuillContent()
+		Ember.$(@element).find('.cursor').remove()
+
+	willDestroyElement: -> @removeKeyDownHandler()
+
+	##HELPERS
+
+	setMathQuillContent: -> @mathquill.mathquill 'latex',@line.content
 
 	setKeyDownHandler: ->
 		#set handler
@@ -34,50 +65,33 @@ class EquationRendererComponent extends Ember.Component
 		handler = handlers.pop()
 		handlers.splice(0, 0, handler)
 
-	+observer block.question
-	setQuestionElement: ->
-		@element.style.paddingLeft = if @block.question
-			@block.questionNumberWidth() + "px"
-		else
-			@element.style.paddingLeft = 0
-
-	actions:
-		insertLatex: (latex) ->
-			Ember.$(@element).focus()
-			@displayEquationEditorMenu = true
-			@mathquill.mathquill('cmd',latex)
-
-	action: 'contentsClicked'
-
-	click: -> 
-		@checkIfInsideEquation()
-		@sendAction()
-		false
-
-	dontFocusOut: false
-	onKeyDown: (ev) ->
-		@dontFocusOut = false
-		Ember.run.later @,@checkIfInsideEquation
-		keyCode = ev.keyCode
-		codesToHandle = Ember.A [13,8,37,38,39,40,46]
-		if codesToHandle.contains keyCode
-			@cleanContent()
-			@dontFocusOut = @keyboarder.setup(@line).keyDown(keyCode)
-			console.log 'dontFocusOut =',@dontFocusOut
+	removeKeyDownHandler: ->
+		@mathquill.off 'keydown',@onKeyDown
 
 	checkIfInsideEquation: ->
 		unless @isDestroyed
 			cursorElement = Ember.$('.hasCursor')
-			@displayEquationEditorMenu = cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
+			if cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
+				@displayEquationEditorMenu() 
+			else
+				@removeEquationEditorMenu()
 
-	cleanContent: ->
-		@line.content = @cleaner.latex @mathquill.mathquill 'latex'
+	displayEquationEditorMenu: ->
+		@sendAction 'activeEquationLine',@mathquill
 
-	focusOut: -> 
-		unless @dontFocusOut
-			@displayEquationEditorMenu = false
-			@cleanContent()
-			@modeler.saveModel @line
-			@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
+	removeEquationEditorMenu: ->
+		@sendAction 'inactiveEquationLine',@mathquill
+
+	##ACTIONS
+
+	#actions:
+	#	insertLatex: (latex) ->
+	#		Ember.$(@element).focus()
+	#		@displayEquationEditorMenu = true
+	#		@mathquill.mathquill 'cmd',latex
+
+	action: 'contentsClicked'
+	activeEquationLine: 'activeEquationLine'
+	inactiveEquationLine: 'inactiveEquationLine'
 
 `export default EquationRendererComponent`

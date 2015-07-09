@@ -4,11 +4,14 @@ class GraphModalComponent extends Ember.Component
 	store:Ember.inject.service()
 	modeler:Ember.inject.service()
 
+	didRender: -> console.log 'model',@model
+
 	actions:
 		screenshot: ->
-			@blobToCloudinary(@calculator.screenshot()).then (result) => 	
+			cachedModel = @model
+			@blobToCloudinary(@calculator.screenshot()).then (result) =>
 				image = @store.createRecord 'image',
-					block: @model
+					block: cachedModel
 					cloudinaryId: result.public_id
 					width: result.width
 					height: result.height

@@ -1,37 +1,39 @@
 .container-fluid
-	.row
-		.col-xs-2.side-nav					
-			p 
+
+	.page-editor
+
+		if activeBlock
+			block-menu block=activeBlock blockRenderer=activeBlockRenderer
+
+		.left-side
+			.btn-group-vertical			
 				button.btn.btn-default click="createBlock"
 					|Add Block&nbsp;&nbsp;
 					i.fa-plus
-			p 
 				button.btn.btn-default click="createPage"
 					|Add Page&nbsp;&nbsp;
-					i.fa-plus
-			p
-				a href=test.pdfLink
-					button.btn.btn-default.btn-sm disabled=test.invalid
-						|Get PDF&nbsp;&nbsp;
-						i.fa-download
+					i.fa-plus				
+				button.btn.btn-default disabled=test.invalid click="getPDF"
+					|Get PDF&nbsp;&nbsp;
+					i.fa-download
+
 			if test.multiplePages
-				hr
-				each page in model.test.pages
-					p 
+				.btn-group-vertical
+					each page in model.test.pages
 						link-to "page" page class="btn btn-warning"
 							|Page&nbsp;
 							page.number
-				hr
-				p 
+
+				.btn-group-vertical
 					button.btn.btn-default click="deletePage"
 						|Delete Page&nbsp;&nbsp;
 						i.fa-minus
+
 			if test.clipboard
-				hr
-				p #{test.clipboard.length} blocks in clipboard
-				button.btn.btn-warning click="paste"
-					|Paste&nbsp;&nbsp;
-					i.fa-paste			
-		.col-xs-10
-			if model.isLoaded
-				page-editor page=model
+				.btn-group-vertical
+					p #{test.clipboard.length} blocks in clipboard
+					button.btn.btn-warning click="paste"
+						|Paste&nbsp;&nbsp;
+						i.fa-paste			
+
+		page-editor page=model activeBlock=activeBlock
