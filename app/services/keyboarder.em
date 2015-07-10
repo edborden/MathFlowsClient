@@ -27,6 +27,7 @@ class KeyboarderService extends Ember.Service
 	##RUN
 
 	process: (line,keyCode,mathquill) ->
+		console.log 'keyboard keyCode',keyCode
 		@setup(line,mathquill).keyDown(keyCode) if @codesToHandle.contains keyCode
 
 	setup: (line,mathquill) ->
@@ -95,7 +96,7 @@ class KeyboarderService extends Ember.Service
 
 	enter: ->
 		console.log 'enter'
-		@focuser.focusedLine = null
+
 		@cleaner.clean @line,@mathquill
 		newPosition = (@position+@nextPosition)/2
 		newContent = @substringAfterCursor()
@@ -103,7 +104,9 @@ class KeyboarderService extends Ember.Service
 		@modeler.saveModel(@line).then =>
 			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
 			@modeler.saveModel(newLine)
-			Ember.run.next @,=> @focuser.setFocusLine newLine,'start'
+			Ember.run.next @,=> 
+				console.log 'newLine renderer',newLine.renderer
+				@focuser.setFocusLine newLine,'start'
 
 	backspace: ->
 		if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
@@ -115,6 +118,7 @@ class KeyboarderService extends Ember.Service
 				#@focuser.setFocusLine @lineBefore,'end'
 			@modeler.destroyModel(@line).then =>
 					lineBefore.content = newContent
+					Ember.run.next @,=> @focuser.setFocusLine lineBefore,'end'
 					@modeler.saveModel(lineBefore).then =>	
 
 						@block.reload() #reload block to get validations, in case deleting lines removed existing validations

@@ -19,22 +19,27 @@ class FocuserService extends Ember.Service
 		renderer = Ember.$(@renderer.element)
 		content = renderer.children(".content")
 
-		switch @cursorPosition
-			when 'start'
-				textbox = content.children().first()
-				firstEl = textbox.next()
-				unless firstEl.hasClass 'cursor'
-					@click firstEl
-					@leftArrow textbox
+		if @focusedLine.content.length is 0
+			@click content
 
-			when 'end'
-				@click content.children().last()
+		else
 
-			else
-				if @rendererLength <= @cursorPosition
+			switch @cursorPosition
+				when 'start'
+					textbox = content.children().first()
+					firstEl = textbox.next()
+					unless firstEl.hasClass 'cursor'
+						@click firstEl
+						@leftArrow textbox
+
+				when 'end'
 					@click content.children().last()
+
 				else
-					@click Ember.$(content.children()[@cursorPosition])
+					if @rendererLength <= @cursorPosition
+						@click content.children().last()
+					else
+						@click Ember.$(content.children()[@cursorPosition])
 
 	click: (el) -> el.mousedown().mouseup()
 
