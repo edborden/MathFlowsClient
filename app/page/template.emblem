@@ -19,7 +19,7 @@
 
 			if test.multiplePages
 				.btn-group-vertical.page-functions
-					each page in model.test.pages
+					each model.test.pages as |page|
 						link-to "page" page class="btn btn-warning"
 							|Page&nbsp;
 							page.number

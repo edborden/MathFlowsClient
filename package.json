@@ -36,6 +36,7 @@
 
     "active-model-adapter": "1.13.3",    
     "ember-cli-emblem": "*",
+    "emblem": "0.6.1",
     "broccoli-ember-script": "git://github.com/kolybasov/broccoli-ember-script",
     "ember-cli-less": "*",    
     "broccoli-merge-trees": "*",
