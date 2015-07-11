@@ -1,9 +1,9 @@
-class PageController extends Ember.Controller
+`import ActiveBlock from 'math-flows-client/mixins/active-block'`
 
-	test: ~> @model.test
+class PageController extends Ember.Controller with ActiveBlock
+
+	test: Ember.computed.alias 'model.test'
 	modeler:Ember.inject.service()
-
-	activeBlock: null
 
 	actions:
 		createPage: ->
@@ -12,16 +12,14 @@ class PageController extends Ember.Controller
 				@transitionToRoute 'page',response
 
 		deletePage: ->
-			@model.blocks.forEach (block) => block.deleteRecord() #delete blocks locally so they don't go to clipboard
-			@modeler.destroyModel @model
+			@model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
 			firstPage = @test.pages.firstObject
-			if firstPage?
-				@transitionToRoute 'page',firstPage
-			else
-				@send 'createPage'
+			@transitionToRoute 'page',firstPage
+			@modeler.destroyModel @model
 
 		createBlock: -> 
-			@store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18}
+			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18}
+			@send 'setActiveBlock',block
 
 		paste: ->
 			@test.clipboard.forEach (block) =>
@@ -30,14 +28,6 @@ class PageController extends Ember.Controller
 				@model.blocks.addObject block
 			@test.notifyPropertyChange 'clipboard'
 
-		setActiveBlock: (block) ->
-			@activeBlock = block
-			
-		setInactiveBlock: (block) ->
-			if @activeBlock is block
-				@activeBlock = null
-
-		getPDF: ->
-			location.href = "http://localhost:3000/tests/45.pdf?token=f9f38e42292925058742ebf1af409585"		
+		getPDF: -> location.href = @model.test.pdfLink	
 
 `export default PageController`

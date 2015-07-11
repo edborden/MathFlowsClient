@@ -3,10 +3,10 @@
 	.page-editor
 
 		if activeBlock
-			block-menu block=activeBlock blockRenderer=activeBlockRenderer
+			block-menu block=activeBlock
 
 		.left-side
-			.btn-group-vertical			
+			.btn-group-vertical.page-functions
 				button.btn.btn-default click="createBlock"
 					|Add Block&nbsp;&nbsp;
 					i.fa-plus
@@ -18,20 +18,23 @@
 					i.fa-download
 
 			if test.multiplePages
-				.btn-group-vertical
+				.btn-group-vertical.page-functions
 					each page in model.test.pages
 						link-to "page" page class="btn btn-warning"
 							|Page&nbsp;
 							page.number
 
-				.btn-group-vertical
-					button.btn.btn-default click="deletePage"
-						|Delete Page&nbsp;&nbsp;
-						i.fa-minus
+				unless model.firstPage
+					.btn-group-vertical
+						button.btn.btn-default click="deletePage"
+							|Delete Page&nbsp;&nbsp;
+							i.fa-minus
 
 			if test.clipboard
-				.btn-group-vertical
-					p #{test.clipboard.length} blocks in clipboard
+				.btn-group-vertical.clipboard
+					p.text-center 
+						|Clipboard&nbsp;&nbsp;
+						span.badge = test.clipboard.length
 					button.btn.btn-warning click="paste"
 						|Paste&nbsp;&nbsp;
 						i.fa-paste			

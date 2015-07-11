@@ -27,15 +27,12 @@ class KeyboarderService extends Ember.Service
 	##RUN
 
 	process: (line,keyCode,mathquill) ->
-		console.log 'keyboard keyCode',keyCode
 		@setup(line,mathquill).keyDown(keyCode) if @codesToHandle.contains keyCode
 
 	setup: (line,mathquill) ->
 		@line = line
 		@mathquill = mathquill
 		@element = line.renderer.element
-		@cursorPosition = -1 #account for invisible textbox element
-		@equations = []
 		@setMetaData()
 		return @
 
@@ -53,6 +50,9 @@ class KeyboarderService extends Ember.Service
 	##HELPERS
 
 	setMetaData: ->
+		@cursorPosition = -1 #account for invisible textbox element
+		@equations = []
+		@cursorInsideEquation = false
 		ar = Ember.$.makeArray Ember.$(@element).children('.content').children()
 		stop = false
 		for el in ar
@@ -91,13 +91,13 @@ class KeyboarderService extends Ember.Service
 			length = length + 1
 			position = position + 1
 			stop = true if ar[position] is "$" or typeof ar[position] isnt 'string' #if equation isnt finished, it won't end with $, so have to look for undefined
-			console.log position
 		return length
 
 	enter: ->
 		console.log 'enter'
 
 		@cleaner.clean @line,@mathquill
+		@setMetaData()
 		newPosition = (@position+@nextPosition)/2
 		newContent = @substringAfterCursor()
 		@line.content = @substringBeforeCursor()
@@ -105,7 +105,6 @@ class KeyboarderService extends Ember.Service
 			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
 			@modeler.saveModel(newLine)
 			Ember.run.next @,=> 
-				console.log 'newLine renderer',newLine.renderer
 				@focuser.setFocusLine newLine,'start'
 
 	backspace: ->
@@ -113,6 +112,7 @@ class KeyboarderService extends Ember.Service
 			console.log 'backspace, beginning of valid line'
 
 			@cleaner.clean @line,@mathquill
+			@setMetaData()
 			newContent = @lineBefore.content + @line.content
 			lineBefore = @lineBefore
 				#@focuser.setFocusLine @lineBefore,'end'
@@ -127,9 +127,9 @@ class KeyboarderService extends Ember.Service
 		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
 			console.log 'delete, end of valid line'
 
+			@setMetaData()
 			@cleaner.clean @line,@mathquill
 			@line.content = @line.content + @lineAfter.content
-			console.log @line.content
 			@modeler.saveModel(@line).then =>
 				@focuser.setFocusLine @line,@cursorPosition+1
 				@modeler.destroyModel(@lineAfter).then =>

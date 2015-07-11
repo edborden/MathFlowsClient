@@ -1,7 +1,7 @@
 `import EmberValidations from 'ember-validations'`
 `import Notify from 'ember-notify'`
 
-class InviteBoxComponent extends Ember.Component with EmberValidations.Mixin
+class InviteBoxComponent extends Ember.Component with EmberValidations
 
 	validations:
 		email:

@@ -1,18 +1,7 @@
 .container-fluid
 	.row
-		.col-xs-2.side-nav
-			h2#logo MathFlows
-			h5#tagline Workflows for math teachers
-			p
-				link-to 'headers' class="btn btn-primary"
-					|Edit Header&nbsp;&nbsp;
-					i.fa-edit
-			/p
-			/	button.btn.btn-primary click="importStudents"
-			/		|Import Students&nbsp;&nbsp;
-			/		i.fa-google
 
-		.col-xs-6
+		.col-xs-8
 			.account
 				img.profile-pic src=model.pic
 				span.name = model.name

@@ -1,15 +1,14 @@
 .container-fluid
-	.row
-		.col-xs-2.side-nav			
-			h2#logo MathFlows
-			h5#tagline Workflows for math teachers
-			p
-				link-to 'me' class="btn btn-primary"
-					|Account&nbsp;&nbsp;
-					i.fa-user			
-			p 
+
+	.page-editor
+
+		if activeBlock
+			block-menu block=activeBlock
+
+		.left-side
+			.btn-group-vertical			
 				button.btn.btn-default click="addHeader"
 					|Add Header&nbsp;&nbsp;
 					i.fa-plus
-		.col-xs-10
-			page-editor page=session.me
+
+		page-editor page=session.me activeBlock=activeBlock

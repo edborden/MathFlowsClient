@@ -1,7 +1,6 @@
 class CleanerService extends Ember.Service
 
 	clean: (line,mathquill) ->
-		console.log 'cleaning'
 		line.content = @latex mathquill.mathquill 'latex'
 
 	latex: (latex) ->

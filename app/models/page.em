@@ -6,7 +6,11 @@ hasMany = DS.hasMany
 
 class Page extends DS.Model with ModelName
 	test: belongsTo 'test', {async:false}
-	number: ~> @test.pages.indexOf(@) + 1
 	blocks: hasMany 'block', {async:false}
+
+	#HELPERS
+
+	number: ~> @test.pages.indexOf(@) + 1
+	firstPage: ~> @number is 1
 				
 `export default Page`

@@ -8,6 +8,8 @@ class BlockMenuComponent extends Ember.Component
 
 	classNames: ['right-side']
 
+	setInactiveBlock: 'setInactiveBlock'
+
 	actions:
 		toggleNumber: ->
 			@block.toggleProperty 'question'
@@ -27,10 +29,12 @@ class BlockMenuComponent extends Ember.Component
 			@block.removeFromPage()
 			@block.test.notifyPropertyChange 'clipboard'
 			@modeler.saveModel @block
+			@sendAction 'setInactiveBlock',@block
 		copyBlock: ->
 			model = @store.createRecord 'block', {copyFromId:@block.id}
 			@modeler.saveModel(model).then (response) -> console.log response
 		destroyModel: (model) ->
+			@sendAction 'setInactiveBlock',model if model.isBlock
 			@modeler.destroyModel model
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers()
