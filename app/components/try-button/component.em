@@ -8,7 +8,7 @@ class TryButtonComponent extends Ember.Component
 	position: null
 
 	click: ->
-		@keen.introClick @position
+		@keen.introClickPosition = @position
 		@router.transitionTo 'intro'
 
 

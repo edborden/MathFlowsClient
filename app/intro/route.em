@@ -8,7 +8,8 @@ class IntroRoute extends Ember.Route
 				@session.open().then => @sessionSuccessHandler()
 
 	sessionSuccessHandler: ->
-		@keen.log_session()
+		@keen.logSession()
+		@keen.introClick()
 		Ember.$(".center-spinner").hide()
 
 `export default IntroRoute`

@@ -15,16 +15,24 @@ class KeenService extends Ember.Service
 		else
 			{addEvent: -> return}
 
-	log_session: ->
+	user: ~> {
+		id: @session.me.id
+		guest: @session.me.guest
+	}
+
+	logSession: ->
 		@client.addEvent 'session', 
 			#page: window.location.href
 			#time: new Date().toISOString()
 			referrer: document.referrer
 			agent: window.navigator.userAgent
-			user: @session.me.id
+			user: @user
 
-	introClick: (position) ->
-		@client.addEvent 'introClick',
-			position: position
+	introClickPosition: null
+	introClick: ->
+		if @introClickPosition?
+			@client.addEvent 'introClick',
+				position: @introClickPosition
+				user: @user
 
 `export default KeenService`
