@@ -1,4 +1,6 @@
-class PageEditorComponent extends Ember.Component with Ember.Evented
+class PageEditorComponent extends Ember.Component
+
+	eventer: Ember.inject.service()
 
 	activeBlock:null
 
@@ -13,8 +15,8 @@ class PageEditorComponent extends Ember.Component with Ember.Evented
 			vertical_margin:9
 		).data 'gridstack'
 
-		Ember.$(@element).on 'change', =>
-			@trigger 'syncBlocks'
+		triggerSyncBlocks = Ember.run.bind @eventer,@eventer.triggerSyncBlocks
+		Ember.$(@element).on 'change', triggerSyncBlocks
 
 	setActiveBlock: 'setActiveBlock'
 	setInactiveBlock: 'setInactiveBlock'

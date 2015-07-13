@@ -5,6 +5,7 @@ class BlockRendererComponent extends Ember.Component
 	store: Ember.inject.service()
 	modaler:Ember.inject.service()
 	modeler:Ember.inject.service()
+	eventer:Ember.inject.service()
 
 	gridstack:null
 	block:null
@@ -28,7 +29,7 @@ class BlockRendererComponent extends Ember.Component
 	## EVENTS
 
 	didInsertElement: ->
-		@parent.on 'syncBlocks', @, @syncAttrsToEl
+		@eventer.on 'syncBlocks', @, @syncAttrsToEl
 		@active #initialize observer
 		if @gridstack?
 			@initializeRenderer()
@@ -51,7 +52,7 @@ class BlockRendererComponent extends Ember.Component
 	willDestroyElement: -> 
 		@refreshQuestionNumbers()
 		@removeFromGrid()
-		@parent.off 'syncBlocks', @, @syncAttrsToEl
+		@eventer.off 'syncBlocks', @, @syncAttrsToEl
 
 	click: -> 
 		console.log 'click'
