@@ -33,10 +33,13 @@ class BlockMenuComponent extends Ember.Component
 		copyBlock: ->
 			model = @store.createRecord 'block', {copyFromId:@block.id}
 			@modeler.saveModel(model).then (response) -> console.log response
+		destroyBlock: ->
+			@sendAction 'setInactiveBlock',@block
+			@send 'destroyModel',@block
+			@refreshQuestionNumbers()
 		destroyModel: (model) ->
-			@sendAction 'setInactiveBlock',model if model.isBlock
 			@modeler.destroyModel model
 
-	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers()
+	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?
 
 `export default BlockMenuComponent`

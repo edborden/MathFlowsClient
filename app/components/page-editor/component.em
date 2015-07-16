@@ -2,6 +2,7 @@ class PageEditorComponent extends Ember.Component
 
 	eventer: Ember.inject.service()
 
+	page: null
 	activeBlock:null
 
 	didInsertElement: ->
@@ -15,8 +16,8 @@ class PageEditorComponent extends Ember.Component
 			vertical_margin:9
 		).data 'gridstack'
 
-		triggerSyncBlocks = Ember.run.bind @eventer,@eventer.triggerSyncBlocks
-		Ember.$(@element).on 'change', triggerSyncBlocks
+		Ember.$(@element).on 'change', => 
+			@eventer.triggerSyncBlocks()
 
 	setActiveBlock: 'setActiveBlock'
 	setInactiveBlock: 'setInactiveBlock'

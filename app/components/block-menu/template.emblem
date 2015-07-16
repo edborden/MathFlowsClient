@@ -14,7 +14,7 @@
 			i.fa-line-chart	
 
 .btn-group-vertical
-	button.btn.btn-default click="'destroyModel' block"
+	button.btn.btn-default click="destroyBlock"
 		|Delete&nbsp;&nbsp;
 		i.fa-trash.text-danger
 	button.btn.btn-default click="copyBlock"

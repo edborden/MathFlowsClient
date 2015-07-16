@@ -96,8 +96,12 @@ class KeyboarderService extends Ember.Service
 	enter: ->
 		console.log 'enter'
 
+		console.log @line.content
+		console.log 'cursorPosition',@cursorPosition,@stringPosition
 		@cleaner.clean @line,@mathquill
-		@setMetaData()
+		console.log @line.content
+		console.log 'cursorPosition',@cursorPosition,@stringPosition
+		console.log 'substringBeforeCursor',@substringBeforeCursor()
 		newPosition = (@position+@nextPosition)/2
 		newContent = @substringAfterCursor()
 		@line.content = @substringBeforeCursor()

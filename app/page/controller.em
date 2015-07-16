@@ -19,7 +19,7 @@ class PageController extends Ember.Controller with ActiveBlock
 
 		createBlock: -> 
 			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18}
-			@send 'setActiveBlock',block
+			Ember.run.next @, => @send 'setActiveBlock',block
 
 		paste: ->
 			@test.clipboard.forEach (block) =>

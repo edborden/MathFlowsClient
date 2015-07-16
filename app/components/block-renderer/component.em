@@ -50,7 +50,6 @@ class BlockRendererComponent extends Ember.Component
 		@setResizeHandle @active
 
 	willDestroyElement: -> 
-		@refreshQuestionNumbers()
 		@removeFromGrid()
 		@eventer.off 'syncBlocks', @, @syncAttrsToEl
 
@@ -84,7 +83,7 @@ class BlockRendererComponent extends Ember.Component
 			@block.rowSpan = coords.height
 			@block.row = coords.y
 			@block.col = coords.x
-			@refreshQuestionNumbers()
+			@block.test.refreshQuestionNumbers()
 			@modeler.saveModel(@block).then -> resolve()
 
 	addToGrid: -> 
@@ -92,8 +91,6 @@ class BlockRendererComponent extends Ember.Component
 		@gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan,assignPosition
 
 	removeFromGrid: -> @gridstack.remove_widget @element
-
-	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test
 
 	focusElement: -> Ember.$(@element).focus()
 

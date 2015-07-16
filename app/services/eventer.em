@@ -5,6 +5,4 @@ class EventerService extends Ember.Service with Ember.Evented
 	triggerSyncBlocks: ->
 		@trigger 'syncBlocks'
 
-	
-
 `export default EventerService`
