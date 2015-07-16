@@ -1,11 +1,13 @@
 class ApplicationRoute extends Ember.Route
 
+	growler:Ember.inject.service()
+
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
 			@session.open().then (success) =>
 				@sessionSuccessHandler()
 				(error) =>
-					console.log error
+					@growler.muted error
 					@session.open().then => @sessionSuccessHandler()
 		else
 			Ember.$(".center-spinner").hide()
@@ -23,9 +25,9 @@ class ApplicationRoute extends Ember.Route
 			@transitionTo('loading').then =>
 				@torii.open('google-oauth2').then( 
 					(authData) => 
-						console.log authData
+						@growler.muted authData
 						@session.post(authData.authorizationCode,authData.redirectUri).then => @transitionTo 'me'
-					(error) -> console.log error
+					(error) => @growler.growl error
 				)
 
 		closeModal: -> @modaler.closeModal()

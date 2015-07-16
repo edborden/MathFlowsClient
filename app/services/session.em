@@ -1,6 +1,7 @@
 class SessionService extends Ember.Service
 
 	store: Ember.inject.service()
+	growler:Ember.inject.service()
 
 	loggedIn: ~> @model?
 	model: null
@@ -26,12 +27,12 @@ class SessionService extends Ember.Service
 		return new Ember.RSVP.Promise (resolve) =>
 			@store.createRecord('session',{token:token,redirectUri:redirectUri}).save().then(
 				(response) => 
-					console.log 'success'
+					@growler.muted 'success'
 					@model = response
 					localStorage.mathFlowsToken = @token
 					resolve()
 				(error) => 
-					console.log error
+					@growler.muted error
 					@close() if error.status is 401
 					resolve()
 			)
