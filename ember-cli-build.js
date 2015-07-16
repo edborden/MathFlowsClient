@@ -17,6 +17,7 @@ module.exports = function(defaults) {
 		app.options.inlineContent['droidFont'] = {content:"<link href='http://fonts.googleapis.com/css?family=Damion|Droid+Sans' rel='stylesheet' type='text/css'>"};
 		app.options.inlineContent['desmos'] = {content:"<script src='https://www.desmos.com/api/v0.4/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6'></script>"};
 		app.options.inlineContent['cloudinary'] = {content:"<script src='//widget.cloudinary.com/global/all.js' type='text/javascript'></script>"};
+		app.options.inlineContent['rewRelic'] = {file:"new-relic.js"};		
 	};
 
 	var pickFiles = require('broccoli-funnel');
