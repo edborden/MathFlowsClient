@@ -1,7 +1,8 @@
 `import EmberValidations from 'ember-validations'`
-`import Notify from 'ember-notify'`
 
 class InviteBoxComponent extends Ember.Component with EmberValidations
+
+	growler:Ember.inject.service()
 
 	validations:
 		email:
@@ -17,8 +18,8 @@ class InviteBoxComponent extends Ember.Component with EmberValidations
 			if @isValid
 				@sendAction 'invite',@email
 				@email = null
-				Notify.warning "Invitation sent! Thanks!"
+				@growler.growl "Invitation sent! Thanks!"
 			else
-				Notify.warning @errors.email.firstObject
+				@growler.growl @errors.email.firstObject
 		
 `export default InviteBoxComponent`
