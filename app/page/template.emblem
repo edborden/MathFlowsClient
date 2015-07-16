@@ -12,10 +12,15 @@
 					i.fa-plus
 				button.btn.btn-default click="createPage"
 					|Add Page&nbsp;&nbsp;
-					i.fa-plus				
-				button.btn.btn-default disabled=test.invalid click="getPDF"
-					|Get PDF&nbsp;&nbsp;
-					i.fa-download
+					i.fa-plus	
+				unless test.invalid			
+					a.btn.btn-default href=test.pdfLink
+						|Get PDF&nbsp;&nbsp;
+						i.fa-download
+				else
+					button.btn.btn-default disabled=true
+						|Get PDF&nbsp;&nbsp;
+						i.fa-download
 
 			if test.multiplePages
 				.btn-group-vertical.page-functions

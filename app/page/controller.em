@@ -28,6 +28,4 @@ class PageController extends Ember.Controller with ActiveBlock
 				@model.blocks.addObject block
 			@test.notifyPropertyChange 'clipboard'
 
-		getPDF: -> location.href = @model.test.pdfLink	
-
 `export default PageController`
