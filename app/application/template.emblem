@@ -36,6 +36,5 @@ nav.navbar.navbar-default
 					i.fa-google
 
 outlet
-ember-notify messageStyle='bootstrap'
 if modaler.showModal
 	component modaler.modalName model=modaler.modalModel

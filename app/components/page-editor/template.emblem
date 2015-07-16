@@ -1,4 +1,4 @@
 .grid-stack
-	each block in page.blocks
+	each page.blocks as |block|
 		unless block.isDeleted
 			block-renderer block=block gridstack=gridstack activeBlock=activeBlock

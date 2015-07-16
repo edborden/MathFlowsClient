@@ -16,7 +16,7 @@
 							i.add-overlay.fa-plus
 							i.fa-folder
 
-					each folder in model.topTestFolders
+					each model.topTestFolders as |folder|
 						tree-accordian model=folder somethingIsDragging=somethingIsDragging
 
 				.col-xs-6
@@ -26,7 +26,7 @@
 							button.btn-primary click="newStudentFolder"
 								i.add-overlay.fa-plus
 								i.fa-folder
-						each folder in model.topStudentFolders
+						each model.topStudentFolders as |folder| 
 							tree-accordian model=folder somethingIsDragging=somethingIsDragging
 						else 
 							p No students yet!

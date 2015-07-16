@@ -11,7 +11,6 @@ class EquationRendererComponent extends Ember.Component
 	line:null
 	block: Ember.computed.alias 'line.block'
 	questionNumberWidth: Ember.computed.alias 'block.questionNumberWidth'
-	blockRenderer: null
 
 	attributeBindings: ['style']
 	style: ~> "padding-left:#{@questionNumberWidth}px".htmlSafe()

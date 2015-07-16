@@ -5,8 +5,8 @@ if invalid
 	if block
 		if block.question
 			.question-number: block.questionNumber
-		each line in block.sortedLines
-			equation-renderer line=line blockRenderer=this
+		each block.sortedLines as |line| 
+			equation-renderer line=line
 		if block.image
 			block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image
 

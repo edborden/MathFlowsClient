@@ -36,12 +36,10 @@
 
     "active-model-adapter": "1.13.3",    
     "ember-cli-emblem": "*",
-    "emblem": "0.6.1",
     "broccoli-ember-script": "git://github.com/kolybasov/broccoli-ember-script",
     "ember-cli-less": "*",    
     "broccoli-merge-trees": "*",
     "broccoli-funnel": "*",     
-    "ember-notify": "*",
     "ember-validations": "*",
     "torii": "*",
     "ember-component-css": "git://github.com/jeffhertzler/ember-component-css",
