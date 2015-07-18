@@ -34,6 +34,16 @@ class ApplicationRoute extends Ember.Route
 					(error) => @growler.growl error
 				)
 
+		authenticateForUservoice: ->
+			@transitionTo('loading').then =>
+				@torii.open('google-oauth2').then( 
+					(authData) => 
+						@growler.muted authData
+						@session.post(authData.authorizationCode,authData.redirectUri).then => 
+							window.location.href = "http://support.mathflows.com/login_success?sso=" + @session.me.uservoiceToken
+					(error) => @growler.growl error
+				)			
+
 		closeModal: -> @modaler.closeModal()
 
 `export default ApplicationRoute`

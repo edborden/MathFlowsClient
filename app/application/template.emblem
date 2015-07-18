@@ -5,39 +5,39 @@ nav.navbar.navbar-default
 			.navbar-header
 				link-to "index" class="navbar-brand logo" |MathFlows
 
+		unless loginRoute
+			.navbar-right
 
-		.navbar-right
+				if session.loggedIn
 
-			if session.loggedIn
+					if session.me.guest
+						button.btn.btn-xs.btn-primary.navbar-btn click="authenticate"
+							|SignUp&nbsp;&nbsp;
+							i.fa-google
+					else
 
-				if session.me.guest
-					button.btn.btn-xs.btn-primary.navbar-btn click="authenticate"
-						|SignUp&nbsp;&nbsp;
-						i.fa-google
+						a.btn.btn-primary.btn-xs.navbar-btn href=session.me.uservoiceURL
+							|Support&nbsp;&nbsp;
+							i.fa-question
+
+						link-to 'headers' class="btn btn-primary btn-xs navbar-btn"
+							|Edit Header&nbsp;&nbsp;
+							i.fa-edit					
+
+						unless meRoute
+							link-to 'me' class="btn btn-primary btn-xs navbar-btn"
+								|Account&nbsp;&nbsp;
+								i.fa-user
+
+						button.btn.btn-primary.btn-xs.navbar-btn click="logout"
+							|SignOut&nbsp;&nbsp;
+							i.fa-sign-out
+
 				else
 
-					a.btn.btn-primary.btn-xs.navbar-btn href="http://mathflows.uservoice.com"
-						|Support&nbsp;&nbsp;
-						i.fa-question
-
-					link-to 'headers' class="btn btn-primary btn-xs navbar-btn"
-						|Edit Header&nbsp;&nbsp;
-						i.fa-edit					
-
-					unless meRoute
-						link-to 'me' class="btn btn-primary btn-xs navbar-btn"
-							|Account&nbsp;&nbsp;
-							i.fa-user
-
-					button.btn.btn-primary.btn-xs.navbar-btn click="logout"
-						|SignOut&nbsp;&nbsp;
-						i.fa-sign-out
-
-			else
-
-				button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
-					|Login&nbsp;&nbsp;
-					i.fa-google
+					button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
+						|Login&nbsp;&nbsp;
+						i.fa-google
 
 outlet
 if modaler.showModal

@@ -6,7 +6,10 @@ hasMany = DS.hasMany
 
 class User extends DS.Model with ModelName
 	name: attr()
+	createdAt: attr()
 	pic: attr()
+	email: attr()
+	uservoiceToken: attr()
 	premium: attr 'boolean'
 	blocks: hasMany 'block', {async:false}
 	folders: hasMany 'folder', {inverse: 'user',async:false}
@@ -14,5 +17,7 @@ class User extends DS.Model with ModelName
 	topStudentFolders: ~> @folders.rejectBy('folder').filterBy 'studentFolder'
 	guest: attr()
 	group: belongsTo 'group', {async:false}
+
+	uservoiceURL: ~> "http://support.mathflows.com?sso=" + @uservoiceToken
 
 `export default User`

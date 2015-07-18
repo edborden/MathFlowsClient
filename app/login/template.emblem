@@ -1,0 +1,6 @@
+.self-center.text-center
+	p You are required to login to continue.
+	p
+		button.btn.btn-xs.btn-primary.navbar-btn click="authenticateForUservoice"
+			|Login&nbsp;&nbsp;
+			i.fa-google
