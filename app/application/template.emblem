@@ -16,6 +16,10 @@ nav.navbar.navbar-default
 						i.fa-google
 				else
 
+					a.btn.btn-primary.btn-xs.navbar-btn href="http://mathflows.uservoice.com"
+						|Support&nbsp;&nbsp;
+						i.fa-question
+
 					link-to 'headers' class="btn btn-primary btn-xs navbar-btn"
 						|Edit Header&nbsp;&nbsp;
 						i.fa-edit					

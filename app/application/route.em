@@ -1,6 +1,7 @@
 class ApplicationRoute extends Ember.Route
 
 	growler:Ember.inject.service()
+	voicer:Ember.inject.service()
 
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
@@ -15,6 +16,7 @@ class ApplicationRoute extends Ember.Route
 	sessionSuccessHandler: ->
 		@keen.logSession()
 		Ember.$(".center-spinner").hide()
+		@voicer.setup()
 
 	actions:
 		logout: ->
@@ -26,7 +28,9 @@ class ApplicationRoute extends Ember.Route
 				@torii.open('google-oauth2').then( 
 					(authData) => 
 						@growler.muted authData
-						@session.post(authData.authorizationCode,authData.redirectUri).then => @transitionTo 'me'
+						@session.post(authData.authorizationCode,authData.redirectUri).then => 
+							@transitionTo 'me'
+							@voicer.setup()
 					(error) => @growler.growl error
 				)
 

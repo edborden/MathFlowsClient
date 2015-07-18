@@ -83,7 +83,7 @@ class BlockRendererComponent extends Ember.Component
 			@block.rowSpan = coords.height
 			@block.row = coords.y
 			@block.col = coords.x
-			@block.test.refreshQuestionNumbers()
+			@block.test.refreshQuestionNumbers() if @block.test?
 			@modeler.saveModel(@block).then -> resolve()
 
 	addToGrid: -> 
