@@ -1,4 +1,4 @@
-.btn-group-vertical	
+.btn-group-vertical.group
 	button.btn.btn-default click="toggleNumber" class={block.question:active}
 		|Numbered
 
@@ -13,7 +13,7 @@
 			|Add Graph&nbsp;&nbsp;
 			i.fa-line-chart	
 
-.btn-group-vertical
+.btn-group-vertical.group
 	button.btn.btn-default click="destroyBlock"
 		|Delete&nbsp;&nbsp;
 		i.fa-trash.text-danger

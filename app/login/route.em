@@ -4,5 +4,4 @@ class LoginRoute extends Ember.Route
 		if @session.loggedIn and not @session.me.guest
 			window.location.href = "http://support.mathflows.com/login_success?sso=" + @session.me.uservoiceToken
 
-
 `export default LoginRoute`
