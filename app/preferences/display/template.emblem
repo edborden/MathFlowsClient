@@ -1,0 +1,13 @@
+ul.list-group
+	li.list-group-item.list-group-item-success Question block borders
+	li.list-group-item
+		form
+			.form-group
+				label for="borders" Enabled?
+				|&nbsp;&nbsp;
+				= input type="checkbox" checked=session.me.preference.borders id="borders"
+
+	li.list-group-item
+		button.btn.btn-primary.btn-sm click="'saveModel' session.me.preference"
+			i.fa-save
+			|&nbsp;&nbsp;Save

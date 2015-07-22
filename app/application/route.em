@@ -2,6 +2,7 @@ class ApplicationRoute extends Ember.Route
 
 	growler:Ember.inject.service()
 	voicer:Ember.inject.service()
+	modeler:Ember.inject.service()
 
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
@@ -22,6 +23,8 @@ class ApplicationRoute extends Ember.Route
 		logout: ->
 			@session.close()
 			@transitionTo 'index'
+
+		saveModel: (model) -> @modeler.saveModel model
 
 		authenticate: ->
 			@transitionTo('loading').then =>
