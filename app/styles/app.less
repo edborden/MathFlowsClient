@@ -12,12 +12,20 @@
     @lgrey:#6E6E6E;
     @salmon:#F3843E;
     @yellow:#FF9900;
+    @dgrey:#282828;
 
     @brand-primary: @orange;
     @brand-warning: @yellow;
+    @brand-success: @dgrey;
+
+    @state-success-text:             @orange;
+    @state-success-bg:               @dgrey;
 
     .orange {color:@orange}
     .yellow {color:@yellow}
+
+    @body-bg: @grey;
+    @text-color: @gray-lighter;
 
 .click-fix {cursor: pointer;}
 
@@ -47,14 +55,9 @@ i {.fa}
     .self-center {width:80%}
 }
 
-body {
-    font-size: 16px;
-    font-family: 'Droid Sans', sans-serif;
-    color: white;
-    background-color: @grey;
-}
-
-input {color:black;}
+@font-size-base: 16px;
+@font-family-sans-serif: 'Droid Sans', sans-serif;
+@input-color: black;
 
 .inline {display:inline-block;}
 
@@ -76,6 +79,72 @@ input {color:black;}
     background-color: white;
     border-radius: 10px;
 }
+
+// DROPDOWN
+
+    .d-link {margin-right:0px !important}
+    .d-menu {
+        width:100%;
+        a {.d-link}
+    }
+
+    //** Background for the dropdown menu.
+    @dropdown-bg:                    @dgrey;
+    //** Dropdown menu `border-color`.
+    @dropdown-border:                rgba(0,0,0,.15);
+    //** Dropdown menu `border-color` **for IE8**.
+    @dropdown-fallback-border:       @dgrey;
+    //** Divider color for between dropdown items.
+    @dropdown-divider-bg:            @lgrey;
+
+    //** Dropdown link text color.
+    @dropdown-link-color:            @orange;
+    //** Hover color for dropdown links.
+    @dropdown-link-hover-color:      darken(@gray-dark, 5%);
+    //** Hover background for dropdown links.
+    @dropdown-link-hover-bg:         @yellow;
+
+    //** Active dropdown menu item text color.
+    @dropdown-link-active-color:     @component-active-color;
+    //** Active dropdown menu item background color.
+    @dropdown-link-active-bg:        @component-active-bg;
+
+    //** Disabled dropdown menu item background color.
+    @dropdown-link-disabled-color:   @gray-light;
+
+    //** Text color for headers within dropdown menus.
+    @dropdown-header-color:          @gray-light;
+
+// LIST GROUP
+
+    //** Background color on `.list-group-item`
+    @list-group-bg:                 @grey;
+    //** `.list-group-item` border color
+    @list-group-border:             @lgrey;
+    //** List group border radius
+    @list-group-border-radius:      @border-radius-base;
+
+    //** Background color of single list items on hover
+    @list-group-hover-bg:           @yellow;
+    //** Text color of active list items
+    @list-group-active-color:       @orange;
+    //** Background color of active list items
+    @list-group-active-bg:          @grey;
+    //** Border color of active list elements
+    @list-group-active-border:      @lgrey;
+    //** Text color for content within active list items
+    @list-group-active-text-color:  lighten(@list-group-active-bg, 40%);
+
+    //** Text color of disabled list items
+    @list-group-disabled-color:      @gray-light;
+    //** Background color of disabled list items
+    @list-group-disabled-bg:         @gray-lighter;
+    //** Text color for content within disabled list items
+    @list-group-disabled-text-color: @list-group-disabled-color;
+
+    @list-group-link-color:         @text-color;
+    @list-group-link-hover-color:   @list-group-link-color;
+    @list-group-link-heading-color: #333;
 
 // SPLASH
 
@@ -218,10 +287,6 @@ input {color:black;}
             position:relative;
         }
        padding-bottom:15px;
-    }
-
-    img.profile-pic {
-        .circle(40px);
     }
 
     .circle(@dim) {

@@ -36,6 +36,7 @@ module.exports = function(defaults) {
 
 	// Bootstrap
 	app.import('bower_components/bootstrap/js/modal.js');
+	app.import('bower_components/bootstrap/js/dropdown.js');
 
 	// MathQuill
 	app.import('vendor/mathquill/mathquill.js');

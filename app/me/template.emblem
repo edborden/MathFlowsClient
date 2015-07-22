@@ -3,8 +3,6 @@
 
 		.col-xs-8
 			.account
-				img.profile-pic src=model.pic
-				span.name = model.name
 				droppable-target drop='deleteDrop' class="delete-drop"
 					i.fa-lg.fa-trash-o
 
@@ -46,7 +44,3 @@
 				/		button.btn.btn-primary click="newGroup"
 				/			|Create a Group&nbsp;&nbsp;
 				/			i.fa-plus
-
-			.invitation 
-				p Do you have a friend or colleague that you think would like MathFlows?
-				invite-box

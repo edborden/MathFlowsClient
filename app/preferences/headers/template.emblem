@@ -1,0 +1,16 @@
+ul.list-group
+	li.list-group-item.list-group-item-success Edit Headers
+	li.list-group-item
+
+		.page-editor
+
+			if activeBlock
+				block-menu block=activeBlock
+
+			.left-side
+				.btn-group-vertical			
+					button.btn.btn-default click="addHeader"
+						|Add Header&nbsp;&nbsp;
+						i.fa-plus
+
+			page-editor page=session.me activeBlock=activeBlock

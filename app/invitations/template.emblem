@@ -1,0 +1,4 @@
+.container
+	.invitation 
+		p Do you have a friend or colleague that you think would like MathFlows?
+		invite-box

@@ -6,36 +6,41 @@ nav.navbar.navbar-default
 				link-to "index" class="navbar-brand logo" |MathFlows
 
 		unless loginRoute
-			.navbar-right
+			ul.nav.navbar-nav.navbar-right
 
 				if session.loggedIn
 
 					if session.me.guest
-						button.btn.btn-xs.btn-primary.navbar-btn click="authenticate"
+						li: button.btn.btn-xs.btn-primary.navbar-btn click="authenticate"
 							|SignUp&nbsp;&nbsp;
 							i.fa-google
 					else
 
-						a.btn.btn-primary.btn-xs.navbar-btn href=session.me.uservoiceURL
-							|Support&nbsp;&nbsp;
-							i.fa-question
+						li.dropdown 
 
-						link-to 'headers' class="btn btn-primary btn-xs navbar-btn"
-							|Edit Header&nbsp;&nbsp;
-							i.fa-edit					
-
-						unless meRoute
-							link-to 'me' class="btn btn-primary btn-xs navbar-btn"
-								|Account&nbsp;&nbsp;
+							a.dropdown-toggle.d-link href="#" data-toggle="dropdown"
 								i.fa-user
+								|&nbsp;&nbsp;
+								= session.me.name
+								i.fa-caret-down.fa-fw
 
-						button.btn.btn-primary.btn-xs.navbar-btn click="logout"
-							|SignOut&nbsp;&nbsp;
-							i.fa-sign-out
+							ul.dropdown-menu.d-menu
+
+								li: link-to 'me' |My Tests
+
+								li: link-to 'preferences.display' |Preferences
+
+								li: link-to 'invitations' |Invitations
+
+								li: a href=session.me.uservoiceURL Help
+
+								li.divider
+
+								li: a href="#" click="logout" Sign out
 
 				else
 
-					button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
+					li: button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
 						|Login&nbsp;&nbsp;
 						i.fa-google
 
