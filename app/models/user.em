@@ -17,6 +17,7 @@ class User extends DS.Model with ModelName
 	topStudentFolders: ~> @folders.rejectBy('folder').filterBy 'studentFolder'
 	guest: attr()
 	group: belongsTo 'group', {async:false}
+	preference: belongsTo 'preference', {async:false}
 
 	uservoiceURL: ~> "http://support.mathflows.com?sso=" + @uservoiceToken
 

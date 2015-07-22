@@ -6,25 +6,30 @@ class BlockRendererComponent extends Ember.Component
 	modaler:Ember.inject.service()
 	modeler:Ember.inject.service()
 	eventer:Ember.inject.service()
+	session:Ember.inject.service()
 
 	gridstack:null
 	block:null
 	activeBlock:null
 	activeEquationLine: null
 
-	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
-	classNames: ["grid-stack-item"]
-	classNameBindings: ["active","invalid"]
+	availableImageHeight: ~> @block.height - @block.linesHeight
+	availableImageWidth: ~> @block.width
 
+	## ATTRIBUTE BINDINGS
+
+	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
 	"data-gs-no-resize":true
 	"data-gs-no-move":true
 	tabindex:0
 
+	## CLASSNAMES
+
+	classNames: ["grid-stack-item"]
+	classNameBindings: ["active","invalid","borders"]
 	active: ~> @activeBlock is @block
 	invalid: ~> @block.invalid
-
-	availableImageHeight: ~> @block.height - @block.linesHeight
-	availableImageWidth: ~> @block.width
+	borders: ~> @session.me.preference.borders and @block.question
 
 	## EVENTS
 
