@@ -40,11 +40,6 @@ class TreeOverComponent extends Ember.Component with ElRegister
 		@model.save() if @model.isDirty
 		@isEditing = false
 
-	editDoc: 'editDoc'
-	copyDoc: 'copyDoc'
-	newFlow: 'newFlow'
-	newStudent: 'newStudent'
-
 	actions:
 		toggle: -> 
 			@model.toggleProperty 'open'
@@ -54,13 +49,5 @@ class TreeOverComponent extends Ember.Component with ElRegister
 			@isEditing = true
 			Ember.run.next @, => Ember.$(".name-editor").focus()
 			false
-		editDoc: -> 
-			@sendAction 'editDoc', @model
-		copyClicked: ->
-			@sendAction 'copyDoc',@model
-		newFlow: (folder) ->
-			@sendAction 'newFlow',folder
-		newStudent: (folder) ->
-			@sendAction 'newStudent',folder
 			
 `export default TreeOverComponent`
