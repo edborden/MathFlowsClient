@@ -1,5 +1,7 @@
 .container-fluid
 
+	directions-widget
+
 	.page-editor
 
 		if activeBlock

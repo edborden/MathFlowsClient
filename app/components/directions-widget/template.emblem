@@ -1,0 +1,13 @@
+.tab class=open:open:closed click="toggle"
+	i.fa-lg class=open:fa-caret-down:fa-caret-up
+
+
+.content class=open:open:closed
+	h5 Test Tips
+	ol
+		li Click on any block to select it. Selected blocks can be resized and dragged around.
+		li Edit text by clicking on it. 
+		li Switch to math mode and insert equations with the '$' key.
+		li Access any selected block's menu on the right, which will allow you to add images and graphs.
+		li Some blocks might not need numbers, like you might use for directions. Toggle numbers by selecting any block and then using the menu on the right.
+		li When you're done, get a PDF version with one click on that same menu.
