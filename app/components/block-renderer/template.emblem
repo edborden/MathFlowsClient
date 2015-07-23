@@ -4,7 +4,9 @@ if invalid
 .grid-stack-item-content
 	if block
 		if block.question
-			.question-number: block.questionNumber
+			.question-number
+				block.questionNumber
+				|)
 		each block.sortedLines as |line| 
 			equation-renderer line=line
 		if block.image
