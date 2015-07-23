@@ -8,8 +8,11 @@ class MeController extends Ember.Controller
 			@transitionToRoute 'page',test.pages.firstObject
 
 		copyObj: (test) ->
+			centerSpinner = Ember.$('.center-spinner')
+			centerSpinner.show()
 			model = @store.createRecord('test',{copyFromId:test.id})
-			@modeler.saveModel model
+			@modeler.saveModel(model).then =>
+				centerSpinner.hide()
 
 		newTestFolder: -> 
 			model = @store.createRecord('folder',{user:@session.me,testFolder:true,name:"New Folder"})
