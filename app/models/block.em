@@ -36,6 +36,7 @@ class Block extends DS.Model with ModelName
 
 	+computed test.questionBlocksSorted
 	questionNumber: -> 
+		@test.questionBlocksSorted.indexOf(@) + 1
 
 	+computed question,questionNumber
 	questionNumberWidth: ->
