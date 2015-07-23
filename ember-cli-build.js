@@ -8,7 +8,7 @@ var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 module.exports = function(defaults) {
 	var app = new EmberApp(defaults, {
 		inlineContent:{
-			'body': {content: "<div class='center-spinner'><i class='fa fa-4x fa-spinner fa-pulse'></i></div>"}
+			'spinner': {content: "<div class='center-spinner'><i class='fa fa-4x fa-spinner fa-pulse'></i></div>"}
 		}
 	});
 
