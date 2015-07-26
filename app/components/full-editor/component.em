@@ -1,21 +1,24 @@
 `import ActiveBlock from 'math-flows-client/mixins/active-block'`
 
-class PageController extends Ember.Controller with ActiveBlock
+class FullEditorComponent extends Ember.Component with ActiveBlock
 
+	model:null
 	test: Ember.computed.alias 'model.test'
 	modeler:Ember.inject.service()
+	store:Ember.inject.service()
 
 	actions:
 		createPage: ->
 			page = @store.createRecord 'page', {test:@test}
 			@modeler.saveModel(page).then (response) =>
-				@transitionToRoute 'page',response
+				@model = response
 
 		deletePage: ->
-			@model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
+			model = @model
+			model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
 			firstPage = @test.pages.firstObject
-			@transitionToRoute 'page',firstPage
-			@modeler.destroyModel @model
+			@model = firstPage
+			@modeler.destroyModel model
 
 		createBlock: -> 
 			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18}
@@ -28,4 +31,4 @@ class PageController extends Ember.Controller with ActiveBlock
 				@model.blocks.addObject block
 			@test.notifyPropertyChange 'clipboard'
 
-`export default PageController`
+`export default FullEditorComponent`

@@ -19,4 +19,4 @@
 		.col-xs-9
 
 			if activeObj
-				page-editor page=activeObj.pages.firstObject preview=true activeBlock=activeBlock
+				full-editor model=activeObj.pages.firstObject
