@@ -1,7 +1,7 @@
 .container
 	.row
 
-		.col-xs-6
+		.col-xs-3
 			.account
 				droppable-target drop='deleteDrop' class="delete-drop"
 					i.fa-lg.fa-trash-o
@@ -16,30 +16,7 @@
 			each model.topTestFolders as |folder|
 				tree-accordian model=folder somethingIsDragging=somethingIsDragging
 
-				/.col-xs-6
-				/	if model.premium
-				/		.account-menu
-				/			.inline Students&nbsp;&nbsp;
-				/			button.btn-primary click="newStudentFolder"
-				/				i.add-overlay.fa-plus
-				/				i.fa-folder
-				/		each model.topStudentFolders as |folder| 
-				/			tree-accordian model=folder somethingIsDragging=somethingIsDragging
-				/		else 
-				/			p No students yet!
-		/.col-xs-4
-			/.side-nav
-				/if model.group
-				/	div: mouse-over model=model.group
-				/	if model.group.usersWithoutMe
-				/		each user in model.group.usersWithoutMe
-				/			div = user.name
-				/	else
-				/		h5 There isn't anyone in your group!
-				/		button.btn.btn-primary click="openModal 'modal/invite' model" Invite Someone
-				/else
-				/	div You aren't part of a group. Groups let you easily share your tests with other teachers in your department.
-				/	div 
-				/		button.btn.btn-primary click="newGroup"
-				/			|Create a Group&nbsp;&nbsp;
-				/			i.fa-plus
+		.col-xs-9
+
+			if activeObj
+				page-editor page=activeObj.pages.firstObject preview=true activeBlock=activeBlock

@@ -9,6 +9,7 @@ class EquationRendererComponent extends Ember.Component
 	modeler:Ember.inject.service()
 
 	line:null
+	preview:null
 	block: Ember.computed.alias 'line.block'
 	questionNumberWidth: Ember.computed.alias 'block.questionNumberWidth'
 
@@ -21,25 +22,30 @@ class EquationRendererComponent extends Ember.Component
 		@line.renderer = @		
 	
 	didInsertElement: ->
-		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
-		@setMathQuillContent()
-		@setKeyDownHandler()
-		Ember.$(@element).find('.cursor').remove()
+		if @preview
+			@mathquill = Ember.$(@element).children().last().mathquill('textbox')
+		else
+			@mathquill = Ember.$(@element).children().last().mathquill('textbox')
+			@setMathQuillContent()
+			@setKeyDownHandler()
+			Ember.$(@element).find('.cursor').remove()
 
 	onKeyDown: (ev) ->
-		@keyboarder.process @line,ev.keyCode,@mathquill	
-		Ember.run.next @,@checkIfInsideEquation
-		true
+		unless @preview
+			@keyboarder.process @line,ev.keyCode,@mathquill	
+			Ember.run.next @,@checkIfInsideEquation
+			true
 
 	focusOut: -> 
 		console.log 'focusOut'
-		@removeEquationEditorMenu()
-		@cleaner.clean @line,@mathquill
-		@modeler.saveModel @line
-		#@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
+		unless @preview
+			@removeEquationEditorMenu()
+			@cleaner.clean @line,@mathquill
+			@modeler.saveModel @line
+			#@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
 
 	click: -> 
-		@checkIfInsideEquation()
+		@checkIfInsideEquation() unless @preview
 		@sendAction()
 		false
 

@@ -8,7 +8,7 @@ if invalid
 				block.questionNumber
 				|)
 		each block.sortedLines as |line| 
-			equation-renderer line=line
+			equation-renderer line=line preview=preview
 		if block.image
 			block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image
 

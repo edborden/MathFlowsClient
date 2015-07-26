@@ -6,7 +6,7 @@
 	i class=model.iconName
 
 if isEditing
-	= input value=model.name size=8 class="name-editor"
+	= input value=model.name size=14 class="name-editor"
 else
 	span mouseDown="nameClicked" = model.name
 if showMenu

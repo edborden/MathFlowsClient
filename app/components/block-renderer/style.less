@@ -17,9 +17,20 @@
     cursor:pointer;
 }
 
-&.active .grid-stack-item-content {
-    cursor: move;
-	border-color: blue;	
+.ui-resizable-handle {
+    display: none !important
+}
+
+&.active > .grid-stack-item-content {border-color: blue !important}
+
+&.active.editor {
+    .grid-stack-item-content {cursor: move}
+    .ui-resizable-handle {display:block !important}
+}
+
+&.active.preview {
+    .grid-stack-item-content {cursor: pointer}
+    .ui-resizable-handle {display:none !important}
 }
 
 &:focus {
@@ -28,8 +39,6 @@
     outline:0 none;
 }
 
-&.invalid .grid-stack-item-content {border-color: red}
+&.invalid > .grid-stack-item-content {border-color: red !important}
 
-&.borders > .grid-stack-item-content {
-    border-color: black;
-}
+&.borders > .grid-stack-item-content {border-color: black}

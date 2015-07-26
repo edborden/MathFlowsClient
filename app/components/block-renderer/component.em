@@ -12,6 +12,7 @@ class BlockRendererComponent extends Ember.Component
 	block:null
 	activeBlock:null
 	activeEquationLine: null
+	preview:null
 
 	availableImageHeight: ~> @block.height - @block.linesHeight
 	availableImageWidth: ~> @block.width
@@ -26,7 +27,7 @@ class BlockRendererComponent extends Ember.Component
 	## CLASSNAMES
 
 	classNames: ["grid-stack-item"]
-	classNameBindings: ["active","invalid","borders"]
+	classNameBindings: ["active","invalid","borders","preview:preview:editor"]
 	active: ~> @activeBlock is @block
 	invalid: ~> @block.invalid
 	borders: ~> @session.me.preference.borders and @block.question
@@ -50,9 +51,10 @@ class BlockRendererComponent extends Ember.Component
 
 	+observer active
 	onActiveChange: ->
-		@gridstack.movable @element,@active
-		@gridstack.resizable @element,@active
-		@setResizeHandle @active
+		unless @preview
+			console.log 'activeChange',@preview
+			@gridstack.movable @element,@active
+			@gridstack.resizable @element,@active
 
 	willDestroyElement: -> 
 		@removeFromGrid()
@@ -69,15 +71,6 @@ class BlockRendererComponent extends Ember.Component
 	#	@setBlockInactive()			
 
 	## HELPERS
-
-	moveToTop: -> Ember.$(@element).parent().append Ember.$(@element)
-
-	setResizeHandle: (active) ->
-		handle = Ember.$(@element).find(".ui-resizable-handle")
-		if active
-			handle.show() if handle
-		else
-			handle.hide()		
 
 	coords: -> Ember.$(@element).data('_gridstack_node')
 

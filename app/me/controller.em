@@ -1,11 +1,16 @@
-class MeController extends Ember.Controller
+`import ActiveBlock from 'math-flows-client/mixins/active-block'`
 
-	model: ~> @session.me
+class MeController extends Ember.Controller with ActiveBlock
+
+	model: Ember.computed.alias 'session.me'
 	modeler:Ember.inject.service()
+
+	activeObj: null
 
 	actions:
 		editObj: (test) ->
-			@transitionToRoute 'page',test.pages.firstObject
+			#@transitionToRoute 'page',test.pages.firstObject
+			@activeObj = test
 
 		copyObj: (test) ->
 			centerSpinner = Ember.$('.center-spinner')
@@ -45,14 +50,5 @@ class MeController extends Ember.Controller
 				@model.notifyPropertyChange 'topStudentFolders'
 				
 		deleteDrop: (target,dropped) -> @modeler.destroyModel dropped
-
-		#newGroup: ->
-		#	group = @store.createRecord('group').save()
-		#	@model.group = group
-		#invite: (email) -> @store.createRecord('invitation',{referrer:@model,referralEmail:email}).save()
-
-		#newStudent: (folder) ->
-		#	model = @store.createRecord 'student',{folder:folder}
-		#	@send 'openModal','modal/student',model
 
 `export default MeController`
