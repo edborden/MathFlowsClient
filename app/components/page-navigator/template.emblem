@@ -1,0 +1,2 @@
+i.fa-chevron-circle-left.fa-2x.spacer class=model.firstPage:disabled:enabled click="previousPage"
+i.fa-chevron-circle-right.fa-2x class=model.lastPage:disabled:enabled click="nextPage"

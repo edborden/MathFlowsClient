@@ -39,9 +39,7 @@
 						|Paste&nbsp;&nbsp;
 						i.fa-paste
 
-		.page-ui
-			i.fa-chevron-circle-left.fa-2x.spacer class="{{if model.firstPage 'disabled'}} {{unless test.multiplePages 'disabled'}}" click="previousPage"
-
-			i.fa-chevron-circle-right.fa-2x class="{{if model.lastPage 'disabled'}} {{unless test.multiplePages 'disabled'}}" click="nextPage"
+		if test.multiplePages
+			page-navigator model=model
 
 		page-editor page=model activeBlock=activeBlock
