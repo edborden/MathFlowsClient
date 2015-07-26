@@ -24,13 +24,6 @@
 						|Get PDF&nbsp;&nbsp;
 						i.fa-download
 
-			if test.multiplePages
-				.btn-group-vertical.page-functions
-					each model.test.pages as |page|
-						link-to "page" page class="btn btn-warning"
-							|Page&nbsp;
-							page.number
-
 				unless model.firstPage
 					.btn-group-vertical
 						button.btn.btn-default click="deletePage"
@@ -44,6 +37,11 @@
 						span.badge = test.clipboard.length
 					button.btn.btn-warning click="paste"
 						|Paste&nbsp;&nbsp;
-						i.fa-paste			
+						i.fa-paste
+
+		.page-ui
+			i.fa-chevron-circle-left.fa-2x.spacer class="{{if model.firstPage 'disabled'}} {{unless test.multiplePages 'disabled'}}" click="previousPage"
+
+			i.fa-chevron-circle-right.fa-2x class="{{if model.lastPage 'disabled'}} {{unless test.multiplePages 'disabled'}}" click="nextPage"
 
 		page-editor page=model activeBlock=activeBlock

@@ -10,7 +10,11 @@ class Page extends DS.Model with ModelName
 
 	#HELPERS
 
-	number: ~> @test.pages.indexOf(@) + 1
+	number: ~> @testIndex + 1
+	testIndex: ~> @test.pages.indexOf(@)
 	firstPage: ~> @number is 1
+	lastPage: ~> @test.pages.lastObject is @
+	previousPage: ~> @test.pages.objectAt @testIndex - 1
+	nextPage: ~> @test.pages.objectAt @testIndex + 1
 				
 `export default Page`

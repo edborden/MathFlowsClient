@@ -31,4 +31,9 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 				@model.blocks.addObject block
 			@test.notifyPropertyChange 'clipboard'
 
+		previousPage: -> @model = @model.previousPage
+
+		nextPage: -> @model = @model.nextPage
+
+
 `export default FullEditorComponent`
