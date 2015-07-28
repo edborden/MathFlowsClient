@@ -7,6 +7,7 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 	modeler:Ember.inject.service()
 	store:Ember.inject.service()
 	static:null
+	session:Ember.inject.service()
 
 	actions:
 		createPage: ->
@@ -26,11 +27,11 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 			Ember.run.next @, => @send 'setActiveBlock',block
 
 		paste: ->
-			@test.clipboard.forEach (block) =>
+			@session.me.clipboard.forEach (block) =>
 				block.page = @model
 				block.send 'becomeDirty'
 				@model.blocks.addObject block
-			@test.notifyPropertyChange 'clipboard'
+			@session.me.notifyPropertyChange 'clipboard'
 
 		previousPage: -> @model = @model.previousPage
 

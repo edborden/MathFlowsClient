@@ -9,32 +9,33 @@ class SessionService extends Ember.Service
 	me: ~> @model.user
 	
 	open: ->
-		return new Ember.RSVP.Promise (resolve) =>
+		return new Ember.RSVP.Promise (resolve,reject) =>
 			token = localStorage.mathFlowsToken
 			if token?
 				@store.find('session', {token: token}).then(
 					(response) => 
 						@model = response.objectAt(0)
 						resolve response
-					(error) -> 
-						localStorage.clear() if error.status is 401
-						resolve error
+					(errors) => 
+						@growler.muted errors.errors[0].title
+						@close() if errors.errors[0].status is "401"
+						reject errors.errors[0].title
 				)
 			else
 				@post('issue').then => resolve()
 
 	post: (token,redirectUri) ->
-		return new Ember.RSVP.Promise (resolve) =>
+		return new Ember.RSVP.Promise (resolve,reject) =>
 			@store.createRecord('session',{token:token,redirectUri:redirectUri}).save().then(
 				(response) => 
 					@growler.muted 'success'
 					@model = response
 					localStorage.mathFlowsToken = @token
 					resolve()
-				(error) => 
-					@growler.muted error
-					@close() if error.status is 401
-					resolve()
+				(errors) => 
+					@growler.muted errors.errors[0].title
+					@close() if errors.errors[0].status is "401"
+					reject errors.errors[0].title
 			)
 
 	close: ->

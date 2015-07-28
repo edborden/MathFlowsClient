@@ -6,11 +6,12 @@ class ApplicationRoute extends Ember.Route
 
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
-			@session.open().then (success) =>
-				@sessionSuccessHandler()
+			@session.open().then(
+				(success) =>
+					@sessionSuccessHandler()
 				(error) =>
-					@growler.muted error
 					@session.open().then => @sessionSuccessHandler()
+			)
 		else
 			Ember.$(".center-spinner").hide()
 

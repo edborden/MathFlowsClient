@@ -9,7 +9,6 @@ class Block extends DS.Model with ModelName
 	user: belongsTo 'user', {async:false}
 	page: belongsTo 'page', {async:false}
 	image: belongsTo 'image', {async:false}
-	test: belongsTo 'test', {async:false}
 
 	question: attr "boolean"
 	copyFromId: attr "number"
@@ -22,9 +21,11 @@ class Block extends DS.Model with ModelName
 	x: attr "number"
 	y: attr "number" #not used
 	linesHeight: attr "number"
+	header: attr "boolean"
 
 	colWidth: ~> @width / 16
 	pageNumber: ~> @page.number
+	test: ~> @page.test
 
 	removeFromPage: ->
 		@page.blocks.removeObject @

@@ -23,5 +23,10 @@ class User extends DS.Model with ModelName
 	hasChildren: true
 
 	uservoiceURL: ~> "http://support.mathflows.com?sso=" + @uservoiceToken
+	headers: ~> @blocks.filterBy 'header'
+
+	## CLIPBOARD
+
+	clipboard: ~> @blocks.rejectBy('header').rejectBy 'page'
 
 `export default User`
