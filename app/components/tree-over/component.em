@@ -1,18 +1,21 @@
+`import HandlesDragging from 'math-flows-client/mixins/handles-dragging'`
 `import ElRegister from 'math-flows-client/mixins/el-register'`
 
-class TreeOverComponent extends Ember.Component with ElRegister
+class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister
 	model:null
+	static:null
 	mouseOver: false
 	isEditing:false
 	showMenu: ~> not @isEditing and @mouseOver and not @dragging and not @somethingIsDragging
 	dragging: false
-	somethingIsDragging: null # from Controller
-	thisSomethingIsDragging: 'thisSomethingIsDragging'
-	nothingIsDragging: 'nothingIsDragging'
+	activeObj:null
+	active: ~> @activeObj is @model
+
+	classNameBindings: ['static','active']
 
 	didInsertElement: ->
 		@_super()
-		@makeDraggable()
+		@makeDraggable() unless @static
 
 	makeDraggable: ->
 		Ember.$(@element).draggable
@@ -43,11 +46,12 @@ class TreeOverComponent extends Ember.Component with ElRegister
 	actions:
 		toggle: -> 
 			@model.toggleProperty 'open'
-			@model.save()
+			@model.save() if @model.isFolder and not @static
 		nameClicked: ->
-			@destroyDraggable()
-			@isEditing = true
-			Ember.run.next @, => Ember.$(".name-editor").focus()
-			false
+			unless @static
+				@destroyDraggable()
+				@isEditing = true
+				Ember.run.next @, => Ember.$(".name-editor").focus()
+				false
 			
 `export default TreeOverComponent`

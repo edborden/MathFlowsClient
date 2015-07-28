@@ -1,0 +1,3 @@
+.name = name
+each children as |child|
+	tree-accordian model=child somethingIsDragging=somethingIsDragging static=static activeObj=activeObj

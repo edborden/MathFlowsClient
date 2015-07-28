@@ -19,6 +19,9 @@ class User extends DS.Model with ModelName
 	group: belongsTo 'group', {async:false}
 	preference: belongsTo 'preference', {async:false}
 
+	iconName: 'fa-user'
+	hasChildren: true
+
 	uservoiceURL: ~> "http://support.mathflows.com?sso=" + @uservoiceToken
 
 `export default User`

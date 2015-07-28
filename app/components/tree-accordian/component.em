@@ -1,4 +1,13 @@
-class TreeAccordianComponent extends Ember.Component
+`import HandlesDragging from 'math-flows-client/mixins/handles-dragging'`
+`import TreeObjects from 'math-flows-client/mixins/tree-objects'`
+
+class TreeAccordianComponent extends Ember.Component with HandlesDragging,TreeObjects
+
+	model:null
+	static: null
+	folders: Ember.computed.alias 'model.folders'
+	children: Ember.computed.alias 'model.children'
+	activeObj:null
 
 	mouseOver: false
 
@@ -8,24 +17,10 @@ class TreeAccordianComponent extends Ember.Component
 	mouseLeave: ->
 		@mouseOver = false
 
-	drop: 'drop'
-	editObj: 'editObj'
-	copyObj: 'copyObj'
 	newObj: 'newObj'
-	thisSomethingIsDragging: 'thisSomethingIsDragging'
-	nothingIsDragging: 'nothingIsDragging'
 
 	actions:
-		drop: (object,options) ->
-			@sendAction 'drop',object,options
-		editObj: (obj) ->
-			@sendAction 'editObj',obj
-		copyObj: (obj) ->
-			@sendAction 'copyObj',obj
 		newObj: (containingFolder) ->
 			@sendAction 'newObj',containingFolder
-		thisSomethingIsDragging: (something) ->
-			@sendAction 'thisSomethingIsDragging',something
-		nothingIsDragging: -> @sendAction 'nothingIsDragging'
 			
 `export default TreeAccordianComponent`

@@ -3,7 +3,7 @@ class BlockMenuComponent extends Ember.Component
 	modeler: Ember.inject.service()
 	store: Ember.inject.service()
 	modaler: Ember.inject.service()
-
+	static:null
 	block:null
 
 	classNames: ['right-side']

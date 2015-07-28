@@ -1,5 +1,6 @@
 ul.list-group
-	li.list-group-item.list-group-item-success Edit Headers
+	li.list-group-item.list-group-item-success 
+		|Edit Headers: The blocks below will automatically be added to every new test you create.
 	li.list-group-item
 
 		.page-editor

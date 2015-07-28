@@ -5,6 +5,7 @@ class Router extends Ember.Router
 
 Router.map ->
 	@route 'me'
+	@route 'group'
 	@route 'intro'
 	@route 'login'
 	@route 'invitations'

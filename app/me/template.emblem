@@ -6,17 +6,13 @@
 				droppable-target drop='deleteDrop' class="delete-drop"
 					i.fa-lg.fa-trash-o
 
+			tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj
 
-			.account-menu
-				.inline Tests&nbsp;&nbsp;
-				button.btn-primary click="newTestFolder"
-					i.add-overlay.fa-plus
-					i.fa-folder
-
-			each model.topTestFolders as |folder|
-				tree-accordian model=folder somethingIsDragging=somethingIsDragging
+			if session.me.group
+				if session.me.group.usersWithoutMe
+					tree-starter model=model.group children=model.group.usersWithoutMe somethingIsDragging=somethingIsDragging static=true activeObj=activeObj
 
 		.col-xs-9
 
 			if activeObj
-				full-editor model=activeObj.pages.firstObject
+				full-editor model=activeObj.pages.firstObject static=activeObjStatic

@@ -1,6 +1,6 @@
 .tree-caret click="toggle"
 	if model.hasChildren
-		i class=model.open:fa-caret-down:fa-caret-right
+		i.click-fix class=model.open:fa-caret-down:fa-caret-right
 
 .tree-icon class=dragging:grabbing:grabbable
 	i class=model.iconName

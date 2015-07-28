@@ -26,7 +26,9 @@ nav.navbar.navbar-default
 
 							ul.dropdown-menu.d-menu
 
-								li: link-to 'me' |My Tests
+								li: link-to 'me' |Tests
+
+								li: link-to 'group' |Group
 
 								li: link-to 'preferences.display' |Preferences
 

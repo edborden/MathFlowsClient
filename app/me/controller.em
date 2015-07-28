@@ -6,11 +6,13 @@ class MeController extends Ember.Controller with ActiveBlock
 	modeler:Ember.inject.service()
 
 	activeObj: null
+	activeObjStatic:false
 
 	actions:
-		editObj: (test) ->
-			#@transitionToRoute 'page',test.pages.firstObject
+		editObj: (test, isStatic) ->
 			@activeObj = test
+			@activeObjStatic = isStatic
+			false
 
 		copyObj: (test) ->
 			centerSpinner = Ember.$('.center-spinner')
@@ -21,10 +23,6 @@ class MeController extends Ember.Controller with ActiveBlock
 
 		newTestFolder: -> 
 			model = @store.createRecord('folder',{user:@session.me,testFolder:true,name:"New Folder"})
-			@modeler.saveModel model
-
-		newStudentFolder: -> 
-			model = @store.createRecord('folder',{user:@session.me,studentFolder:true,name:"New Folder"})
 			@modeler.saveModel model
 
 		newObj: (containingFolder) -> 

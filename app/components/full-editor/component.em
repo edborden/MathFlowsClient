@@ -6,6 +6,7 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 	test: Ember.computed.alias 'model.test'
 	modeler:Ember.inject.service()
 	store:Ember.inject.service()
+	static:null
 
 	actions:
 		createPage: ->
