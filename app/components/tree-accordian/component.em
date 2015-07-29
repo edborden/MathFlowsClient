@@ -16,11 +16,5 @@ class TreeAccordianComponent extends Ember.Component with HandlesDragging,TreeOb
 		false
 	mouseLeave: ->
 		@mouseOver = false
-
-	newObj: 'newObj'
-
-	actions:
-		newObj: (containingFolder) ->
-			@sendAction 'newObj',containingFolder
 			
 `export default TreeAccordianComponent`
