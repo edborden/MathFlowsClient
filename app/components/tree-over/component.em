@@ -6,8 +6,8 @@ class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,
 	model:null
 	static:null
 	mouseOver: false
-	isEditing:false
-	showMenu: ~> not @isEditing and @mouseOver and not @dragging and not @somethingIsDragging
+	isEditingName:false
+	showMenu: ~> not @isEditingName and @mouseOver and not @dragging and not @somethingIsDragging
 	dragging: false
 	activeObj:null
 	active: ~> @activeObj is @model
@@ -40,23 +40,19 @@ class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,
 	mouseLeave: ->
 		@mouseOver = false
 
-	focusOut: ->
-		@makeDraggable()
-		@model.save() if @model.isDirty
-		@isEditing = false
-
 	actions:
 		toggle: -> 
 			@model.toggleProperty 'open'
 			@model.save() if @model.isFolder and not @static
 		sendEditObj: ->
 			@sendAction 'editObj',@model,@static
-		nameClicked: ->
-			@send @nameClicked
 		editName: ->
 			unless @static
 				@destroyDraggable()
-				@isEditing = true
-				Ember.run.next @, => Ember.$(".name-editor").focus()
-				false			
+				@isEditingName = true
+				false
+		doneEditingName: ->
+			@makeDraggable()
+			@isEditingName = false	
+
 `export default TreeOverComponent`

@@ -1,6 +1,10 @@
-attr = DS.attr
+`import ModelName from 'math-flows-client/mixins/model-name'`
 
-class Group extends DS.Model
+attr = DS.attr
+belongsTo = DS.belongsTo
+hasMany = DS.hasMany
+
+class Group extends DS.Model with ModelName
 
 	session: Ember.inject.service()
 	

@@ -1,11 +1,15 @@
 .container
-	if session.me.group
-		h3 = session.me.group.name
-		if model.group.usersWithoutMe
-			each model.group.usersWithoutMe as |user|
+	if group
+		name-editor model=group isEditingName=isEditingName handleNameClick=false size=30
+			span.larger-heading.bold = group.name
+		|&nbsp;&nbsp;
+		i.fa-edit.click-fix.orange click="editName"
+		if group.usersWithoutMe
+			each group.usersWithoutMe as |user|
 				p = user.name
 		else
-			h5 There isn't anyone in your group!
+			h5.orange There isn't anyone in your group!
+			p Groups let you share your tests with other teachers in your department. You can copy entire tests or use just specific questions.
 			button.btn.btn-primary click="openInviteModal" Invite Someone
 	else
 		.text-center
