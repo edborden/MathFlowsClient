@@ -12,7 +12,7 @@ class SessionService extends Ember.Service
 		return new Ember.RSVP.Promise (resolve,reject) =>
 			token = localStorage.mathFlowsToken
 			if token?
-				@store.find('session', {token: token}).then(
+				@store.query('session', {token: token}).then(
 					(response) => 
 						@model = response.objectAt(0)
 						resolve response
