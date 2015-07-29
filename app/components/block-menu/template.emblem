@@ -2,6 +2,9 @@ unless static
 	.btn-group-vertical.group
 		button.btn.btn-default click="toggleNumber" class={block.question:active}
 			|Numbered
+			if block.question
+				|&nbsp;&nbsp;
+				i.fa-check
 
 		if block.image
 			button.btn.btn-default click="'destroyModel' block.image"

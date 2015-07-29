@@ -8,7 +8,9 @@
 if isEditing
 	= input value=model.name size=14 class="name-editor"
 else
-	span mouseDown="nameClicked" = model.name
+	span.click-fix mouseDown="nameClicked" = model.name
 if showMenu
 	.tree-menu
+		unless static
+			i.fa-edit.click-fix click="editName"
 		yield

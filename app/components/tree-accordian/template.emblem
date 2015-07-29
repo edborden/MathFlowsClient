@@ -1,7 +1,7 @@
 droppable-target model=model		
-	tree-over model=model somethingIsDragging=somethingIsDragging static=static
+	tree-over model=model somethingIsDragging=somethingIsDragging static=static nameClicked="toggle"
 		unless static
-			.overlay-container.click-fix click="'newObj' model"
+			span.overlay-container.click-fix click="'newObj' model"
 				i.add-overlay.fa-plus
 				i class="{{if model.testFolder 'fa-file-text-o'}} {{if model.studentFolder 'fa-user'}}"
 if model.open
@@ -9,6 +9,5 @@ if model.open
 		.indented: tree-accordian model=folder class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj
 
 	each children as |child|			
-		.indented: tree-over model=child class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj
-			i.fa-edit.click-fix click="'editObj' child static"
+		.indented: tree-over model=child class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj nameClicked="sendEditObj"
 			i.fa-copy.click-fix click="'copyObj' child"
