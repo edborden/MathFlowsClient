@@ -14,4 +14,4 @@ ul.list-group
 						|Add Header&nbsp;&nbsp;
 						i.fa-plus
 
-			page-editor page=session.me activeBlock=activeBlock
+			page-editor page=session.me activeBlock=activeBlock headers=true

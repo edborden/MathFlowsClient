@@ -52,7 +52,6 @@ class BlockRendererComponent extends Ember.Component
 	+observer active
 	onActiveChange: ->
 		unless @preview
-			console.log 'activeChange',@preview
 			@gridstack.movable @element,@active
 			@gridstack.resizable @element,@active
 

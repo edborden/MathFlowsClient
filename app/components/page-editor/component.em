@@ -5,6 +5,7 @@ class PageEditorComponent extends Ember.Component
 	page: null
 	activeBlock:null
 	preview:false
+	headers:false
 
 	classNameBindings: ['preview']
 
