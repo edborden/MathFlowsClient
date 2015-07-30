@@ -4,11 +4,11 @@
 		.content
 			h1.logo MathFlows
 			h1.tagline
-				p Paper Testing
-				p Made Easy
+				p Drag and Drop
+				p Math Tests
 			p
 				try-button position=1
-			h5 A toolset designed specifically for math teachers to create and grade tests faster and hassle-free. ie. More time for happy hour.
+			h5 A toolset designed specifically for math teachers to create and collaborate around tests faster and hassle-free.
 
 	.right
 
@@ -21,10 +21,9 @@
 	.row.intro-row.text-center
 		.col-md-4
 			img.box src="../assets/images/word.jpg"
-			h3.tagline Built for longform writing
+			h3.tagline Word is built for longform writing
 		.col-md-4.arrow-div
 			.self-center
-				h1.logo MathFlows
 				i.fa-5x.fa-long-arrow-right
 				ul.fa-ul.text-left
 					li 
@@ -32,19 +31,16 @@
 						|Drag and drop interface
 					li 
 						i.fa-li.fa-check
-						|Easily change question order
+						|Question numbers automatically sync to page position				
 					li 
 						i.fa-li.fa-check
-						|Question numbers automatically sync to position					
-					li 
-						i.fa-li.fa-check
-						|No more fighting layouts with copy and paste
+						|No more fighting table layouts with copy and paste
 				p
 					try-button position=2
 
 		.col-md-4
 			img.box src="../assets/images/mathflows.jpg"
-			h3.tagline.orange Built for layout!
+			h3.tagline.orange Mathflows is built for test layouts!
 
 .white-splash
 	.container.text-center
@@ -74,23 +70,20 @@
 
 	.row.intro-row.text-center
 		.col-md-12
-			h1.yellow This is for you, paper-wielding edumacation ninja
+			h1.yellow Streamline collaboration
 	.row.big-bullets
 		.col-md-5.left
 			i.icon-feature.fa-cogs
 		.col-md-6
-			p The bureaucrats have no idea why poorly designed and implemented digital workflows hinder you far more than they help.  Broken computers, setup-hassle, questions around security -- whatever it is that drives you into the warm embrace of paper, you should know this:
-			h3 You are not a second-class citizen.
-			h3 You are loved.
+			h3 No more emailing docs around.
+			p MathFlows lets you share tests with your entire department. Your colleages can copy entire tests or just grab snippets.
 			ul.fa-ul
 				li
 					i.fa-li.fa-lg.fa-cloud-download
-					|Generate pixel-perfect PDF's instantly, with one click, anytime.
+					|Always work with the latest versions
 				li
 					i.fa-li.fa-lg.fa-refresh
-					|MathFlows is all about WYSIWYG: What you see is what you get.
+					|Get feedback from colleagues
 			try-button position=3
-	.row.text-center
-			h1.yellow It's a digital workflow for your analog style.
 	.row.intro-row
 		.col-lg-6.col-lg-offset-3
