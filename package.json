@@ -43,6 +43,8 @@
     "ember-validations": "*",
     "torii": "*",
     "ember-component-css": "git://github.com/jeffhertzler/ember-component-css",
-    "ember-cli-inline-content":"*"
+    "ember-cli-inline-content":"*",
+    "ember-cli-moment-shim": "0.6.0",
+    "ember-moment": "3.2.1"
   }
 }

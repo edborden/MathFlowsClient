@@ -19,7 +19,9 @@
     "keen-js": "~3.2.2",
     "cloudinary_js": "*",
     "gridstack": "*",
-    "jquery-ui":"*",
-    "active-model-adapter":"1.13.5"
+    "jquery-ui": "*",
+    "active-model-adapter": "1.13.5",
+    "moment": ">= 2.8.0",
+    "moment-timezone": ">= 0.1.0"
   }
 }
