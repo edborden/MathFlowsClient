@@ -1,6 +1,6 @@
 unless static
 	.btn-group-vertical.group
-		button.btn.btn-default click="toggleNumber" class={block.question:active}
+		button.btn.btn-default click="toggleNumber" class=block.question:active
 			|Numbered
 			if block.question
 				|&nbsp;&nbsp;

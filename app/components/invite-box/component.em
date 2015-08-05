@@ -18,7 +18,7 @@ class InviteBoxComponent extends Ember.Component with EmberValidations
 			if @isValid
 				@sendAction 'invite',@email
 				@email = null
-				@growler.growl "Invitation sent! Thanks!"
+				@growler.growl "Invitation sent!"
 			else
 				@growler.growl @errors.email.firstObject
 		

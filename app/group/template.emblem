@@ -1,22 +1,71 @@
 .container
-	if group
-		name-editor model=group isEditingName=isEditingName handleNameClick=false size=30
-			span.larger-heading.bold = group.name
-		|&nbsp;&nbsp;
-		i.fa-edit.click-fix.orange click="editName"
-		if group.usersWithoutMe
-			each group.usersWithoutMe as |user|
-				p = user.name
-		else
-			h5.orange There isn't anyone in your group!
-			p Groups let you share your tests with other teachers in your department. You can copy entire tests or use just specific questions.
-			button.btn.btn-primary click="openInviteModal" Invite Someone
-	else
-		.text-center
-			p Groups let you share your tests with other teachers in your department. You can copy entire tests or use just specific questions.
-			h3.orange You aren't part of a group!
-			p If other teachers in your department have already started a group for your school, ask them to invite you.  Otherwise...
-			p
-				button.btn.btn-primary click="newGroup"
-					|Create a new Group&nbsp;&nbsp;
-					i.fa-plus
+	.row
+
+		div class=groupvitations:col-lg-9:col-lg-12
+
+			if group
+				name-editor model=group isEditingName=isEditingName handleNameClick=false size=30
+					span.larger-heading.bold = group.name
+				|&nbsp;&nbsp;
+				i.fa-edit.click-fix.orange click="editName"
+				|&nbsp;&nbsp;
+				i.fa-sign-out.click-fix.orange click="unjoin"
+
+				hr
+
+				h5.orange Members
+
+				if group.usersWithoutMe
+					each group.usersWithoutMe as |user|
+						p = user.name
+				else
+					p.size12 There isn't anyone in your group... Invite someone!
+
+				hr
+
+				h5.orange Invite members to your group
+
+				invite-box
+
+				if groupvitationsSent
+
+					hr
+
+					h5.orange Invitations you've sent
+
+					.row.size12.orange
+						.col-xs-4
+						.col-xs-4 Updated
+						.col-xs-3 Status
+						.col-xs-1
+
+					each groupvitationsSent as |groupvitation|
+						.row: hr
+						.row.size12
+							.col-xs-4 = groupvitation.receiverEmail
+							.col-xs-4 = moment-from-now groupvitation.updatedAt
+							.col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
+								= groupvitation.status
+							.col-xs-1
+								if groupvitation.declined
+									span.red click="'remove' groupvitation"
+										i.fa-close.click-fix
+
+			else
+
+				span.larger-heading.bold You aren't part of a group!
+
+				hr
+
+				p A group lets you share your tests with other teachers in your department. You can copy entire tests or just specific questions!
+				p If other teachers in your department have already started a group for your school, ask them to invite you.  Otherwise...
+				p
+					button.btn.btn-primary click="newGroup"
+						|Create a new Group&nbsp;&nbsp;
+						i.fa-plus
+
+		if groupvitations
+			.col-lg-3
+				h5.orange Invitations you've received
+				each groupvitations as |groupvitation|
+					groupvitation-received groupvitation=groupvitation

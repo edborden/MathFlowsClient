@@ -1,0 +1,10 @@
+span = groupvitation.groupName
+span.size12
+	|&nbsp;via&nbsp;
+	= groupvitation.senderName
+	|&nbsp;&nbsp;
+	span.green.click-fix click="accept"
+		i.fa-check
+	|&nbsp;
+	span.red.click-fix click="decline"
+		i.fa-close

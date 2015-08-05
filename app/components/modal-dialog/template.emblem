@@ -1,4 +1,4 @@
-.modal-dialog class={large:modal-lg}
+.modal-dialog class=large:modal-lg
 	.modal-content
 		if title
 			.modal-header

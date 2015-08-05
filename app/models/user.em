@@ -18,6 +18,8 @@ class User extends DS.Model with ModelName
 	guest: attr()
 	group: belongsTo 'group', {async:false}
 	preference: belongsTo 'preference', {async:false}
+	groupvitations: hasMany 'groupvitations', {async:false}
+	groupvitationsSent: hasMany 'groupvitations', {async:false}
 
 	iconName: 'fa-user'
 	hasChildren: true
