@@ -10,7 +10,7 @@ class Group extends DS.Model with ModelName
 	
 	name: attr()
 	users: DS.hasMany 'user', {async:false}
-	usersWithoutMe: ~> @users.reject (user) => user is @session.me
+	usersWithoutMe: (-> @users.reject (user) => user is @session.me).property 'users.[]'
 	open:false #used for display in tree-over
 
 `export default Group`

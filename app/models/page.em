@@ -11,10 +11,10 @@ class Page extends DS.Model with ModelName
 	#HELPERS
 
 	number: ~> @testIndex + 1
-	testIndex: ~> @test.pages.indexOf(@)
+	testIndex: (-> @test.pages.indexOf @).property 'test.pages.[]'
 	firstPage: ~> @number is 1
-	lastPage: ~> @test.pages.lastObject is @
-	previousPage: ~> @test.pages.objectAt @testIndex - 1
-	nextPage: ~> @test.pages.objectAt @testIndex + 1
+	lastPage: (-> @test.pages.lastObject is @).property 'test.pages.[]'
+	previousPage: (-> @test.pages.objectAt(@testIndex - 1)).property 'test.pages.[]'
+	nextPage: (-> @test.pages.objectAt(@testIndex + 1)).property 'test.pages.[]'
 				
 `export default Page`

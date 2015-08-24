@@ -16,7 +16,7 @@ class Folder extends DS.Model with ModelName
 	## ASSOCIATIONS
 
 	user: belongsTo 'user', {async:false}
-	tests: hasMany 'test'
+	tests: hasMany 'test', {async:true}
 	folder: belongsTo 'folder', {inverse: 'folders',async:false}
 	folders: hasMany 'folder', {inverse: 'folder',async:false}
 

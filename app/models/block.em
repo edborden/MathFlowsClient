@@ -74,10 +74,10 @@ class Block extends DS.Model with ModelName
 		else
 			""
 
-	+observer invalidations
-	onInvalidationsChange: ->
+	onInvalidationsChange: (->
 		if @isLoaded and @test
 			@test.notifyPropertyChange 'invalidBlocks'
+	).observes 'invalidations'
 
 	## LINES
 

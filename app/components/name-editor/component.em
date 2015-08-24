@@ -12,10 +12,10 @@ class NameEditorComponent extends Ember.Component
 	action: 'doneEditingName'
 	nameClicked: 'nameClicked'
 
-	+observer isEditingName
-	onIsEditingNameChange: ->
+	onIsEditingNameChange: (->
 		Ember.run.next @, =>
 			Ember.$(@element).children().first().focus() if @isEditingName
+	).observes 'isEditingName'
 
 	focusOut: ->
 		@modeler.saveModel @model

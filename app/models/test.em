@@ -21,11 +21,12 @@ class Test extends DS.Model with ModelName
 
 	pdfLink: ~> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
 	multiplePages: ~> @pages.length > 1
-	blocks: ~>
+	blocks: (->
 		allBlocksFlat = []
 		@pages.getEach('blocks').forEach (blockArray) ->
 			allBlocksFlat.pushObjects blockArray.toArray()
 		allBlocksFlat
+	).property 'pages.@each.blocks.[]'
 
 	## INVALID BLOCKS
 
