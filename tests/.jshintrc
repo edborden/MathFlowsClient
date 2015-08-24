@@ -1,5 +1,6 @@
 {
   "predef": [
+    "server",
     "document",
     "window",
     "location",
@@ -48,5 +49,5 @@
   "white": false,
   "eqnull": true,
   "esnext": true,
-  "unused": true
+  "unused": false
 }
