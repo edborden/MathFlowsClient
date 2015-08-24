@@ -45,7 +45,7 @@
 							.col-xs-4 = groupvitation.receiverEmail
 							.col-xs-4 = moment-from-now groupvitation.updatedAt
 							.col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
-								= groupvitation.status
+								= groupvitation.statusFormatted
 							.col-xs-1
 								if groupvitation.declined
 									span.red click="'remove' groupvitation"

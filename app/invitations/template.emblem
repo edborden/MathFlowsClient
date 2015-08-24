@@ -1,4 +1,29 @@
 .container
-	.invitation 
-		p Do you have a friend or colleague that you think would like MathFlows?
-		invite-box
+
+	p.larger-heading.bold Earn more space
+
+	hr
+
+	p.size14 You can earn more space by referring other teachers to MathFlows! You'll BOTH get a 5 test bonus when they sign up.
+
+	invite-box
+
+	hr
+
+	.row.size12.orange
+		.col-xs-4
+		.col-xs-4 Updated
+		.col-xs-3 Status
+		.col-xs-1
+
+	each groupvitationsSent as |groupvitation|
+		.row: hr
+		.row.size12
+			.col-xs-4 = groupvitation.receiverEmail
+			.col-xs-4 = moment-from-now groupvitation.updatedAt
+			.col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
+				= groupvitation.status
+			.col-xs-1
+				if groupvitation.declined
+					span.red click="'remove' groupvitation"
+						i.fa-close.click-fix

@@ -5,13 +5,15 @@ ul.list-group
 
 		.page-editor
 
-			if activeBlock
-				block-menu block=activeBlock
-
 			.left-side
 				.btn-group-vertical			
 					button.btn.btn-default click="addHeader"
 						|Add Header&nbsp;&nbsp;
 						i.fa-plus
+				if activeBlock
+					.btn-group-vertical
+						button.btn.btn-default click="destroyHeader"
+							|Delete&nbsp;&nbsp;
+							i.fa-trash.text-danger
 
 			page-editor page=session.me activeBlock=activeBlock headers=true

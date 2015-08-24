@@ -28,6 +28,14 @@ nav.navbar.navbar-default
 
 								li: link-to 'me' |Tests
 
+								li.dropdown-header 
+									.size10
+										= session.me.testsCount
+										|&nbsp;of&nbsp;
+										= session.me.testsQuota
+										|&nbsp;used
+									progress-bar fill=session.me.percentOfQuota
+
 								li: link-to 'group' |Group
 
 								li: link-to 'preferences.display' |Preferences

@@ -3,6 +3,9 @@
 
 		.col-xs-3
 			.account
+				button.btn.btn-xs.btn-primary click="newTestFolder"
+					i.fa-folder
+					|&nbsp;&nbsp;New Folder
 				droppable-target drop='deleteDrop' class="delete-drop"
 					i.fa-lg.fa-trash-o
 

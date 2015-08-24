@@ -30,6 +30,7 @@ class MeController extends Ember.Controller with ActiveBlock
 			@modeler.saveModel model
 			containingFolder.open = true
 			@modeler.saveModel containingFolder
+			@model.testsCount = @model.testsCount + 1
 
 		thisSomethingIsDragging: (something) ->
 			@somethingIsDragging = something
@@ -45,8 +46,9 @@ class MeController extends Ember.Controller with ActiveBlock
 				dropped.send 'becomeDirty' #changing belongsTo doesn't becomeDirty, known issue: https://github.com/emberjs/data/issues/2122
 				@modeler.saveModel dropped
 				@model.notifyPropertyChange 'topTestFolders'
-				@model.notifyPropertyChange 'topStudentFolders'
 				
-		deleteDrop: (target,dropped) -> @modeler.destroyModel dropped
+		deleteDrop: (target,dropped) -> 
+			@modeler.destroyModel dropped
+			@model.testsCount = @model.testsCount - 1 if dropped.isTest
 
 `export default MeController`

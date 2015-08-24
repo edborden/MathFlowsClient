@@ -12,5 +12,6 @@ Router.map ->
 	@route 'preferences', ->
 		@route 'display'
 		@route 'headers'
+	@route 'invitation', {path: '/invitation/:invitation_id'}
 
 `export default Router`

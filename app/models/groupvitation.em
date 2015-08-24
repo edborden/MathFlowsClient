@@ -5,24 +5,32 @@ belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
 class Groupvitation extends DS.Model with ModelName
+
+	## ATTRIBUTES
 	
 	receiverEmail: attr()
 	groupName: attr()
 	senderName: attr()
-	receiverId: attr "number"
-	declined: attr 'boolean'
-	accepted: attr 'boolean'
 	createdAt: attr()
 	updatedAt: attr()
-	status: ~>
+	status: attr()
+
+	## COMPUTED
+
+	declined: Ember.computed.equal 'status','declined'
+	accepted: Ember.computed.equal 'status','accepted'
+	sent: Ember.computed.equal 'status','sent'
+	notAUser: Ember.computed.equal 'status','Not signed up'
+	statusFormatted: ~>
 		if @declined
 			"Declined"
 		else if @accepted
 			"Accepted"
-		else if @receiverId
+		else if @sent
 			"Waiting for response"
-		else
+		else if @notAUser
 			"Not signed up"
-
+		else
+			"Processing..."
 
 `export default Groupvitation`

@@ -6,9 +6,10 @@ class HeadersController extends Ember.Controller with ActiveBlock
 
 	actions:
 		addHeader: -> 
-			block = @store.createRecord 'block',{user:@session.me,rowSpan:1,colSpan:2,question:false,header:true}
+			block = @store.createRecord 'block',{user:@session.me,rowSpan:1,colSpan:2,kind:"header"}
 			Ember.run.next @, => @send 'setActiveBlock',block
-		deleteBlock: (block) ->
-			@modeler.destroyModel block
+		destroyHeader: ->
+			@modeler.destroyModel @activeBlock
+			@activeBlock = null
 
 `export default HeadersController`

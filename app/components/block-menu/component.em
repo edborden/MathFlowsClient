@@ -12,7 +12,7 @@ class BlockMenuComponent extends Ember.Component
 
 	actions:
 		toggleNumber: ->
-			@block.toggleProperty 'question'
+			@block.kind = if @block.question then 'directions' else 'question'
 			@modeler.saveModel @block
 			@refreshQuestionNumbers()
 			@block.notifyPropertyChange 'width' #trigger width resize on equation box

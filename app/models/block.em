@@ -5,12 +5,9 @@ belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
 class Block extends DS.Model with ModelName
-	
-	user: belongsTo 'user', {async:false}
-	page: belongsTo 'page', {async:false}
-	image: belongsTo 'image', {async:false}
 
-	question: attr "boolean"
+	## ATTRIBUTES
+
 	copyFromId: attr "number"
 	row: attr "number"
 	col: attr "number"
@@ -21,11 +18,21 @@ class Block extends DS.Model with ModelName
 	x: attr "number"
 	y: attr "number" #not used
 	linesHeight: attr "number"
-	header: attr "boolean"
+	kind: attr()
+
+	## ASSOCIATIONS
+
+	user: belongsTo 'user', {async:false}
+	page: belongsTo 'page', {async:false}
+	image: belongsTo 'image', {async:false}
+
+	## COMPUTED
 
 	colWidth: ~> @width / 16
-	pageNumber: ~> @page.number
-	test: ~> @page.test
+	pageNumber: Ember.computed.alias 'page.number'
+	test: Ember.computed.alias 'page.test'
+	question: Ember.computed.equal 'kind','question'
+	header: Ember.computed.equal 'kind','header'
 
 	removeFromPage: ->
 		@page.blocks.removeObject @
@@ -60,7 +67,7 @@ class Block extends DS.Model with ModelName
 	+computed invalid
 	invalidationMessage: ->
 		if @invalid
-			if @invalidations.firstObject.messageType is 1
+			if @invalidations.firstObject.message is "content"
 				"Content doesn't fit in block."
 			else
 				"Block doesn't fit on the page."
