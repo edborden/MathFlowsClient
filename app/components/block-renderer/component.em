@@ -49,11 +49,11 @@ class BlockRendererComponent extends Ember.Component
 			Ember.run.next @,=>
 				Ember.$(@element).find(".content").mousedown().mouseup() if isNew
 
-	+observer active
-	onActiveChange: ->
+	onActiveChange: (->
 		unless @preview
 			@gridstack.movable @element,@active
 			@gridstack.resizable @element,@active
+	).observes 'active'
 
 	willDestroyElement: -> 
 		@removeFromGrid()

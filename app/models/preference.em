@@ -9,5 +9,6 @@ class Preference extends DS.Model with ModelName
 	user: belongsTo 'user', {async:false}
 	borders: attr 'boolean'
 	directions: attr 'boolean'
+	tour: attr 'boolean'
 
 `export default Preference`

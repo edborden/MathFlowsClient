@@ -49,10 +49,10 @@ class EquationRendererComponent extends Ember.Component
 		@sendAction()
 		false
 
-	+observer line.content
-	contentChanged: -> 
+	contentChanged: (-> 
 		@setMathQuillContent()
 		Ember.$(@element).find('.cursor').remove()
+	).observes 'line.content'
 
 	willDestroyElement: -> @removeKeyDownHandler()
 

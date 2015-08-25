@@ -23,6 +23,7 @@
     "active-model-adapter": "1.13.6",
     "moment": ">= 2.8.0",
     "moment-timezone": ">= 0.1.0",
-    "jquery-resizable-columns": "*"
+    "jquery-resizable-columns": "*",
+    "tether-shepherd": "1.1.3"
   }
 }

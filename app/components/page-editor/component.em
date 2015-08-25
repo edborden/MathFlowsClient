@@ -37,8 +37,8 @@ class PageEditorComponent extends Ember.Component
 		setInactiveBlock: (block) ->
 			@sendAction 'setInactiveBlock',block
 
-	+observer page
-	onPageChange: ->
+	onPageChange: (->
 		@sendAction 'setInactiveBlock', @activeBlock
+	).observes 'page'
 
 `export default PageEditorComponent`
