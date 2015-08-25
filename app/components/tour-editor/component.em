@@ -28,7 +28,6 @@ class TourEditorComponent extends FullEditorComponent
 
 		{}=
 			options:
-				showCancelLink: true
 				attachTo:
 					element: Ember.$(".grid-stack").children()[6]
 					on: "right"
