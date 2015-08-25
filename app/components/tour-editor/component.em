@@ -44,7 +44,7 @@ class TourEditorComponent extends FullEditorComponent
 					element: Ember.$( Ember.$(".grid-stack").children()[7] ).find(".grid-stack-item-content").find(".mathquill-rendered-math")
 					on: "left"
 				text: ["You can type equations in-line just like you type text! No more equation editors!", "You can switch to 'math mode' with the '$' key."]
-				builtInButtons: [@nextButton()]
+				builtInButtons: [@backButton(),@nextButton()]
 
 		{}=
 			options:
@@ -52,7 +52,7 @@ class TourEditorComponent extends FullEditorComponent
 					element: ".right-side"
 					on: "left"
 				text: ["When you click on any block, you'll bring up this menu.","Here, you can easily add content like images and graphs."]
-				builtInButtons: [@nextButton()]
+				builtInButtons: [@backButton(),@nextButton()]
 
 		{}=
 			options:
@@ -60,7 +60,7 @@ class TourEditorComponent extends FullEditorComponent
 					element: Ember.$(".question-number")[2]
 					on: "left"
 				text: ["Numbering is taken care of for you.","Whenever you change the position of a block on the page, MathFlows will automatically update every block's number."]
-				builtInButtons: [@nextButton()]
+				builtInButtons: [@backButton(),@nextButton()]
 
 		{}=
 			options:
@@ -68,25 +68,30 @@ class TourEditorComponent extends FullEditorComponent
 					element: Ember.$(".left-side").children().first().children().last()[0]
 					on: "right"
 				text: ["Whenever you want, you can grab the PDF version of the test over here."]
-				builtInButtons: [@nextButton()]
+				builtInButtons: [@backButton(),@nextButton()]
 
 		{}=
 			options:
 				highlightClass: null
 				attachTo: '.navbar bottom'
 				text: ["That's it!","Login to save and organize tests and to share tests with other teachers in your department!"]
-				builtInButtons: [@exitButton()]
+				builtInButtons: [@backButton(),@exitButton()]
 				when:
 					hide: -> Ember.$(".navbar")[0].style.pointerEvents = 'all'
 	]
 
+	backButton: ->
+		classes: 'shepherd-button-secondary'
+		text: 'Back'
+		type: 'back'
+
 	nextButton: ->
-		classes: 'btn-primary'
+		classes: 'shepherd-button-primary'
 		text: 'Next'
 		type: 'next'
 
 	exitButton: ->
-		classes: 'btn-primary'
+		classes: 'shepherd-button-primary'
 		text: 'Done'
 		type: 'cancel'
 
