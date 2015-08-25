@@ -34,6 +34,11 @@ module.exports = function(defaults) {
 	// Keen.io
 	app.import('bower_components/keen-js/dist/keen.min.js');
 
+	// Messenger
+	app.import('bower_components/messenger/build/js/messenger.js');
+	app.import('bower_components/messenger/build/css/messenger.css');
+	app.import('bower_components/messenger/build/css/messenger-theme-ice.css');
+
 	// Bootstrap
 	app.import('bower_components/bootstrap/js/modal.js');
 	app.import('bower_components/bootstrap/js/dropdown.js');
