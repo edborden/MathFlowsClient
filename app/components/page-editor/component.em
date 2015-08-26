@@ -3,6 +3,7 @@ class PageEditorComponent extends Ember.Component
 	eventer: Ember.inject.service()
 
 	page: null
+	pageHolder: null
 	activeBlock:null
 	preview:false
 	headers:false
@@ -25,6 +26,8 @@ class PageEditorComponent extends Ember.Component
 
 		@gridstack = Ember.$(@element).children('.grid-stack').gridstack(options).data 'gridstack'
 
+		@pageHolder = @page #after gridstack initializes CSS, set page to intialize the blocks
+
 		Ember.$(@element).on 'change', => 
 			@eventer.triggerSyncBlocks()
 
@@ -38,6 +41,7 @@ class PageEditorComponent extends Ember.Component
 			@sendAction 'setInactiveBlock',block
 
 	onPageChange: (->
+		@pageHolder = @page
 		@sendAction 'setInactiveBlock', @activeBlock
 	).observes 'page'
 

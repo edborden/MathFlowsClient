@@ -35,12 +35,10 @@ class BlockRendererComponent extends Ember.Component
 	## EVENTS
 
 	didInsertElement: ->
+
 		@eventer.on 'syncBlocks', @, @syncAttrsToEl
 		@active #initialize observer
-		if @gridstack?
-			@initializeRenderer()
-		else
-			Ember.run.next @, @initializeRenderer #run after render to allow gridstack/page-editor to initialize
+		@initializeRenderer()
 
 	initializeRenderer: ->
 		@addToGrid()
