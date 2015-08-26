@@ -7,9 +7,10 @@ class ModelerService extends Ember.Service
 			if model.hasDirtyAttributes
 				model.save().then(
 					(success) => 
-						@growler.growl model.modelName + " saved.",model
+						@growler.muted model.modelName + " saved.",model
 						resolve(success)
 					(errors) => 
+						console.log errors
 						@errors errors.errors
 						reject(errors)
 				)
@@ -20,7 +21,7 @@ class ModelerService extends Ember.Service
 		return new Ember.RSVP.Promise (resolve,reject) =>
 			model.destroyRecord().then(
 				(success) => 
-					@growler.growl model.modelName + " destroyed."
+					@growler.muted model.modelName + " destroyed."
 					resolve(success)
 				(errors) =>
 					@errors errors.errors
@@ -28,7 +29,6 @@ class ModelerService extends Ember.Service
 			)
 
 	errors: (errors) -> 
-		for prop,array of errors
-			@growler.growl message for message in array
+		@growler.growl "Failed because #{error.detail}" for error in errors
 
 `export default ModelerService`
