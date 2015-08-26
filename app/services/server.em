@@ -1,8 +1,9 @@
 `import config from 'math-flows-client/config/environment'`
 
-ServerTalk = Ember.Mixin.create
+class ServerService extends Ember.Service
 	host: config.apiHostName
 	session: Ember.inject.service()
+	store: Ember.inject.service()
 
 	headers: ~>
 		if @session.token?
@@ -10,22 +11,23 @@ ServerTalk = Ember.Mixin.create
 		else
 			return {}
 
-	postServer: (url,data = {},dataType = "text") -> 
-		@httpServer url,data,dataType,"POST"
+	post: (url,data = {}) -> 
+		@http url,data,"POST"
 
-	deleteServer: (url,data = {},dataType = "text") -> 
-		@httpServer url,data,dataType,"DELETE"
+	delete: (url,data = {}) -> 
+		@http url,data,"DELETE"
 
-	httpServer: (url,data = {},dataType = "text",type) ->
+	http: (url,data,type) ->
 		return new Ember.RSVP.Promise (resolve) =>
 			Ember.$.ajax 
 				data: data
 				url: @host + "/" + url + ".json"
-				success: (response) => 
+				success: (response) =>
+					@store.pushPayload response
 					resolve response
-				dataType: dataType
+				dataType: "json"
 				headers: @headers
 				type: type
 				crossDomain: true
 
-`export default ServerTalk`
+`export default ServerService`

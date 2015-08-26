@@ -1,16 +1,25 @@
-`import ServerTalk from 'math-flows-client/mixins/server-talk'`
-
-class GroupvitationReceivedComponent extends Ember.Component with ServerTalk
+class GroupvitationReceivedComponent extends Ember.Component
 
 	groupvitation: null
+	growler: Ember.inject.service()
+	server:Ember.inject.service()
+	store:Ember.inject.service()
+	session:Ember.inject.service()
+	me:Ember.computed.alias 'session.me'
 
 	actions:
 		accept: ->
-			@postServer('groupvitations/' + @groupvitation.id + '/accept').then (response) =>
-				@session.me.group = response
+			@router.transitionTo('loading').then =>
+				@server.post('groupvitations/' + @groupvitation.id + '/accept').then (response) =>
+					@me.groupvitations.removeObject @groupvitation
+					group = @store.peekRecord 'group',response.group.id
+					@me.group = group
+					@router.transitionTo('group').then =>
+						@growler.growl "Invitation accepted!"
 
 		decline: ->
-			@postServer('groupvitations/' + @groupvitation.id + '/decline')
-			@session.me.groupvitations.removeObject @groupvitation
+			@server.post('groupvitations/' + @groupvitation.id + '/decline')
+			@me.groupvitations.removeObject @groupvitation
+			@growler.growl "Invitation declined."
 
 `export default GroupvitationReceivedComponent`

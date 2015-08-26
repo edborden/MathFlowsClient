@@ -21,16 +21,15 @@ class Groupvitation extends DS.Model with ModelName
 	accepted: Ember.computed.equal 'status','accepted'
 	sent: Ember.computed.equal 'status','sent'
 	notAUser: Ember.computed.equal 'status','Not signed up'
-	statusFormatted: ~>
+	statusFormatted: (->
 		if @declined
 			"Declined"
 		else if @accepted
 			"Accepted"
 		else if @sent
 			"Waiting for response"
-		else if @notAUser
-			"Not signed up"
 		else
-			"Processing..."
+			"Not signed up"
+	).property 'status'
 
 `export default Groupvitation`

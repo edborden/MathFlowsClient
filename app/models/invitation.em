@@ -13,12 +13,13 @@ class Invitation extends DS.Model
 	sent: Ember.computed.equal 'status','sent'
 	visited: Ember.computed.equal 'status','visited'
 	signedUp: Ember.computed.equal 'status','signed_up'
-	statusFormatted: ~>
+	statusFormatted: (->
 		if @sent
 			"Sent"
 		else if @visited
 			"Visited"
 		else
 			"Signed Up!"
+	).property 'status'
 
 `export default Invitation`

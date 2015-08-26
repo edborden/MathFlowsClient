@@ -8,22 +8,23 @@
 
 	invite-box
 
-	hr
+	if referredBy
 
-	.row.size12.orange
-		.col-xs-4
-		.col-xs-4 Updated
-		.col-xs-3 Status
-		.col-xs-1
+		hr
 
-	each groupvitationsSent as |groupvitation|
+		.row.size12
+			.col-xs-4 = referredBy
+			.col-xs-4 = moment-from-now session.me.createdAt
+			.col-xs-3.green Referred you!
+			.col-xs-1.green +5		
+
+	each invitationsSent as |invitation|
 		.row: hr
 		.row.size12
-			.col-xs-4 = groupvitation.receiverEmail
-			.col-xs-4 = moment-from-now groupvitation.updatedAt
-			.col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
-				= groupvitation.status
-			.col-xs-1
-				if groupvitation.declined
-					span.red click="'remove' groupvitation"
-						i.fa-close.click-fix
+			.col-xs-4 = invitation.referralEmail
+			.col-xs-4 = moment-from-now invitation.updatedAt
+			.col-xs-3 class=invitation.signedUp:green
+				= invitation.statusFormatted
+			.col-xs-1.green
+				if invitation.signedUp
+					|+5

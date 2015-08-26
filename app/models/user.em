@@ -17,6 +17,7 @@ class User extends DS.Model with ModelName
 	premium: attr 'boolean'
 	uservoiceToken: attr()
 	guest: attr()
+	referredBy: attr()
 
 	## ASSOCIATIONS
 
@@ -26,6 +27,7 @@ class User extends DS.Model with ModelName
 	preference: belongsTo 'preference', {async:false}
 	groupvitations: hasMany 'groupvitations', {async:false}
 	groupvitationsSent: hasMany 'groupvitations', {async:false}
+	groupvitationsAll: attr() #placeholder for serialized groupvitations on API
 	invitationsSent: hasMany 'invitation'
 
 	## COMPUTED

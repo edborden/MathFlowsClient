@@ -1,12 +1,11 @@
-`import ServerTalk from 'math-flows-client/mixins/server-talk'`
-
-class GroupController extends Ember.Controller with ServerTalk
+class GroupController extends Ember.Controller
 
 	group: Ember.computed.alias 'session.me.group'
 	groupvitations: Ember.computed.alias 'session.me.groupvitations'
 	groupvitationsSent: Ember.computed.alias 'session.me.groupvitationsSent'
 	isEditingName: false
 	modeler:Ember.inject.service()
+	server:Ember.inject.service()
 
 	actions:
 		editName: ->
@@ -22,13 +21,14 @@ class GroupController extends Ember.Controller with ServerTalk
 			@session.me.group = group
 
 		unjoin: ->
-			@postServer 'groups/unjoin'
+			@server.post 'groups/unjoin'
 			@session.me.group = null
 
 		invite: (email) -> 
 			groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email}
-			@modeler.saveModel groupvitation
-			@session.me.groupvitationsSent.pushObject groupvitation
+			@modeler.saveModel(groupvitation).then => 
+				@growler.growl "Invitation sent!"
+				@session.me.groupvitationsSent.pushObject groupvitation
 
 		remove: (groupvitation) ->
 			@modeler.destroyModel groupvitation

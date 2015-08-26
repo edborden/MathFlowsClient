@@ -33,12 +33,6 @@
 
 					h5.orange Invitations you've sent
 
-					.row.size12.orange
-						.col-xs-4
-						.col-xs-4 Updated
-						.col-xs-3 Status
-						.col-xs-1
-
 					each groupvitationsSent as |groupvitation|
 						.row: hr
 						.row.size12
