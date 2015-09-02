@@ -11,7 +11,6 @@ class BlockRendererComponent extends Ember.Component
 	gridstack:null
 	block:null
 	activeBlock:null
-	activeEquationLine: null
 	preview:null
 
 	availableImageHeight: ~> @block.height - @block.linesHeight
@@ -35,7 +34,6 @@ class BlockRendererComponent extends Ember.Component
 	## EVENTS
 
 	didInsertElement: ->
-
 		@eventer.on 'syncBlocks', @, @syncAttrsToEl
 		@active #initialize observer
 		@initializeRenderer()
@@ -93,12 +91,6 @@ class BlockRendererComponent extends Ember.Component
 
 	actions:
 		contentsClicked: -> @setBlockActive()
-
-		activeEquationLine: (mathquill) ->
-			@activeEquationLine = mathquill unless @activeEquationLine is mathquill
-
-		inactiveEquationLine: (mathquill) ->
-			@activeEquationLine = null if @activeEquationLine is mathquill
 
 	setActiveBlock: 'setActiveBlock'
 	setBlockActive: -> 

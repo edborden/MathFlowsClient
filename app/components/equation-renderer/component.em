@@ -1,4 +1,6 @@
-class EquationRendererComponent extends Ember.Component
+`import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
+
+class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	##SETUP
 
@@ -10,8 +12,8 @@ class EquationRendererComponent extends Ember.Component
 
 	line:null
 	preview:null
-	block: Ember.computed.alias 'line.block'
-	questionNumberWidth: Ember.computed.alias 'block.questionNumberWidth'
+	insideEquation: null
+	questionNumberWidth: Ember.computed.alias 'line.block.questionNumberWidth'
 
 	attributeBindings: ['style']
 	style: ~> "padding-left:#{@questionNumberWidth}px".htmlSafe()
@@ -19,34 +21,31 @@ class EquationRendererComponent extends Ember.Component
 	##EVENTS
 
 	didInitAttrs: ->
-		@line.renderer = @		
+		@line.renderer = @ if @line.isLine
 	
 	didInsertElement: ->
-		if @preview
-			@mathquill = Ember.$(@element).children().last().mathquill('textbox')
-		else
-			@mathquill = Ember.$(@element).children().last().mathquill('textbox')
-			@setMathQuillContent()
-			@setKeyDownHandler()
-			Ember.$(@element).find('.cursor').remove()
+		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
+		@setMathQuillContent()
+		@setKeyDownHandler()
+		Ember.$(@element).find('.cursor').remove()
 
 	onKeyDown: (ev) ->
 		unless @preview
-			@keyboarder.process @line,ev.keyCode,@mathquill	
+			@keyboarder.process @line,ev.keyCode,@mathquill	if @line.isLine
 			Ember.run.next @,@checkIfInsideEquation
 			true
 
 	focusOut: -> 
 		console.log 'focusOut'
 		unless @preview
-			@removeEquationEditorMenu()
+			@insideEquation = false
 			@cleaner.clean @line,@mathquill
 			@modeler.saveModel @line
 			#@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
 
 	click: -> 
 		@checkIfInsideEquation() unless @preview
-		@sendAction()
+		@send 'contentsClicked'
 		false
 
 	contentChanged: (-> 
@@ -74,29 +73,12 @@ class EquationRendererComponent extends Ember.Component
 		@mathquill.off 'keydown',@onKeyDown
 
 	checkIfInsideEquation: ->
+		console.log 'checkIfInsideEquation'
 		unless @isDestroyed
 			cursorElement = Ember.$('.hasCursor')
 			if cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
-				@displayEquationEditorMenu() 
+				@insideEquation = true
 			else
-				@removeEquationEditorMenu()
-
-	displayEquationEditorMenu: ->
-		@sendAction 'activeEquationLine',@mathquill
-
-	removeEquationEditorMenu: ->
-		@sendAction 'inactiveEquationLine',@mathquill
-
-	##ACTIONS
-
-	#actions:
-	#	insertLatex: (latex) ->
-	#		Ember.$(@element).focus()
-	#		@displayEquationEditorMenu = true
-	#		@mathquill.mathquill 'cmd',latex
-
-	action: 'contentsClicked'
-	activeEquationLine: 'activeEquationLine'
-	inactiveEquationLine: 'inactiveEquationLine'
+				@insideEquation = false
 
 `export default EquationRendererComponent`

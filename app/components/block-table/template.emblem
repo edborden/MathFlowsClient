@@ -1,0 +1,10 @@
+table
+	thead
+		tr
+			each table.cols as |col|
+				table-col col=col
+	tbody
+		each table.rows as |row|
+			tr
+				each table.cols as |col|
+					table-cell row=row col=col preview=preview

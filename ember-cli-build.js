@@ -62,6 +62,7 @@ module.exports = function(defaults) {
 	app.import('bower_components/jquery-ui/ui/draggable.js');
 	app.import('bower_components/jquery-ui/ui/droppable.js');
 	app.import('bower_components/jquery-ui/ui/resizable.js');
+	app.import('bower_components/jquery-ui/themes/base/resizable.css');
 
 	// Gridstack
 	app.import('bower_components/lodash/lodash.js');

@@ -1,2 +1,4 @@
 .content
 	line.content
+if insideEquation
+	equation-menu mathquill=mathquill

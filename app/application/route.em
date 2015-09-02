@@ -7,9 +7,9 @@ class ApplicationRoute extends Ember.Route
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
 			@session.open().then(
-				(success) =>
+				=>
 					@sessionSuccessHandler()
-				(error) =>
+				=>
 					@session.open().then => @sessionSuccessHandler()
 			)
 		else

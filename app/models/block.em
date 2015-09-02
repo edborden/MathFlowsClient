@@ -25,6 +25,7 @@ class Block extends DS.Model with ModelName
 	user: belongsTo 'user', {async:false}
 	page: belongsTo 'page', {async:false}
 	image: belongsTo 'image', {async:false}
+	table: belongsTo 'table', {async:false}
 
 	## COMPUTED
 
@@ -33,6 +34,7 @@ class Block extends DS.Model with ModelName
 	test: Ember.computed.alias 'page.test'
 	question: Ember.computed.equal 'kind','question'
 	header: Ember.computed.equal 'kind','header'
+	hasChild: ~> @table or @image
 
 	removeFromPage: ->
 		@page.blocks.removeObject @

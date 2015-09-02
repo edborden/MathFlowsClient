@@ -17,8 +17,8 @@ class TourEditorComponent extends FullEditorComponent
 				highlightClass: 'highlight'
 				classes: 'shepherd shepherd-open shepherd-theme-arrows shepherd-transparent-text'
 			@tour.modal = true
-			Ember.$( Ember.$(".grid-stack-item-content")[7] ).click()
 			Ember.run.next @, => 
+				Ember.$( Ember.$(".grid-stack-item-content")[7] ).click()
 				@tour.steps = @steps()
 				@tour.trigger 'start'
 			@tourPreference = false

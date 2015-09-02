@@ -11,6 +11,5 @@ if invalid
 			equation-renderer line=line preview=preview
 		if block.image
 			block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image
-
-if activeEquationLine
-	equation-menu mathquill=activeEquationLine topOffset=block.linesHeight
+		if block.table
+			block-table table=block.table preview=preview

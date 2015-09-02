@@ -2,6 +2,7 @@ class SessionService extends Ember.Service
 
 	store: Ember.inject.service()
 	growler:Ember.inject.service()
+	modeler:Ember.inject.service()
 
 	loggedIn: ~> @model?
 	model: null
@@ -15,27 +16,29 @@ class SessionService extends Ember.Service
 				@store.query('session', {token: token}).then(
 					(response) => 
 						@model = response.objectAt(0)
-						resolve response
+						resolve()
 					(errors) => 
-						@growler.muted errors.errors[0].title
-						@close() if errors.errors[0].status is "401"
-						reject errors.errors[0].title
+						console.log errors
+						if errors.errors[0].status is "401"
+							@close()
+							console.log "401!"
+						reject()
 				)
 			else
 				@post('issue').then => resolve()
 
 	post: (token,redirectUri) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
-			@store.createRecord('session',{token:token,redirectUri:redirectUri}).save().then(
+			session = @store.createRecord('session',{token:token,redirectUri:redirectUri})
+			@modeler.saveModel(session).then(
 				(response) => 
-					@growler.muted 'success'
 					@model = response
 					localStorage.mathFlowsToken = @token
 					resolve()
 				(errors) => 
-					@growler.muted errors.errors[0].title
+					console.log errors
 					@close() if errors.errors[0].status is "401"
-					reject errors.errors[0].title
+					reject()
 			)
 
 	close: ->

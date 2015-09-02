@@ -1,16 +1,20 @@
 class EquationMenuComponent extends Ember.Component
 
 	mathquill: null
-	topOffset: null
+	tether: null
+
+	didInsertElement: ->
+		@tether = new Tether
+			element: @element
+			target: @mathquill
+			attachment: "top left"
+			targetAttachment: "bottom left"
+
+	willDestroyElement: ->
+		@tether.destroy()
 
 	actions:
 		insertLatex: (latex) ->
-			#Ember.$(@element).focus()
-			#@displayEquationEditorMenu = true
 			@mathquill.mathquill 'cmd',latex
-
-	attributeBindings: ['style']
-
-	style: ~> "top:#{@topOffset*1.25}px".htmlSafe() #when the mathquill element height is the same as the block.linesHeight, this 1.25 fudger won't be necessary
 
 `export default EquationMenuComponent`
