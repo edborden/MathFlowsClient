@@ -1,0 +1,7 @@
+label.switch-light.well
+	= input type="checkbox" checked=checked
+	span
+		span = offText
+		span = onText
+
+	a.btn.btn-default

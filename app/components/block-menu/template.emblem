@@ -7,10 +7,12 @@ unless static
 				i.fa-check
 
 		if block.image
+			toggle-switch checked=block.image.alignment.sideBoolean offText="Left" onText="Right"
 			button.btn.btn-default click="'destroyModel' block.image"
 				|Remove Image
 
 		if block.table 	
+			toggle-switch checked=block.table.alignment.sideBoolean offText="Left" onText="Right"
 			button.btn.btn-default click="'destroyModel' block.table"
 				|Remove Table
 

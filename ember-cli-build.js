@@ -68,5 +68,8 @@ module.exports = function(defaults) {
 	app.import('bower_components/lodash/lodash.js');
 	app.import('bower_components/gridstack/src/gridstack.js');
 
+	// CSS Switch
+	app.import('bower_components/css-toggle-switch/dist/toggle-switch.css');
+
 	return mergeTrees([app.toTree(),fontAwesomeFonts,mathQuillFonts]);
 };
