@@ -50,12 +50,13 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 		Ember.$(@element).css 'width', ''
 
 	contextMenu: -> 
-		console.log 'contextMenu'
 		@menuOpen = true unless @preview
 		false
 
 	focusOut: ->
-		@menuOpen = false
-		console.log 'focusOut TableCellComponent'
+		@send 'closeMenu'
+
+	actions:
+		closeMenu: -> @menuOpen = false
 
 `export default TableCellComponent`

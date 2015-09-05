@@ -1,3 +1,3 @@
 equation-renderer line=cell preview=preview
 if menuOpen
-	cell-menu cell=cell cellElement=element
+	cell-menu cell=cell cellElement=element closeMenu=(action 'closeMenu')

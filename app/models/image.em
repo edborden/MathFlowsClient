@@ -5,10 +5,16 @@ belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
 class Image extends DS.Model with ModelName
-	block: belongsTo 'block', {async:false}
+
+	# ATTRIBUTES
+
 	height: attr "number"
 	width: attr "number"
-	scale: attr "number", {defaultValue:5}
 	cloudinaryId: attr()
+
+	# ASSOCIATIONS
+
+	block: belongsTo 'block', {async:false}
+	alignment: belongsTo 'alignment', { async:false }
 
 `export default Image`

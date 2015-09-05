@@ -36,7 +36,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 			true
 
 	focusOut: -> 
-		console.log 'focusOut'
 		unless @preview
 			@insideEquation = false
 			@cleaner.clean @line,@mathquill
@@ -73,7 +72,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 		@mathquill.off 'keydown',@onKeyDown
 
 	checkIfInsideEquation: ->
-		console.log 'checkIfInsideEquation'
 		unless @isDestroyed
 			cursorElement = Ember.$('.hasCursor')
 			if cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0

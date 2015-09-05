@@ -15,6 +15,7 @@ class Table extends DS.Model with ModelName
 
 	block: belongsTo 'block', {async:false}
 	projections: hasMany 'projection', { async:false }
+	alignment: belongsTo 'alignment', { async:false }
 
 	## COMPUTED
 

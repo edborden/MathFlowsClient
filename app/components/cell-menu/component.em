@@ -33,12 +33,10 @@ class CellMenuComponent extends Ember.Component
 			@table.projections.removeObject projection
 			@modeler.destroyModel projection
 
-	mouseDown: ->
-		console.log 'mouseDown CellMenuComponent'
-		false
+	mouseDown: -> false
 
-	click: -> 
-		console.log 'click CellMenuComponent'
+	click: ->
+		@closeMenu()
 		false
 
 `export default CellMenuComponent`
