@@ -10,6 +10,7 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 	row: null
 	col: null
 	preview: null
+	menuOpen: false
 
 	cell: ~> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
 
@@ -18,9 +19,11 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 		"#" + el 
 	
 	createCell: (row,col) ->
-		cell = @store.createRecord 'cell', {rowId:@row.id,colId:@col.id,tableId:@row.table.id,content:""}
+		cell = @store.createRecord 'cell', {row:@row,col:@col,table:@row.table,content:""}
 		@row.cells.pushObject cell
 		@col.cells.pushObject cell
+		cell.row = @row
+		cell.col = @col
 		return cell
 
 	didInsertElement: ->
@@ -33,7 +36,6 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 		Ember.$(@element).resizable "destroy"
 
 	colResizeInit: ->
-		console.log @col.renderer
 		onResize = Ember.run.bind @, @onResize
 		unless @preview
 			Ember.$(@element).resizable
@@ -43,9 +45,17 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 				alsoResize: @col.renderer
 
 	onResize: (event,ui) ->
-		console.log ui.size.width
 		@col.size = ui.size.width
 		@modeler.saveModel @col
 		Ember.$(@element).css 'width', ''
+
+	contextMenu: -> 
+		console.log 'contextMenu'
+		@menuOpen = true unless @preview
+		false
+
+	focusOut: ->
+		@menuOpen = false
+		console.log 'focusOut TableCellComponent'
 
 `export default TableCellComponent`

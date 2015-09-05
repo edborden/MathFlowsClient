@@ -9,17 +9,11 @@ class Cell extends DS.Model with ModelName
 	## ATTRIBUTES
 
 	content: attr()
-	rowId: attr "number"
-	colId: attr "number"
-	tableId: attr "number"
 
 	## ASSOCIATIONS
 
-	projections: hasMany 'projection', {async:false}
-
-	## COMPUTED
-
-	row: ~> @projections.filterBy('row').firstObject
-	col: ~> @projections.filterBy('col').firstObject
+	table: belongsTo 'table', {async:false}
+	row: belongsTo 'projection', {async:false}
+	col: belongsTo 'projection', {async:false}
 
 `export default Cell`

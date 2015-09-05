@@ -1,0 +1,6 @@
+button.btn.btn-xs.btn-primary click="'newProjection' 'col' 'before'" Add Column Before
+button.btn.btn-xs.btn-primary click="'newProjection' 'col' 'after'" Add Column After
+button.btn.btn-xs.btn-primary click="'newProjection' 'row' 'before'" Add Row Before
+button.btn.btn-xs.btn-primary click="'newProjection' 'row' 'after'" Add Row After
+button.btn.btn-xs.btn-primary click="'removeProjection' 'row'" Remove Row
+button.btn.btn-xs.btn-primary click="'removeProjection' 'col'" Remove Column
