@@ -1,6 +1,7 @@
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
+`import IsResizable from 'math-flows-client/mixins/is-resizable'`
 
-class TableCellComponent extends Ember.Component with HandlesEquations
+class TableCellComponent extends Ember.Component with HandlesEquations,IsResizable
 
 	tagName: 'td'
 
@@ -14,10 +15,6 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 
 	cell: ~> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
 
-	parentId: -> 
-		el = Ember.$(@element).parents(".grid-stack-item").attr 'id'
-		"#" + el 
-	
 	createCell: (row,col) ->
 		cell = @store.createRecord 'cell', {row:@row,col:@col,table:@row.table,content:""}
 		@row.cells.pushObject cell
@@ -26,28 +23,21 @@ class TableCellComponent extends Ember.Component with HandlesEquations
 		cell.col = @col
 		return cell
 
-	didInsertElement: ->
-		@colResizeInit()
+	# RESIZE OPTIONS
 
-	willDestroyElement: ->
-		@colResizeDestroy()
-
-	colResizeDestroy: ->
-		Ember.$(@element).resizable "destroy"
-
-	colResizeInit: ->
-		onResize = Ember.run.bind @, @onResize
-		unless @preview
-			Ember.$(@element).resizable
-				handles: 'e'
-				stop: onResize
-				containment: @parentId()
-				alsoResize: @col.renderer
+	alsoResizeId: ~> @col.renderer
+	containmentId: (-> 
+		el = Ember.$(@element).parents(".grid-stack-item").attr 'id'
+		"#" + el 
+	).property()
+	resizeHandles: 'e'
 
 	onResize: (event,ui) ->
 		@col.size = ui.size.width
 		@modeler.saveModel @col
 		Ember.$(@element).css 'width', ''
+
+	##
 
 	contextMenu: -> 
 		@menuOpen = true unless @preview

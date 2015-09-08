@@ -1,4 +1,6 @@
-class BlockMenuComponent extends Ember.Component
+`import NewDimensions from 'math-flows-client/mixins/new-dimensions'`
+
+class BlockMenuComponent extends Ember.Component with NewDimensions
 
 	modeler: Ember.inject.service()
 	store: Ember.inject.service()
@@ -18,11 +20,12 @@ class BlockMenuComponent extends Ember.Component
 			@block.notifyPropertyChange 'width' #trigger width resize on equation box
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
+				newDimensions = @newDimensions result[0]
 				image = @store.createRecord 'image',
 					block: @block
 					cloudinaryId: result[0].public_id
-					width: result[0].width
-					height: result[0].height
+					width: newDimensions.width
+					height: newDimensions.height
 				@modeler.saveModel image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 		cutBlock: -> 

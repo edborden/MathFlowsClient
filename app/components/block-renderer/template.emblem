@@ -10,6 +10,6 @@ if invalid
 		each block.sortedLines as |line| 
 			equation-renderer line=line preview=preview
 		if block.image
-			block-image availableHeight=availableImageHeight availableWidth=availableImageWidth image=block.image
+			block-image image=block.image preview=preview
 		if block.table
 			block-table table=block.table preview=preview

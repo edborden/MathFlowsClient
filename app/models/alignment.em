@@ -20,7 +20,6 @@ class Alignment extends DS.Model with ModelName
 	sideBoolean: Ember.computed 'side',
 		get: -> @right
 		set: (key,value) ->
-			console.log key,value
 			if value is true
 				@side = 'right'
 			else
