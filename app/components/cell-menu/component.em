@@ -25,13 +25,15 @@ class CellMenuComponent extends Ember.Component
 			currentProjection = @cell.get(axis)
 			newPosition = if position is 'before' then currentProjection.newPreceedingPosition() else currentProjection.newFollowingPosition()
 			projection = @store.createRecord 'projection', {axis:axis,position:newPosition,table:@table,size:15}
-			@modeler.saveModel projection
 			@table.projections.pushObject projection
+			@modeler.saveModel(projection).then =>
+				@table.block.reload()
 
 		removeProjection: (axis) ->
 			projection = @cell.get(axis)
 			@table.projections.removeObject projection
-			@modeler.destroyModel projection
+			@modeler.destroyModel(projection).then =>
+				@table.block.reload() if @table.block.invalid
 
 	mouseDown: -> false
 
