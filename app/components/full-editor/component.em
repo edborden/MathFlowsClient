@@ -23,7 +23,7 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 			@modeler.destroyModel model
 
 		createBlock: -> 
-			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,linesHeight:18}
+			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true}
 			Ember.run.next @, => @send 'setActiveBlock',block
 
 		paste: ->

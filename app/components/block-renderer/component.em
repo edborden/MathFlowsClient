@@ -13,9 +13,6 @@ class BlockRendererComponent extends Ember.Component
 	activeBlock:null
 	preview:null
 
-	availableImageHeight: ~> @block.height - @block.linesHeight
-	availableImageWidth: ~> @block.width
-
 	## ATTRIBUTE BINDINGS
 
 	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]

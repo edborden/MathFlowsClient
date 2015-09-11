@@ -17,7 +17,6 @@ class Block extends DS.Model with ModelName
 	height: attr "number"
 	x: attr "number"
 	y: attr "number" #not used
-	linesHeight: attr "number"
 	kind: attr()
 
 	## ASSOCIATIONS
