@@ -6,25 +6,8 @@ hasMany = DS.hasMany
 
 class Alignment extends DS.Model with ModelName
 
-	modeler: Ember.inject.service()
-
 	# ATTRIBUTES
 
 	side: attr()
-
-	# COMPUTED
-
-	left: Ember.computed.equal 'side','left'
-	right: Ember.computed.equal 'side', 'right'
-
-	sideBoolean: Ember.computed 'side',
-		get: -> @right
-		set: (key,value) ->
-			if value is true
-				@side = 'right'
-			else
-				@side = 'left'
-			@modeler.saveModel @
-			return value
 
 `export default Alignment`

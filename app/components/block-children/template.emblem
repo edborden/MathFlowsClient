@@ -1,0 +1,5 @@
+each block.children as |child|
+	if child.isImage
+		block-image image=child preview=preview
+	else
+		block-table table=child preview=preview

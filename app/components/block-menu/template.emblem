@@ -6,29 +6,23 @@ unless static
 				|&nbsp;&nbsp;
 				i.fa-check
 
-	if block.image
-		.btn-group-vertical.group
-			toggle-switch checked=block.image.alignment.sideBoolean offText="Left" onText="Right"
-			button.btn.btn-default click="'destroyModel' block.image"
-				|Remove Image
+	.btn-group-vertical.group
+		button.btn.btn-default click="openFileDialog"
+			|Add Image&nbsp;&nbsp;
+			i.fa-image	
+		button.btn.btn-default click="openGraphModal"
+			|Add Graph&nbsp;&nbsp;
+			i.fa-line-chart	
+		button.btn.btn-default click="addTable"
+			|Add Table&nbsp;&nbsp;
+			i.fa-table
 
-	if block.table 	
+	each block.children as |child|
+		
 		.btn-group-vertical.group
-			toggle-switch checked=block.table.alignment.sideBoolean offText="Left" onText="Right"
-			button.btn.btn-default click="'destroyModel' block.table"
-				|Remove Table
-
-	unless block.hasChild
-		.btn-group-vertical.group
-			button.btn.btn-default click="openFileDialog"
-				|Add Image&nbsp;&nbsp;
-				i.fa-image	
-			button.btn.btn-default click="openGraphModal"
-				|Add Graph&nbsp;&nbsp;
-				i.fa-line-chart	
-			button.btn.btn-default click="addTable"
-				|Add Table&nbsp;&nbsp;
-				i.fa-table				
+			button.btn.btn-default click="'destroyModel' child"
+				|Remove&nbsp;
+				= child.modelName	
 
 	.btn-group-vertical.group
 		button.btn.btn-default click="destroyBlock"

@@ -1,15 +1,17 @@
 `import ModelName from 'math-flows-client/mixins/model-name'`
+`import SetsPosition from 'math-flows-client/mixins/sets-position'`
 
 attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
-class Table extends DS.Model with ModelName
+class Table extends DS.Model with ModelName,SetsPosition
 
 	## ATTRIBUTES
 
 	rowsCount: attr "number"
 	colsCount: attr "number"
+	blockPosition: attr "number"
 
 	## ASSOCIATIONS
 

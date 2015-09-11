@@ -24,10 +24,19 @@ class Block extends DS.Model with ModelName
 
 	user: belongsTo 'user', {async:false}
 	page: belongsTo 'page', {async:false}
-	image: belongsTo 'image', {async:false}
-	table: belongsTo 'table', {async:false}
+	images: hasMany 'image', {async:false}
+	tables: hasMany 'table', {async:false}
 
 	## COMPUTED
+
+	children: (->
+		childrenFlat = []
+		[@images,@tables].forEach (childArray) -> childrenFlat.pushObjects childArray.toArray()
+		childrenFlat.sortBy 'blockPosition'
+	).property 'images','tables'
+
+	image: Ember.computed.alias 'images.firstObject'
+	table: Ember.computed.alias 'tables.firstObject'
 
 	colWidth: ~> @width / 16
 	pageNumber: Ember.computed.alias 'page.number'

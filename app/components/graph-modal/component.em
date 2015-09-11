@@ -18,6 +18,7 @@ class GraphModalComponent extends Ember.Component with NewDimensions
 					cloudinaryId: result.public_id
 					width: newDimensions.width
 					height: newDimensions.height
+				image.setPosition()
 				@modeler.saveModel image
 
 		registerCalculator: (calculator) ->

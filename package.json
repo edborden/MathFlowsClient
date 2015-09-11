@@ -47,6 +47,7 @@
     "ember-cli-inline-content":"*",
     "ember-cli-moment-shim": "0.6.0",
     "ember-moment": "3.2.1",
-    "ember-shepherd": "1.0.0"
+    "ember-shepherd": "1.0.0",
+    "ember-radio-button":"*"
   }
 }

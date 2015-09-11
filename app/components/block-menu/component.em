@@ -26,6 +26,7 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 					cloudinaryId: result[0].public_id
 					width: newDimensions.width
 					height: newDimensions.height
+				image.setPosition()
 				@modeler.saveModel image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 		cutBlock: -> 
@@ -43,7 +44,11 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 		destroyModel: (model) ->
 			@modeler.destroyModel model
 		addTable: ->
-			table = @store.createRecord 'table',{ rowsCount:2,colsCount:2,block:@block }
+			table = @store.createRecord 'table',
+				rowsCount:2
+				colsCount:2
+				block:@block
+			table.setPosition()
 			@modeler.saveModel table
 			@block.table = table
 
