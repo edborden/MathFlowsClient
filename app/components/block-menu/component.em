@@ -43,14 +43,6 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 			@refreshQuestionNumbers()
 		destroyModel: (model) ->
 			@modeler.destroyModel model
-		addTable: ->
-			table = @store.createRecord 'table',
-				rowsCount:2
-				colsCount:2
-				block:@block
-			table.setPosition()
-			@modeler.saveModel table
-			@block.table = table
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?
 

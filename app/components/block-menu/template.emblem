@@ -12,10 +12,8 @@ unless static
 			i.fa-image	
 		button.btn.btn-default click="openGraphModal"
 			|Add Graph&nbsp;&nbsp;
-			i.fa-line-chart	
-		button.btn.btn-default click="addTable"
-			|Add Table&nbsp;&nbsp;
-			i.fa-table
+			i.fa-line-chart
+		table-adder block=block
 
 	each block.children as |child|
 		
