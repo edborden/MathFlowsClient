@@ -6,6 +6,8 @@ hasMany = DS.hasMany
 
 class Block extends DS.Model with ModelName
 
+	server: Ember.inject.service()
+
 	## ATTRIBUTES
 
 	copyFromId: attr "number"
@@ -18,6 +20,7 @@ class Block extends DS.Model with ModelName
 	x: attr "number"
 	y: attr "number" #not used
 	kind: attr()
+	contentInvalid: attr "boolean"
 
 	## ASSOCIATIONS
 
@@ -34,15 +37,11 @@ class Block extends DS.Model with ModelName
 		childrenFlat.sortBy 'blockPosition'
 	).property 'images','tables'
 
-	image: Ember.computed.alias 'images.firstObject'
-	table: Ember.computed.alias 'tables.firstObject'
-
 	colWidth: ~> @width / 16
 	pageNumber: Ember.computed.alias 'page.number'
 	test: Ember.computed.alias 'page.test'
 	question: Ember.computed.equal 'kind','question'
 	header: Ember.computed.equal 'kind','header'
-	hasChild: ~> @table or @image
 
 	removeFromPage: ->
 		@page.blocks.removeObject @
@@ -71,27 +70,29 @@ class Block extends DS.Model with ModelName
 
 	## INVALIDATIONS
 
-	invalidations: hasMany 'invalidation', {async:false}
-	invalid: ~> @invalidations.firstObject?
-
-	+computed invalid
-	invalidationMessage: ->
-		if @invalid
-			if @invalidations.firstObject.message is "content"
-				"Content doesn't fit in block."
-			else
-				"Block doesn't fit on the page."
+	invalid: (-> @contentInvalid or @positionInvalid).property "contentInvalid","positionInvalid"
+	positionInvalid: ( -> @row + @rowSpan > 27).property "row","rowSpan"
+	invalidationMessage: ( -> 
+		if @contentInvalid
+			"Content doesn't fit in block." 
+		else if @positionInvalid
+			"Block doesn't fit on page."
 		else
-			""
+			null
+	).property "invalid"
 
 	onInvalidationsChange: (->
 		if @isLoaded and @test
 			@test.notifyPropertyChange 'invalidBlocks'
 	).observes 'invalidations'
 
+	onSizeChange: ( -> @validate() ).observes 'rowSpan','colSpan'
+
+	validate: -> @server.post('blocks/' + @id + '/validate')
+
 	## LINES
 
 	lines: hasMany 'line', {async:false}
-	sortedLines: ~> @lines.sortBy 'position'	
+	sortedLines: ~> @lines.sortBy 'position'
 
 `export default Block`

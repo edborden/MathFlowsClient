@@ -102,7 +102,7 @@ class KeyboarderService extends Ember.Service
 		@line.content = @substringBeforeCursor()
 		@modeler.saveModel(@line).then =>
 			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
-			@modeler.saveModel(newLine)
+			@modeler.saveModel(newLine).then => @block.validate()
 			Ember.run.next @,=> 
 				@focuser.setFocusLine newLine,'start'
 
@@ -119,8 +119,7 @@ class KeyboarderService extends Ember.Service
 					lineBefore.content = newContent
 					Ember.run.next @,=> @focuser.setFocusLine lineBefore,'end'
 					@modeler.saveModel(lineBefore).then =>	
-
-						@block.reload() #reload block to get validations, in case deleting lines removed existing validations
+						@block.validate() if @block.contentInvalid
 
 	delete: ->
 		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
@@ -132,7 +131,7 @@ class KeyboarderService extends Ember.Service
 			@modeler.saveModel(@line).then =>
 				@focuser.setFocusLine @line,@cursorPosition+1
 				@modeler.destroyModel(@lineAfter).then =>
-					@block.reload()
+					@block.validate() if @block.contentInvalid
 
 	leftArrow: ->
 		if @cursorPosition is 0 and @lineBefore?

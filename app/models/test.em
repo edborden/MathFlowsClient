@@ -19,8 +19,8 @@ class Test extends DS.Model with ModelName
 
 	## COMPUTED
 
-	pdfLink: ~> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
-	multiplePages: ~> @pages.length > 1
+	pdfLink: (-> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token).property 'session.token'
+	multiplePages: (-> @pages.length > 1).property 'pages.length'
 	blocks: (->
 		allBlocksFlat = []
 		@pages.getEach('blocks').forEach (blockArray) ->

@@ -5,6 +5,7 @@ class CellMenuComponent extends Ember.Component
 	tether: null
 	cellElement: null
 	table: Ember.computed.alias 'cell.table'
+	block: Ember.computed.alias 'table.block'
 
 	modeler: Ember.inject.service()
 	store: Ember.inject.service()
@@ -27,13 +28,13 @@ class CellMenuComponent extends Ember.Component
 			projection = @store.createRecord 'projection', {axis:axis,position:newPosition,table:@table,size:15}
 			@table.projections.pushObject projection
 			@modeler.saveModel(projection).then =>
-				@table.block.reload()
+				@block.validate()
 
 		removeProjection: (axis) ->
 			projection = @cell.get(axis)
 			@table.projections.removeObject projection
 			@modeler.destroyModel(projection).then =>
-				@table.block.reload() if @table.block.invalid
+				@block.validate() if @block.contentInvalid
 
 	mouseDown: -> false
 

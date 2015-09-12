@@ -1,4 +1,4 @@
-if invalid
+if block.invalid
 	invalidation-popover block=block
 
 .grid-stack-item-content

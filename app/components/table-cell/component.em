@@ -12,8 +12,9 @@ class TableCellComponent extends Ember.Component with HandlesEquations,IsResizab
 	col: null
 	preview: null
 	menuOpen: false
+	block: Ember.computed.alias 'cell.table.block'
 
-	cell: ~> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
+	cell: Ember.computed -> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
 
 	createCell: (row,col) ->
 		cell = @store.createRecord 'cell', {row:@row,col:@col,table:@row.table,content:""}
@@ -25,17 +26,20 @@ class TableCellComponent extends Ember.Component with HandlesEquations,IsResizab
 
 	# RESIZE OPTIONS
 
-	alsoResizeId: ~> @col.renderer
-	containmentId: (-> 
-		el = Ember.$(@element).parents(".grid-stack-item").attr 'id'
-		"#" + el 
-	).property()
+	alsoResizeId: Ember.computed.alias 'col.renderer'
+	containmentId: Ember.computed -> "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id' 
 	resizeHandles: 'e'
 
 	onResize: (event,ui) ->
+		oldWidth = @col.size
+		newWidth = ui.size.width
+		gotBigger = oldWidth < newWidth
+		gotSmaller = not gotBigger
+
 		@col.size = ui.size.width
-		@modeler.saveModel @col
 		Ember.$(@element).css 'width', ''
+		@modeler.saveModel(@col).then => 
+			@block.validate() if (@block.contentInvalid and gotSmaller) or (gotBigger and not @block.contentInvalid)		
 
 	##
 

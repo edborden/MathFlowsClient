@@ -24,8 +24,8 @@ class BlockRendererComponent extends Ember.Component
 
 	classNames: ["grid-stack-item"]
 	classNameBindings: ["active","invalid","borders","preview:preview:editor"]
+	invalid: Ember.computed.alias 'block.invalid'
 	active: ~> @activeBlock is @block
-	invalid: ~> @block.invalid
 	borders: ~> @session.me.preference.borders and @block.question
 
 	## EVENTS

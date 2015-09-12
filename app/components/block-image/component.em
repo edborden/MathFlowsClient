@@ -18,21 +18,18 @@ class BlockImageComponent extends Ember.Component with IsResizable
 	onResize: (e,ui) ->
 		@image.width = ui.size.width
 		@image.height = ui.size.height
-		@modeler.saveModel(@image).then =>
-			@image.block.reload() if @image.block.invalid
+		@modeler.saveModel(@image).then => 
+			@block.validate() if @block.contentInvalid # image is constrained, cannot be resized bigger than containment el
 
 	resizeAspectRatio: true
 	
-	containmentId: (-> 
-		el = Ember.$(@element).parents(".grid-stack-item").attr 'id'
-		"#" + el 
-	).property()
+	containmentId: Ember.computed -> "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id'
 
 	onBlockInvalidation: (->
-		if @block.invalid
+		if @block.contentInvalid
 			Ember.$(@element).resizable {containment:false}
 		else
 			Ember.$(@element).resizable {containment:@containmentId}
-	).observes 'block.invalid'
+	).observes 'block.contentInvalid'
 
 `export default BlockImageComponent`
