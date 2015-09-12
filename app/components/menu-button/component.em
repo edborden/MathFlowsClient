@@ -11,7 +11,7 @@ class MenuButtonComponent extends Ember.Component
 		@sendAction 'action',@content
 		false
 
-	buttonStyle: ~> "width:40px;height:40px".htmlSafe()
+	buttonStyle: ~> "width:40px;height:40px;font-size:12px".htmlSafe()
 
 	mouseDown: -> false #keep from grabbing focus and closing menu
 

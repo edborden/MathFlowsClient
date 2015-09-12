@@ -79,4 +79,8 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 			else
 				@insideEquation = false
 
+	actions:
+		insertLatex: (latex) ->
+			@mathquill.mathquill 'cmd',latex
+
 `export default EquationRendererComponent`
