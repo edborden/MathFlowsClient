@@ -1,45 +1,45 @@
-equation-button latex='\frac' button="\frac{a}{b}" top=true
-	equation-button latex='\sqrt' button="\sqrt{x}"
-	equation-button latex='\nthroot' button="\sqrt[x]{y}"
-	equation-button latex='\subscript' button="x_{2}"
-	equation-button latex='\superscript' button="x^2"
-	equation-button latex='\pm'
-	equation-button latex='\neq'
-	equation-button latex='\approx'
-	equation-button latex='\sim'
-	equation-button latex='\prop'
-	equation-button latex='\overline' button="\overline{ab}"
-	equation-button latex='\vec' button="\vec{F}"
-	equation-button latex='\le'
-	equation-button latex='\ge'
-	equation-button latex='\sub'
-	equation-button latex='\sup'
-	equation-button latex='\sube'
-	equation-button latex='\supe'
-	equation-button latex='\nsube'
-	equation-button latex='\nsupe'
-	equation-button latex='\degree'
-	equation-button latex='\angle'
-	equation-button latex='\perp'
+latex-button content='\frac' label="\frac{a}{b}" top=true
+	latex-button content='\sqrt' label="\sqrt{x}"
+	latex-button content='\nthroot' label="\sqrt[x]{y}"
+	latex-button content='\subscript' label="x_{2}"
+	latex-button content='\superscript' label="x^2"
+	latex-button content='\pm'
+	latex-button content='\neq'
+	latex-button content='\approx'
+	latex-button content='\sim'
+	latex-button content='\prop'
+	latex-button content='\overline' label="\overline{ab}"
+	latex-button content='\vec' label="\vec{F}"
+	latex-button content='\le'
+	latex-button content='\ge'
+	latex-button content='\sub'
+	latex-button content='\sup'
+	latex-button content='\sube'
+	latex-button content='\supe'
+	latex-button content='\nsube'
+	latex-button content='\nsupe'
+	latex-button content='\degree'
+	latex-button content='\angle'
+	latex-button content='\perp'
 
-equation-button latex='\sum' top=true
-	equation-button latex='\int'
-	equation-button latex='\oint'
-	equation-button latex='\product'
-	equation-button latex='\coproduct'
-	equation-button latex='\bigcap'
-	equation-button latex='\bigcup'
+latex-button content='\sum' top=true
+	latex-button content='\int'
+	latex-button content='\oint'
+	latex-button content='\product'
+	latex-button content='\coproduct'
+	latex-button content='\bigcap'
+	latex-button content='\bigcup'
 
-equation-button latex='\infty' top=true
-	equation-button latex='\pi'
-	equation-button latex='\lambda'
-	equation-button latex='\alpha'
-	equation-button latex='\beta'
-	equation-button latex='\delta'
-	equation-button latex='\zeta'
-	equation-button latex='\eta'
-	equation-button latex='\theta'
-	equation-button latex='\mu'
-	equation-button latex='\rho'
-	equation-button latex='\sigma'
-	equation-button latex='\Delta'
+latex-button content='\infty' top=true
+	latex-button content='\pi'
+	latex-button content='\lambda'
+	latex-button content='\alpha'
+	latex-button content='\beta'
+	latex-button content='\delta'
+	latex-button content='\zeta'
+	latex-button content='\eta'
+	latex-button content='\theta'
+	latex-button content='\mu'
+	latex-button content='\rho'
+	latex-button content='\sigma'
+	latex-button content='\Delta'

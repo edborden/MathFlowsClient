@@ -9,4 +9,5 @@ if block.invalid
 				|)
 		each block.sortedLines as |line| 
 			equation-renderer line=line preview=preview
-		block-children block=block preview=preview
+		if block.children
+			block-children block=block preview=preview

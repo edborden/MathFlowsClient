@@ -1,3 +1,0 @@
-button = button
-if mouseIsOver
-	.child-menu = yield
