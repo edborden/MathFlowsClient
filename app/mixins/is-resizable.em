@@ -7,7 +7,7 @@ IsResizable = Ember.Mixin.create
 		@resizeDestroy() unless @preview
 
 	resizeDestroy: ->
-		Ember.$(@element).resizable "destroy"
+		Ember.$(@element).resizable "destroy" if Ember.$(@element).resizable "instance"
 
 	resizeInit: ->
 		onResize = Ember.run.bind @, @onResize
