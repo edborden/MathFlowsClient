@@ -15,5 +15,6 @@ class Cell extends DS.Model with ModelName
 	table: belongsTo 'table', {async:false}
 	row: belongsTo 'projection', {async:false}
 	col: belongsTo 'projection', {async:false}
+	lines: hasMany 'line', {async:false}
 
 `export default Cell`

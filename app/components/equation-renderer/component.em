@@ -10,6 +10,7 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 	keyboarder: Ember.inject.service()
 	modeler:Ember.inject.service()
 
+	active:false
 	line:null
 	preview:null
 	insideEquation: null
@@ -37,13 +38,20 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	focusOut: -> 
 		unless @preview
+			@active = false
 			@insideEquation = false
 			@cleaner.clean @line,@mathquill
-			@modeler.saveModel @line
+			cell = @line.cell
+			if cell? and cell.isNew
+				@modeler.saveModel(cell).then => @modeler.saveModel @line
+			else
+				@modeler.saveModel @line
 			#@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
 
 	click: -> 
-		@checkIfInsideEquation() unless @preview
+		unless @preview
+			@active = true
+			@checkIfInsideEquation()
 		@send 'contentsClicked'
 		false
 
@@ -82,5 +90,12 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 	actions:
 		insertLatex: (latex) ->
 			@mathquill.mathquill 'cmd',latex
+		menuButtonPressed: (style) ->
+			if @line.get style
+				@modeler.destroyModel @line.styles.filterBy("effect",style).firstObject
+			else
+				style = @store.createRecord 'style',{effect:style,line:@line}
+				@line.styles.pushObject style
+				@modeler.saveModel style
 
 `export default EquationRendererComponent`

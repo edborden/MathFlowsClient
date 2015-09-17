@@ -17,7 +17,10 @@ class TableCellComponent extends Ember.Component with HandlesEquations,IsResizab
 	cell: Ember.computed -> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
 
 	createCell: (row,col) ->
-		cell = @store.createRecord 'cell', {row:@row,col:@col,table:@row.table,content:""}
+		cell = @store.createRecord 'cell', {row:@row,col:@col,table:@row.table}
+		line = @store.createRecord 'line', {cell:cell,position:0}
+		cell.lines.addObject line
+		line.cell = cell
 		@row.cells.pushObject cell
 		@col.cells.pushObject cell
 		cell.row = @row
