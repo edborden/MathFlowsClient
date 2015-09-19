@@ -1,21 +1,26 @@
+run = Ember.run
+scheduleOnce = run.scheduleOnce
+bind = run.bind
+
 IsResizable = Ember.Mixin.create
 
 	didInsertElement: ->
-		@resizeInit() unless @preview
+		scheduleOnce 'afterRender', @, 'resizeInit'
 
 	willDestroyElement: ->
-		@resizeDestroy() unless @preview
+		@resizeDestroy()
 
 	resizeDestroy: ->
-		Ember.$(@element).resizable "destroy" if Ember.$(@element).resizable "instance"
+		Ember.$(@element).resizable "destroy" if Ember.$(@element).resizable "instance" and not @preview
 
 	resizeInit: ->
-		onResize = Ember.run.bind @, @onResize
-		Ember.$(@element).resizable
-			handles: @resizeHandles
-			stop: onResize
-			containment: @containmentId
-			alsoResize: @alsoResizeId
-			aspectRatio: @resizeAspectRatio
+		unless @preview
+			onResize = bind @, @onResize
+			Ember.$(@element).resizable
+				handles: @resizeHandles
+				stop: onResize
+				containment: @containmentId
+				alsoResize: @alsoResizeId
+				aspectRatio: @resizeAspectRatio
 
 `export default IsResizable`

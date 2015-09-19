@@ -1,35 +1,55 @@
+computed = Ember.computed
+alias = computed.alias
+service = Ember.inject.service
+scheduleOnce = Ember.run.scheduleOnce
+observer = Ember.observer
+
 class PageEditorComponent extends Ember.Component
 
-	eventer: Ember.inject.service()
+	# ATTRIBUTES
 
 	page: null
-	pageHolder: null
 	activeBlock:null
 	preview:false
 	headers:false
-
 	classNameBindings: ['preview']
+	gridstack: null
+	
+	# SERVICES
 
-	didInsertElement: ->
+	eventer: service()
 
-		options =
-			auto:false
-			cell_height:18
-			always_show_resize_handle:true
-			width:4
-			float:true
-			vertical_margin:9
+	# COMPUTED
 
-		if @preview
-			options.static_grid = true
-			options.always_show_resize_handle = false
+	staticGrid: alias 'preview'
+	alwaysShowResizeHandle: computed.not 'preview'
+	gridstackOptions: computed -> 
+		auto:false
+		cell_height:18
+		width:4
+		float:true
+		vertical_margin:9
+		static_grid: @staticGrid
+		always_show_resize_handle: @alwaysShowResizeHandle
+	pageHolder: computed 'page', 'gridstack', ->
+		if @gridstack? then @page else null
 
-		@gridstack = Ember.$(@element).children('.grid-stack').gridstack(options).data 'gridstack'
+	# SETUP
 
-		@pageHolder = @page #after gridstack initializes CSS, set page to intialize the blocks
+	didInsertElement: -> scheduleOnce 'afterRender', @, 'setupGridstack'
 
+	setupGridstack: ->
+		@gridstack = Ember.$(@element).children('.grid-stack').gridstack(@gridstackOptions).data 'gridstack'
 		Ember.$(@element).on 'change', => 
 			@eventer.triggerSyncBlocks()
+
+	# BREAKDOWN
+
+	willDestroyElement: ->
+		@gridstack.destroy()
+		Ember.$(@element).off 'change','**'
+
+	# ACTIONS
 
 	setActiveBlock: 'setActiveBlock'
 	setInactiveBlock: 'setInactiveBlock'
@@ -40,9 +60,7 @@ class PageEditorComponent extends Ember.Component
 		setInactiveBlock: (block) ->
 			@sendAction 'setInactiveBlock',block
 
-	onPageChange: (->
-		@pageHolder = @page
+	onPageChange: observer 'page', ->
 		@sendAction 'setInactiveBlock', @activeBlock
-	).observes 'page'
 
 `export default PageEditorComponent`

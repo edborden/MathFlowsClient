@@ -1,36 +1,46 @@
+service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
+scheduleOnce = Ember.run.scheduleOnce
+observer = Ember.observer
+
 class BlockRendererComponent extends Ember.Component
 
-	## SETUP
+	# ATTRIBUTES
 
-	store: Ember.inject.service()
-	modaler:Ember.inject.service()
-	modeler:Ember.inject.service()
-	eventer:Ember.inject.service()
-	session:Ember.inject.service()
-
+	classNames: ["grid-stack-item"]
+	classNameBindings: ["active","invalid","borders","preview:preview:editor"]
+	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
+	"data-gs-no-resize":true
+	"data-gs-no-move":true
+	tabindex:0
 	gridstack:null
 	block:null
 	activeBlock:null
 	preview:null
 
-	## ATTRIBUTE BINDINGS
+	# SERVICES
 
-	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
-	"data-gs-no-resize":true
-	"data-gs-no-move":true
-	tabindex:0
+	store: service()
+	modaler: service()
+	modeler: service()
+	eventer: service()
+	session: service()
 
-	## CLASSNAMES
+	# COMPUTED
 
-	classNames: ["grid-stack-item"]
-	classNameBindings: ["active","invalid","borders","preview:preview:editor"]
-	invalid: Ember.computed.alias 'block.invalid'
-	active: ~> @activeBlock is @block
-	borders: ~> @session.me.preference.borders and @block.question
+	invalid: alias 'block.invalid'
+	active: computed "activeBlock", -> @activeBlock is @block
+	bordersPreference: alias 'session.me.preference.borders'
+	question: alias 'block.question'
+	borders: computed "bordersPreference","question", -> 
+		@bordersPreference and @question
 
-	## EVENTS
+	# SETUP
 
-	didInsertElement: ->
+	didInsertElement: -> scheduleOnce 'afterRender', @, 'setup'
+
+	setup: ->
 		@eventer.on 'syncBlocks', @, @syncAttrsToEl
 		@active #initialize observer
 		@initializeRenderer()
@@ -41,12 +51,15 @@ class BlockRendererComponent extends Ember.Component
 		@syncAttrsToEl().then =>
 			Ember.run.next @,=>
 				Ember.$(@element).find(".content").mousedown().mouseup() if isNew
+	
+	# BREAKDOWN
 
-	onActiveChange: (->
+	## EVENTS
+
+	onActiveChange: Ember.observer 'active', ->
 		unless @preview
 			@gridstack.movable @element,@active
 			@gridstack.resizable @element,@active
-	).observes 'active'
 
 	willDestroyElement: -> 
 		@removeFromGrid()

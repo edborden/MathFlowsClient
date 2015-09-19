@@ -5,5 +5,5 @@ ModelName = Ember.Mixin.create
 		name = "is#{@modelName}"
 		@set name,true
 
-	modelName: ~> @toString().split(":")[1].capitalize()
+	modelName: Ember.computed -> @toString().split(":")[1].capitalize()
 `export default ModelName`

@@ -4,9 +4,15 @@ attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
+computed = Ember.computed
+alias = computed.alias
+equal = computed.equal
+service = Ember.inject.service
+observer = Ember.observer
+
 class Block extends DS.Model with ModelName
 
-	server: Ember.inject.service()
+	server: service()
 
 	## ATTRIBUTES
 
@@ -19,7 +25,7 @@ class Block extends DS.Model with ModelName
 	height: attr "number"
 	x: attr "number"
 	y: attr "number" #not used
-	kind: attr()
+	kind: attr "string"
 	contentInvalid: attr "boolean"
 
 	## ASSOCIATIONS
@@ -31,17 +37,15 @@ class Block extends DS.Model with ModelName
 
 	## COMPUTED
 
-	children: (->
+	children: computed 'images','tables', ->
 		childrenFlat = []
 		[@images,@tables].forEach (childArray) -> childrenFlat.pushObjects childArray.toArray()
 		childrenFlat.sortBy 'blockPosition'
-	).property 'images','tables'
-
-	colWidth: ~> @width / 16
-	pageNumber: Ember.computed.alias 'page.number'
-	test: Ember.computed.alias 'page.test'
-	question: Ember.computed.equal 'kind','question'
-	header: Ember.computed.equal 'kind','header'
+	pageNumber: alias 'page.number'
+	test: alias 'page.test'
+	question: equal 'kind','question'
+	header: equal 'kind','header'
+	questionBlocksSorted: alias 'test.questionBlocksSorted'
 
 	removeFromPage: ->
 		@page.blocks.removeObject @
@@ -51,12 +55,10 @@ class Block extends DS.Model with ModelName
 
 	## QUESTION NUMBER
 
-	+computed test.questionBlocksSorted
-	questionNumber: -> 
-		@test.questionBlocksSorted.indexOf(@) + 1
+	questionNumber: computed 'questionBlocksSorted', -> 
+		@questionBlocksSorted.indexOf(@) + 1 if @page and @question
 
-	+computed question,questionNumber
-	questionNumberWidth: ->
+	questionNumberWidth: computed 'question','questionNumberWidth', ->
 		questionNumberWidth = if @question
 			if @questionNumber < 10
 				14
@@ -70,29 +72,28 @@ class Block extends DS.Model with ModelName
 
 	## INVALIDATIONS
 
-	invalid: (-> @contentInvalid or @positionInvalid).property "contentInvalid","positionInvalid"
-	positionInvalid: ( -> @row + @rowSpan > 27).property "row","rowSpan"
-	invalidationMessage: ( -> 
+	invalid: computed "contentInvalid","positionInvalid", -> 
+		@contentInvalid or @positionInvalid
+	positionInvalid: computed  "row","rowSpan", -> @row + @rowSpan > 27
+	invalidationMessage: computed 'invalid', -> 
 		if @contentInvalid
 			"Content doesn't fit in block." 
 		else if @positionInvalid
 			"Block doesn't fit on page."
 		else
 			null
-	).property "invalid"
 
-	onInvalidationsChange: (->
+	onInvalidationsChange: observer "invalidations", ->
 		if @isLoaded and @test
 			@test.notifyPropertyChange 'invalidBlocks'
-	).observes 'invalidations'
 
-	onSizeChange: ( -> @validate() ).observes 'rowSpan','colSpan'
+	onSizeChange: observer 'rowSpan','colSpan', -> @validate()
 
-	validate: -> @server.post('blocks/' + @id + '/validate')
+	validate: -> @server.post('blocks/' + @id + '/validate') if @id and @row and @col
 
 	## LINES
 
 	lines: hasMany 'line', {async:false}
-	sortedLines: ~> @lines.sortBy 'position'
+	sortedLines: computed 'position', -> @lines.sortBy 'position'
 
 `export default Block`

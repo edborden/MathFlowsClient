@@ -1,34 +1,52 @@
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 
+service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
+observer = Ember.observer
+scheduleOnce = Ember.run.scheduleOnce
+
 class EquationRendererComponent extends Ember.Component with HandlesEquations
 
-	##SETUP
-
-	cleaner: Ember.inject.service()
-	store:Ember.inject.service()
-	focuser:Ember.inject.service()
-	keyboarder: Ember.inject.service()
-	modeler:Ember.inject.service()
+	# ATTRIBUTES
 
 	active:false
 	line:null
 	preview:null
 	insideEquation: null
-	questionNumberWidth: Ember.computed.alias 'line.block.questionNumberWidth'
-
 	attributeBindings: ['style']
-	style: ~> "padding-left:#{@questionNumberWidth}px".htmlSafe()
 
-	##EVENTS
+	# SERVICES
+
+	cleaner: service()
+	store: service()
+	focuser: service()
+	keyboarder: service()
+	modeler: service()
+
+	# COMPUTED
+
+	questionNumberWidth: alias 'line.block.questionNumberWidth'
+	style: Ember.computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
+
+	# SETUP
 
 	didInitAttrs: ->
 		@line.renderer = @ if @line.isLine
-	
-	didInsertElement: ->
+
+	didInsertElement: -> scheduleOnce 'afterRender', @, 'setupMathquill'
+
+	setupMathquill: ->
 		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
 		@setMathQuillContent()
 		@setKeyDownHandler()
-		Ember.$(@element).find('.cursor').remove()
+		Ember.$(@element).find('.cursor').remove()	
+
+	# BREAKDOWN
+
+	willDestroyElement: -> @removeKeyDownHandler()
+
+	##EVENTS
 
 	onKeyDown: (ev) ->
 		unless @preview
@@ -55,12 +73,9 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 		@send 'contentsClicked'
 		false
 
-	contentChanged: (-> 
+	contentChanged: observer 'line.content', -> 
 		@setMathQuillContent()
 		Ember.$(@element).find('.cursor').remove()
-	).observes 'line.content'
-
-	willDestroyElement: -> @removeKeyDownHandler()
 
 	##HELPERS
 
@@ -77,7 +92,7 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 		handlers.splice(0, 0, handler)
 
 	removeKeyDownHandler: ->
-		@mathquill.off 'keydown',@onKeyDown
+		@mathquill.off 'keydown', '**'
 
 	checkIfInsideEquation: ->
 		unless @isDestroyed

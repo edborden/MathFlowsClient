@@ -5,6 +5,7 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 	modeler: Ember.inject.service()
 	store: Ember.inject.service()
 	modaler: Ember.inject.service()
+	session:Ember.inject.service()
 	static:null
 	block:null
 
@@ -29,9 +30,9 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 				image.setPosition()
 				@modeler.saveModel image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
-		cutBlock: -> 
+		cutBlock: ->
 			@block.removeFromPage()
-			@block.test.notifyPropertyChange 'clipboard'
+			@session.me.notifyPropertyChange 'clipboard'
 			@modeler.saveModel @block
 			@sendAction 'setInactiveBlock',@block
 		copyBlock: ->
