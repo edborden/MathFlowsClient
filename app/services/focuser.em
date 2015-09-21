@@ -1,9 +1,12 @@
-class FocuserService extends Ember.Service
+computed = Ember.computed
+alias = computed.alias
+
+FocuserService = Ember.Service.extend
 
 	focusedLine: null
 	cursorPosition:null
-	renderer: Ember.computed.alias 'focusedLine.renderer'
-	rendererLength: ~> Ember.$(@renderer.element).children(".content").children().length if @focusedLine
+	renderer: alias 'focusedLine.renderer'
+	rendererLength: -> computed 'focusedLine', -> $(@renderer.element).children(".content").children().length
 
 	setFocusLine: (line,cursorPosition) ->
 		@focusedLine = line
@@ -16,7 +19,7 @@ class FocuserService extends Ember.Service
 		@focusLine()
 
 	focusLine: ->
-		renderer = Ember.$(@renderer.element)
+		renderer = $(@get('renderer').get 'element')
 		content = renderer.children(".content")
 
 		if @focusedLine.content.length is 0

@@ -94,6 +94,6 @@ class Block extends DS.Model with ModelName
 	## LINES
 
 	lines: hasMany 'line', {async:false}
-	sortedLines: computed 'position', -> @lines.sortBy 'position'
+	sortedLines: computed 'lines', -> @lines.sortBy 'position'
 
 `export default Block`

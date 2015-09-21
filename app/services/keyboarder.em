@@ -1,26 +1,31 @@
+computed = Ember.computed
+alias = computed.alias
+service = Ember.inject.service
+
 class KeyboarderService extends Ember.Service
 
 	##SETUP
 
-	modeler:Ember.inject.service()
-	store:Ember.inject.service()
-	focuser:Ember.inject.service()
-	cleaner:Ember.inject.service()
+	modeler: service()
+	store: service()
+	focuser: service()
+	cleaner: service()
 
 	codesToHandle: Ember.A [13,8,37,38,39,40,46]
 	line:null
-	block: ~> @line.block if @line
-	position: ~> @line.position if @line
+	block: alias 'line.block'
+	position: alias 'line.position'
+	allLines: alias 'block.lines'
 	element:null
 	mathquill: null
 	cursorPosition:null
 	equations:null
 	stringPosition:null
 
-	lineIndex: ~> @block.sortedLines.indexOf @line
-	lineAfter: ~> @block.lines.objectAt @lineIndex+1
-	lineBefore: ~> @block.lines.objectAt @lineIndex-1
-	nextPosition: ~> if @lineAfter? then @lineAfter.position else @position + 1
+	lineIndex: computed 'block.sortedLines', -> @block.sortedLines.indexOf @line
+	lineAfter: computed 'allLines', -> @allLines.objectAt @lineIndex+1
+	lineBefore: computed 'allLines', -> @allLines.objectAt @lineIndex-1
+	nextPosition: computed 'lineAfter', -> if @lineAfter? then @lineAfter.position else @position + 1
 
 	cursorInsideEquation: false
 
@@ -102,8 +107,10 @@ class KeyboarderService extends Ember.Service
 		@line.content = @substringBeforeCursor()
 		@modeler.saveModel(@line).then =>
 			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
+			@block.lines.pushObject newLine
 			@modeler.saveModel(newLine).then => @block.validate()
 			Ember.run.next @,=> 
+				console.log newLine
 				@focuser.setFocusLine newLine,'start'
 
 	backspace: ->
