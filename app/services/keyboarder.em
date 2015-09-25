@@ -110,7 +110,6 @@ class KeyboarderService extends Ember.Service
 			@block.lines.pushObject newLine
 			@modeler.saveModel(newLine).then => @block.validate()
 			Ember.run.next @,=> 
-				console.log newLine
 				@focuser.setFocusLine newLine,'start'
 
 	backspace: ->
