@@ -151,6 +151,7 @@ class KeyboarderService extends Ember.Service
 			@focuser.setFocusLine @lineBefore,@cursorPosition
 
 	rightArrow: ->
+		console.log Ember.$(".cursor")
 		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
 			console.log 'right arrow, with valid line after'
 			@focuser.setFocusLine @lineAfter,'start'

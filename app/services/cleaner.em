@@ -29,15 +29,6 @@ class CleanerService extends Ember.Service
 
 		latex = @replaceLeadingSlash latex
 
-
-		#ar = latex.split " "
-		#for string,index in ar
-		#	unless string.charAt(0) is "$" and string.charAt(string.length - 1) is "$"
-		#		string = string.replace "$", "\\$"
-		#		string = string.replace "\\\\$","\\$"
-		#		ar.splice index,1,string
-		#latex = ar.join " "
-
 		console.log latex
 
 		return latex
@@ -75,16 +66,24 @@ class CleanerService extends Ember.Service
 		return indexes
 
 	findDollarIndexesInsideLatex: (string) ->
-		regex = /(^|\s)\$.*\$($|\s)/g
 		indexes = []
+		startFrom = 0
 
-		while match = regex.exec(string)
-			console.log match
-			indexes.push
-				start: match.index
-				end: match.index+match[0].length-2
+		while match = @latexRegex string
+			matchObject = 
+				start: match.index+startFrom
+				end: match.index+match[0].length-1+startFrom
+			console.log matchObject
+			indexes.push matchObject
+
+			startFrom = matchObject.end-1
+			string = string.slice startFrom
 
 		return indexes
+
+	latexRegex: (string) ->
+		regex = /(^|\s)\$(.*?)\$($|\s)/g
+		regex.exec string
 
 
 `export default CleanerService`
