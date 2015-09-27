@@ -1,8 +1,7 @@
+`import growl from 'math-flows-client/utils/growl'`
 `import EmberValidations from 'ember-validations'`
 
 class InviteBoxComponent extends Ember.Component with EmberValidations
-
-	growler:Ember.inject.service()
 
 	validations:
 		email:
@@ -19,6 +18,6 @@ class InviteBoxComponent extends Ember.Component with EmberValidations
 				@sendAction 'invite',@email
 				@email = null
 			else
-				@growler.growl @errors.email.firstObject
+				growl @errors.email.firstObject
 		
 `export default InviteBoxComponent`

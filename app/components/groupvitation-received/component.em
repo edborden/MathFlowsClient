@@ -1,7 +1,8 @@
+`import growl from 'math-flows-client/utils/growl'`
+
 class GroupvitationReceivedComponent extends Ember.Component
 
 	groupvitation: null
-	growler: Ember.inject.service()
 	server:Ember.inject.service()
 	store:Ember.inject.service()
 	session:Ember.inject.service()
@@ -15,11 +16,11 @@ class GroupvitationReceivedComponent extends Ember.Component
 					group = @store.peekRecord 'group',response.group.id
 					@me.group = group
 					@router.transitionTo('group').then =>
-						@growler.growl "Invitation accepted!"
+						growl "Invitation accepted!"
 
 		decline: ->
 			@server.post('groupvitations/' + @groupvitation.id + '/decline')
 			@me.groupvitations.removeObject @groupvitation
-			@growler.growl "Invitation declined."
+			growl "Invitation declined."
 
 `export default GroupvitationReceivedComponent`

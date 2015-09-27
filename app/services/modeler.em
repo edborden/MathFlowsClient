@@ -1,13 +1,13 @@
-class ModelerService extends Ember.Service
+`import growl from 'math-flows-client/utils/growl'`
 
-	growler:Ember.inject.service()
+class ModelerService extends Ember.Service
 
 	saveModel: (model) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
 			if model.hasDirtyAttributes
 				model.save().then(
 					(success) => 
-						@growler.muted model.modelName + " saved.",model
+						growl model.modelName + " saved.", "muted"
 						resolve(success)
 					(errors) => 
 						console.log errors
@@ -21,7 +21,7 @@ class ModelerService extends Ember.Service
 		return new Ember.RSVP.Promise (resolve,reject) =>
 			model.destroyRecord().then(
 				(success) => 
-					@growler.muted model.modelName + " destroyed."
+					growl model.modelName + " destroyed.", "muted"
 					resolve(success)
 				(errors) =>
 					@errors errors.errors
@@ -29,6 +29,6 @@ class ModelerService extends Ember.Service
 			)
 
 	errors: (errors) -> 
-		@growler.growl "Failed because #{error.detail}" for error in errors
+		growl "Failed because #{error.detail}" for error in errors
 
 `export default ModelerService`

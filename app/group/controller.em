@@ -1,3 +1,5 @@
+`import growl from 'math-flows-client/utils/growl'`
+
 class GroupController extends Ember.Controller
 
 	group: Ember.computed.alias 'session.me.group'
@@ -27,7 +29,7 @@ class GroupController extends Ember.Controller
 		invite: (email) -> 
 			groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email}
 			@modeler.saveModel(groupvitation).then => 
-				@growler.growl "Invitation sent!"
+				growl "Invitation sent!"
 				@session.me.groupvitationsSent.pushObject groupvitation
 
 		remove: (groupvitation) ->

@@ -1,7 +1,6 @@
 class SessionService extends Ember.Service
 
 	store: Ember.inject.service()
-	growler:Ember.inject.service()
 	modeler:Ember.inject.service()
 
 	loggedIn: ~> @model?
