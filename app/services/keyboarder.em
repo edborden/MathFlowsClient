@@ -1,3 +1,5 @@
+`import clean from 'math-flows-client/utils/cleaner'`
+
 computed = Ember.computed
 alias = computed.alias
 service = Ember.inject.service
@@ -9,7 +11,6 @@ class KeyboarderService extends Ember.Service
 	modeler: service()
 	store: service()
 	focuser: service()
-	cleaner: service()
 
 	codesToHandle: Ember.A [13,8,37,38,39,40,46]
 	line:null
@@ -101,7 +102,7 @@ class KeyboarderService extends Ember.Service
 	enter: ->
 		console.log 'enter'
 
-		@cleaner.clean @line,@mathquill
+		clean @line,@mathquill
 		newPosition = (@position+@nextPosition)/2
 		newContent = @substringAfterCursor()
 		@line.content = @substringBeforeCursor()
@@ -116,7 +117,7 @@ class KeyboarderService extends Ember.Service
 		if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
 			console.log 'backspace, beginning of valid line'
 
-			@cleaner.clean @line,@mathquill
+			clean @line,@mathquill
 			@setMetaData()
 			newContent = @lineBefore.content + @line.content
 			lineBefore = @lineBefore
@@ -132,7 +133,7 @@ class KeyboarderService extends Ember.Service
 			console.log 'delete, end of valid line'
 
 			@setMetaData()
-			@cleaner.clean @line,@mathquill
+			clean @line,@mathquill
 			@line.content = @line.content + @lineAfter.content
 			@modeler.saveModel(@line).then =>
 				@focuser.setFocusLine @line,@cursorPosition+1

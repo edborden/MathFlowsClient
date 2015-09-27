@@ -1,4 +1,5 @@
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
+`import clean from 'math-flows-client/utils/cleaner'`
 
 service = Ember.inject.service
 computed = Ember.computed
@@ -18,7 +19,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	# SERVICES
 
-	cleaner: service()
 	store: service()
 	focuser: service()
 	keyboarder: service()
@@ -58,7 +58,7 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 		unless @preview
 			@active = false
 			@insideEquation = false
-			@cleaner.clean @line,@mathquill
+			clean @line,@mathquill
 			cell = @line.cell
 			if cell? and cell.isNew
 				@modeler.saveModel(cell).then => @modeler.saveModel @line
