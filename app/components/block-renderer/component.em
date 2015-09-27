@@ -1,3 +1,6 @@
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+
 service = Ember.inject.service
 computed = Ember.computed
 alias = computed.alias
@@ -23,7 +26,6 @@ class BlockRendererComponent extends Ember.Component
 
 	store: service()
 	modaler: service()
-	modeler: service()
 	eventer: service()
 	session: service()
 
@@ -87,7 +89,7 @@ class BlockRendererComponent extends Ember.Component
 			@block.row = coords.y
 			@block.col = coords.x
 			@block.test.refreshQuestionNumbers() if @block.test?
-			@modeler.saveModel(@block).then -> resolve()
+			saveModel(@block).then -> resolve()
 
 	addToGrid: -> 
 		assignPosition = not @block.col? or not @block.row?

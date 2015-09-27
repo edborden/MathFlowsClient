@@ -1,3 +1,7 @@
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+destroyModel = modeler.destroyModel
+
 class CellMenuComponent extends Ember.Component
 
 	classNames: ['btn-group-vertical']
@@ -7,7 +11,6 @@ class CellMenuComponent extends Ember.Component
 	table: Ember.computed.alias 'cell.table'
 	block: Ember.computed.alias 'table.block'
 
-	modeler: Ember.inject.service()
 	store: Ember.inject.service()
 
 	didInsertElement: ->
@@ -27,13 +30,13 @@ class CellMenuComponent extends Ember.Component
 			newPosition = if position is 'before' then currentProjection.newPreceedingPosition() else currentProjection.newFollowingPosition()
 			projection = @store.createRecord 'projection', {axis:axis,position:newPosition,table:@table,size:15}
 			@table.projections.pushObject projection
-			@modeler.saveModel(projection).then =>
+			saveModel(projection).then =>
 				@block.validate()
 
 		removeProjection: (axis) ->
 			projection = @cell.get(axis)
 			@table.projections.removeObject projection
-			@modeler.destroyModel(projection).then =>
+			destroyModel(projection).then =>
 				@block.validate() if @block.contentInvalid
 
 	mouseDown: -> false

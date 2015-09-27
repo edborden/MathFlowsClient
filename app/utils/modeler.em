@@ -1,6 +1,6 @@
 `import growl from 'math-flows-client/utils/growl'`
 
-class ModelerService extends Ember.Service
+modeler =
 
 	saveModel: (model) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
@@ -11,7 +11,7 @@ class ModelerService extends Ember.Service
 						resolve(success)
 					(errors) => 
 						console.log errors
-						@errors errors.errors
+						errors errors.errors
 						reject(errors)
 				)
 			else
@@ -24,11 +24,11 @@ class ModelerService extends Ember.Service
 					growl model.modelName + " destroyed.", "muted"
 					resolve(success)
 				(errors) =>
-					@errors errors.errors
+					errors errors.errors
 					reject(errors)
 			)
 
 	errors: (errors) -> 
 		growl "Failed because #{error.detail}" for error in errors
 
-`export default ModelerService`
+`export default modeler`

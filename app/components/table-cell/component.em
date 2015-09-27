@@ -1,12 +1,13 @@
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 `import IsResizable from 'math-flows-client/mixins/is-resizable'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
 
 class TableCellComponent extends Ember.Component with HandlesEquations,IsResizable
 
 	tagName: 'td'
 
 	store: Ember.inject.service()
-	modeler: Ember.inject.service()
 
 	row: null
 	col: null
@@ -41,7 +42,7 @@ class TableCellComponent extends Ember.Component with HandlesEquations,IsResizab
 
 		@col.size = ui.size.width
 		Ember.$(@element).css 'width', ''
-		@modeler.saveModel(@col).then => 
+		saveModel(@col).then => 
 			@block.validate() if (@block.contentInvalid and gotSmaller) or (gotBigger and not @block.contentInvalid)		
 
 	##

@@ -1,5 +1,8 @@
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 `import clean from 'math-flows-client/utils/cleaner'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+destroyModel = modeler.destroyModel
 
 service = Ember.inject.service
 computed = Ember.computed
@@ -22,7 +25,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 	store: service()
 	focuser: service()
 	keyboarder: service()
-	modeler: service()
 
 	# COMPUTED
 
@@ -61,10 +63,9 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 			clean @line,@mathquill
 			cell = @line.cell
 			if cell? and cell.isNew
-				@modeler.saveModel(cell).then => @modeler.saveModel @line
+				saveModel(cell).then => saveModel @line
 			else
-				@modeler.saveModel @line
-			#@setMathQuillContent() #this sync's the displayed math to the block's content, applying any changes performed in cleanOutput()
+				saveModel @line
 
 	click: -> 
 		unless @preview
@@ -107,10 +108,10 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 			@mathquill.mathquill 'cmd',latex
 		menuButtonPressed: (style) ->
 			if @line.get style
-				@modeler.destroyModel @line.styles.filterBy("effect",style).firstObject
+				destroyModel @line.styles.filterBy("effect",style).firstObject
 			else
 				style = @store.createRecord 'style',{effect:style,line:@line}
 				@line.styles.pushObject style
-				@modeler.saveModel style
+				saveModel style
 
 `export default EquationRendererComponent`

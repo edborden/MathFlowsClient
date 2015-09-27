@@ -1,4 +1,7 @@
 `import growl from 'math-flows-client/utils/growl'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+destroyModel = modeler.destroyModel
 
 class GroupController extends Ember.Controller
 
@@ -6,7 +9,6 @@ class GroupController extends Ember.Controller
 	groupvitations: Ember.computed.alias 'session.me.groupvitations'
 	groupvitationsSent: Ember.computed.alias 'session.me.groupvitationsSent'
 	isEditingName: false
-	modeler:Ember.inject.service()
 	server:Ember.inject.service()
 
 	actions:
@@ -28,11 +30,11 @@ class GroupController extends Ember.Controller
 
 		invite: (email) -> 
 			groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email}
-			@modeler.saveModel(groupvitation).then => 
+			saveModel(groupvitation).then => 
 				growl "Invitation sent!"
 				@session.me.groupvitationsSent.pushObject groupvitation
 
 		remove: (groupvitation) ->
-			@modeler.destroyModel groupvitation
+			destroyModel groupvitation
 
 `export default GroupController`

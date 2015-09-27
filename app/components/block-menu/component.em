@@ -1,8 +1,10 @@
 `import NewDimensions from 'math-flows-client/mixins/new-dimensions'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+destroyModel = modeler.destroyModel
 
 class BlockMenuComponent extends Ember.Component with NewDimensions
 
-	modeler: Ember.inject.service()
 	store: Ember.inject.service()
 	modaler: Ember.inject.service()
 	session:Ember.inject.service()
@@ -16,7 +18,7 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 	actions:
 		toggleNumber: ->
 			@block.kind = if @block.question then 'directions' else 'question'
-			@modeler.saveModel @block
+			saveModel @block
 			@refreshQuestionNumbers()
 			@block.notifyPropertyChange 'width' #trigger width resize on equation box
 		openFileDialog: ->
@@ -28,22 +30,22 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
-				@modeler.saveModel image
+				saveModel image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 		cutBlock: ->
 			@block.removeFromPage()
 			@session.me.notifyPropertyChange 'clipboard'
-			@modeler.saveModel @block
+			saveModel @block
 			@sendAction 'setInactiveBlock',@block
 		copyBlock: ->
 			block = @store.createRecord 'block', {copyFromId:@block.id}
-			@modeler.saveModel block
+			saveModel block
 		destroyBlock: ->
 			@sendAction 'setInactiveBlock',@block
 			@send 'destroyModel',@block
 			@refreshQuestionNumbers()
 		destroyModel: (model) ->
-			@modeler.destroyModel model
+			destroyModel model
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?
 

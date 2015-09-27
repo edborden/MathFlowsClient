@@ -1,8 +1,9 @@
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+
 class NameEditorComponent extends Ember.Component
 
 	tagName: 'span'
-
-	modeler:Ember.inject.service()
 
 	size:14
 	model:null
@@ -18,7 +19,7 @@ class NameEditorComponent extends Ember.Component
 	).observes 'isEditingName'
 
 	focusOut: ->
-		@modeler.saveModel @model
+		saveModel @model
 		@sendAction()
 
 	actions:

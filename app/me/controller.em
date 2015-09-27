@@ -1,9 +1,11 @@
 `import ActiveBlock from 'math-flows-client/mixins/active-block'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+destroyModel = modeler.destroyModel
 
 class MeController extends Ember.Controller with ActiveBlock
 
 	model: Ember.computed.alias 'session.me'
-	modeler:Ember.inject.service()
 
 	activeObj: null
 	activeObjStatic:false
@@ -18,18 +20,18 @@ class MeController extends Ember.Controller with ActiveBlock
 			centerSpinner = Ember.$('.center-spinner')
 			centerSpinner.show()
 			model = @store.createRecord('test',{copyFromId:test.id})
-			@modeler.saveModel(model).then =>
+			saveModel(model).then =>
 				centerSpinner.hide()
 
 		newTestFolder: -> 
 			model = @store.createRecord('folder',{user:@session.me,testFolder:true,name:"New Folder"})
-			@modeler.saveModel model
+			saveModel model
 
 		newObj: (containingFolder) -> 
 			model = @store.createRecord('test',{folder:containingFolder,name:"New Test"})
-			@modeler.saveModel model
+			saveModel model
 			containingFolder.open = true
-			@modeler.saveModel containingFolder
+			saveModel containingFolder
 			@model.testsCount = @model.testsCount + 1
 
 		thisSomethingIsDragging: (something) ->
@@ -44,11 +46,11 @@ class MeController extends Ember.Controller with ActiveBlock
 			unless dropped is target or target.folder is dropped 
 				dropped.folder = target
 				dropped.send 'becomeDirty' #changing belongsTo doesn't becomeDirty, known issue: https://github.com/emberjs/data/issues/2122
-				@modeler.saveModel dropped
+				saveModel dropped
 				@model.notifyPropertyChange 'topTestFolders'
 				
 		deleteDrop: (target,dropped) -> 
-			@modeler.destroyModel dropped
+			destroyModel dropped
 			@model.testsCount = @model.testsCount - 1 if dropped.isTest
 
 `export default MeController`

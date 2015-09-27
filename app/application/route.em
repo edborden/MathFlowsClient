@@ -1,9 +1,10 @@
 `import growl from 'math-flows-client/utils/growl'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
 
 class ApplicationRoute extends Ember.Route
 
 	voicer:Ember.inject.service()
-	modeler:Ember.inject.service()
 
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
@@ -26,7 +27,7 @@ class ApplicationRoute extends Ember.Route
 			@session.close()
 			@transitionTo 'index'
 
-		saveModel: (model) -> @modeler.saveModel model
+		saveModel: (model) -> saveModel model
 
 		authenticate: ->
 			@transitionTo('loading').then =>

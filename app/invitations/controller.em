@@ -1,8 +1,9 @@
 `import growl from 'math-flows-client/utils/growl'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
 
 class InvitationsController extends Ember.Controller
 
-	modeler:Ember.inject.service()
 	invitationsSent: Ember.computed.alias 'session.me.invitationsSent'
 	referredBy: Ember.computed.alias 'session.me.referredBy'
 
@@ -10,7 +11,7 @@ class InvitationsController extends Ember.Controller
 
 		invite: (email) -> 
 			invitation = @store.createRecord 'invitation',{referralEmail:email}
-			@modeler.saveModel(invitation).then => 
+			saveModel(invitation).then => 
 				growl "Invitation sent!"
 				@session.me.invitationsSent.pushObject invitation
 

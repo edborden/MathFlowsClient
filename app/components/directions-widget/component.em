@@ -1,7 +1,9 @@
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+
 class DirectionsWidgetComponent extends Ember.Component
 
 	session:Ember.inject.service()
-	modeler:Ember.inject.service()
 
 	open: Ember.computed.alias 'session.me.preference.directions'
 
@@ -10,6 +12,6 @@ class DirectionsWidgetComponent extends Ember.Component
 	actions:
 		toggle: ->
 			@toggleProperty 'open'
-			@modeler.saveModel @session.me.preference
+			saveModel @session.me.preference
 
 `export default DirectionsWidgetComponent`

@@ -4,11 +4,14 @@ computed = Ember.computed
 alias = computed.alias
 service = Ember.inject.service
 
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+destroyModel = modeler.destroyModel
+
 class KeyboarderService extends Ember.Service
 
 	##SETUP
 
-	modeler: service()
 	store: service()
 	focuser: service()
 
@@ -106,10 +109,10 @@ class KeyboarderService extends Ember.Service
 		newPosition = (@position+@nextPosition)/2
 		newContent = @substringAfterCursor()
 		@line.content = @substringBeforeCursor()
-		@modeler.saveModel(@line).then =>
+		saveModel(@line).then =>
 			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
 			@block.lines.pushObject newLine
-			@modeler.saveModel(newLine).then => @block.validate()
+			saveModel(newLine).then => @block.validate()
 			Ember.run.next @,=> 
 				@focuser.setFocusLine newLine,'start'
 
@@ -122,10 +125,10 @@ class KeyboarderService extends Ember.Service
 			newContent = @lineBefore.content + @line.content
 			lineBefore = @lineBefore
 				#@focuser.setFocusLine @lineBefore,'end'
-			@modeler.destroyModel(@line).then =>
+			destroyModel(@line).then =>
 					lineBefore.content = newContent
 					Ember.run.next @,=> @focuser.setFocusLine lineBefore,'end'
-					@modeler.saveModel(lineBefore).then =>	
+					saveModel(lineBefore).then =>	
 						@block.validate() if @block.contentInvalid
 
 	delete: ->
@@ -135,9 +138,9 @@ class KeyboarderService extends Ember.Service
 			@setMetaData()
 			clean @line,@mathquill
 			@line.content = @line.content + @lineAfter.content
-			@modeler.saveModel(@line).then =>
+			saveModel(@line).then =>
 				@focuser.setFocusLine @line,@cursorPosition+1
-				@modeler.destroyModel(@lineAfter).then =>
+				destroyModel(@lineAfter).then =>
 					@block.validate() if @block.contentInvalid
 
 	leftArrow: ->

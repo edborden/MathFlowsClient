@@ -1,7 +1,9 @@
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+
 class SessionService extends Ember.Service
 
 	store: Ember.inject.service()
-	modeler:Ember.inject.service()
 
 	loggedIn: ~> @model?
 	model: null
@@ -29,7 +31,7 @@ class SessionService extends Ember.Service
 	post: (token,redirectUri) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
 			session = @store.createRecord('session',{token:token,redirectUri:redirectUri})
-			@modeler.saveModel(session).then(
+			saveModel(session).then(
 				(response) => 
 					@model = response
 					localStorage.mathFlowsToken = @token

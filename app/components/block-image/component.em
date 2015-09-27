@@ -5,6 +5,9 @@ alias = computed.alias
 service = Ember.inject.service
 observer = Ember.observer
 
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+
 class BlockImageComponent extends Ember.Component with IsResizable
 
 	# ATTRIBUTES
@@ -12,10 +15,6 @@ class BlockImageComponent extends Ember.Component with IsResizable
 	image: null
 	preview: null
 	attributeBindings: ['style']
-
-	# SERVICES
-
-	modeler: service()
 
 	# COMPUTED
 
@@ -36,7 +35,7 @@ class BlockImageComponent extends Ember.Component with IsResizable
 	onResize: (e,ui) ->
 		@width = ui.size.width
 		@height = ui.size.height
-		@modeler.saveModel(@image).then => 
+		saveModel(@image).then => 
 			@block.validate() if @block.contentInvalid # image is constrained, cannot be resized bigger than containment el
 
 	onBlockInvalidation: observer 'block.contentInvalid', ->

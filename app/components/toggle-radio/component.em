@@ -1,6 +1,7 @@
-class ToggleRadioComponent extends Ember.Component
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
 
-	modeler: Ember.inject.service()
+class ToggleRadioComponent extends Ember.Component
 
 	classNames: ['switch-toggle','switch-3','well']
 	alignment: null
@@ -9,6 +10,6 @@ class ToggleRadioComponent extends Ember.Component
 	actions: 
 		setValue: (value) ->
 			@checked = value
-			@modeler.saveModel @alignment
+			saveModel @alignment
 
 `export default ToggleRadioComponent`

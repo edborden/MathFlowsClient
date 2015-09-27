@@ -1,10 +1,11 @@
 `import NewDimensions from 'math-flows-client/mixins/new-dimensions'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
 
 class GraphModalComponent extends Ember.Component with NewDimensions
 
 	closeModal: 'closeModal'
 	store:Ember.inject.service()
-	modeler:Ember.inject.service()
 
 	didRender: -> console.log 'model',@model
 
@@ -19,7 +20,7 @@ class GraphModalComponent extends Ember.Component with NewDimensions
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
-				@modeler.saveModel image
+				saveModel image
 
 		registerCalculator: (calculator) ->
 			@calculator = calculator

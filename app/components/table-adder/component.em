@@ -1,6 +1,8 @@
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
+
 class TableAdderComponent extends Ember.Component
 
-	modeler: Ember.inject.service()
 	store: Ember.inject.service()
 
 	classNameBindings: ["addingTable:padded"]
@@ -21,7 +23,7 @@ class TableAdderComponent extends Ember.Component
 				colsCount:@cols
 				block:@block
 			table.setPosition()
-			@modeler.saveModel table
+			saveModel table
 			@block.tables.pushObject table
 			@addingTable = false
 

@@ -1,11 +1,12 @@
 `import FullEditorComponent from 'math-flows-client/components/full-editor/component'`
 `import layout from 'math-flows-client/components/full-editor/template'`
+`import modeler from 'math-flows-client/utils/modeler'`
+saveModel = modeler.saveModel
 
 class TourEditorComponent extends FullEditorComponent
 
 	tour: Ember.inject.service()
 	session: Ember.inject.service()
-	modeler: Ember.inject.service()
 
 	layout: layout
 	tourPreference: Ember.computed.alias 'session.me.preference.tour'
@@ -22,7 +23,7 @@ class TourEditorComponent extends FullEditorComponent
 				@tour.steps = @steps()
 				@tour.trigger 'start'
 			@tourPreference = false
-			@modeler.saveModel @session.me.preference
+			saveModel @session.me.preference
 
 	steps: -> [
 
