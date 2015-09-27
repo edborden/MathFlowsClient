@@ -23,7 +23,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 	# SERVICES
 
 	store: service()
-	focuser: service()
 	keyboarder: service()
 
 	# COMPUTED

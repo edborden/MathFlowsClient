@@ -1,4 +1,5 @@
 `import clean from 'math-flows-client/utils/cleaner'`
+`import focus from 'math-flows-client/utils/focus'`
 
 computed = Ember.computed
 alias = computed.alias
@@ -13,7 +14,6 @@ class KeyboarderService extends Ember.Service
 	##SETUP
 
 	store: service()
-	focuser: service()
 
 	codesToHandle: Ember.A [13,8,37,38,39,40,46]
 	line:null
@@ -114,7 +114,7 @@ class KeyboarderService extends Ember.Service
 			@block.lines.pushObject newLine
 			saveModel(newLine).then => @block.validate()
 			Ember.run.next @,=> 
-				@focuser.setFocusLine newLine,'start'
+				focus line: newLine,cursorPosition: 'start'
 
 	backspace: ->
 		if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
@@ -124,10 +124,9 @@ class KeyboarderService extends Ember.Service
 			@setMetaData()
 			newContent = @lineBefore.content + @line.content
 			lineBefore = @lineBefore
-				#@focuser.setFocusLine @lineBefore,'end'
 			destroyModel(@line).then =>
 					lineBefore.content = newContent
-					Ember.run.next @,=> @focuser.setFocusLine lineBefore,'end'
+					Ember.run.next @,=> focus line: lineBefore,cursorPosition: 'end'
 					saveModel(lineBefore).then =>	
 						@block.validate() if @block.contentInvalid
 
@@ -139,7 +138,7 @@ class KeyboarderService extends Ember.Service
 			clean @line,@mathquill
 			@line.content = @line.content + @lineAfter.content
 			saveModel(@line).then =>
-				@focuser.setFocusLine @line,@cursorPosition+1
+				focus.create line: @line,cursorPosition: @cursorPosition+1
 				destroyModel(@lineAfter).then =>
 					@block.validate() if @block.contentInvalid
 
@@ -147,22 +146,22 @@ class KeyboarderService extends Ember.Service
 		if @cursorPosition is 0 and @lineBefore?
 			console.log 'left arrow, beginning of line'
 
-			@focuser.setFocusLine @lineBefore,'end'
+			focus.create line: @lineBefore,cursorPosition: 'end'
 
 	upArrow: ->
 		if @lineBefore?
 			console.log 'up arrow, with valid line above'
-			@focuser.setFocusLine @lineBefore,@cursorPosition
+			focus.create line:@lineBefore,cursorPosition: @cursorPosition
 
 	rightArrow: ->
 		console.log Ember.$(".cursor")
 		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
 			console.log 'right arrow, with valid line after'
-			@focuser.setFocusLine @lineAfter,'start'
+			focus.create line: @lineAfter,cursorPosition: 'start'
 
 	downArrow: ->
 		if @lineAfter?
 			console.log 'down arrow, with valid line after',@cursorPosition
-			@focuser.setFocusLine @lineAfter,@cursorPosition
+			focus.create line: @lineAfter, cursorPosition: @cursorPosition
 
 `export default KeyboarderService`
