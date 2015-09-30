@@ -1,3 +1,4 @@
+`import ActiveItem from 'math-flows-client/mixins/active-item'`
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 `import clean from 'math-flows-client/utils/cleaner'`
 `import modeler from 'math-flows-client/utils/modeler'`
@@ -10,7 +11,7 @@ alias = computed.alias
 observer = Ember.observer
 scheduleOnce = Ember.run.scheduleOnce
 
-class EquationRendererComponent extends Ember.Component with HandlesEquations
+class EquationRendererComponent extends Ember.Component with ActiveItem
 
 	# ATTRIBUTES
 
@@ -19,7 +20,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 	preview:null
 	insideEquation: null
 	attributeBindings: ['style']
-	classNameBindings: ['active']
 
 	# SERVICES
 
@@ -28,7 +28,7 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	# COMPUTED
 
-	active: computed 'activeItem', -> @activeItem is @line 
+	model: alias 'line'
 	questionNumberWidth: alias 'line.block.questionNumberWidth'
 	style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
 
@@ -68,9 +68,8 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 				saveModel @line
 
 	click: -> 
-		unless @preview
-			@setActiveItem @line
-			@checkIfInsideEquation()
+		super()
+		@checkIfInsideEquation()
 		false
 
 	contentChanged: observer 'line.content', -> 

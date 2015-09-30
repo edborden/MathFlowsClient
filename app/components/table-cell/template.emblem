@@ -1,3 +1,1 @@
-equation-renderer line=cell.lines.firstObject preview=preview
-if menuOpen
-	cell-menu cell=cell cellElement=element closeMenu=(action 'closeMenu')
+equation-renderer line=cell.lines.firstObject preview=preview activeItem=activeItem setActiveItem=setActiveItem

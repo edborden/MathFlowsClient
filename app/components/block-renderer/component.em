@@ -1,3 +1,4 @@
+`import ActiveItem from 'math-flows-client/mixins/active-item'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
@@ -7,19 +8,18 @@ alias = computed.alias
 scheduleOnce = Ember.run.scheduleOnce
 observer = Ember.observer
 
-class BlockRendererComponent extends Ember.Component
+class BlockRendererComponent extends Ember.Component with ActiveItem
 
 	# ATTRIBUTES
 
 	classNames: ["grid-stack-item"]
-	classNameBindings: ["active","invalid","borders","preview:preview:editor"]
+	classNameBindings: ["invalid","borders","preview:preview:editor"]
 	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
 	"data-gs-no-resize":true
 	"data-gs-no-move":true
 	tabindex:0
 	gridstack:null
 	block:null
-	activeItem:null
 	preview:null
 
 	# SERVICES
@@ -31,8 +31,8 @@ class BlockRendererComponent extends Ember.Component
 
 	# COMPUTED
 
+	model: alias 'block'
 	invalid: alias 'block.invalid'
-	active: computed "activeItem", -> @activeItem is @block
 	bordersPreference: alias 'session.me.preference.borders'
 	question: alias 'block.question'
 	borders: computed "bordersPreference","question", -> 
@@ -68,7 +68,6 @@ class BlockRendererComponent extends Ember.Component
 		@eventer.off 'syncBlocks', @, @syncAttrsToEl
 
 	click: -> 
-		console.log 'click'
 		@setActiveItem @block		
 
 	## HELPERS

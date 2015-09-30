@@ -1,21 +1,31 @@
 `import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 `import IsResizable from 'math-flows-client/mixins/is-resizable'`
+`import ActiveItem from 'math-flows-client/mixins/active-item'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
-class TableCellComponent extends Ember.Component with HandlesEquations,IsResizable
+computed = Ember.computed
+alias = computed.alias
+service = Ember.inject.service
+
+class TableCellComponent extends Ember.Component with HandlesEquations,IsResizable,ActiveItem
+
+	# ATTRIBUTES
 
 	tagName: 'td'
-
-	store: Ember.inject.service()
-
 	row: null
 	col: null
 	preview: null
-	menuOpen: false
-	block: Ember.computed.alias 'cell.table.block'
 
-	cell: Ember.computed -> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
+	# SERVICES
+
+	store: service()
+
+	# COMPUTED
+
+	block: alias 'cell.table.block'
+	cell: computed -> @row.cells.filterBy('col', @col).firstObject or @createCell @row,@col
+	model: alias 'cell'
 
 	createCell: (row,col) ->
 		cell = @store.createRecord 'cell', {row:@row,col:@col,table:@row.table}
@@ -43,18 +53,6 @@ class TableCellComponent extends Ember.Component with HandlesEquations,IsResizab
 		@col.size = ui.size.width
 		Ember.$(@element).css 'width', ''
 		saveModel(@col).then => 
-			@block.validate() if (@block.contentInvalid and gotSmaller) or (gotBigger and not @block.contentInvalid)		
-
-	##
-
-	contextMenu: -> 
-		@menuOpen = true unless @preview
-		false
-
-	focusOut: ->
-		@send 'closeMenu'
-
-	actions:
-		closeMenu: -> @menuOpen = false
+			@block.validate() if (@block.contentInvalid and gotSmaller) or (gotBigger and not @block.contentInvalid)
 
 `export default TableCellComponent`

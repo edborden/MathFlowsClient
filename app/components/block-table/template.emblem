@@ -7,4 +7,4 @@ table
 		each table.rows as |row|
 			tr
 				each table.cols as |col|
-					table-cell row=row col=col preview=preview
+					table-cell row=row col=col preview=preview activeItem=activeItem setActiveItem=setActiveItem
