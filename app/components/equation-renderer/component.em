@@ -14,11 +14,12 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	# ATTRIBUTES
 
-	active:false
+	activeItem:false
 	line:null
 	preview:null
 	insideEquation: null
 	attributeBindings: ['style']
+	classNameBindings: ['active']
 
 	# SERVICES
 
@@ -27,8 +28,9 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	# COMPUTED
 
+	active: computed 'activeItem', -> @activeItem is @line 
 	questionNumberWidth: alias 'line.block.questionNumberWidth'
-	style: Ember.computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
+	style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
 
 	# SETUP
 
@@ -38,7 +40,7 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 	didInsertElement: -> scheduleOnce 'afterRender', @, 'setupMathquill'
 
 	setupMathquill: ->
-		@mathquill = Ember.$(@element).children().last().mathquill('textbox')
+		@mathquill = Ember.$(@element).children(".content").first().mathquill('textbox')
 		@setMathQuillContent()
 		@setKeyDownHandler()
 		Ember.$(@element).find('.cursor').remove()	
@@ -57,7 +59,6 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	focusOut: -> 
 		unless @preview
-			@active = false
 			@insideEquation = false
 			clean @line,@mathquill
 			cell = @line.cell
@@ -68,9 +69,8 @@ class EquationRendererComponent extends Ember.Component with HandlesEquations
 
 	click: -> 
 		unless @preview
-			@active = true
+			@setActiveItem @line
 			@checkIfInsideEquation()
-		@send 'contentsClicked'
 		false
 
 	contentChanged: observer 'line.content', -> 

@@ -3,17 +3,23 @@
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
+service = Ember.inject.service
+
 class BlockMenuComponent extends Ember.Component with NewDimensions
 
-	store: Ember.inject.service()
-	modaler: Ember.inject.service()
-	session:Ember.inject.service()
+	# ATTRIBUTES
+
 	static:null
 	block:null
-
 	classNames: ['right-side']
 
-	setInactiveBlock: 'setInactiveBlock'
+	# SERVICES
+
+	store: service()
+	modaler: service()
+	session: service()
+
+	# ACTIONS
 
 	actions:
 		toggleNumber: ->
@@ -36,12 +42,12 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 			@block.removeFromPage()
 			@session.me.notifyPropertyChange 'clipboard'
 			saveModel @block
-			@sendAction 'setInactiveBlock',@block
+			@setActiveItem null
 		copyBlock: ->
 			block = @store.createRecord 'block', {copyFromId:@block.id}
 			saveModel block
 		destroyBlock: ->
-			@sendAction 'setInactiveBlock',@block
+			@setActiveItem null
 			@send 'destroyModel',@block
 			@refreshQuestionNumbers()
 		destroyModel: (model) ->

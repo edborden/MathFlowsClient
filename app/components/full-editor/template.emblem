@@ -4,8 +4,8 @@
 
 	.page-editor
 
-		if activeItem
-			block-menu block=activeItem static=static
+		if activeItem.isBlock
+			block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
 
 		unless static
 			.left-side

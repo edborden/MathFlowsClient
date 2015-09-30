@@ -69,13 +69,7 @@ class BlockRendererComponent extends Ember.Component
 
 	click: -> 
 		console.log 'click'
-		@focusElement()
-		@setActiveItem @block
-		
-	#focusOut: -> 
-	#	console.log 'focusOut',@block.id
-	#	@hideResizeHandle()
-	#	@setBlockInactive()			
+		@setActiveItem @block		
 
 	## HELPERS
 
@@ -96,12 +90,5 @@ class BlockRendererComponent extends Ember.Component
 		@gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan,assignPosition
 
 	removeFromGrid: -> @gridstack.remove_widget @element
-
-	focusElement: -> Ember.$(@element).focus()
-
-	##ACTIONS
-
-	actions:
-		contentsClicked: -> @setBlockActive()
 
 `export default BlockRendererComponent`
