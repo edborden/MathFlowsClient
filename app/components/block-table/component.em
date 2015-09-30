@@ -1,6 +1,4 @@
-`import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
-
-class BlockTableComponent extends Ember.Component with HandlesEquations
+class BlockTableComponent extends Ember.Component
 
 	table: null
 	preview: null

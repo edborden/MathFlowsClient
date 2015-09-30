@@ -1,6 +1,4 @@
-`import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
-
-class TableColComponent extends Ember.Component with HandlesEquations
+class TableColComponent extends Ember.Component
 
 	tagName: 'th'
 

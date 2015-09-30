@@ -1,5 +1,4 @@
 `import ActiveItem from 'math-flows-client/mixins/active-item'`
-`import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 `import clean from 'math-flows-client/utils/cleaner'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
@@ -15,7 +14,6 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 
 	# ATTRIBUTES
 
-	activeItem:false
 	line:null
 	preview:null
 	insideEquation: null

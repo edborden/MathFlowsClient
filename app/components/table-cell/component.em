@@ -1,4 +1,3 @@
-`import HandlesEquations from 'math-flows-client/mixins/handles-equations'`
 `import IsResizable from 'math-flows-client/mixins/is-resizable'`
 `import ActiveItem from 'math-flows-client/mixins/active-item'`
 `import modeler from 'math-flows-client/utils/modeler'`
@@ -8,7 +7,7 @@ computed = Ember.computed
 alias = computed.alias
 service = Ember.inject.service
 
-class TableCellComponent extends Ember.Component with HandlesEquations,IsResizable,ActiveItem
+class TableCellComponent extends Ember.Component with IsResizable,ActiveItem
 
 	# ATTRIBUTES
 
