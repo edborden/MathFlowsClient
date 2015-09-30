@@ -1,19 +1,17 @@
-`import NewDimensions from 'math-flows-client/mixins/new-dimensions'`
+`import newdimensions from 'math-flows-client/utils/newdimensions'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
-class GraphModalComponent extends Ember.Component with NewDimensions
+class GraphModalComponent extends Ember.Component
 
 	closeModal: 'closeModal'
 	store:Ember.inject.service()
-
-	didRender: -> console.log 'model',@model
 
 	actions:
 		screenshot: ->
 			cachedModel = @model
 			@blobToCloudinary(@calculator.screenshot()).then (result) =>
-				newDimensions = @newDimensions result
+				newDimensions = newdimensions result
 				image = @store.createRecord 'image',
 					block: cachedModel
 					cloudinaryId: result.public_id

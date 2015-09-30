@@ -30,7 +30,7 @@ class FullEditorComponent extends Ember.Component
 
 		createBlock: -> 
 			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,kind:"question"}
-			Ember.run.next @, => @send 'setActiveBlock',block
+			Ember.run.next @, => @send 'setActiveItem',block
 
 		paste: ->
 			@session.me.clipboard.forEach (block) =>
@@ -42,6 +42,5 @@ class FullEditorComponent extends Ember.Component
 		previousPage: -> @model = @model.previousPage
 
 		nextPage: -> @model = @model.nextPage
-
 
 `export default FullEditorComponent`

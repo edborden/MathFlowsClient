@@ -1,11 +1,11 @@
-`import NewDimensions from 'math-flows-client/mixins/new-dimensions'`
+`import newdimensions from 'math-flows-client/utils/newdimensions'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
 service = Ember.inject.service
 
-class BlockMenuComponent extends Ember.Component with NewDimensions
+class BlockMenuComponent extends Ember.Component
 
 	# ATTRIBUTES
 
@@ -29,7 +29,7 @@ class BlockMenuComponent extends Ember.Component with NewDimensions
 			@block.notifyPropertyChange 'width' #trigger width resize on equation box
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
-				newDimensions = @newDimensions result[0]
+				newDimensions = newdimensions result[0]
 				image = @store.createRecord 'image',
 					block: @block
 					cloudinaryId: result[0].public_id
