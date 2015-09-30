@@ -103,8 +103,6 @@ class KeyboarderService extends Ember.Service
 		return length
 
 	enter: ->
-		console.log 'enter'
-
 		clean @line,@mathquill
 		newPosition = (@position+@nextPosition)/2
 		newContent = @substringAfterCursor()
@@ -113,12 +111,10 @@ class KeyboarderService extends Ember.Service
 			newLine = @store.createRecord 'line', {block:@block,content:newContent,position:newPosition} 
 			@block.lines.pushObject newLine
 			saveModel(newLine).then => @block.validate()
-			Ember.run.next @,=> 
-				focus line: newLine,cursorPosition: 'start'
+			Ember.run.next @,-> focus.create line: newLine,cursorPosition: 'start'
 
 	backspace: ->
-		if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line
-			console.log 'backspace, beginning of valid line'
+		if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line #beginning of valid line
 
 			clean @line,@mathquill
 			@setMetaData()
@@ -126,13 +122,12 @@ class KeyboarderService extends Ember.Service
 			lineBefore = @lineBefore
 			destroyModel(@line).then =>
 					lineBefore.content = newContent
-					Ember.run.next @,=> focus line: lineBefore,cursorPosition: 'end'
+					Ember.run.next @, => focus.create line: lineBefore,cursorPosition: 'end'
 					saveModel(lineBefore).then =>	
 						@block.validate() if @block.contentInvalid
 
 	delete: ->
-		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
-			console.log 'delete, end of valid line'
+		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter? #end of valid line, with line after
 
 			@setMetaData()
 			clean @line,@mathquill
@@ -143,25 +138,19 @@ class KeyboarderService extends Ember.Service
 					@block.validate() if @block.contentInvalid
 
 	leftArrow: ->
-		if @cursorPosition is 0 and @lineBefore?
-			console.log 'left arrow, beginning of line'
-
+		if @cursorPosition is 0 and @lineBefore? #beginning of line with line before
 			focus.create line: @lineBefore,cursorPosition: 'end'
 
 	upArrow: ->
-		if @lineBefore?
-			console.log 'up arrow, with valid line above'
+		if @lineBefore? #valid line above
 			focus.create line:@lineBefore,cursorPosition: @cursorPosition
 
 	rightArrow: ->
-		console.log Ember.$(".cursor")
-		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter?
-			console.log 'right arrow, with valid line after'
+		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter? #valid line after
 			focus.create line: @lineAfter,cursorPosition: 'start'
 
 	downArrow: ->
-		if @lineAfter?
-			console.log 'down arrow, with valid line after',@cursorPosition
+		if @lineAfter? #valid line after
 			focus.create line: @lineAfter, cursorPosition: @cursorPosition
 
 `export default KeyboarderService`

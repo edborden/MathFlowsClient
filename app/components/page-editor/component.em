@@ -9,7 +9,7 @@ class PageEditorComponent extends Ember.Component
 	# ATTRIBUTES
 
 	page: null
-	activeBlock:null
+	activeItem:null
 	preview:false
 	headers:false
 	classNameBindings: ['preview']
@@ -51,16 +51,7 @@ class PageEditorComponent extends Ember.Component
 
 	# ACTIONS
 
-	setActiveBlock: 'setActiveBlock'
-	setInactiveBlock: 'setInactiveBlock'
-	actions:
-		setActiveBlock: (block) ->
-			@sendAction 'setActiveBlock',block
-
-		setInactiveBlock: (block) ->
-			@sendAction 'setInactiveBlock',block
-
 	onPageChange: observer 'page', ->
-		@sendAction 'setInactiveBlock', @activeBlock
+		@setActiveItem null
 
 `export default PageEditorComponent`

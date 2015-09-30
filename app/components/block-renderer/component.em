@@ -19,7 +19,7 @@ class BlockRendererComponent extends Ember.Component
 	tabindex:0
 	gridstack:null
 	block:null
-	activeBlock:null
+	activeItem:null
 	preview:null
 
 	# SERVICES
@@ -32,7 +32,7 @@ class BlockRendererComponent extends Ember.Component
 	# COMPUTED
 
 	invalid: alias 'block.invalid'
-	active: computed "activeBlock", -> @activeBlock is @block
+	active: computed "activeItem", -> @activeItem is @block
 	bordersPreference: alias 'session.me.preference.borders'
 	question: alias 'block.question'
 	borders: computed "bordersPreference","question", -> 
@@ -70,7 +70,7 @@ class BlockRendererComponent extends Ember.Component
 	click: -> 
 		console.log 'click'
 		@focusElement()
-		@setBlockActive()
+		@setActiveItem @block
 		
 	#focusOut: -> 
 	#	console.log 'focusOut',@block.id
@@ -103,13 +103,5 @@ class BlockRendererComponent extends Ember.Component
 
 	actions:
 		contentsClicked: -> @setBlockActive()
-
-	setActiveBlock: 'setActiveBlock'
-	setBlockActive: -> 
-		@sendAction 'setActiveBlock',@block
-
-	setInactiveBlock: 'setInactiveBlock'
-	setBlockInactive: ->
-		@sendAction 'setInactiveBlock',@block
 
 `export default BlockRendererComponent`

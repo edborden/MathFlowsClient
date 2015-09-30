@@ -1,9 +1,8 @@
-`import ActiveBlock from 'math-flows-client/mixins/active-block'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
-class FullEditorComponent extends Ember.Component with ActiveBlock
+class FullEditorComponent extends Ember.Component
 
 	model:null
 	test: Ember.computed.alias 'model.test'
@@ -11,7 +10,12 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 	static:null
 	session:Ember.inject.service()
 
+	activeItem: null
+
 	actions:
+		setActiveItem: (item) ->
+			@activeItem = item unless @activeItem is item
+
 		createPage: ->
 			page = @store.createRecord 'page', {test:@test}
 			saveModel(page).then (response) =>
@@ -25,7 +29,7 @@ class FullEditorComponent extends Ember.Component with ActiveBlock
 			destroyModel model
 
 		createBlock: -> 
-			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true}
+			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,kind:"question"}
 			Ember.run.next @, => @send 'setActiveBlock',block
 
 		paste: ->

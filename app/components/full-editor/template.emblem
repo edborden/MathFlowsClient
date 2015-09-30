@@ -4,8 +4,8 @@
 
 	.page-editor
 
-		if activeBlock
-			block-menu block=activeBlock static=static
+		if activeItem
+			block-menu block=activeItem static=static
 
 		unless static
 			.left-side
@@ -43,4 +43,4 @@
 		if test.multiplePages
 			page-navigator model=model
 
-		page-editor page=model activeBlock=activeBlock preview=static
+		page-editor page=model activeItem=activeItem setActiveItem=(action 'setActiveItem') preview=static
