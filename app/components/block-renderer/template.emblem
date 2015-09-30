@@ -11,4 +11,9 @@ if block.invalid
 			equation-renderer line=line preview=preview setActiveItem=setActiveItem activeItem=activeItem
 			br
 		if block.children
-			block-children block=block preview=preview setActiveItem=setActiveItem activeItem=activeItem
+			.block-children
+				each block.children as |child|
+					if child.isImage
+						block-image image=child preview=preview activeItem=activeItem setActiveItem=setActiveItem
+					else
+						block-table table=child preview=preview activeItem=activeItem setActiveItem=setActiveItem
