@@ -8,6 +8,16 @@
 			block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
 
 		unless static
+
+			if activeItem.isImage
+				child-menu child=activeItem
+
+			else if activeItem.isCell
+				cell-menu cell=activeItem
+
+			else if activeItem.isLine
+				line-menu line=activeItem
+
 			.left-side
 				.btn-group-vertical.page-functions
 					button.btn.btn-default click="createBlock"

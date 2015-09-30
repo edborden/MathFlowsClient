@@ -15,14 +15,6 @@ unless static
 			i.fa-line-chart
 		table-adder block=block
 
-	each block.children as |child|
-		
-		.btn-group-vertical.group
-			toggle-radio alignment=child.alignment
-			button.btn.btn-default click="'destroyModel' child"
-				|Remove&nbsp;
-				= child.modelName	
-
 	.btn-group-vertical.group
 		button.btn.btn-default click="destroyBlock"
 			|Delete&nbsp;&nbsp;

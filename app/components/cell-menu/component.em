@@ -2,27 +2,25 @@
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
+computed = Ember.computed
+alias = computed.alias
+service = Ember.inject.service
+
 class CellMenuComponent extends Ember.Component
 
-	classNames: ['btn-group-vertical']
+	# ATTRIBUTES
+
+	classNames: ['right-side']
 	cell: null
-	tether: null
-	cellElement: null
-	table: Ember.computed.alias 'cell.table'
-	block: Ember.computed.alias 'table.block'
 
-	store: Ember.inject.service()
+	# SERVICES
 
-	didInsertElement: ->
-		@tether = new Tether
-			element: @element
-			target: @cellElement
-			attachment: "top left"
-			targetAttachment: "bottom left"
-		window.scrollBy 0,1
+	store: service()
 
-	willDestroyElement: ->
-		@tether.destroy()
+	# COMPUTED
+
+	table: alias 'cell.table'
+	block: alias 'table.block'
 
 	actions: 
 		newProjection: (axis,position) ->
@@ -39,10 +37,6 @@ class CellMenuComponent extends Ember.Component
 			destroyModel(projection).then =>
 				@block.validate() if @block.contentInvalid
 
-	mouseDown: -> false
-
-	click: ->
-		@closeMenu()
-		false
+		destroyTable: -> destroyModel @table
 
 `export default CellMenuComponent`

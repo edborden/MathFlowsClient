@@ -68,7 +68,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 		@eventer.off 'syncBlocks', @, @syncAttrsToEl
 
 	click: -> 
-		@setActiveItem @block		
+		@setActiveItem @block #override method for ActiveBlock mixin
 
 	## HELPERS
 

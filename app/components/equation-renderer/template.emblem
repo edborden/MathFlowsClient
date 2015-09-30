@@ -48,9 +48,3 @@ if active
 				latex-button content='\rho'
 				latex-button content='\sigma'
 				latex-button content='\Delta'
-	else
-		tethered-element target=mathquill
-			menu-button content='bold' icon=true active=line.bold small=true
-			menu-button content='italic' icon=true active=line.italic small=true
-			menu-button content='underline' icon=true active=line.underline small=true
-			menu-button content='red' active=line.red small=true

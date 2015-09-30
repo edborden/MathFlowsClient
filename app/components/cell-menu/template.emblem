@@ -1,6 +1,25 @@
-button.btn.btn-xs.btn-primary click="'newProjection' 'col' 'before'" Add Column Before
-button.btn.btn-xs.btn-primary click="'newProjection' 'col' 'after'" Add Column After
-button.btn.btn-xs.btn-primary click="'newProjection' 'row' 'before'" Add Row Before
-button.btn.btn-xs.btn-primary click="'newProjection' 'row' 'after'" Add Row After
-button.btn.btn-xs.btn-primary click="'removeProjection' 'row'" Remove Row
-button.btn.btn-xs.btn-primary click="'removeProjection' 'col'" Remove Column
+.btn-group-vertical.group
+	toggle-radio alignment=table.alignment
+	button.btn.btn-default click="destroyTable"
+		i.fa-trash.text-danger
+		|&nbsp;&nbsp;Table
+
+.btn-group-vertical.group
+	button.btn.btn-default click="'newProjection' 'col' 'before'" 
+		i.fa-plus
+		|&nbsp;Col Before
+	button.btn.btn-default click="'newProjection' 'col' 'after'" 
+		i.fa-plus
+		|&nbsp;Col After
+	button.btn.btn-default click="'newProjection' 'row' 'before'" 
+		i.fa-plus
+		|&nbsp;Row Before
+	button.btn.btn-default click="'newProjection' 'row' 'after'" 
+		i.fa-plus
+		|&nbsp;Row After
+	button.btn.btn-default click="'removeProjection' 'row'"
+		i.fa-trash.text-danger
+		|&nbsp;&nbsp;Row
+	button.btn.btn-default click="'removeProjection' 'col'"
+		i.fa-trash.text-danger
+		|&nbsp;&nbsp;Col

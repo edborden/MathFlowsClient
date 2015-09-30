@@ -1,0 +1,9 @@
+.btn-group-vertical.group
+	button.btn.btn-default click="'menuButtonPressed' 'bold'" class=line.bold:active
+		i.fa-bold
+	button.btn.btn-default click="'menuButtonPressed' 'italic'" class=line.italic:active
+		i.fa-italic
+	button.btn.btn-default click="'menuButtonPressed' 'underline'" class=line.underline:active
+		i.fa-underline
+	button.btn.btn-default click="'menuButtonPressed' 'red'" class=line.red:active
+		|red

@@ -102,12 +102,5 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 	actions:
 		insertLatex: (latex) ->
 			@mathquill.mathquill 'cmd',latex
-		menuButtonPressed: (style) ->
-			if @line.get style
-				destroyModel @line.styles.filterBy("effect",style).firstObject
-			else
-				style = @store.createRecord 'style',{effect:style,line:@line}
-				@line.styles.pushObject style
-				saveModel style
 
 `export default EquationRendererComponent`
