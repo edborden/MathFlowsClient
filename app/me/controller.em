@@ -1,9 +1,8 @@
-`import ActiveBlock from 'math-flows-client/mixins/active-block'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
-class MeController extends Ember.Controller with ActiveBlock
+class MeController extends Ember.Controller
 
 	model: Ember.computed.alias 'session.me'
 
