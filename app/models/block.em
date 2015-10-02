@@ -89,7 +89,10 @@ class Block extends DS.Model with ModelName
 
 	onSizeChange: observer 'rowSpan','colSpan', -> @validate()
 
-	validate: -> @server.post('blocks/' + @id + '/validate') if @id? and @row? and @col?
+	validate: -> 
+		if @id? and @row? and @col?
+			@server.post('blocks/' + @id + '/validate').then =>
+				@test.notifyPropertyChange 'invalid'
 
 	## LINES
 
