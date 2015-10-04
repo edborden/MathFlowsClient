@@ -1,15 +1,21 @@
 `import config from 'math-flows-client/config/environment'`
 
+service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
+
 class ServerService extends Ember.Service
 	host: config.apiHostName
-	session: Ember.inject.service()
-	store: Ember.inject.service()
+	session: service()
+	store: service()
 
-	headers: ~>
-		if @session.token?
-			return {'Authorization': 'Bearer ' + @session.token }
+	token: alias 'session.token'
+
+	headers: computed 'token', ->
+		if @token?
+			{'Authorization': 'Bearer ' + @token }
 		else
-			return {}
+			{}
 
 	post: (url,data = {}) -> 
 		@http url,data,"POST"

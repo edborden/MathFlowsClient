@@ -1,9 +1,13 @@
 `import ActiveModelAdapter from 'active-model-adapter'`
 `import config from 'math-flows-client/config/environment'`
 
+computed = Ember.computed
+alias = computed.alias
+
 class ApplicationAdapter extends ActiveModelAdapter
 	host: config.apiHostName
 	session: Ember.inject.service()
+	token: alias 'session.token'
 
 	#crossdomain
 	ajax: (url, method, hash) -> 
@@ -11,10 +15,10 @@ class ApplicationAdapter extends ActiveModelAdapter
 		hash.crossDomain = true
 		return @_super(url, method, hash)
 
-	headers: ~>
-		if @session.token?
-			return {'Authorization': 'Bearer ' + @session.token }
+	headers: computed 'token', ->
+		if @token?
+			{'Authorization': 'Bearer ' + @token }
 		else
-			return {}
+			{}
 
 `export default ApplicationAdapter`

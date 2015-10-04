@@ -7,10 +7,11 @@ class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,
 	static:null
 	mouseOver: false
 	isEditingName:false
-	showMenu: ~> not @isEditingName and @mouseOver and not @dragging and not @somethingIsDragging
+	showMenu: Ember.computed 'edEditingName','mouseOver','dragging','somethingIsDragging', -> 
+		not @isEditingName and @mouseOver and not @dragging and not @somethingIsDragging
 	dragging: false
 	activeObj:null
-	active: ~> @activeObj is @model
+	active: Ember.computed.equal 'activeObj', @model
 	nameClicked:null
 
 	classNameBindings: ['static','active']

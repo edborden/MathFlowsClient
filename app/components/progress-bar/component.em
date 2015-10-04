@@ -3,7 +3,7 @@ class ProgressBarComponent extends Ember.Component
 	fill: null
 	classNames: ['progress']
 
-	progressStyle: ~> "width:#{@fill}".htmlSafe()
+	progressStyle: Ember.computed 'fill', -> "width:#{@fill}".htmlSafe()
 	
 
 `export default ProgressBarComponent`

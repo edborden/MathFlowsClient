@@ -1,14 +1,20 @@
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
+service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
+
 class SessionService extends Ember.Service
 
-	store: Ember.inject.service()
+	store: service()
 
-	loggedIn: ~> @model?
+	# COMPUTED
+
+	loggedIn: alias 'model'
 	model: null
-	token: ~> if @model? then @model.token else null
-	me: ~> @model.user
+	token: alias 'model.token'
+	me: alias 'model.user'
 	
 	open: ->
 		return new Ember.RSVP.Promise (resolve,reject) =>

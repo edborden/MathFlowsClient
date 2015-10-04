@@ -1,9 +1,13 @@
+computed = Ember.computed
+alias = computed.alias
+
 class BlockTableComponent extends Ember.Component
 
 	table: null
+	side: alias 'table.alignment.side'
 	preview: null
 	attributeBindings: ['style']
 
-	style: ~> "float:#{@table.alignment.side}".htmlSafe()
+	style: computed 'side', -> "float:#{@side}".htmlSafe()
 
 `export default BlockTableComponent`

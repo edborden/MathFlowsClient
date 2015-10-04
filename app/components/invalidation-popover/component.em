@@ -1,17 +1,23 @@
+computed = Ember.computed
+alias = computed.alias
+
 class InvalidationPopoverComponent extends Ember.Component
 	classNames: ['popover']
 	classNameBindings: ['left','right']
 	attributeBindings: ['style']
 
-	right: ~> true if @block.col is 2 or @block.col is 3
-	left: ~> true if @block.col is 0 or @block.col is 1
+	col: alias 'block.col'
+	width: alias 'block.width'
+	height: alias 'block.height'
 
-	top: ~> (@block.height * 0.5).toString()
+	right: computed 'col', -> @col >= 2
+	left: computed 'col', -> @col <= 1
 
-	style: ~> 
+	top: computed 'height', -> (@height * 0.5).toString()
+
+	style: computed 'right','top','width', -> 
 		always = "top:#{@top}px;"
-		if @right
-			always = always + "left:#{@block.width}px;"
+		always = always + "left:#{@width}px;" if @right
 		always.htmlSafe()
 
 `export default InvalidationPopoverComponent`

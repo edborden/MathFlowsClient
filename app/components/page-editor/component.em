@@ -9,7 +9,6 @@ class PageEditorComponent extends Ember.Component
 	# ATTRIBUTES
 
 	page: null
-	activeItem:null
 	preview:false
 	headers:false
 	classNameBindings: ['preview']

@@ -1,7 +1,10 @@
+computed = Ember.computed
+equal = computed.equal
+
 class ApplicationController extends Ember.Controller
 
-	indexRoute: ~> @currentRouteName is 'index'
-	meRoute: ~> @currentRouteName is 'me'
-	loginRoute: ~> @currentRouteName is 'login'
+	indexRoute: equal 'currentRouteName', 'index'
+	meRoute:  equal 'currentRouteName', 'me'
+	loginRoute:  equal 'currentRouteName', 'login'
 
 `export default ApplicationController`

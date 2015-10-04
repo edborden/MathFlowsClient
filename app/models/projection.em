@@ -4,6 +4,9 @@ attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
+computed = Ember.computed
+equal = computed.equal
+
 class Projection extends DS.Model with ModelName
 
 	## ATTRIBUTES
@@ -19,8 +22,8 @@ class Projection extends DS.Model with ModelName
 
 	## COMPUTED
 
-	row: ~> @axis is "row"
-	col: ~> @axis is "col"
+	row: equal 'axis','row'
+	col: equal 'axis','col'
 
 	projectionIndex: -> 
 		if @row 

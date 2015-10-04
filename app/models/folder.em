@@ -1,3 +1,7 @@
+computed = Ember.computed
+alias = computed.alias
+equal = computed.equal
+
 `import ModelName from 'math-flows-client/mixins/model-name'`
 
 attr = DS.attr
@@ -9,9 +13,9 @@ class Folder extends DS.Model with ModelName
 	## ATTRIBUTES
 
 	iconName: "fa-folder" 
-	name: attr()
+	name: attr "string"
 	open: attr "boolean"
-	contents: attr()
+	contents: attr "string"
 
 	## ASSOCIATIONS
 
@@ -22,8 +26,10 @@ class Folder extends DS.Model with ModelName
 
 	## COMPUTED
 
-	testFolder: Ember.computed.equal "contents","tests"
-	hasChildren: ~> @folders.length > 0 or @tests.length > 0
-	children: Ember.computed.alias 'tests'
+	testFolder: equal "contents","tests"
+	foldersLength: alias 'folders.length'
+	testsLength: alias 'tests.length'
+	hasChildren: computed 'foldersLength','testsLength', -> @foldersLength > 0 or @testsLength > 0
+	children: alias 'tests'
 
 `export default Folder`

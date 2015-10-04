@@ -4,7 +4,7 @@ class PageNavigatorComponent extends Ember.Component
 	previousPage: 'previousPage'
 
 	actions:
-		nextPage: -> @sendAction 'nextPage'
-		previousPage: -> @sendAction 'previousPage'
+		nextPage: -> @sendAction 'nextPage' unless @model.lastPage
+		previousPage: -> @sendAction 'previousPage' unless @model.firstPage
 
 `export default PageNavigatorComponent`

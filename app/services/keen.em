@@ -1,10 +1,16 @@
 `import config from 'math-flows-client/config/environment'`
 
+computed = Ember.computed
+alias = computed.alias
+
 class KeenService extends Ember.Service
 
 	session:Ember.inject.service()
+	me: alias 'session.me'
+	id: alias 'me.id'
+	guest: alias 'me.guest'
 
-	client: ~> 
+	client: computed -> 
 		if config.environment is 'production'
 			new Keen
 				projectId: "54dcf35546f9a747ff1d341c"
@@ -15,9 +21,9 @@ class KeenService extends Ember.Service
 		else
 			{addEvent: -> return}
 
-	user: ~> {
-		id: @session.me.id
-		guest: @session.me.guest
+	user: computed 'guest', -> {
+		id: @id
+		guest: @guest
 	}
 
 	logSession: ->

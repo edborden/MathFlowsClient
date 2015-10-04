@@ -5,6 +5,8 @@ attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
+computed = Ember.computed
+
 class Table extends DS.Model with ModelName,SetsPosition
 
 	## ATTRIBUTES
@@ -21,7 +23,7 @@ class Table extends DS.Model with ModelName,SetsPosition
 
 	## COMPUTED
 
-	rows: ~> @projections.filterBy('row').sortBy 'position'
-	cols: ~> @projections.filterBy('col').sortBy 'position'
+	rows: computed 'projections.[]', -> @projections.filterBy('row').sortBy 'position'
+	cols: computed 'projections.[]', -> @projections.filterBy('col').sortBy 'position'
 
 `export default Table`

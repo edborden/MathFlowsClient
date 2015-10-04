@@ -4,20 +4,23 @@ attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
+computed = Ember.computed
+alias = computed.alias
+
 class User extends DS.Model with ModelName
 
 	## ATTRIBUTES
 
-	name: attr()
-	createdAt: attr()
-	pic: attr()
-	email: attr()
+	name: attr 'string'
+	createdAt: attr 'string'
+	pic: attr 'string'
+	email: attr 'string'
 	testsCount: attr 'number'
 	testsQuota: attr 'number'
 	premium: attr 'boolean'
-	uservoiceToken: attr()
-	guest: attr()
-	referredBy: attr()
+	uservoiceToken: attr 'string'
+	guest: attr 'string'
+	referredBy: 'string'
 
 	## ASSOCIATIONS
 
@@ -27,18 +30,18 @@ class User extends DS.Model with ModelName
 	preference: belongsTo 'preference', {async:false}
 	groupvitations: hasMany 'groupvitations', {async:false}
 	groupvitationsSent: hasMany 'groupvitations', {async:false}
-	groupvitationsAll: attr() #placeholder for serialized groupvitations on API
+	groupvitationsAll: attr 'string' #placeholder for serialized groupvitations on API
 	invitationsSent: hasMany 'invitation'
 
 	## COMPUTED
 
-	percentOfQuota: ~> 
+	percentOfQuota: computed 'testsCount','testsQuota', -> 
 		percent = @testsCount / @testsQuota
 		(percent*100).toString() + "%"
-	topTestFolders: ~> @folders.rejectBy('folder').filterBy 'testFolder'
-	topStudentFolders: ~> @folders.rejectBy('folder').filterBy 'studentFolder'
-	uservoiceURL: ~> "http://support.mathflows.com?sso=" + @uservoiceToken
-	headers: ~> @blocks.filterBy 'header'
+	topTestFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'testFolder'
+	topStudentFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'studentFolder'
+	uservoiceURL: computed 'uservoiceToken', -> "http://support.mathflows.com?sso=" + @uservoiceToken
+	headers: computed 'blocks.[]', -> @blocks.filterBy 'header'
 
 	## FOLDER HANDLING
 
@@ -46,6 +49,6 @@ class User extends DS.Model with ModelName
 	hasChildren: true
 
 	## CLIPBOARD
-	clipboard: ~> @blocks.rejectBy('header').rejectBy 'page'
+	clipboard: computed 'blocks.[]', -> @blocks.rejectBy('header').rejectBy 'page'
 
 `export default User`

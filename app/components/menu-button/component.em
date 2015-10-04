@@ -1,3 +1,6 @@
+computed = Ember.computed
+alias = computed.alias
+
 class MenuButtonComponent extends Ember.Component
 
 	content:null
@@ -6,18 +9,18 @@ class MenuButtonComponent extends Ember.Component
 	iconName: (-> "fa-#{@content}").property()
 	small:false
 
-	elementSize: (-> if @small then 20 else 40 ).property()
-	fontSize: (-> if @small then 9 else 12 ).property()
+	elementSize: computed -> if @small then 20 else 40
+	fontSize: computed -> if @small then 9 else 12
 
 	tagName:'span'
 
-	label: Ember.computed.alias 'content'
+	label: alias 'content'
 
 	click: -> 
 		@sendAction 'action',@content
 		false
 
-	buttonStyle: ~> "width:#{@elementSize}px;height:#{@elementSize}px;font-size:#{@fontSize}px".htmlSafe()
+	buttonStyle: computed -> "width:#{@elementSize}px;height:#{@elementSize}px;font-size:#{@fontSize}px".htmlSafe()
 
 	mouseDown: -> false #keep from grabbing focus and closing menu
 

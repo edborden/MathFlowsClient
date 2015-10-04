@@ -39,8 +39,8 @@ class TableCellComponent extends Ember.Component with IsResizable,ActiveItem
 
 	# RESIZE OPTIONS
 
-	alsoResizeId: Ember.computed.alias 'col.renderer'
-	containmentId: Ember.computed -> "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id' 
+	alsoResizeId: alias 'col.renderer'
+	containmentId: computed -> "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id' 
 	resizeHandles: 'e'
 
 	onResize: (event,ui) ->
