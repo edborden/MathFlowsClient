@@ -18,6 +18,7 @@ class Page extends DS.Model with ModelName
 	number: computed 'testIndex', -> @testIndex + 1
 	testIndex: computed 'pages.[]', -> @pages.indexOf @
 	firstPage: equal 'number', 1
+	lastPage: computed 'pages.[]', -> @pages.lastObject is @
 	previousPage: computed 'pages.[]', -> @pages.objectAt(@testIndex - 1)
 	nextPage: computed 'pages.[]', -> @pages.objectAt(@testIndex + 1)
 				
