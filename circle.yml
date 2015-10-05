@@ -1,6 +1,6 @@
 machine:
   node:
-    version: 0.10.40
+    version: 0.12.0
 dependencies:
   pre:
     - npm install -g bower
