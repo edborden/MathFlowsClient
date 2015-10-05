@@ -1,11 +1,14 @@
 ActiveItem = Ember.Mixin.create
 	
-	activeItem: null
-	active: Ember.computed "activeItem", -> @activeItem is @model
+	active: false
 	classNameBindings: ['active']
 	click: ->
 		unless @preview
 			@setActiveItem @model
 		false
+	goActive: ->
+		@active = true
+	goInactive: ->
+		@active = false
 
 `export default ActiveItem`

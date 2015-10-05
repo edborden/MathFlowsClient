@@ -14,7 +14,10 @@ class FullEditorComponent extends Ember.Component
 
 	actions:
 		setActiveItem: (item) ->
-			@activeItem = item unless @activeItem is item
+			unless @activeItem is item
+				@activeItem.goInactive() if @activeItem? and @activeItem.goInactive?
+				@activeItem = item
+				@activeItem.goActive() if @activeItem? and @activeItem.goActive?
 
 		createPage: ->
 			page = @store.createRecord 'page', {test:@test}
