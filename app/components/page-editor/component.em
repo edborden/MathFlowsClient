@@ -20,7 +20,6 @@ class PageEditorComponent extends Ember.Component
 
 	# COMPUTED
 
-	staticGrid: alias 'preview'
 	alwaysShowResizeHandle: computed.not 'preview'
 	gridstackOptions: computed -> 
 		auto:false
@@ -28,7 +27,7 @@ class PageEditorComponent extends Ember.Component
 		width:4
 		float:true
 		vertical_margin:9
-		static_grid: @staticGrid
+		static_grid: @preview
 		always_show_resize_handle: @alwaysShowResizeHandle
 	pageHolder: computed 'page', 'gridstack', ->
 		if @gridstack? then @page else null
@@ -47,10 +46,5 @@ class PageEditorComponent extends Ember.Component
 	willDestroyElement: ->
 		@gridstack.destroy()
 		Ember.$(@element).off 'change','**'
-
-	# ACTIONS
-
-	onPageChange: observer 'page', ->
-		@setActiveItem null
 
 `export default PageEditorComponent`
