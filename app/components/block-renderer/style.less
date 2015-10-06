@@ -24,20 +24,18 @@
     padding:2px;
 }
 
-.ui-resizable-handle {
-    display: none !important
-}
+&.inactive > .ui-resizable-handle {display:none !important}
 
 &.active > .grid-stack-item-content {border-color: blue !important}
 
 &.active.editor {
-    .grid-stack-item-content {cursor: move}
-    .ui-resizable-handle {display:block !important}
+    cursor: move;
+    > .ui-resizable-handle {display:block !important}
 }
 
 &.active.preview {
-    .grid-stack-item-content {cursor: pointer}
-    .ui-resizable-handle {display:none !important}
+    cursor: pointer;
+    > .ui-resizable-handle {display:none !important}
 }
 
 &:focus {
