@@ -11,13 +11,15 @@ class FullEditorComponent extends Ember.Component
 	session:Ember.inject.service()
 
 	activeItem: null
+	activeItemRenderer: null
 
 	actions:
-		setActiveItem: (item) ->
+		setActiveItem: (item,renderer) ->
 			unless @activeItem is item
-				@activeItem.goInactive() if @activeItem? and @activeItem.goInactive?
+				@activeItemRenderer.goInactive() if @activeItemRenderer? and @activeItemRenderer.goInactive?
 				@activeItem = item
-				@activeItem.goActive() if @activeItem? and @activeItem.goActive?
+				@activeItemRenderer = renderer
+				@activeItemRenderer.goActive() if @activeItemRenderer? and @activeItemRenderer.goActive?
 
 		createPage: ->
 			@setActiveItem null

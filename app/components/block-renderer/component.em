@@ -56,21 +56,29 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 	
 	# BREAKDOWN
 
-	## EVENTS
-
-	onActiveChange: Ember.observer 'active', ->
-		unless @preview
-			@gridstack.movable @element,@active
-			@gridstack.resizable @element,@active
-
 	willDestroyElement: -> 
 		@removeFromGrid()
 		@eventer.off 'syncBlocks', @, @syncAttrsToEl
 
+	## EVENTS
+
+	goActive: ->
+		super()
+		@setEditable() unless @preview
+
+	goInactive: ->
+		super()
+		@setEditable() unless @preview		
+
 	click: -> 
-		@setActiveItem @block #override method for ActiveBlock mixin
+		@setActiveItem @model, @ #override method for ActiveBlock mixin
+		false
 
 	## HELPERS
+
+	setEditable: ->
+		@gridstack.movable @element,@active
+		@gridstack.resizable @element,@active
 
 	coords: -> Ember.$(@element).data('_gridstack_node')
 

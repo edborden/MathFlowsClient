@@ -23,7 +23,10 @@ class BlockMenuComponent extends Ember.Component
 
 	actions:
 		toggleNumber: ->
-			@block.kind = if @block.question then 'directions' else 'question'
+			if @block.question
+				@block.set 'kind','directions'
+			else
+				@block.set 'kind','question'
 			saveModel @block
 			@refreshQuestionNumbers()
 			@block.notifyPropertyChange 'width' #trigger width resize on equation box
@@ -51,6 +54,7 @@ class BlockMenuComponent extends Ember.Component
 			@send 'destroyModel',@block
 			@refreshQuestionNumbers()
 		destroyModel: (model) ->
+			@setActiveItem null
 			destroyModel model
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?

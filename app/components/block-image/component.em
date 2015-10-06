@@ -1,15 +1,15 @@
 `import IsResizable from 'math-flows-client/mixins/is-resizable'`
 `import ActiveItem from 'math-flows-client/mixins/active-item'`
+`import ActiveResizable from 'math-flows-client/mixins/active-resizable'`
 
 computed = Ember.computed
 alias = computed.alias
-service = Ember.inject.service
 observer = Ember.observer
 
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
-class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem
+class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,ActiveResizable
 
 	# ATTRIBUTES
 
@@ -30,7 +30,7 @@ class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem
 
 	# RESIZABLE
 
-	resizeHandles: "all"
+	resizeHandles: "se,sw"
 	resizeAspectRatio: true
 	containmentId: computed -> "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id'
 
