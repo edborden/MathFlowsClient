@@ -18,7 +18,6 @@ class GraphModalComponent extends Ember.Component
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
-				saveModel image
 
 		registerCalculator: (calculator) ->
 			@calculator = calculator
