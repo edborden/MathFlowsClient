@@ -39,7 +39,6 @@ class BlockMenuComponent extends Ember.Component
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
-				saveModel image
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 		cutBlock: ->
 			@block.removeFromPage()
@@ -51,11 +50,8 @@ class BlockMenuComponent extends Ember.Component
 			saveModel block
 		destroyBlock: ->
 			@setActiveItem null
-			@send 'destroyModel',@block
-			@refreshQuestionNumbers()
-		destroyModel: (model) ->
-			@setActiveItem null
 			destroyModel model
+			@refreshQuestionNumbers()
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?
 

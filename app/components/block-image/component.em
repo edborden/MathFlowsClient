@@ -1,6 +1,7 @@
 `import IsResizable from 'math-flows-client/mixins/is-resizable'`
 `import ActiveItem from 'math-flows-client/mixins/active-item'`
 `import ActiveResizable from 'math-flows-client/mixins/active-resizable'`
+`import ActiveNew from 'math-flows-client/mixins/active-new'`
 
 computed = Ember.computed
 alias = computed.alias
@@ -9,7 +10,7 @@ observer = Ember.observer
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
-class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,ActiveResizable
+class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,ActiveResizable,ActiveNew
 
 	# ATTRIBUTES
 
@@ -27,12 +28,14 @@ class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,Ac
 	style: computed "height","width","alignment", ->
 		"height:#{@height}px;width:#{@width}px;float:#{@alignment}".htmlSafe()
 	src: computed -> "http://res.cloudinary.com/hmb9zxcjb/image/upload/#{@image.cloudinaryId}".htmlSafe()
+	invalid: alias 'block.contentInvalid'
 
 	# RESIZABLE
 
 	resizeHandles: "se,sw"
 	resizeAspectRatio: true
-	containmentId: computed -> "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id'
+	containmentId: computed 'invalid', -> 
+		if @invalid then false else "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id'
 
 	onResize: (e,ui) ->
 		@width = ui.size.width
@@ -40,10 +43,7 @@ class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,Ac
 		saveModel(@image).then => 
 			@block.validate() if @block.contentInvalid # image is constrained, cannot be resized bigger than containment el
 
-	onBlockInvalidation: observer 'block.contentInvalid', ->
-		if @block.contentInvalid
-			Ember.$(@element).resizable {containment:false}
-		else
-			Ember.$(@element).resizable {containment:@containmentId}
-
+	onBlockInvalidation: observer 'invalid', ->
+		Ember.$(@element).resizable "option", "containment", @containmentId if @active
+				
 `export default BlockImageComponent`

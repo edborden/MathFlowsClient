@@ -10,10 +10,10 @@
 		unless static
 
 			if activeItem.isImage
-				child-menu child=activeItem
+				image-menu image=activeItem setActiveItem=(action 'setActiveItem')
 
 			else if activeItem.isCell
-				cell-menu cell=activeItem
+				cell-menu cell=activeItem setActiveItem=(action 'setActiveItem')
 
 			else if activeItem.isLine
 				line-menu line=activeItem
