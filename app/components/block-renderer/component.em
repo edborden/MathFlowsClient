@@ -52,7 +52,9 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 		isNew = @block.isNew
 		@syncAttrsToEl().then =>
 			Ember.run.next @,=>
-				Ember.$(@element).find(".content").mousedown().mouseup() if isNew
+				if isNew
+					@setActiveItem @model,@
+					Ember.$(@element).find(".content").mousedown().mouseup()
 	
 	# BREAKDOWN
 

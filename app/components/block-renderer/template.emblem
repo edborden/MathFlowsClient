@@ -3,7 +3,7 @@ if block.invalid
 
 .grid-stack-item-content
 	if block
-		if block.question
+		if question
 			.question-number
 				block.questionNumber
 				|)

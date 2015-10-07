@@ -2,13 +2,17 @@
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
+service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
+
 class FullEditorComponent extends Ember.Component
 
-	model:null
-	test: Ember.computed.alias 'model.test'
-	store:Ember.inject.service()
-	static:null
-	session:Ember.inject.service()
+	model: null
+	test: alias 'model.test'
+	store: Ember.inject.service()
+	static: null
+	session: service()
 
 	activeItem: null
 	activeItemRenderer: null
@@ -36,8 +40,7 @@ class FullEditorComponent extends Ember.Component
 			destroyModel model
 
 		createBlock: -> 
-			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,question:true,kind:"question"}
-			Ember.run.next @, => @send 'setActiveItem',block
+			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,kind:'question'}
 
 		paste: ->
 			@session.me.clipboard.forEach (block) =>

@@ -50,7 +50,7 @@ class BlockMenuComponent extends Ember.Component
 			saveModel block
 		destroyBlock: ->
 			@setActiveItem null
-			destroyModel model
+			destroyModel @block
 			@refreshQuestionNumbers()
 
 	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?
