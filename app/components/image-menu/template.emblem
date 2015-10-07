@@ -1,0 +1,4 @@
+.btn-group-vertical.group
+  toggle-radio alignment=image.alignment
+  button.btn.btn-default click="destroyImage"
+    |Remove Image
