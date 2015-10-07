@@ -1,6 +1,5 @@
 `import IsResizable from 'math-flows-client/mixins/is-resizable'`
 `import ActiveItem from 'math-flows-client/mixins/active-item'`
-`import ActiveResizable from 'math-flows-client/mixins/active-resizable'`
 `import ActiveNew from 'math-flows-client/mixins/active-new'`
 
 computed = Ember.computed
@@ -10,7 +9,7 @@ observer = Ember.observer
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
-class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,ActiveResizable,ActiveNew
+class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,ActiveNew
 
 	# ATTRIBUTES
 

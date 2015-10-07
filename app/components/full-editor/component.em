@@ -50,11 +50,11 @@ class FullEditorComponent extends Ember.Component
 			@session.me.notifyPropertyChange 'clipboard'
 
 		previousPage: -> 
-			@setActiveItem null
+			@send 'setActiveItem', null
 			@model = @model.previousPage
 
 		nextPage: -> 
-			@setActiveItem null
+			@send 'setActiveItem', null
 			@model = @model.nextPage
 
 `export default FullEditorComponent`

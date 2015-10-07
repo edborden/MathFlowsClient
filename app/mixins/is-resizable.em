@@ -1,7 +1,16 @@
 run = Ember.run
 bind = run.bind
+scheduleOnce = run.scheduleOnce
 
 IsResizable = Ember.Mixin.create
+
+	didInsertElement: -> 
+		super()
+		scheduleOnce 'afterRender', @, 'resizeInit'
+
+	willDestroyElement: -> 
+		super()
+		@resizeDestroy()
 
 	resizeDestroy: ->
 		Ember.$(@element).resizable "destroy" if Ember.$(@element).resizable "instance" and not @preview

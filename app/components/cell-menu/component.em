@@ -37,6 +37,8 @@ class CellMenuComponent extends Ember.Component
 			destroyModel(projection).then =>
 				@block.validate() if @block.contentInvalid
 
-		destroyTable: -> destroyModel @table
+		destroyTable: -> 
+			@setActiveItem null
+			destroyModel @table
 
 `export default CellMenuComponent`
