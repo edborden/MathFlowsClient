@@ -2,6 +2,8 @@ class TetheredElementComponent extends Ember.Component
 
 	target: null
 	tether: null
+	attachment: "top left"
+	targetAttachment: "bottom left"
 
 	classNames:['btn-group']
 
@@ -9,8 +11,8 @@ class TetheredElementComponent extends Ember.Component
 		@tether = new Tether
 			element: @element
 			target: @target
-			attachment: "top left"
-			targetAttachment: "bottom left"
+			attachment: @attachment
+			targetAttachment: @targetAttachment
 
 	willDestroyElement: ->
 		@tether.destroy()
