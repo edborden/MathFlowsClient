@@ -26,13 +26,13 @@ class FullEditorComponent extends Ember.Component
 				@activeItemRenderer.goActive() if @activeItemRenderer? and @activeItemRenderer.goActive?
 
 		createPage: ->
-			@setActiveItem null
+			@send 'setActiveItem', null
 			page = @store.createRecord 'page', {test:@test}
 			saveModel(page).then (response) =>
 				@model = response
 
 		deletePage: ->
-			@setActiveItem null
+			@send 'setActiveItem', null
 			model = @model
 			model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
 			firstPage = @test.pages.firstObject

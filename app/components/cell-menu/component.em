@@ -34,6 +34,7 @@ class CellMenuComponent extends Ember.Component
 		removeProjection: (axis) ->
 			projection = @cell.get(axis)
 			@table.projections.removeObject projection
+			@setActiveItem null
 			destroyModel(projection).then =>
 				@block.validate() if @block.contentInvalid
 

@@ -29,11 +29,12 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 	model: alias 'line'
 	questionNumberWidth: alias 'line.block.questionNumberWidth'
 	style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
+	blockLine: computed -> @line.get('block')? is true
 
 	# SETUP
 
 	didInitAttrs: ->
-		@line.renderer = @ if @line.isLine
+		@line.renderer = @ if @blockLine
 
 	didInsertElement: -> scheduleOnce 'afterRender', @, 'setupMathquill'
 
@@ -51,7 +52,7 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 
 	onKeyDown: (ev) ->
 		unless @preview
-			@keyboarder.process @line,ev.keyCode,@mathquill	if @line.isLine
+			@keyboarder.process @line,ev.keyCode,@mathquill	if @blockLine
 			Ember.run.next @,@checkIfInsideEquation
 			true
 
