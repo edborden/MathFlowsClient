@@ -2,38 +2,41 @@
 `import ElRegister from 'math-flows-client/mixins/el-register'`
 `import TreeObjects from 'math-flows-client/mixins/tree-objects'`
 
-class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,TreeObjects
-	model:null
-	static:null
-	mouseOver: false
-	isEditingName:false
-	showMenu: Ember.computed 'edEditingName','mouseOver','dragging','somethingIsDragging', -> 
-		not @isEditingName and @mouseOver and not @dragging and not @somethingIsDragging
-	dragging: false
-	activeObj:null
-	active: Ember.computed.equal 'activeObj', @model
-	nameClicked:null
+computed = Ember.computed
+alias = computed.alias
+equal = computed.equal
 
+class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,TreeObjects
+
+	# ATTRIBUTES
+
+	model: null
+	static: null
+	mouseOver: false
+	isEditingName: false
+	dragging: false
+	activeObj: null
+	nameClicked: null
 	classNameBindings: ['static','active']
+
+	# COMPUTED
+
+	showMenu: computed 'isEditingName','mouseOver','dragging','somethingIsDragging', -> 
+		not @isEditingName and @mouseOver and not @dragging and not @somethingIsDragging
+	active: computed 'activeObj', -> @activeObj is @model
+
+	# SETUP
 
 	didInsertElement: ->
 		@_super()
 		@makeDraggable() unless @static
 
-	makeDraggable: ->
-		Ember.$(@element).draggable
-			revert: true 
-			start: =>
-				@dragging = true
-				@sendAction 'thisSomethingIsDragging',@
-			stop: =>
-				unless @isDestroyed
-					@dragging = false
-					@sendAction 'nothingIsDragging'
-					@makeDraggable() #must re-initialize, otherwise can only drag once
+	# BREAKDOWN
 
 	destroyDraggable: ->
 		Ember.$(@element).draggable 'destroy'		
+
+	# ACTIONS
 
 	mouseEnter: -> 
 		@mouseOver = true
@@ -55,5 +58,19 @@ class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,
 		doneEditingName: ->
 			@makeDraggable()
 			@isEditingName = false	
+
+	# HELPERS
+
+	makeDraggable: ->
+		Ember.$(@element).draggable
+			revert: true 
+			start: =>
+				@dragging = true
+				@sendAction 'thisSomethingIsDragging',@
+			stop: =>
+				unless @isDestroyed
+					@dragging = false
+					@sendAction 'nothingIsDragging'
+					@makeDraggable() #must re-initialize, otherwise can only drag once
 
 `export default TreeOverComponent`

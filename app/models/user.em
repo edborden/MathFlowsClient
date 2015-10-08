@@ -19,7 +19,7 @@ class User extends DS.Model with ModelName
 	testsQuota: attr 'number'
 	premium: attr 'boolean'
 	uservoiceToken: attr 'string'
-	guest: attr 'string'
+	guest: attr 'boolean'
 	referredBy: 'string'
 
 	## ASSOCIATIONS
