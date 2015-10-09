@@ -1,12 +1,10 @@
 initializer =
 
-	initialize: ->
+  initialize: ->
 
-		Ember.$(document).keydown (e) ->
-			nodeName = e.target.nodeName.toLowerCase()
-
-			if e.which is 8
-
-				e.preventDefault() unless (nodeName is 'input' and e.target.type is 'text') or nodeName is 'textarea'
+    Ember.$(document).keydown (e) ->
+      if e.which is 8
+        nodeName = e.target.nodeName.toLowerCase()
+        e.preventDefault() unless nodeName is 'input' or nodeName is 'textarea'
 
 `export default initializer`
