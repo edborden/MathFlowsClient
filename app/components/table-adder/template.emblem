@@ -2,11 +2,11 @@ if addingTable
 
 	i.fa-arrows-h
 	|&nbsp;
-	= input value=rows type="number" size=2 width=3
+	= input value=cols type="number" size=2 width=3
 	|&nbsp;
 	i.fa-arrows-v
 	|&nbsp;
-	= input value=cols type="number" size=2 width=3
+	= input value=rows type="number" size=2 width=3
 	button.btn.btn-xs.btn-default.small click="newTable"
 		i.fa-save
 
