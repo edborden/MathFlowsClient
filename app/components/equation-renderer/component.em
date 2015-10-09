@@ -30,6 +30,7 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 	questionNumberWidth: alias 'line.block.questionNumberWidth'
 	style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
 	blockLine: computed -> @line.get('block')? is true
+	cell: alias 'line.cell'
 
 	# SETUP
 
@@ -60,11 +61,10 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 		unless @preview
 			@insideEquation = false
 			clean @line,@mathquill
-			cell = @line.cell
-			if cell? and cell.isNew
-				saveModel(cell).then => saveModel @line
+			if @cell?
+				saveModel(@cell).then => saveModel(@line)
 			else
-				saveModel @line
+				saveModel(@line)
 
 	click: -> 
 		@_super()
