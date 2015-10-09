@@ -67,7 +67,7 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 				saveModel @line
 
 	click: -> 
-		super()
+		@_super()
 		@checkIfInsideEquation()
 		false
 

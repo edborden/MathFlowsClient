@@ -65,11 +65,11 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 	## EVENTS
 
 	goActive: ->
-		super()
+		@_super()
 		@setEditable() unless @preview
 
 	goInactive: ->
-		super()
+		@_super()
 		@setEditable() unless @preview		
 
 	click: -> 

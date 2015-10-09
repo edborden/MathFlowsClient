@@ -7,7 +7,7 @@ scheduleOnce = run.scheduleOnce
 ActiveNew = Ember.Mixin.create
 
   didInsertElement: -> 
-    super()
+    @_super()
     scheduleOnce 'afterRender', @, 'handleNew'
 
   handleNew: ->

@@ -7,10 +7,10 @@ ActiveItem = Ember.Mixin.create
       @setActiveItem @model,@
     false
   goActive: ->
-    super()
+    @_super()
     @active = true
   goInactive: ->
-    super()
+    @_super()
     @active = false
 
 `export default ActiveItem`

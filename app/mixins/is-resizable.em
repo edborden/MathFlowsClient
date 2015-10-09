@@ -5,11 +5,11 @@ scheduleOnce = run.scheduleOnce
 IsResizable = Ember.Mixin.create
 
 	didInsertElement: -> 
-		super()
+		@_super()
 		scheduleOnce 'afterRender', @, 'resizeInit'
 
 	willDestroyElement: -> 
-		super()
+		@_super()
 		@resizeDestroy()
 
 	resizeDestroy: ->
