@@ -34,7 +34,7 @@ class BlockMenuComponent extends Ember.Component
 				@block.set 'kind','question'
 			saveModel @block
 			@refreshQuestionNumbers()
-			@block.notifyPropertyChange 'width' #trigger width resize on equation box
+
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
 				newDimensions = newdimensions result[0]
@@ -44,15 +44,19 @@ class BlockMenuComponent extends Ember.Component
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
+
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
+
 		cutBlock: ->
 			@block.removeFromPage()
 			@session.me.notifyPropertyChange 'clipboard'
 			saveModel @block
 			@setActiveItem null
+
 		copyBlock: ->
 			block = @store.createRecord 'block', {copyFromId:@block.id}
 			saveModel block
+			
 		destroyBlock: ->
 			@setActiveItem null
 			destroyModel @block
