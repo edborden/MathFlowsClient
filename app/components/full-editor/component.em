@@ -34,9 +34,8 @@ class FullEditorComponent extends Ember.Component
 		deletePage: ->
 			@send 'setActiveItem', null
 			model = @model
+			@send 'previousPage'
 			model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
-			firstPage = @test.pages.firstObject
-			@model = firstPage
 			destroyModel model
 
 		createBlock: -> 
