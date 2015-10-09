@@ -32,8 +32,8 @@ class Test extends DS.Model with ModelName
 
 	## INVALID BLOCKS
 
-	invalidBlocks: -> @blocks.filterBy('page').filterBy 'invalid'
-	invalid: computed -> @invalidBlocks().length isnt 0
+	invalidBlocks: computed 'blocks.@each.invalid', -> @blocks.filterBy('page').filterBy 'invalid'
+	invalid: computed 'invalidBlocks', -> @invalidBlocks.length isnt 0
 
 	## QUESTION NUMBERS
 

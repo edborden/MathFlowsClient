@@ -58,7 +58,7 @@ class Block extends DS.Model with ModelName
 	questionNumber: computed 'questionBlocksSorted', -> 
 		@questionBlocksSorted.indexOf(@) + 1 if @page and @question
 
-	questionNumberWidth: computed 'question','questionNumberWidth', ->
+	questionNumberWidth: computed 'question','questionNumber', ->
 		questionNumberWidth = if @question
 			if @questionNumber < 10
 				14
@@ -83,16 +83,11 @@ class Block extends DS.Model with ModelName
 		else
 			null
 
-	onInvalidationsChange: observer "invalidations", ->
-		if @isLoaded and @test
-			@test.notifyPropertyChange 'invalidBlocks'
-
 	onSizeChange: observer 'rowSpan','colSpan', -> @validate()
 
 	validate: -> 
 		if @id? and @row? and @col?
-			@server.post('blocks/' + @id + '/validate').then =>
-				@test.notifyPropertyChange 'invalid'
+			@server.post 'blocks/' + @id + '/validate'
 
 	## LINES
 

@@ -4,6 +4,7 @@ saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
 service = Ember.inject.service
+alias = Ember.computed.alias
 
 class BlockMenuComponent extends Ember.Component
 
@@ -18,6 +19,10 @@ class BlockMenuComponent extends Ember.Component
 	store: service()
 	modaler: service()
 	session: service()
+
+	# COMPUTED
+
+	test: alias 'block.test'
 
 	# ACTIONS
 
@@ -53,6 +58,6 @@ class BlockMenuComponent extends Ember.Component
 			destroyModel @block
 			@refreshQuestionNumbers()
 
-	refreshQuestionNumbers: -> @block.test.refreshQuestionNumbers() if @block.test?
+	refreshQuestionNumbers: -> @test.refreshQuestionNumbers() if @test?
 
 `export default BlockMenuComponent`
