@@ -22,6 +22,6 @@ class LineMenuComponent extends Ember.Component
 			else
 				style = @store.createRecord 'style',{effect:style,line:@line}
 				@line.styles.pushObject style
-				saveModel style
+				saveModel(@line).then => saveModel style
 
 `export default LineMenuComponent`
