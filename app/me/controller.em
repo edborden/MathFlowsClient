@@ -22,6 +22,7 @@ class MeController extends Ember.Controller
 			centerSpinner.show()
 			@server.post('tests/' + test.id + '/copy').then =>
 				centerSpinner.hide()
+				@model.testsCount = @model.testsCount + 1
 
 		newTestFolder: -> 
 			model = @store.createRecord('folder',{user:@session.me,contents:"tests",name:"New Folder"})

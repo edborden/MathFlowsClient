@@ -22,19 +22,17 @@ class PageEditorComponent extends Ember.Component
 
 	alwaysShowResizeHandle: computed.not 'preview'
 	gridstackOptions: computed -> 
-		auto:false
 		cell_height:18
 		width:4
 		float:true
 		vertical_margin:9
 		static_grid: @preview
 		always_show_resize_handle: @alwaysShowResizeHandle
-	pageHolder: computed 'page', 'gridstack', ->
-		if @gridstack? then @page else null
 
 	# SETUP
 
-	didInsertElement: -> scheduleOnce 'afterRender', @, 'setupGridstack'
+	didInsertElement: -> 
+		scheduleOnce 'afterRender', @, 'setupGridstack'
 
 	setupGridstack: ->
 		@gridstack = Ember.$(@element).children('.grid-stack').gridstack(@gridstackOptions).data 'gridstack'

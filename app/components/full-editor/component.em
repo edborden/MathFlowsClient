@@ -43,9 +43,8 @@ class FullEditorComponent extends Ember.Component
 
 		paste: ->
 			@session.me.clipboard.forEach (block) =>
+				block.test = @test
 				block.page = @model
-				block.send 'becomeDirty'
-				@model.blocks.addObject block
 			@session.me.notifyPropertyChange 'clipboard'
 
 		previousPage: -> 

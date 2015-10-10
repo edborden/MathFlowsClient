@@ -14,9 +14,13 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 
 	classNames: ["grid-stack-item"]
 	classNameBindings: ["invalid","borders","preview:preview:editor"]
-	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move"]
+	attributeBindings: ["tabindex","data-gs-no-resize","data-gs-no-move","data-gs-x","data-gs-y","data-gs-width","data-gs-height"]
 	"data-gs-no-resize":true
 	"data-gs-no-move":true
+	"data-gs-x": alias 'block.col'
+	"data-gs-y": alias 'block.row'
+	"data-gs-width": alias 'block.colSpan'
+	"data-gs-height": alias 'block.rowSpan'
 	tabindex:0
 	gridstack:null
 	block:null
@@ -37,6 +41,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 	question: alias 'block.question'
 	borders: computed "bordersPreference","question", -> 
 		@bordersPreference and @question
+	test: alias 'block.test'
 
 	# SETUP
 
@@ -48,13 +53,11 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 		@initializeRenderer()
 
 	initializeRenderer: ->
-		@addToGrid()
-		isNew = @block.isNew
-		@syncAttrsToEl().then =>
-			Ember.run.next @,=>
-				if isNew
-					@setActiveItem @model,@
-					Ember.$(@element).find(".content").mousedown().mouseup()
+		if @gridstack?
+			@addToGrid() 
+			if @block.isNew
+						@setActiveItem @model,@
+						Ember.$(@element).find(".content").mousedown().mouseup()
 	
 	# BREAKDOWN
 
@@ -91,8 +94,10 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 			@block.rowSpan = coords.height
 			@block.row = coords.y
 			@block.col = coords.x
-			@block.test.refreshQuestionNumbers() if @block.test?
-			saveModel(@block).then -> resolve()
+			if @block.hasDirtyAttributes
+				@test.refreshQuestionNumbers() if @test?
+				@block.notifyPropertyChange 'invalid'
+				saveModel(@block).then -> resolve()
 
 	addToGrid: -> 
 		assignPosition = not @block.col? or not @block.row?

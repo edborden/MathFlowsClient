@@ -1,12 +1,9 @@
 .grid-stack
 
 	if headers
-		each pageHolder.headers as |block|
-			unless block.isDeleted
-				block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
+		each page.headers as |block|
+			block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
 
 	else
-		each pageHolder.blocks as |block|
-			unless block.isDeleted
-				block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
-
+		each page.blocks as |block|
+			block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview

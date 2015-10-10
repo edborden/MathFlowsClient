@@ -51,6 +51,6 @@ class User extends DS.Model with ModelName
 	hasChildren: true
 
 	## CLIPBOARD
-	clipboard: computed 'blocks.[]', -> @blocks.rejectBy('header').rejectBy 'page'
+	clipboard: computed -> @blocks.rejectBy('header').rejectBy 'page'
 
 `export default User`

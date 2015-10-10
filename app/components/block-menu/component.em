@@ -19,6 +19,7 @@ class BlockMenuComponent extends Ember.Component
 	store: service()
 	modaler: service()
 	session: service()
+	server: service()
 
 	# COMPUTED
 
@@ -33,7 +34,7 @@ class BlockMenuComponent extends Ember.Component
 			else
 				@block.set 'kind','question'
 			saveModel @block
-			@refreshQuestionNumbers()
+			@test.refreshQuestionNumbers() if @test?
 
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
@@ -48,20 +49,17 @@ class BlockMenuComponent extends Ember.Component
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 
 		cutBlock: ->
-			@block.removeFromPage()
-			@session.me.notifyPropertyChange 'clipboard'
-			saveModel @block
+			block = @block
 			@setActiveItem null
+			block.removeFromPage()
+			@session.me.notifyPropertyChange 'clipboard'
+			saveModel block
 
 		copyBlock: ->
-			block = @store.createRecord 'block', {copyFromId:@block.id}
-			saveModel block
+			@server.post 'blocks/' + @block.id + '/copy'
 			
 		destroyBlock: ->
 			@setActiveItem null
 			destroyModel @block
-			@refreshQuestionNumbers()
-
-	refreshQuestionNumbers: -> @test.refreshQuestionNumbers() if @test?
 
 `export default BlockMenuComponent`

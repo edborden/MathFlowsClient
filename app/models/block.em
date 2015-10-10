@@ -16,7 +16,6 @@ class Block extends DS.Model with ModelName
 
 	## ATTRIBUTES
 
-	copyFromId: attr "number"
 	row: attr "number"
 	col: attr "number"
 	rowSpan: attr "number"
@@ -34,6 +33,7 @@ class Block extends DS.Model with ModelName
 	page: belongsTo 'page', {async:false}
 	images: hasMany 'image', {async:false}
 	tables: hasMany 'table', {async:false}
+	test: belongsTo 'test', {async:false}
 
 	## COMPUTED
 
@@ -42,13 +42,12 @@ class Block extends DS.Model with ModelName
 		[@images,@tables].forEach (childArray) -> childrenFlat.pushObjects childArray.toArray()
 		childrenFlat.sortBy 'blockPosition'
 	pageNumber: alias 'page.number'
-	test: alias 'page.test'
 	question: equal 'kind','question'
 	header: equal 'kind','header'
 	questionBlocksSorted: alias 'test.questionBlocksSorted'
 
 	removeFromPage: ->
-		@page.blocks.removeObject @
+		@test = null
 		@page = null
 		@row = null
 		@col = null
@@ -72,22 +71,18 @@ class Block extends DS.Model with ModelName
 
 	## INVALIDATIONS
 
-	invalid: computed "contentInvalid","positionInvalid", -> 
-		@contentInvalid or @positionInvalid
-	positionInvalid: computed  "row","rowSpan", -> @row + @rowSpan > 27
-	invalidationMessage: computed 'invalid', -> 
-		if @contentInvalid
-			"Content doesn't fit in block." 
-		else if @positionInvalid
-			"Block doesn't fit on page."
-		else
-			null
+	invalid: computed -> 
+		invalid = @contentInvalid or @positionInvalid()
+		@test.notifyPropertyChange 'invalidBlocks' if invalid
+		return invalid
+	positionInvalid: -> @row + @rowSpan > 27
 
-	onSizeChange: observer 'rowSpan','colSpan', -> @validate()
+	#onSizeChange: observer 'rowSpan','colSpan', -> @validate()
 
 	validate: -> 
 		if @id? and @row? and @col?
 			@server.post 'blocks/' + @id + '/validate'
+			@notifyPropertyChange 'invalid'
 
 	## LINES
 

@@ -1,3 +1,6 @@
 .arrow
 .popover-content
-	= block.invalidationMessage
+  if block.contentInvalid
+    |Content doesn't fit in block. 
+  else
+    |Block doesn't fit on page.
