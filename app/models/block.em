@@ -71,16 +71,14 @@ class Block extends DS.Model with ModelName
 
 	## INVALIDATIONS
 
-	invalid: computed -> 
-		invalid = @contentInvalid or @positionInvalid()
-		@test.notifyPropertyChange 'invalidBlocks' if invalid
-		return invalid
+	invalid: computed -> @contentInvalid or @positionInvalid()
 	positionInvalid: -> @row + @rowSpan > 27
 
 	validate: -> 
 		if @id? and @row? and @col?
 			@server.post('blocks/' + @id + '/validate').then =>
 				@notifyPropertyChange 'invalid'
+				@test.notifyPropertyChange 'invalidBlocks'
 
 	## LINES
 
