@@ -18,13 +18,13 @@
     "components-font-awesome": "*",
     "keen-js": "~3.2.2",
     "cloudinary_js": "*",
-    "gridstack": "*",
+    "gridstack": "https://github.com/troolee/gridstack.js.git#master",
     "jquery-ui": "*",
     "active-model-adapter": "1.13.6",
     "moment": ">= 2.8.0",
     "moment-timezone": ">= 0.1.0",
     "tether-shepherd": "1.1.3",
     "messenger":"*",
-    "css-toggle-switch":"*"
+    "css-toggle-switch":"3.2.0"
   }
 }

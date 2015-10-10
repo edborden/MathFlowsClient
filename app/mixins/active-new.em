@@ -13,6 +13,6 @@ ActiveNew = Ember.Mixin.create
   handleNew: ->
     if @model.isNew
       @setActiveItem @model,@
-      saveModel @model
+      saveModel(@model).then => @block.validate()
 
 `export default ActiveNew`

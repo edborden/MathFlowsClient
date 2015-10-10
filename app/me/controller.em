@@ -23,7 +23,7 @@ class MeController extends Ember.Controller
 				centerSpinner.hide()
 
 		newTestFolder: -> 
-			model = @store.createRecord('folder',{user:@session.me,testFolder:true,name:"New Folder"})
+			model = @store.createRecord('folder',{user:@session.me,contents:"tests",name:"New Folder"})
 			saveModel model
 
 		newObj: (containingFolder) -> 
@@ -49,7 +49,9 @@ class MeController extends Ember.Controller
 				@model.notifyPropertyChange 'topTestFolders'
 				
 		deleteDrop: (target,dropped) -> 
-			destroyModel dropped
-			@model.testsCount = @model.testsCount - 1 if dropped.isTest
+			if dropped.isTest
+				@send 'editObj', null, null
+				@model.testsCount = @model.testsCount - 1 
+			destroyModel dropped				
 
 `export default MeController`

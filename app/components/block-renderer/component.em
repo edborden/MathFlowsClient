@@ -59,8 +59,8 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 	# BREAKDOWN
 
 	willDestroyElement: -> 
-		@removeFromGrid()
 		@eventer.off 'syncBlocks', @, @syncAttrsToEl
+		@removeFromGrid()
 
 	## EVENTS
 
@@ -98,6 +98,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 		assignPosition = not @block.col? or not @block.row?
 		@gridstack.add_widget @element,@block.col,@block.row,@block.colSpan,@block.rowSpan,assignPosition
 
-	removeFromGrid: -> @gridstack.remove_widget @element
+	removeFromGrid: -> 
+		@gridstack.remove_widget @element if @gridstack.grid?
 
 `export default BlockRendererComponent`
