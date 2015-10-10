@@ -77,12 +77,10 @@ class Block extends DS.Model with ModelName
 		return invalid
 	positionInvalid: -> @row + @rowSpan > 27
 
-	#onSizeChange: observer 'rowSpan','colSpan', -> @validate()
-
 	validate: -> 
 		if @id? and @row? and @col?
-			@server.post 'blocks/' + @id + '/validate'
-			@notifyPropertyChange 'invalid'
+			@server.post('blocks/' + @id + '/validate').then =>
+				@notifyPropertyChange 'invalid'
 
 	## LINES
 

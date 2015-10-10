@@ -95,9 +95,14 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 			@block.row = coords.y
 			@block.col = coords.x
 			if @block.hasDirtyAttributes
+				changed = @block.changedAttributes()
+				if changed.rowSpan? or changed.colSpan?
+					validate = true
 				@test.refreshQuestionNumbers() if @test?
 				@block.notifyPropertyChange 'invalid'
-				saveModel(@block).then -> resolve()
+				saveModel(@block).then => 
+					@block.validate() if validate?
+					resolve()
 
 	addToGrid: -> 
 		assignPosition = not @block.col? or not @block.row?
