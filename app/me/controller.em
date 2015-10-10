@@ -6,6 +6,8 @@ class MeController extends Ember.Controller
 
 	model: Ember.computed.alias 'session.me'
 
+	server: Ember.inject.service()
+
 	activeObj: null
 	activeObjStatic:false
 
@@ -18,8 +20,7 @@ class MeController extends Ember.Controller
 		copyObj: (test) ->
 			centerSpinner = Ember.$('.center-spinner')
 			centerSpinner.show()
-			model = @store.createRecord('test',{copyFromId:test.id})
-			saveModel(model).then =>
+			@server.post('tests/' + test.id + '/copy').then =>
 				centerSpinner.hide()
 
 		newTestFolder: -> 

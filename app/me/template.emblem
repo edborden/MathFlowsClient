@@ -11,6 +11,10 @@
 
 			tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj
 
+			each model.folderlessTests as |test|
+				tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="toggle"
+					i.fa-copy.click-fix click="'copyObj' child"
+
 			if session.me.group
 				if session.me.group.usersWithoutMe
 					tree-starter model=model.group children=model.group.usersWithoutMe somethingIsDragging=somethingIsDragging static=true activeObj=activeObj
