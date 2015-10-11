@@ -12,7 +12,6 @@ class BlockMenuComponent extends Ember.Component
 
 	static:null
 	block:null
-	classNames: ['right-side']
 
 	# SERVICES
 

@@ -10,7 +10,6 @@ class LineMenuComponent extends Ember.Component
 	# ATTRIBUTES
 
 	line: null
-	classNames: ['right-side']
 	cell: alias 'line.cell'
 
 	# SERVICES

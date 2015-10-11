@@ -78,7 +78,7 @@ class Block extends DS.Model with ModelName
 		if @id? and @row? and @col?
 			@server.post('blocks/' + @id + '/validate').then =>
 				@notifyPropertyChange 'invalid'
-				@test.notifyPropertyChange 'invalidBlocks'
+				@test.notifyPropertyChange 'invalidBlocks' if @test
 
 	## LINES
 

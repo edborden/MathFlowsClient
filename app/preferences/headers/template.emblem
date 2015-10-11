@@ -10,10 +10,12 @@ ul.list-group
 					button.btn.btn-default click="addHeader"
 						|Add Header&nbsp;&nbsp;
 						i.fa-plus
-				if activeBlock
+				if activeItem.isBlock
 					.btn-group-vertical
 						button.btn.btn-default click="destroyHeader"
 							|Delete&nbsp;&nbsp;
 							i.fa-trash.text-danger
+				if activeItem.isLine
+					line-menu line=activeItem
 
-			page-editor page=session.me activeBlock=activeBlock headers=true
+			page-editor page=session.me activeItem=activeItem setActiveItem=(action 'setActiveItem') headers=true

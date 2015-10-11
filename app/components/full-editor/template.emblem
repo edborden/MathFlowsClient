@@ -5,18 +5,20 @@
 	.page-editor
 
 		if activeItem.isBlock
-			block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
+			.right-side: block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
 
 		unless static
 
-			if activeItem.isImage
-				image-menu image=activeItem setActiveItem=(action 'setActiveItem')
+			.right-side
+			
+				if activeItem.isImage
+					image-menu image=activeItem setActiveItem=(action 'setActiveItem')
 
-			else if activeItem.isCell
-				cell-menu cell=activeItem setActiveItem=(action 'setActiveItem')
+				else if activeItem.isCell
+					cell-menu cell=activeItem setActiveItem=(action 'setActiveItem')
 
-			else if activeItem.isLine
-				line-menu line=activeItem
+				else if activeItem.isLine
+					line-menu line=activeItem
 
 			.left-side
 				.btn-group-vertical.page-functions

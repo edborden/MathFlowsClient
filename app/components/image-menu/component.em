@@ -6,7 +6,6 @@ class ImageMenuComponent extends Ember.Component
   # ATTRIBUTES
 
   image: null
-  classNames: ['right-side']
 
   # ACTIONS
 

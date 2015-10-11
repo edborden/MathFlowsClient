@@ -6,7 +6,9 @@ service = Ember.inject.service
 computed = Ember.computed
 alias = computed.alias
 
-class FullEditorComponent extends Ember.Component
+`import ActiveSetter from 'math-flows-client/mixins/active-setter'`
+
+class FullEditorComponent extends Ember.Component with ActiveSetter
 
 	model: null
 	test: alias 'model.test'
@@ -14,16 +16,7 @@ class FullEditorComponent extends Ember.Component
 	static: null
 	session: service()
 
-	activeItem: null
-	activeItemRenderer: null
-
 	actions:
-		setActiveItem: (item,renderer) ->
-			unless @activeItem is item
-				@activeItemRenderer.goInactive() if @activeItemRenderer? and @activeItemRenderer.goInactive?
-				@activeItem = item
-				@activeItemRenderer = renderer
-				@activeItemRenderer.goActive() if @activeItemRenderer? and @activeItemRenderer.goActive?
 
 		createPage: ->
 			@send 'setActiveItem', null

@@ -10,7 +10,6 @@ class CellMenuComponent extends Ember.Component
 
 	# ATTRIBUTES
 
-	classNames: ['right-side']
 	cell: null
 
 	# SERVICES
