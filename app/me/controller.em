@@ -27,6 +27,7 @@ class MeController extends Ember.Controller
 			@server.post('tests/' + test.id + '/copy').then =>
 				centerSpinner.hide()
 				@model.testsCount = @model.testsCount + 1
+				@model.notifyPropertyChange 'folderlessTests'
 
 		newTestFolder: -> 
 			model = @store.createRecord('folder',{user:@session.me,contents:"tests",name:"New Folder"})
