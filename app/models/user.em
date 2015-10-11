@@ -40,10 +40,10 @@ class User extends DS.Model with ModelName
 		percent = @testsCount / @testsQuota
 		(percent*100).toString() + "%"
 	topTestFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'testFolder'
-	topStudentFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'studentFolder'
+	#topStudentFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'studentFolder'
 	uservoiceURL: computed 'uservoiceToken', -> "http://support.mathflows.com?sso=" + @uservoiceToken
 	headers: computed 'blocks.[]', -> @blocks.filterBy 'header'
-	folderlessTests: computed 'tests.@each.folder', -> @tests.rejectBy 'folder'
+	folderlessTests: computed 'tests.[]', -> @tests.rejectBy 'folder'
 
 	## FOLDER HANDLING
 
