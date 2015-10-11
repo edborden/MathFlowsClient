@@ -3,7 +3,8 @@ alias = computed.alias
 
 class MenuButtonComponent extends Ember.Component
 
-	content:null
+	content: null
+	label: null
 	action: 'menuButtonPressed'
 	icon: false
 	iconName: (-> "fa-#{@content}").property()
@@ -13,8 +14,6 @@ class MenuButtonComponent extends Ember.Component
 	fontSize: computed -> if @small then 9 else 12
 
 	tagName:'span'
-
-	label: alias 'content'
 
 	click: -> 
 		@sendAction 'action',@content

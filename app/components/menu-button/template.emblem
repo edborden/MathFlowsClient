@@ -1,7 +1,10 @@
 button.btn.btn-default.click-fix style=buttonStyle class="{{ if active 'active'}} {{ if small 'btn-xs'}}"
-	unless icon
-		= label
-	else
-		i class=iconName
+  unless icon
+    if label
+      = label
+    else
+      = content
+  else
+    i class=iconName
 if mouseIsOver
-	.absolute = yield
+  .absolute = yield
