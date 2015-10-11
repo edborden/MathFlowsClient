@@ -1,6 +1,5 @@
 & {
     overflow-y: visible;
-    margin-top:-1px;
 }
 
 .block-children {
@@ -29,12 +28,11 @@
 &.active > .grid-stack-item-content {border-color: blue !important}
 
 &.active.editor {
-    cursor: move;
+    > .grid-stack-item-content {cursor: move}
     > .ui-resizable-handle {display:block !important}
 }
 
 &.active.preview {
-    cursor: pointer;
     > .ui-resizable-handle {display:none !important}
 }
 
