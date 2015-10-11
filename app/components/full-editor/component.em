@@ -10,11 +10,36 @@ alias = computed.alias
 
 class FullEditorComponent extends Ember.Component with ActiveSetter
 
+	# ATTRIBUTES
+
 	model: null
-	test: alias 'model.test'
-	store: Ember.inject.service()
 	static: null
+
+	# SERVICES
+
+	store: service()
 	session: service()
+	eventer: service()
+
+	# COMPUTED
+	test: alias 'model.test'
+
+	# SETUP
+
+	didInsertElement: ->
+		@eventer.on 'activeObjChanged', @, @setActiveItemNull
+
+	# BREAKDOWN
+
+	willDestroyElement: ->
+		@eventer.off 'activeObjChanged', @, @setActiveItemNull
+
+	# HELPERS
+
+	setActiveItemNull: ->
+		@send 'setActiveItem', null
+		
+	# ACTIONS
 
 	actions:
 

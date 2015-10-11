@@ -1,8 +1,11 @@
 class EventerService extends Ember.Service with Ember.Evented
 
-	##SYNC BLOCKS
+  ##SYNC BLOCKS
 
-	triggerSyncBlocks: ->
-		@trigger 'syncBlocks'
+  triggerSyncBlocks: ->
+    @trigger 'syncBlocks'
+
+  triggerActiveObjChanged: ->
+    @trigger 'activeObjChanged'
 
 `export default EventerService`

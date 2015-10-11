@@ -2,11 +2,14 @@
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
+service = Ember.inject.service
+
 class MeController extends Ember.Controller
 
 	model: Ember.computed.alias 'session.me'
 
-	server: Ember.inject.service()
+	eventer: service()
+	server: service()
 
 	activeObj: null
 	activeObjStatic:false
@@ -15,6 +18,7 @@ class MeController extends Ember.Controller
 		editObj: (test, isStatic) ->
 			@activeObj = test
 			@activeObjStatic = isStatic
+			@eventer.triggerActiveObjChanged()
 			false
 
 		copyObj: (test) ->
