@@ -2,10 +2,11 @@
 
 computed = Ember.computed
 alias = computed.alias
+service = Ember.inject.service
 
 class KeenService extends Ember.Service
 
-	session:Ember.inject.service()
+	session: service()
 	me: alias 'session.me'
 	id: alias 'me.id'
 	guest: alias 'me.guest'
