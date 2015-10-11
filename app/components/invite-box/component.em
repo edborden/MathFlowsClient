@@ -6,7 +6,7 @@ class InviteBoxComponent extends Ember.Component with EmberValidations
 	validations:
 		email:
 			format: 
-				with: /^([\w.-]+)@([\w.-]+)\.([a-zA-Z.]{2,6})$/i
+				with: /@/
 				message: "Doesn't look like a valid email. Please try again."
 
 	invite: 'invite'
