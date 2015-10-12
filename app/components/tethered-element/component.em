@@ -5,8 +5,6 @@ class TetheredElementComponent extends Ember.Component
 	attachment: "top left"
 	targetAttachment: "bottom left"
 
-	classNames:['btn-group']
-
 	didInsertElement: ->
 		@tether = new Tether
 			element: @element
