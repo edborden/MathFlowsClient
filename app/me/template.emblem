@@ -12,8 +12,8 @@
 			tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj
 
 			each model.folderlessTests as |test|
-				tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="sendEditObj" activeObj=activeObj
-					i.fa-copy.click-fix click="'copyObj' child"
+				div: tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="sendEditObj" activeObj=activeObj
+					i.fa-copy.click-fix click="'copyObj' test"
 
 			if session.me.group
 				if session.me.group.usersWithoutMe
