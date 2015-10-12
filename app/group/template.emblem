@@ -41,7 +41,7 @@
 							.col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
 								= groupvitation.statusFormatted
 							.col-xs-1
-								if groupvitation.declined
+								if groupvitation.completed
 									span.red click="'remove' groupvitation"
 										i.fa-close.click-fix
 

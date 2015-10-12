@@ -4,6 +4,9 @@ attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
+computed = Ember.computed
+equal = computed.equal
+
 class Groupvitation extends DS.Model with ModelName
 
 	## ATTRIBUTES
@@ -17,11 +20,12 @@ class Groupvitation extends DS.Model with ModelName
 
 	## COMPUTED
 
-	declined: Ember.computed.equal 'status','declined'
-	accepted: Ember.computed.equal 'status','accepted'
-	sent: Ember.computed.equal 'status','sent'
-	notAUser: Ember.computed.equal 'status','Not signed up'
-	statusFormatted: (->
+	declined: equal 'status','declined'
+	accepted: equal 'status','accepted'
+	sent: equal 'status','sent'
+	notAUser: equal 'status','Not signed up'
+	completed: computed 'status', -> @status is 'declined' or @status is 'accepted'
+	statusFormatted: computed 'status', ->
 		if @declined
 			"Declined"
 		else if @accepted
@@ -30,6 +34,5 @@ class Groupvitation extends DS.Model with ModelName
 			"Waiting for response"
 		else
 			"Not signed up"
-	).property 'status'
 
 `export default Groupvitation`
