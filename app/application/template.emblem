@@ -11,7 +11,10 @@ nav.navbar.navbar-default
 				if session.loggedIn
 
 					if session.me.guest
-						li: button.btn.btn-xs.btn-primary.navbar-btn click="authenticate"
+						p.navbar-text
+							|Save this test, create up to 25 free tests, and collaborate with others. Free!&nbsp;&nbsp;
+							i.fa-hand-o-right
+						li: button.btn.btn-primary.navbar-btn click="authenticate"
 							|SignUp&nbsp;&nbsp;
 							i.fa-google
 					else
