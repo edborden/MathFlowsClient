@@ -4,7 +4,7 @@ modeler =
 
 	saveModel: (model) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
-			if model.hasDirtyAttributes
+			if model.hasDirtyAttributes and not model.isSaving
 				model.save().then(
 					(success) => 
 						growl model.modelName + " saved.", "muted"
