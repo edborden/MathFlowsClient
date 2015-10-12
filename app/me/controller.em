@@ -24,10 +24,11 @@ class MeController extends Ember.Controller
 		copyObj: (test) ->
 			centerSpinner = Ember.$('.center-spinner')
 			centerSpinner.show()
-			@server.post('tests/' + test.id + '/copy').then =>
+			@server.post('tests/' + test.id + '/copy').then (response) =>
 				centerSpinner.hide()
+				newTest = @store.peekRecord 'test',response.test.id
+				@model.tests.pushObject newTest
 				@model.testsCount = @model.testsCount + 1
-				@model.notifyPropertyChange 'folderlessTests'
 
 		newTestFolder: -> 
 			model = @store.createRecord('folder',{user:@session.me,contents:"tests",name:"New Folder"})
