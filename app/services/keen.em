@@ -41,5 +41,9 @@ class KeenService extends Ember.Service
 			@client.addEvent 'introClick',
 				position: @introClickPosition
 				user: @user
+				invitationId: @invitationId
+
+	invitationId: null
+	source: null
 
 `export default KeenService`

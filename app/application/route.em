@@ -18,9 +18,9 @@ class ApplicationRoute extends Ember.Route
 			Ember.$(".center-spinner").hide()
 
 	sessionSuccessHandler: ->
-		@keen.logSession()
 		Ember.$(".center-spinner").hide()
-		@voicer.setup()
+		@voicer.setup() unless @session.me.guest
+		@keen.logSession()
 
 	actions:
 		logout: ->
