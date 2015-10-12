@@ -55,7 +55,8 @@ class BlockMenuComponent extends Ember.Component
 			saveModel block
 
 		copyBlock: ->
-			@server.post 'blocks/' + @block.id + '/copy'
+			@server.post('blocks/' + @block.id + '/copy').then =>
+				@session.me.notifyPropertyChange 'clipboard'
 			
 		destroyBlock: ->
 			@setActiveItem null
