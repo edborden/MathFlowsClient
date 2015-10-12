@@ -4,13 +4,13 @@
 
 	.page-editor
 
-		if activeItem.isBlock
-			.right-side: block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
+		.right-side
 
-		unless static
+			if activeItem.isBlock
+				block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
 
-			.right-side
-			
+			unless static
+
 				if activeItem.isImage
 					image-menu image=activeItem setActiveItem=(action 'setActiveItem')
 
@@ -20,7 +20,10 @@
 				else if activeItem.isLine
 					line-menu line=activeItem
 
-			.left-side
+		.left-side
+
+			unless static
+
 				.btn-group-vertical.page-functions
 					button.btn.btn-default click="createBlock"
 						|Add Block&nbsp;&nbsp;
@@ -43,11 +46,12 @@
 								|Delete Page&nbsp;&nbsp;
 								i.fa-minus
 
-				if session.me.clipboard
-					.btn-group-vertical.clipboard
-						p.text-center 
-							|Clipboard&nbsp;&nbsp;
-							span.badge = session.me.clipboard.length
+			if session.me.clipboard
+				.btn-group-vertical.clipboard
+					p.text-center 
+						|Clipboard&nbsp;&nbsp;
+						span.badge = session.me.clipboard.length
+					unless static
 						button.btn.btn-warning click="paste"
 							|Paste&nbsp;&nbsp;
 							i.fa-paste
