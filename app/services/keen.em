@@ -23,7 +23,7 @@ class KeenService extends Ember.Service
 			{addEvent: -> return}
 
 	user: computed 'guest', -> {
-		id: @id
+		id: parseInt @id
 		guest: @guest
 	}
 
