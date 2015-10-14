@@ -12,7 +12,7 @@ nav.navbar.navbar-default
 
 					if session.me.guest
 						p.navbar-text
-							|Save this test, create up to 25 free tests, and collaborate with others. Free!&nbsp;&nbsp;
+							|Save this test, create more, and share them with your colleagues. Free!&nbsp;&nbsp;
 							i.fa-hand-o-right
 						li: button.btn.btn-primary.navbar-btn click="authenticate"
 							|SignUp&nbsp;&nbsp;
