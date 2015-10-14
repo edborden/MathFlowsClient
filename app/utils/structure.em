@@ -1,5 +1,6 @@
 structure = 
-  user = (user) ->
+
+  user: (user) ->
     id: parseInt user.id
     guest: user.guest
     name: user.name
