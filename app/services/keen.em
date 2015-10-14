@@ -1,7 +1,4 @@
 `import config from 'math-flows-client/config/environment'`
-`import structure from 'math-flows-client/utils/structure'`
-
-structuredUser = structure.user
 
 computed = Ember.computed
 alias = computed.alias
@@ -9,8 +6,16 @@ service = Ember.inject.service
 
 class KeenService extends Ember.Service
 
+	## SERVICES
+
 	session: service()
+	structure: service()
+
+	## COMPUTED
+
 	me: alias 'session.me'
+	webReferrer: computed -> document.referrer
+	agent: computed -> window.navigator.userAgent
 
 	client: computed -> 
 		if config.environment is 'production'
@@ -23,26 +28,24 @@ class KeenService extends Ember.Service
 		else
 			{addEvent: -> return}
 
-	logSession: ->
-		@client.addEvent 'session', 
-			#page: window.location.href
-			#time: new Date().toISOString()
-			referrer: document.referrer
-			agent: window.navigator.userAgent
-			user: structuredUser(@me)
+	addEvent: (eventName,context=null) ->
+		@client.addEvent eventName, 
+			referrer: @webReferrer
+			agent: @agent
+			user: @structure.structuredUser @me
+			context: context
 
 	introClickPosition: null
+	invitationId: null
 	introClick: ->
 		if @introClickPosition?
-			@client.addEvent 'introClick',
+			@addEvent 'introClick', 
 				position: @introClickPosition
-				user: structuredUser(@me)
 				invitationId: @invitationId
 
-	invitationId: null
-
-	blockCreate: (block) ->
-		@client.addEvent 'blockCreate',
-			user: structuredUser(@me)
+	addBlockEvent: (eventName,block) ->
+		@addEvent "blockEvent", 
+			event: eventName
+			block: @structure.structuredBlock block
 
 `export default KeenService`

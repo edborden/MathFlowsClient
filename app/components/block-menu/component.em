@@ -29,13 +29,13 @@ class BlockMenuComponent extends Ember.Component
 
 	actions:
 		toggleNumber: ->
+			@keen.addBlockEvent 'toggleNumber', @block
 			if @block.question
 				@block.set 'kind','directions'
 			else
 				@block.set 'kind','question'
 			saveModel @block
 			@test.refreshQuestionNumbers() if @test?
-			@keen.toggleNumber @block
 
 		openFileDialog: ->
 			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
@@ -46,26 +46,24 @@ class BlockMenuComponent extends Ember.Component
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
-				@keen.createImage image
-
+				@keen.addBlockEvent 'createImage', image
 
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 
 		cutBlock: ->
+			@keen.addBlockEvent 'cutBlock', @block
 			block = @block
 			@setActiveItem null
 			block.removeFromPage()
 			@session.me.notifyPropertyChange 'clipboard'
 			saveModel block
-			@keen.cutBlock @block
 
 		copyBlock: ->
+			@keen.addBlockEvent 'copyBlock', @block
 			@server.post('blocks/' + @block.id + '/copy').then =>
 				@session.me.notifyPropertyChange 'clipboard'
-			@keen.copyBlock @block
 
 		destroyBlock: ->
-			@keen.destroyBlock @block
 			@setActiveItem null
 			destroyModel @block
 
