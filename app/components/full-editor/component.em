@@ -20,6 +20,7 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 	store: service()
 	session: service()
 	eventer: service()
+	keen: service()
 
 	# COMPUTED
 	test: alias 'model.test'
@@ -58,6 +59,7 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 
 		createBlock: -> 
 			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,kind:'question'}
+			@keen.blockCreate block
 
 		paste: ->
 			@session.me.clipboard.forEach (block) =>
