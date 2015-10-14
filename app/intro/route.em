@@ -10,7 +10,7 @@ class IntroRoute extends Ember.Route
 	model: -> @session.me.folders.firstObject.tests.firstObject.pages.firstObject
 
 	sessionSuccessHandler: ->
-		@keen.logSession()
+		@keen.addEvent 'session'
 		@keen.introClick()
 		Ember.$(".center-spinner").hide()
 

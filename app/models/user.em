@@ -21,6 +21,7 @@ class User extends DS.Model with ModelName
 	uservoiceToken: attr 'string'
 	guest: attr 'boolean'
 	referredBy: attr 'string'
+	invitationId: attr 'number'
 
 	## ASSOCIATIONS
 

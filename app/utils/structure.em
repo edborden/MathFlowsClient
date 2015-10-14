@@ -12,4 +12,11 @@ structure =
     premium: user.premium
     referredBy: user.referredBy
 
+  block: (block) ->
+    row: parseInt block.row
+    col: parseInt block.col
+    rowSpan: parseInt block.rowSpan
+    colSpan: parseInt block.colSpan
+    kind: col.kind
+
 `export default structure`
