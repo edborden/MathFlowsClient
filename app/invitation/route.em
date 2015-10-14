@@ -8,7 +8,6 @@ class InvitationRoute extends Ember.Route
   model: (params) ->
 
     @keen.invitationId = parseInt params.invitation_id
-    @keen.source = "invitation"
 
     @server.post 'invitations/' + params.invitation_id + '/visit'
     @replaceWith 'index'

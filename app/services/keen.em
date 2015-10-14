@@ -44,6 +44,5 @@ class KeenService extends Ember.Service
 				invitationId: @invitationId
 
 	invitationId: null
-	source: null
 
 `export default KeenService`
