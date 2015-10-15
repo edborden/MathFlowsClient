@@ -1,25 +1,27 @@
 attr = DS.attr
 
+computed = Ember.computed
+equal = computed.equal
+
 class Invitation extends DS.Model
 
 	## ATTRIBUTES
 
-	referralEmail: attr()
-	status: attr()
-	updatedAt: attr()
+	referralEmail: attr "string"
+	status: attr "string"
+	updatedAt: attr "string"
 
 	## COMPUTED
 
-	sent: Ember.computed.equal 'status','sent'
-	visited: Ember.computed.equal 'status','visited'
-	signedUp: Ember.computed.equal 'status','signed_up'
-	statusFormatted: (->
+	sent: equal "status","sent"
+	visited: equal 'status','visited'
+	signedUp: equal 'status','signed_up'
+	statusFormatted: computed 'status', ->
 		if @sent
 			"Sent"
 		else if @visited
 			"Visited"
 		else
 			"Signed Up!"
-	).property 'status'
 
 `export default Invitation`
