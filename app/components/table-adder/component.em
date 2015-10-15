@@ -24,7 +24,6 @@ class TableAdderComponent extends Ember.Component
 				block:@block
 			table.setPosition()
 			saveModel table
-			@block.tables.pushObject table
 			@addingTable = false
 
 `export default TableAdderComponent`
