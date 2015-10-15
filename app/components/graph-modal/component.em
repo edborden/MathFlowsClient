@@ -2,10 +2,13 @@
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
+service = Ember.inject.service
+
 class GraphModalComponent extends Ember.Component
 
 	closeModal: 'closeModal'
-	store:Ember.inject.service()
+	store: service()
+	keen: service()
 
 	actions:
 		screenshot: ->
@@ -18,6 +21,7 @@ class GraphModalComponent extends Ember.Component
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
+				@keen.addEditorEvent 'createGraph',image
 
 		registerCalculator: (calculator) ->
 			@calculator = calculator

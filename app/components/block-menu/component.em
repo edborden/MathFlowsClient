@@ -29,7 +29,7 @@ class BlockMenuComponent extends Ember.Component
 
 	actions:
 		toggleNumber: ->
-			@keen.addBlockEvent 'toggleNumber', @block
+			@keen.addEditorEvent 'toggleNumber', @block
 			if @block.question
 				@block.set 'kind','directions'
 			else
@@ -46,12 +46,12 @@ class BlockMenuComponent extends Ember.Component
 					width: newDimensions.width
 					height: newDimensions.height
 				image.setPosition()
-				@keen.addBlockEvent 'createImage', image
+				@keen.addEditorEvent 'createImage', image
 
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 
 		cutBlock: ->
-			@keen.addBlockEvent 'cutBlock', @block
+			@keen.addEditorEvent 'cutBlock', @block
 			block = @block
 			@setActiveItem null
 			block.removeFromPage()
@@ -59,7 +59,7 @@ class BlockMenuComponent extends Ember.Component
 			saveModel block
 
 		copyBlock: ->
-			@keen.addBlockEvent 'copyBlock', @block
+			@keen.addEditorEvent 'copyBlock', @block
 			@server.post('blocks/' + @block.id + '/copy').then =>
 				@session.me.notifyPropertyChange 'clipboard'
 

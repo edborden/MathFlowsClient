@@ -18,6 +18,8 @@ StructureService = Ember.Service.extend
 
       page = block.page or null
 
+      console.log @structuredPage?
+
       hash = 
         id: parseInt block.id
         row: parseInt block.row
@@ -74,13 +76,13 @@ StructureService = Ember.Service.extend
   structuredTable: (table) ->
     if table?
 
-      block = image.block or null
+      block = table.block or null
 
       hash =
         id: parseInt table.id
         rows_count: parseInt table.rows.length
         cols_count: parseInt table.cols.length
-        block_position: parseInt image.blockPosition
+        block_position: parseInt table.blockPosition
         block: @structuredBlock block     
 
 `export default StructureService`

@@ -49,6 +49,7 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 			page = @store.createRecord 'page', {test:@test}
 			saveModel(page).then (response) =>
 				@model = response
+			@keen.addEditorEvent "createPage",@test
 
 		deletePage: ->
 			@send 'setActiveItem', null
@@ -59,13 +60,14 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 
 		createBlock: -> 
 			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,kind:'question'}
-			@keen.addBlockEvent 'createBlock', block
+			@keen.addEditorEvent 'createBlock', block
 
 		paste: ->
 			@session.me.clipboard.forEach (block) =>
 				block.test = @test
 				block.page = @model
 			@session.me.notifyPropertyChange 'clipboard'
+			@keen.addEditorEvent 'pasteBlocks',@model
 
 		previousPage: -> 
 			@send 'setActiveItem', null

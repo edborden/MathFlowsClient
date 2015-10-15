@@ -43,9 +43,14 @@ class KeenService extends Ember.Service
 				position: @introClickPosition
 				invitationId: @invitationId
 
-	addBlockEvent: (eventName,block) ->
-		@addEvent "blockEvent", 
+	addEditorEvent: (eventName,context) ->
+		structuredContext = Ember.run.bind @structure, @structure.get("structured#{context.modelName}")
+
+		contextObj =
 			event: eventName
-			block: @structure.structuredBlock block
+
+		contextObj[context.modelKey] = structuredContext context
+
+		@addEvent "editorEvent", contextObj
 
 `export default KeenService`
