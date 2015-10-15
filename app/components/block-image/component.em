@@ -26,7 +26,7 @@ class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,Ac
 	alignment: alias 'image.alignment.side'
 	style: computed "height","width","alignment", ->
 		"height:#{@height}px;width:#{@width}px;float:#{@alignment}".htmlSafe()
-	src: computed -> "http://res.cloudinary.com/hmb9zxcjb/image/upload/#{@image.cloudinaryId}".htmlSafe()
+	src: computed -> "https://res.cloudinary.com/hmb9zxcjb/image/upload/#{@image.cloudinaryId}".htmlSafe()
 	invalid: alias 'block.contentInvalid'
 
 	# RESIZABLE
