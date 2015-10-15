@@ -44,7 +44,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.apiHostName = 'http://mathflows.herokuapp.com',
+    ENV.apiHostName = 'https://stackflows.com',
     ENV.redirectUri = 'http://mathflows.com'
   }
 
