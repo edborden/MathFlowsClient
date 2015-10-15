@@ -118,13 +118,13 @@ class KeyboarderService extends Ember.Service
 
 			clean @line,@mathquill
 			@setMetaData()
-			newContent = @lineBefore.content + @line.content
 			lineBefore = @lineBefore
-			destroyModel(@line).then =>
-					lineBefore.content = newContent
-					Ember.run.next @, => focus.create line: lineBefore,cursorPosition: 'end'
-					saveModel(lineBefore).then =>	
-						@block.validate() if @block.contentInvalid
+			lineBefore.content = lineBefore.content + @line.content
+			@line.content = ""
+			focus.create line: lineBefore,cursorPosition: 'end'
+			destroyModel(@line)
+			saveModel(lineBefore).then =>	
+				@block.validate() if @block.contentInvalid
 
 	delete: ->
 		if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter? #end of valid line, with line after
@@ -132,9 +132,9 @@ class KeyboarderService extends Ember.Service
 			@setMetaData()
 			clean @line,@mathquill
 			@line.content = @line.content + @lineAfter.content
-			saveModel(@line).then =>
-				focus.create line: @line,cursorPosition: @cursorPosition+1
-				destroyModel(@lineAfter).then =>
+			focus.create line: @line,cursorPosition: @cursorPosition+1
+			saveModel(@line)
+			destroyModel(@lineAfter).then =>
 					@block.validate() if @block.contentInvalid
 
 	leftArrow: ->

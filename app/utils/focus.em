@@ -22,6 +22,8 @@ FocusUtil = Ember.Object.extend
 
 	focus: ->
 
+		@renderer.click()
+
 		if @line.content.length is 0
 			@click @content
 
