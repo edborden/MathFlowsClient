@@ -4,7 +4,7 @@ machine:
 dependencies:
   pre:
     - npm install -g bower
-    - npm install -g divshot-cli
+    - npm install -g firebase-tools
     - npm install -g ember-cli
   override:
     - npm i
@@ -17,4 +17,4 @@ deployment:
     branch: master
     commands:
       - ember build --environment=production
-      - divshot push production --token $DIVSHOT_TOKEN
+      - firebase deploy --token $FIREBASE_TOKEN
