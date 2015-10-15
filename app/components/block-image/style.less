@@ -12,3 +12,15 @@ img {
   height:100%;
   width:100%
 }
+
+&.inactive > .ui-resizable-handle {display:none !important}
+
+&.active > .grid-stack-item-content {border-color: blue !important}
+
+&.active.editor {
+    > .ui-resizable-handle {display:block !important}
+}
+
+&.active.preview {
+    > .ui-resizable-handle {display:none !important}
+}
