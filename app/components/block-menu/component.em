@@ -66,5 +66,6 @@ class BlockMenuComponent extends Ember.Component
 		destroyBlock: ->
 			@setActiveItem null
 			destroyModel @block
+			@test.notifyPropertyChange 'invalidBlocks' if @test?
 
 `export default BlockMenuComponent`
