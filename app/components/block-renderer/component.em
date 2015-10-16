@@ -100,7 +100,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 				if changed.rowSpan? or changed.colSpan?
 					validate = true
 				@test.refreshQuestionNumbers() if @test?
-				@block.notifyPropertyChange 'invalid' unless isNew
+				@block.notifyPropertyChange 'invalid'
 				saveModel(@block).then => 
 					@block.validate() if not isNew and validate?
 					resolve()
