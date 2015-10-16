@@ -1,4 +1,4 @@
-droppable-target model=model		
+droppable-target model=model somethingIsDragging=somethingIsDragging		
 	tree-over model=model somethingIsDragging=somethingIsDragging static=static nameClicked="toggle"
 		unless static
 			span.overlay-container.click-fix click="'newObj' model"
