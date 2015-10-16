@@ -62,7 +62,8 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 			@insideEquation = false
 			clean @line,@mathquill
 			if @cell?
-				saveModel(@cell).then => saveModel(@line)
+				unless @cell.isNew and @line.content is ""
+					saveModel(@cell).then => saveModel(@line)
 			else
 				saveModel(@line)
 
