@@ -15,7 +15,7 @@ class InviteBoxComponent extends Ember.Component with EmberValidations
 	actions:
 		inviteClicked: ->
 			if @isValid
-				@sendAction 'invite',@email
+				@sendAction 'invite',@email.toLowerCase()
 				@email = null
 			else
 				growl @errors.email.firstObject
