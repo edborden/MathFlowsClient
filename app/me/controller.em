@@ -58,7 +58,7 @@ class MeController extends Ember.Controller
 				
 		deleteDrop: (target,dropped) -> 
 			if dropped.isTest
-				@send 'editObj', null, null
+				@send 'editObj', null #always set null, in case activeObj is test in folder
 				@model.testsCount = @model.testsCount - 1 
 			destroyModel dropped				
 
