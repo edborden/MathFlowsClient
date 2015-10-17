@@ -29,7 +29,7 @@ class GroupController extends Ember.Controller
 			@session.me.group = null
 
 		invite: (email) -> 
-			groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email}
+			groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email.toLowerCase()}
 			saveModel(groupvitation).then => 
 				growl "Invitation sent!"
 				@session.me.groupvitationsSent.pushObject groupvitation
