@@ -14,8 +14,6 @@ if active
 					latex-button content='\approx'
 					latex-button content='\sim'
 					latex-button content='\prop'
-					latex-button content='\overline' label="\overline{ab}"
-					latex-button content='\vec' label="\vec{F}"
 					latex-button content='\le'
 					latex-button content='\ge'
 					latex-button content='\sub'
@@ -25,7 +23,6 @@ if active
 					latex-button content='\nsube'
 					latex-button content='\nsupe'
 					latex-button content='\degree'
-					latex-button content='\angle'
 					latex-button content='\perp'
 
 				latex-button content='\sum' top=true
@@ -49,3 +46,11 @@ if active
 					latex-button content='\rho'
 					latex-button content='\sigma'
 					latex-button content='\Delta'
+
+				latex-button content='\angle' top=true
+					latex-button content='\overline' label="\overline{ab}"
+					latex-button content='\vec' label="\vec{F}"
+					latex-button content='\degree'
+					latex-button content='\perp'
+					latex-button content='\parallel'
+					latex-button content='\bigtriangleup'
