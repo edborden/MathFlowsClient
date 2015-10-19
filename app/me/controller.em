@@ -60,6 +60,6 @@ class MeController extends Ember.Controller
 			if dropped.isTest
 				@send 'editObj', null #always set null, in case activeObj is test in folder
 				@model.testsCount = @model.testsCount - 1 
-			destroyModel dropped				
+			destroyModel dropped
 
 `export default MeController`

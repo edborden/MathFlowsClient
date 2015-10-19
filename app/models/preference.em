@@ -10,5 +10,6 @@ class Preference extends DS.Model with ModelName
 	borders: attr 'boolean'
 	directions: attr 'boolean'
 	tour: attr 'boolean'
+	groupHelp: attr 'boolean'
 
 `export default Preference`

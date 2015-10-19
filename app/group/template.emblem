@@ -16,8 +16,18 @@
 				h5.orange Members
 
 				if group.usersWithoutMe
-					each group.usersWithoutMe as |user|
-						p = user.name
+					.row
+						.col-md-6
+							each group.usersWithoutMe as |user|
+								p = user.name
+						.col-md-6
+							if groupHelp
+								.alert.alert-warning.alert-dismissable
+									button.close click="groupHelpClick" &times;
+									|The members of your group are listed here. Their content will now appear on your&nbsp;
+									link-to 'me' |Tests
+									|&nbsp;page.
+
 				else
 					p.size12 There isn't anyone in your group... Invite someone!
 

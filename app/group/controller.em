@@ -3,13 +3,27 @@
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
+alias = Ember.computed.alias
+service = Ember.inject.service
+
 class GroupController extends Ember.Controller
 
-	group: Ember.computed.alias 'session.me.group'
-	groupvitations: Ember.computed.alias 'session.me.groupvitations'
-	groupvitationsSent: Ember.computed.alias 'session.me.groupvitationsSent'
+	## ATTRIBUTES
+
 	isEditingName: false
-	server:Ember.inject.service()
+
+	## SERVICES
+
+	server: service()
+
+	## COMPUTED
+
+	me: alias 'session.me'
+	group: alias 'me.group'
+	groupvitations: alias 'me.groupvitations'
+	groupvitationsSent: alias 'me.groupvitationsSent'
+	preference: alias 'me.preference'
+	groupHelp: alias 'preference.groupHelp'
 
 	actions:
 		editName: ->
@@ -36,5 +50,9 @@ class GroupController extends Ember.Controller
 
 		remove: (groupvitation) ->
 			destroyModel groupvitation
+
+		groupHelpClick: ->
+			@groupHelp = false
+			saveModel @preference
 
 `export default GroupController`
