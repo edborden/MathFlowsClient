@@ -45,7 +45,7 @@ nav.navbar.navbar-default
 
 								li: link-to 'invitations' |Invitations
 
-								li: a href=session.me.uservoiceURL Help
+								li: a href=session.me.uservoiceURL Help & FAQ
 
 								li.divider
 
