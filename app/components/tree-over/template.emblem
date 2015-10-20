@@ -7,8 +7,9 @@
 
 name-editor model=model isEditingName=isEditingName nameClicked=nameClicked
 	= model.name
+	|&nbsp;
 if showMenu
-	.tree-menu
+	tree-menu target=element model=model
 		unless static
-			i.fa-edit.click-fix click="editName"
+			li: a href="#" click="editName" Edit Name
 		yield

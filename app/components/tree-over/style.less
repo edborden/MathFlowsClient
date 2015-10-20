@@ -1,13 +1,13 @@
 & {
-    height:26px;
-    padding-top: 10px;
-    padding-bottom: 10px;
     display: inline-block;
+    border: 1px solid transparent;
+    padding-top:7px;
+    position:relative
 }
 
 &.static .grabbable {cursor:default}
 
-&.static span {cursor:default}
+//&.static span {cursor:default}
 
 &.active span {color:@yellow}
 &.active .tree-icon {color:@yellow}
@@ -18,17 +18,14 @@
     padding-left: 5px;
 }
 
-.tree-menu {
-    display:inline-block;
-    padding-left: 10px;
-    color:@orange;
-    i {
-        padding-left: 5px;
-    }
-}
-
 .tree-caret {
     width:14px;
     display:inline-block;
     color: @orange;
+}
+
+&.show-menu {
+  border-top-color: @lgrey;
+  background-color: @dropdown-bg;
+  .box-shadow(0 6px 12px rgba(0,0,0,.175));
 }

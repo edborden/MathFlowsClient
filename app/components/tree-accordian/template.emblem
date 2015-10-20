@@ -1,9 +1,7 @@
 droppable-target model=model somethingIsDragging=somethingIsDragging		
 	tree-over model=model somethingIsDragging=somethingIsDragging static=static nameClicked="toggle"
 		unless static
-			span.overlay-container.click-fix click="'newObj' model"
-				i.add-overlay.fa-plus
-				i class="{{if model.testFolder 'fa-file-text-o'}} {{if model.studentFolder 'fa-user'}}"
+			li: a href="#" click="'newObj' model" New Test
 if model.open
 
 	if model.isFolder
@@ -15,4 +13,4 @@ if model.open
 
 	each children as |child|			
 		.indented: tree-over model=child class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj nameClicked="sendEditObj"
-			i.fa-copy.click-fix click="'copyObj' child"
+			li: a href="#" click="'copyObj' child" Copy Test
