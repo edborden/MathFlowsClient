@@ -18,6 +18,7 @@ class TreeOverComponent extends Ember.Component with HandlesDragging,ElRegister,
 	activeObj: null
 	nameClicked: null
 	classNameBindings: ['static','active','showMenu']
+	indented: false
 
 	# COMPUTED
 

@@ -6,10 +6,11 @@ class TreeMenuComponent extends Ember.Component
 	attributeBindings: ['style']
 	target: null
 	model: null
+	indented: false
 
 	width: computed -> 
 		width = Ember.$(@target).width()
-		width = width + 10 if @model.isTest
+		width = width + 10 if @indented
 		return width
 	style: computed -> "left:#{@width}px".htmlSafe()
 

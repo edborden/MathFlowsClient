@@ -13,7 +13,7 @@
 
 			each model.folderlessTests as |test|
 				div: tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="sendEditObj" activeObj=activeObj
-					i.fa-copy.click-fix click="'copyObj' test"
+					li: a href="#" click="'copyObj' child" Copy Test
 
 			if session.me.group
 				if session.me.group.usersWithoutMe

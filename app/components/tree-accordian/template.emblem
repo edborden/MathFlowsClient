@@ -12,5 +12,5 @@ if model.open
 			.indented: tree-accordian model=folder class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj		
 
 	each children as |child|			
-		.indented: tree-over model=child class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj nameClicked="sendEditObj"
+		.indented: tree-over model=child class="indented" somethingIsDragging=somethingIsDragging static=static activeObj=activeObj nameClicked="sendEditObj" indented=true
 			li: a href="#" click="'copyObj' child" Copy Test

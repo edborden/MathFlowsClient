@@ -9,7 +9,7 @@ name-editor model=model isEditingName=isEditingName nameClicked=nameClicked
 	= model.name
 	|&nbsp;
 if showMenu
-	tree-menu target=element model=model
+	tree-menu target=element model=model indented=indented
 		unless static
 			li: a href="#" click="editName" Edit Name
 		yield
