@@ -3,7 +3,15 @@
 @import "mathquill";
 @import "pod-styles";
 @import "gridstack";
-@import 'nav';
+@import "nav";
+@import "dropdown";
+@import "splash";
+@import "grabbing";
+@import "spinner";
+@import "editor";
+
+@font-size-base: 16px;
+@font-family-sans-serif: 'Droid Sans', sans-serif;
 
 // COLORS
 
@@ -76,172 +84,7 @@ i {.fa}
     .self-center {width:80%}
 }
 
-@font-size-base: 16px;
-@font-family-sans-serif: 'Droid Sans', sans-serif;
-
 .inline {display:inline-block;}
-
-.intro-row {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-
-.tagline {
-    margin-top: 20px;
-    margin-bottom: 40px;
-}
-
-.box {
-    background-color: white;
-    border-radius: 10px;
-}
-
-// DROPDOWN
-
-    .d-link {margin-right:0px !important}
-    .d-menu {
-        width:100%;
-        a {.d-link}
-    }
-
-    //** Background for the dropdown menu.
-    @dropdown-bg:                    @dgrey;
-    //** Dropdown menu `border-color`.
-    @dropdown-border:                rgba(0,0,0,.15);
-    //** Dropdown menu `border-color` **for IE8**.
-    @dropdown-fallback-border:       @dgrey;
-    //** Divider color for between dropdown items.
-    @dropdown-divider-bg:            @lgrey;
-
-    //** Dropdown link text color.
-    @dropdown-link-color:            @orange;
-    //** Hover color for dropdown links.
-    @dropdown-link-hover-color:      darken(@gray-dark, 5%);
-    //** Hover background for dropdown links.
-    @dropdown-link-hover-bg:         @yellow;
-
-    //** Active dropdown menu item text color.
-    @dropdown-link-active-color:     @component-active-color;
-    //** Active dropdown menu item background color.
-    @dropdown-link-active-bg:        @component-active-bg;
-
-    //** Disabled dropdown menu item background color.
-    @dropdown-link-disabled-color:   @gray-light;
-
-    //** Text color for headers within dropdown menus.
-    @dropdown-header-color:          @gray-light;
-
-// LIST GROUP
-
-    //** Background color on `.list-group-item`
-    @list-group-bg:                 @grey;
-    //** `.list-group-item` border color
-    @list-group-border:             @lgrey;
-    //** List group border radius
-    @list-group-border-radius:      @border-radius-base;
-
-    //** Background color of single list items on hover
-    @list-group-hover-bg:           @yellow;
-    //** Text color of active list items
-    @list-group-active-color:       @orange;
-    //** Background color of active list items
-    @list-group-active-bg:          @grey;
-    //** Border color of active list elements
-    @list-group-active-border:      @lgrey;
-    //** Text color for content within active list items
-    @list-group-active-text-color:  lighten(@list-group-active-bg, 40%);
-
-    //** Text color of disabled list items
-    @list-group-disabled-color:      @gray-light;
-    //** Background color of disabled list items
-    @list-group-disabled-bg:         @gray-lighter;
-    //** Text color for content within disabled list items
-    @list-group-disabled-text-color: @list-group-disabled-color;
-
-    @list-group-link-color:         @text-color;
-    @list-group-link-hover-color:   @list-group-link-color;
-    @list-group-link-heading-color: #333;
-
-// SPLASH
-
-    .splash {
-        margin-top:-20px;
-        width:100%;
-        display: table;
-        table-layout: fixed;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        height:450px;
-        .left {
-            display: table-cell;
-            background-image: url("../assets/images/side-bg.jpg");
-            background-repeat: repeat-x;
-        }
-
-        .center {
-            display: table-cell;
-            width:790px;
-            background-image:url("../assets/images/splash.jpg");
-            .content {
-                position: relative;
-                left:10px;
-                top:40px;
-
-                h5 {
-                    width:300px;
-                    margin-top:40px;
-                    color:gray;
-                }
-            }
-        }
-
-        .right {
-            display: table-cell;
-            background-image: url("../assets/images/right-bg.jpg");
-            background-repeat: repeat-x;
-        }
-
-    }
-
-    .white-splash {
-        width:100%;
-        display: table;
-        table-layout: fixed;
-        border-top: 1px solid black;
-        border-bottom: 1px solid black;
-        height:450px;
-        background-color: white;
-        color: @grey;
-        img {
-            border: 1px solid black;
-            border-radius: 3px;
-        }
-        .row {
-            padding-bottom: 20px;
-        }
-    }
-
-    .icon-feature {
-        display: block;
-        border-radius: 500px;
-        text-align: center;
-        width: 256px;
-        height: 256px;
-        padding-top: 70px;
-        font-size: 100px;
-        line-height: 100px;
-        margin-left: auto;
-        color: grey;
-        border: 8px solid grey;       
-    }
-
-    .big-bullets {
-        .left {
-            text-align: right
-        }
-
-    }
-
 
 // DRAG AND DROP
 
@@ -257,97 +100,8 @@ i {.fa}
         right:20px;
     }
 
-// OVERLAY
-
-    .remove-overlay {
-        .overlay;
-        .text-danger;
-    }
-
-    .add-overlay {
-        .overlay;
-        color:black;
-    }
-
-    .overlay {
-        position:absolute;
-        bottom:-3px;
-        right:-2px;
-    }
-
-    .overlay-container {
-        position:relative;
-        .add-overlay {
-            font-size: smaller;
-            right:-6px;
-            bottom:0px;
-        }
-    }
-
 // ME
 
     .account {
         padding-bottom: 22px;
-    }
-
-// PAGE-EDITOR
-
-    .page-editor {
-        margin: 0 auto;
-        width:874px;
-        .left-side {
-            .side-bar;
-            .btn-group-vertical {
-                border-width: 2px;
-                border-style:solid;
-                border-right:0px;
-                
-            }
-            .page-functions {border-color:transparent}
-            .clipboard {border-color: @yellow}
-        }
-        .right-side {
-            margin-left:744px;
-            .side-bar;
-        }
-    } 
-
-    .side-bar {
-        margin-top:10vh; 
-        position:fixed;
-        button {width:130px}
-        .btn-group-vertical {
-            border-radius: 5px;
-            margin-bottom: 10px;
-            display:block;    
-        }
-    }
-
-// SPINNER //
-
-    .center-spinner {
-        color:@brand-primary;
-        position: fixed;
-        height: 15%;    
-        width: 25%;
-        top: 47%;
-        left: 47%;
-        padding: 10px;
-    }
-
-// GRABBABLE
-
-    .grabbable {
-        cursor: move; /* fallback if grab cursor is unsupported */
-        cursor: grab;
-        cursor: -moz-grab;
-        cursor: -webkit-grab;
-    }
-
-     /* (Optional) Apply a "closed-hand" cursor during drag operation. */
-    .grabbing { 
-        cursor: move; /* fallback if grab cursor is unsupported */
-        cursor: grabbing;
-        cursor: -moz-grabbing;
-        cursor: -webkit-grabbing;
     }
