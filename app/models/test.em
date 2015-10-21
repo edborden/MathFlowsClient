@@ -23,16 +23,15 @@ class Test extends DS.Model with ModelName
 
 	pdfLink: computed 'session.token', -> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
 	multiplePages: computed 'pages.length', -> @pages.length > 1
-	blocks: hasMany 'block', {async:false}
+
+	questionBlocksSorted: computed 'pages.@each.blocks.length', -> 
+		blocks = []
+		@pages.getEach("blocks").forEach (blocksArray) -> blocks.pushObjects blocksArray.toArray()
+		blocks.filterBy('question').sortBy 'pageNumber','row','col'
 
 	## INVALID BLOCKS
 
-	invalidBlocks: computed -> @blocks.filterBy 'invalid'
-	invalid: computed 'invalidBlocks.length', -> @invalidBlocks.length isnt 0
+	invalidPages: computed 'pages.@each.invalid', -> @pages.filterBy 'invalid'
+	invalid: computed 'invalidPages.length', -> @invalidPages.length isnt 0
 
-	## QUESTION NUMBERS
-
-	refreshQuestionNumbers: -> @notifyPropertyChange 'questionBlocksSorted'
-	questionBlocksSorted: computed 'blocks.length', -> @blocks.filterBy('question').sortBy 'pageNumber','row','col'
-		
 `export default Test`

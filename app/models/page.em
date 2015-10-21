@@ -21,5 +21,15 @@ class Page extends DS.Model with ModelName
 	lastPage: computed 'pages.[]', -> @pages.lastObject is @
 	previousPage: computed 'pages.[]', -> @pages.objectAt(@testIndex - 1)
 	nextPage: computed 'pages.[]', -> @pages.objectAt(@testIndex + 1)
+
+	## QUESTION NUMBERS
+
+	refreshQuestionNumbers: -> @test.notifyPropertyChange 'questionBlocksSorted'
+	questionBlocksSorted: alias 'test.questionBlocksSorted'
+
+	## INVALID BLOCKS
+
+	invalidBlocks: computed -> @blocks.filterBy 'invalid'
+	invalid: computed 'invalidBlocks.length', -> @invalidBlocks.length isnt 0
 				
 `export default Page`

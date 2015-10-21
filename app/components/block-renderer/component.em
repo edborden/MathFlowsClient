@@ -41,7 +41,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 	question: alias 'block.question'
 	borders: computed "bordersPreference","question", -> 
 		@bordersPreference and @question
-	test: alias 'block.test'
+	page: alias 'block.page'
 
 	# SETUP
 
@@ -99,10 +99,10 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 				changed = @block.changedAttributes()
 				if changed.rowSpan? or changed.colSpan?
 					validate = true
-				if @test?
-					@test.refreshQuestionNumbers()
+				if @page?
+					@page.refreshQuestionNumbers()
 					@block.notifyPropertyChange 'invalid'
-					@test.notifyPropertyChange 'invalidBlocks'
+					@page.notifyPropertyChange 'invalidBlocks'
 				saveModel(@block).then => 
 					@block.validate() if not isNew and validate?
 					resolve()

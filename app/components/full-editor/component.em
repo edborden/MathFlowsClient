@@ -59,12 +59,11 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 			destroyModel model
 
 		createBlock: -> 
-			block = @store.createRecord 'block',{page:@model,test:@test,rowSpan:3,colSpan:2,kind:'question'}
+			block = @store.createRecord 'block',{page:@model,rowSpan:3,colSpan:2,kind:'question'}
 			@keen.addEditorEvent 'createBlock', block
 
 		paste: ->
 			@session.me.clipboard.forEach (block) =>
-				block.test = @test
 				block.page = @model
 			@session.me.notifyPropertyChange 'clipboard'
 			@keen.addEditorEvent 'pasteBlocks',@model

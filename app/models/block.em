@@ -33,7 +33,7 @@ class Block extends DS.Model with ModelName
 	page: belongsTo 'page', {async:false}
 	images: hasMany 'image', {async:false}
 	tables: hasMany 'table', {async:false}
-	test: belongsTo 'test', {async:false}
+	lines: hasMany 'line', {async:false}
 
 	## COMPUTED
 
@@ -44,10 +44,10 @@ class Block extends DS.Model with ModelName
 	pageNumber: alias 'page.number'
 	question: equal 'kind','question'
 	header: equal 'kind','header'
-	questionBlocksSorted: alias 'test.questionBlocksSorted'
+	questionBlocksSorted: alias 'page.questionBlocksSorted'
+	sortedLines: computed 'lines', -> @lines.sortBy 'position'
 
 	removeFromPage: ->
-		@test = null
 		@page = null
 		@row = null
 		@col = null
@@ -78,11 +78,6 @@ class Block extends DS.Model with ModelName
 		if @id? and @row? and @col?
 			@server.post('blocks/' + @id + '/validate').then =>
 				@notifyPropertyChange 'invalid'
-				@test.notifyPropertyChange 'invalidBlocks' if @test
-
-	## LINES
-
-	lines: hasMany 'line', {async:false}
-	sortedLines: computed 'lines', -> @lines.sortBy 'position'
+				@page.notifyPropertyChange 'invalidBlocks' if @page
 
 `export default Block`
