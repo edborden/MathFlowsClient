@@ -48,6 +48,7 @@
     "ember-cli-moment-shim": "0.6.0",
     "ember-moment": "3.2.1",
     "ember-shepherd": "1.0.0",
-    "ember-radio-button":"1.0.7"
+    "ember-radio-button":"1.0.7",
+    "ember-tooltips": "0.5.2"
   }
 }

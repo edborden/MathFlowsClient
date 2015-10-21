@@ -1,3 +1,12 @@
+if model.isGroup
+  tooltip-on-parent place='right' event="manual" visibility=meGroupHelp class="alert-dismissible"
+    button.close click="'helpClick' 'meGroupHelp'" &times;
+    |These are the other members of your group. You can view and copy their content here.
+else
+  tooltip-on-parent place='right' event="manual" visibility=meTestHelp class="alert-dismissible"
+    button.close click="'helpClick' 'meTestHelp'" &times;
+    |The test you were just editing is now here in a folder! Both folders and tests can be dragged and dropped within other folders so you can stay organized.
+
 .name = name
 each children as |child|
 	tree-accordian model=child somethingIsDragging=somethingIsDragging static=static activeObj=activeObj
