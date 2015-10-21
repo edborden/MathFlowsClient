@@ -6,10 +6,7 @@
 			if group
 				name-editor model=group isEditingName=isEditingName handleNameClick=false size=30
 					span.larger-heading.bold = group.name
-				|&nbsp;&nbsp;
-				i.fa-edit.click-fix.orange click="editName"
-				|&nbsp;&nbsp;
-				i.fa-sign-out.click-fix.orange click="unjoin"
+					group-buttons editName=(action 'editName') unjoin=(action 'unjoin')
 
 				hr
 

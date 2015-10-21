@@ -1,0 +1,4 @@
+|&nbsp;&nbsp;&nbsp;&nbsp;
+i.fa-edit.click-fix.orange.has-tooltip.fa-lg data-tooltip-content="Edit Group Name" data-tooltip-effect-class="none" click="editName"
+|&nbsp;&nbsp;&nbsp;&nbsp;
+i.fa-sign-out.click-fix.orange.has-tooltip.fa-lg data-tooltip-content="Leave Group" data-tooltip-effect-class="none" click="unjoin"

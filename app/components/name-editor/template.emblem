@@ -1,5 +1,5 @@
 if isEditingName
 	= input value=model.name size=size
 else
-	span class=handleNameClick:click-fix mouseDown="nameClicked"
+	span class=handleNameClick:click-fix:arrow mouseDown="nameClicked"
 		yield
