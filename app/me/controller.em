@@ -3,16 +3,28 @@ saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
 
 service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
 
 class MeController extends Ember.Controller
 
-	model: Ember.computed.alias 'session.me'
+	## ATTRIBUTES
+
+	activeObj: null
+	activeObjStatic:false
+
+	## SERVICES
 
 	eventer: service()
 	server: service()
 
-	activeObj: null
-	activeObjStatic:false
+	## COMPUTED
+
+	model: alias 'session.me'
+	group: alias 'model.group'
+	preference: alias 'model.preference'
+
+	## ACTIONS
 
 	actions:
 		editObj: (test, isStatic) ->

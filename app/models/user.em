@@ -28,7 +28,7 @@ class User extends DS.Model with ModelName
 	blocks: hasMany 'block', {async:false}
 	tests: hasMany 'test', {async:false}
 	folders: hasMany 'folder', {inverse: 'user',async:false}
-	group: belongsTo 'group', {async:false}
+	group: belongsTo 'group', {async:false,inverse:null}
 	preference: belongsTo 'preference', {async:false}
 	groupvitations: hasMany 'groupvitations', {async:false}
 	groupvitationsSent: hasMany 'groupvitations', {async:false}

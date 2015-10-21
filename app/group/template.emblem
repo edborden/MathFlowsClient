@@ -12,10 +12,10 @@
 
 				h5.orange Members
 
-				if group.usersWithoutMe
+				if group.users
 					.row
 						.col-md-6
-							each group.usersWithoutMe as |user|
+							each group.users as |user|
 								p = user.name
 						.col-md-6
 							if groupHelp

@@ -9,15 +9,15 @@
 				droppable-target drop='deleteDrop' class="delete-drop" tooltipContent="Drag tests and folders here to delete them."
 					i.fa-lg.fa-trash-o
 
-			tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj preference=model.preference
+			tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj preference=preference
 
 			each model.folderlessTests as |test|
 				div: tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="sendEditObj" activeObj=activeObj
 					li: a href="#" click="'copyObj' child" Copy Test
 
-			if session.me.group
-				if session.me.group.usersWithoutMe
-					tree-starter model=model.group children=model.group.usersWithoutMe somethingIsDragging=somethingIsDragging static=true activeObj=activeObj preference=model.preference
+			if group
+				if group.users
+					tree-starter model=group children=group.users somethingIsDragging=somethingIsDragging static=true activeObj=activeObj preference=preference
 
 		.col-xs-9
 
