@@ -22,7 +22,7 @@
 								p = user.name
 						.col-md-6
 							if groupHelp
-								.alert.alert-warning.alert-dismissable
+								.alert.alert-warning.alert-dismissible
 									button.close click="groupHelpClick" &times;
 									|The members of your group are listed here. Their content will now appear on your&nbsp;
 									link-to 'me' |Tests
