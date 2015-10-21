@@ -25,7 +25,6 @@ class User extends DS.Model with ModelName
 
 	## ASSOCIATIONS
 
-	blocks: hasMany 'block', {async:false}
 	tests: hasMany 'test', {async:false}
 	folders: hasMany 'folder', {inverse: 'user',async:false}
 	group: belongsTo 'group', {async:false,inverse:null}
@@ -34,6 +33,8 @@ class User extends DS.Model with ModelName
 	groupvitationsSent: hasMany 'groupvitations', {async:false}
 	groupvitationsAll: attr 'string' #placeholder for serialized groupvitations on API
 	invitationsSent: hasMany 'invitation'
+	clips: hasMany 'blocks', {async:false}
+	headers: hasMany 'blocks', {async:false}
 
 	## COMPUTED
 
@@ -43,15 +44,11 @@ class User extends DS.Model with ModelName
 	topTestFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'testFolder'
 	#topStudentFolders: computed 'folders.[]', -> @folders.rejectBy('folder').filterBy 'studentFolder'
 	uservoiceURL: computed 'uservoiceToken', -> "http://support.mathflows.com?sso=" + @uservoiceToken
-	headers: computed 'blocks.[]', -> @blocks.filterBy 'header'
 	folderlessTests: computed 'tests.@each.folder', -> @tests.rejectBy 'folder'
 
 	## FOLDER HANDLING
 
 	iconName: 'fa-user'
 	hasChildren: true
-
-	## CLIPBOARD
-	clipboard: computed -> @blocks.rejectBy('header').rejectBy 'page'
 
 `export default User`

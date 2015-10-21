@@ -63,10 +63,12 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 			@keen.addEditorEvent 'createBlock', block
 
 		paste: ->
-			@session.me.clipboard.forEach (block) =>
-				block.page = @model
-			@session.me.notifyPropertyChange 'clipboard'
-			@keen.addEditorEvent 'pasteBlocks',@model
+			page = @model
+			@session.me.clips.forEach (block) =>
+				block.set 'page', page
+			clipsArray = @session.me.clips.toArray()
+			@session.me.clips.removeObjects clipsArray
+			@keen.addEditorEvent 'pasteBlocks',page
 
 		previousPage: -> 
 			@send 'setActiveItem', null

@@ -51,17 +51,20 @@ class BlockMenuComponent extends Ember.Component
 		openGraphModal: -> @modaler.openModal 'graph-modal',@block
 
 		cutBlock: ->
+			page = @page
 			@keen.addEditorEvent 'cutBlock', @block
 			block = @block
 			@setActiveItem null
 			block.removeFromPage()
-			@session.me.notifyPropertyChange 'clipboard'
+			@session.me.clips.addObject block
 			saveModel block
+			page.notifyPropertyChange 'invalidBlocks'
 
 		copyBlock: ->
 			@keen.addEditorEvent 'copyBlock', @block
-			@server.post('blocks/' + @block.id + '/copy').then =>
-				@session.me.notifyPropertyChange 'clipboard'
+			@server.post('blocks/' + @block.id + '/copy').then (response) =>
+				newBlock = @store.peekRecord 'block',response.block.id
+				@session.me.clips.pushObject newBlock
 
 		destroyBlock: ->
 			@setActiveItem null

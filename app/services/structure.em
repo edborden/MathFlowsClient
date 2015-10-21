@@ -18,8 +18,6 @@ StructureService = Ember.Service.extend
 
       page = block.page or null
 
-      console.log @structuredPage?
-
       hash = 
         id: parseInt block.id
         row: parseInt block.row

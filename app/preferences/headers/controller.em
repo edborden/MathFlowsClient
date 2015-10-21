@@ -6,7 +6,8 @@ class HeadersController extends Ember.Controller with ActiveSetter
 
   actions:
     addHeader: -> 
-      @store.createRecord 'block',{user:@session.me,rowSpan:1,colSpan:2,kind:"header"}
+      header = @store.createRecord 'block',{rowSpan:1,colSpan:2,kind:"header"}
+      @session.me.headers.pushObject header
 
     destroyHeader: ->
       header = @activeItem

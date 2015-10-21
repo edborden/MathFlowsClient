@@ -46,11 +46,11 @@
 								|Delete Page&nbsp;&nbsp;
 								i.fa-minus
 
-			if session.me.clipboard
+			if session.me.clips
 				.btn-group-vertical.clipboard
 					p.text-center 
 						|Clipboard&nbsp;&nbsp;
-						span.badge = session.me.clipboard.length
+						span.badge = session.me.clips.length
 					unless static
 						button.btn.btn-warning click="paste"
 							|Paste&nbsp;&nbsp;

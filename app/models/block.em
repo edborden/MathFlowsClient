@@ -29,7 +29,6 @@ class Block extends DS.Model with ModelName
 
 	## ASSOCIATIONS
 
-	user: belongsTo 'user', {async:false}
 	page: belongsTo 'page', {async:false}
 	images: hasMany 'image', {async:false}
 	tables: hasMany 'table', {async:false}
