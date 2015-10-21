@@ -9,7 +9,7 @@ alias = computed.alias
 equal = computed.equal
 
 class Page extends DS.Model with ModelName
-	test: belongsTo 'test', {async:false}
+	test: belongsTo 'test', {async:true}
 	blocks: hasMany 'block', {async:false}
 
 	#HELPERS

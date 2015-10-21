@@ -15,7 +15,7 @@ class Test extends DS.Model with ModelName
 	# ATTRIBUTES AND ASSOCIATIONS
 
 	iconName: "fa-file-text-o"
-	pages: hasMany 'page', {async:false}
+	pages: hasMany 'page', {async:true}
 	name: attr()
 	folder: belongsTo 'folder', {async:false}
 
