@@ -23,6 +23,7 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 
 	store: service()
 	keyboarder: service()
+	eventer: service()
 
 	# COMPUTED
 
@@ -96,10 +97,8 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 	checkIfInsideEquation: ->
 		unless @isDestroyed
 			cursorElement = Ember.$('.hasCursor')
-			if cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
-				@insideEquation = true
-			else
-				@insideEquation = false
+			@insideEquation = cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
+			@eventer.triggerActiveEquationChanged()
 
 	actions:
 		insertLatex: (latex) ->

@@ -8,4 +8,7 @@ class EventerService extends Ember.Service with Ember.Evented
   triggerActiveObjChanged: ->
     @trigger 'activeObjChanged'
 
+  triggerActiveEquationChanged: ->
+    @trigger 'activeEquationChanged'
+
 `export default EventerService`
