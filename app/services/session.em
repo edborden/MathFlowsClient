@@ -8,6 +8,7 @@ alias = computed.alias
 class SessionService extends Ember.Service
 
 	store: service()
+	keen: service()
 
 	# COMPUTED
 
@@ -15,6 +16,7 @@ class SessionService extends Ember.Service
 	model: null
 	token: alias 'model.token'
 	me: alias 'model.user'
+	googleReferrer: alias 'keen.googleReferrer'
 	
 	open: ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
@@ -36,7 +38,7 @@ class SessionService extends Ember.Service
 
 	post: (token,redirectUri) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
-			session = @store.createRecord('session',{token:token,redirectUri:redirectUri})
+			session = @store.createRecord('session',{token:token,redirectUri:redirectUri,googleReferrerId:@googleReferrer.id,googleReferrerKeyword:@googleReferrer.keyword})
 			saveModel(session).then(
 				(response) => 
 					@model = response

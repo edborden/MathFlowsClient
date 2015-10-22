@@ -1,8 +1,10 @@
 attr = DS.attr
 
 class Session extends DS.Model
-	token: attr()
+	token: attr "string"
 	user: DS.belongsTo 'user', {async:false}
-	redirectUri: attr()
+	redirectUri: attr "string"
+	googleReferrerId: attr "string"
+	googleReferrerKeyword: attr "string"
 
 `export default Session`

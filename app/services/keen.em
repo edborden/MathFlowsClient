@@ -6,6 +6,12 @@ service = Ember.inject.service
 
 class KeenService extends Ember.Service
 
+	## ATTRIBUTES
+
+	introClickPosition: null
+	invitationId: null
+	googleReferrer: null
+
 	## SERVICES
 
 	session: service()
@@ -16,6 +22,9 @@ class KeenService extends Ember.Service
 	me: alias 'session.me'
 	webReferrer: computed -> document.referrer
 	agent: computed -> window.navigator.userAgent
+	structuredMe: computed 'me', -> @structure.structuredUser(@me) if @me?
+
+	## CLIENT
 
 	client: computed -> 
 		if config.environment is 'production'
@@ -28,20 +37,21 @@ class KeenService extends Ember.Service
 		else
 			{addEvent: -> return}
 
+	## EVENTS
+
 	addEvent: (eventName,context=null) ->
 		@client.addEvent eventName, 
 			referrer: @webReferrer
 			agent: @agent
-			user: @structure.structuredUser @me
+			user: @structuredMe
 			context: context
 
-	introClickPosition: null
-	invitationId: null
 	introClick: ->
 		if @introClickPosition?
 			@addEvent 'introClick', 
 				position: @introClickPosition
 				invitationId: @invitationId
+				googleReferrer: @googleReferrer
 
 	addEditorEvent: (eventName,context) ->
 		structuredContext = Ember.run.bind @structure, @structure.get("structured#{context.modelName}")

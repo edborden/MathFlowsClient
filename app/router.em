@@ -13,5 +13,6 @@ Router.map ->
 		@route 'display'
 		@route 'headers'
 	@route 'invitation', {path: '/invitation/:invitation_id'}
+	@route 'google', {path: '/google/:id/:keyword/:adgroupid'}
 
 `export default Router`
