@@ -5,6 +5,9 @@ saveModel = modeler.saveModel
 class ApplicationRoute extends Ember.Route
 
 	voicer:Ember.inject.service()
+	structure: service()
+	me: Ember.computed.alias 'session.me'
+	structuredMe: computed 'me', -> @structure.structuredUser(@me) if @me?
 
 	beforeModel: -> 
 		if localStorage.mathFlowsToken
@@ -21,6 +24,8 @@ class ApplicationRoute extends Ember.Route
 		Ember.$(".center-spinner").hide()
 		@voicer.setup() unless @session.me.guest
 		@keen.addEvent 'session'
+		__insp.push(['identify', @session.me.name])
+		__insp.push(['tagSession', @structuredMe])
 
 	actions:
 		logout: ->
