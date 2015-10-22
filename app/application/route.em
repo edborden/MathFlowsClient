@@ -2,12 +2,14 @@
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 service = Ember.inject.service
+computed = Ember.computed
+alias = computed.alias
 
 class ApplicationRoute extends Ember.Route
 
 	voicer: service()
 	structure: service()
-	me: Ember.computed.alias 'session.me'
+	me: alias 'session.me'
 	structuredMe: computed 'me', -> @structure.structuredUser(@me) if @me?
 
 	beforeModel: -> 
