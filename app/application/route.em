@@ -1,10 +1,11 @@
 `import growl from 'math-flows-client/utils/growl'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
+service = Ember.inject.service
 
 class ApplicationRoute extends Ember.Route
 
-	voicer:Ember.inject.service()
+	voicer: service()
 	structure: service()
 	me: Ember.computed.alias 'session.me'
 	structuredMe: computed 'me', -> @structure.structuredUser(@me) if @me?
@@ -24,8 +25,9 @@ class ApplicationRoute extends Ember.Route
 		Ember.$(".center-spinner").hide()
 		@voicer.setup() unless @session.me.guest
 		@keen.addEvent 'session'
-		__insp.push(['identify', @session.me.name])
-		__insp.push(['tagSession', @structuredMe])
+		if __insp?
+			__insp.push(['identify', @session.me.name])
+			__insp.push(['tagSession', @structuredMe])
 
 	actions:
 		logout: ->
