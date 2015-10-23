@@ -38,7 +38,11 @@ class SessionService extends Ember.Service
 
 	post: (token,redirectUri) ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
-			session = @store.createRecord('session',{token:token,redirectUri:redirectUri,googleReferrerId:@googleReferrer.id,googleReferrerKeyword:@googleReferrer.keyword})
+			session = @store.createRecord 'session',
+				token:token
+				redirectUri:redirectUri
+				googleReferrer: @googleReferrer.id
+				facebookReferrer: @keen.facebookReferrer
 			saveModel(session).then(
 				(response) => 
 					@model = response

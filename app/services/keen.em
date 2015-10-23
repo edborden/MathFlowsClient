@@ -11,6 +11,7 @@ class KeenService extends Ember.Service
 	introClickPosition: null
 	invitationId: null
 	googleReferrer: null
+	facebookReferrer: null
 
 	## SERVICES
 
@@ -52,6 +53,7 @@ class KeenService extends Ember.Service
 				position: @introClickPosition
 				invitationId: @invitationId
 				googleReferrer: @googleReferrer
+				facebookReferrer: @facebookReferrer
 
 	addEditorEvent: (eventName,context) ->
 		structuredContext = Ember.run.bind @structure, @structure.get("structured#{context.modelName}")

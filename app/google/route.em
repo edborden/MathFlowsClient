@@ -6,7 +6,6 @@ class GoogleRoute extends Ember.Route
 
   model: (params) ->
     @keen.googleReferrer = params
-    console.log @keen.googleReferrer,@keen.googleReferrer.keyword
     @keen.addEvent 'google_visit', params
     @replaceWith 'index'
 
