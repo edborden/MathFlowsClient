@@ -44,7 +44,7 @@ class TourEditorComponent extends FullEditorComponent
 		{}=
 			options:
 				attachTo:
-					element: Ember.$( Ember.$(".grid-stack").children()[7] ).find(".grid-stack-item-content").find(".mathquill-rendered-math")
+					element: Ember.$(".mathquill-rendered-math")
 					on: "left"
 				text: ["You can type equations in-line just like you type text! No more equation editors!", "You can switch to 'math mode' with the '$' key."]
 				builtInButtons: [@backButton(),@nextButton()]
