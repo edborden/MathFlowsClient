@@ -39,8 +39,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 	invalid: alias 'block.invalid'
 	bordersPreference: alias 'session.me.preference.borders'
 	question: alias 'block.question'
-	borders: computed "bordersPreference","question", -> 
-		@bordersPreference and @question
+	borders: computed "question", -> @bordersPreference and @question
 	page: alias 'block.page'
 
 	# SETUP
