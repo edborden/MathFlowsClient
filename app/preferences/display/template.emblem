@@ -1,5 +1,6 @@
 ul.list-group
-	li.list-group-item.list-group-item-success Question block borders
+	li.list-group-item.list-group-item-success 
+		|Question block borders: Useful if you need to help students keep their work in a defined area.
 	li.list-group-item
 		form
 			.form-group
