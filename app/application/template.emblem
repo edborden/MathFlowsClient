@@ -60,7 +60,15 @@ nav.navbar.navbar-default
 outlet
 
 .footer: .container
-	p.text-center.text-muted © 2015 MathFlows Corp. | Privacy Policy | Terms of Service
+	p.text-center.text-muted 
+		|©
+		|&nbsp;
+		year
+		|&nbsp;MathFlows |
+		|&nbsp;
+		link-to 'privacy' |Privacy Policy
+		|&nbsp;|&nbsp;
+		link-to 'terms' |Terms of Service
 
 
 if modaler.showModal

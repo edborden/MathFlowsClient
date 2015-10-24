@@ -15,5 +15,7 @@ Router.map ->
 	@route 'invitation', {path: '/invitation/:invitation_id'}
 	@route 'google', {path: '/google/:id/:keyword/:adgroupid'}
 	@route 'facebook'
+	@route 'privacy'
+	@route 'terms'
 
 `export default Router`
