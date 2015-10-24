@@ -58,5 +58,10 @@ nav.navbar.navbar-default
 						i.fa-google
 
 outlet
+
+.footer: .container
+	p.text-center.text-muted © 2015 MathFlows Corp. | Privacy Policy | Terms of Service
+
+
 if modaler.showModal
 	component modaler.modalName model=modaler.modalModel
