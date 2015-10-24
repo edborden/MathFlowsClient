@@ -17,6 +17,7 @@ class SessionService extends Ember.Service
 	token: alias 'model.token'
 	me: alias 'model.user'
 	googleReferrer: alias 'keen.googleReferrer'
+	facebookReferrer: alias 'keen.facebookReferrer'
 	
 	open: ->
 		return new Ember.RSVP.Promise (resolve,reject) =>
@@ -41,8 +42,8 @@ class SessionService extends Ember.Service
 			session = @store.createRecord 'session',
 				token:token
 				redirectUri:redirectUri
-				googleReferrer: @googleReferrer.id
-				facebookReferrer: @keen.facebookReferrer
+				googleReferrer: @get('googleReferrer')
+				facebookReferrer: @get('facebookReferrer')
 			saveModel(session).then(
 				(response) => 
 					@model = response
