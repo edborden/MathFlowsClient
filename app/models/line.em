@@ -4,27 +4,27 @@ attr = DS.attr
 belongsTo = DS.belongsTo
 hasMany = DS.hasMany
 
+computed = Ember.computed
+
 class Line extends DS.Model with ModelName
-	content: attr "string", {defaultValue:""}
-	block: belongsTo 'block', {async:false}
-	cell: belongsTo 'cell', {async:false}
-	position: attr "number"
-	styles: hasMany 'style', {async:false}
+  content: attr "string", {defaultValue:""}
+  block: belongsTo 'block', {async:false}
+  cell: belongsTo 'cell', {async:false}
+  position: attr "number"
+  styles: hasMany 'style', {async:false}
 
-	stylesCSS: (-> 
-		@styles.getEach("css").join("").htmlSafe()
-	).property "styles.[]"
+  stylesCSS: computed "styles.[]", -> 
+    @styles.getEach("css").join("").htmlSafe()
 
-	effects: (->
-		@styles.getEach "effect"
-	).property "styles.[]"
+  effects: computed "styles.[]", ->
+    @styles.getEach "effect"
 
-	bold: Ember.computed "effects", -> @effects.contains "bold"
-	italic: Ember.computed "effects", -> @effects.contains "italic"
-	underline: Ember.computed "effects", -> @effects.contains "underline"
-	red: Ember.computed "effects", -> @effects.contains "red"
+  bold: computed "effects", -> @effects.contains "bold"
+  italic: computed "effects", -> @effects.contains "italic"
+  underline: computed "effects", -> @effects.contains "underline"
+  red: computed "effects", -> @effects.contains "red"
 
-	## RENDERED ELEMENT
-	renderer: null
+  ## RENDERED ELEMENT
+  renderer: null
 
 `export default Line`

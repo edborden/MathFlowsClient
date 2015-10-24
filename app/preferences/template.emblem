@@ -1,10 +1,10 @@
 .container
-	.row	
-		.col-md-2	
-			ul.list-group
-				li.list-group-item.list-group-item-success Preferences
-				link-to 'preferences.display' class="list-group-item" |Display
-				link-to 'preferences.headers' class="list-group-item" |Headers
+  .row  
+    .col-md-2 
+      ul.list-group
+        li.list-group-item.list-group-item-success Preferences
+        link-to 'preferences.display' class="list-group-item" |Display
+        link-to 'preferences.headers' class="list-group-item" |Headers
 
-		.col-md-10
-			outlet
+    .col-md-10
+      outlet

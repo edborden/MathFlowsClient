@@ -8,25 +8,25 @@ alias = Ember.computed.alias
 
 class TreeStarterComponent extends Ember.Component with HandlesDragging,TreeObjects
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	model: null
-	children: null
-	somethingIsDragging: null
-	static: false
-	activeObj: null
-	preference: null
+  model: null
+  children: null
+  somethingIsDragging: null
+  static: false
+  activeObj: null
+  preference: null
 
-	## COMPUTED
+  ## COMPUTED
 
-	name: alias 'model.name'
-	meGroupHelp: alias 'preference.meGroupHelp'
-	meTestHelp: alias 'preference.meTestHelp'
+  name: alias 'model.name'
+  meGroupHelp: alias 'preference.meGroupHelp'
+  meTestHelp: alias 'preference.meTestHelp'
 
-	actions:
-		helpClick: (pref) ->
-			console.log pref
-			@preference.set pref, false
-			saveModel @preference
+  actions:
+    helpClick: (pref) ->
+      console.log pref
+      @preference.set pref, false
+      saveModel @preference
 
 `export default TreeStarterComponent`

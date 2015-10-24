@@ -6,8 +6,8 @@ hasMany = DS.hasMany
 
 class Alignment extends DS.Model with ModelName
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	side: attr()
+  side: attr()
 
 `export default Alignment`

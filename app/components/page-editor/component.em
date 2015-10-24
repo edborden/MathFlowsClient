@@ -6,43 +6,43 @@ observer = Ember.observer
 
 class PageEditorComponent extends Ember.Component
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	page: null
-	preview:false
-	headers:false
-	classNameBindings: ['preview']
-	gridstack: null
-	
-	# SERVICES
+  page: null
+  preview:false
+  headers:false
+  classNameBindings: ['preview']
+  gridstack: null
+  
+  # SERVICES
 
-	eventer: service()
+  eventer: service()
 
-	# COMPUTED
+  # COMPUTED
 
-	alwaysShowResizeHandle: computed.not 'preview'
-	gridstackOptions: computed -> 
-		cell_height:18
-		width:4
-		float:true
-		vertical_margin:9
-		static_grid: @preview
-		always_show_resize_handle: @alwaysShowResizeHandle
+  alwaysShowResizeHandle: computed.not 'preview'
+  gridstackOptions: computed -> 
+    cell_height:18
+    width:4
+    float:true
+    vertical_margin:9
+    static_grid: @preview
+    always_show_resize_handle: @alwaysShowResizeHandle
 
-	# SETUP
+  # SETUP
 
-	didInsertElement: -> 
-		scheduleOnce 'afterRender', @, 'setupGridstack'
+  didInsertElement: -> 
+    scheduleOnce 'afterRender', @, 'setupGridstack'
 
-	setupGridstack: ->
-		@gridstack = Ember.$(@element).children('.grid-stack').gridstack(@gridstackOptions).data 'gridstack'
-		Ember.$(@element).on 'change', => 
-			@eventer.triggerSyncBlocks()
+  setupGridstack: ->
+    @gridstack = Ember.$(@element).children('.grid-stack').gridstack(@gridstackOptions).data 'gridstack'
+    Ember.$(@element).on 'change', => 
+      @eventer.triggerSyncBlocks()
 
-	# BREAKDOWN
+  # BREAKDOWN
 
-	willDestroyElement: ->
-		@gridstack.destroy()
-		Ember.$(@element).off 'change','**'
+  willDestroyElement: ->
+    @gridstack.destroy()
+    Ember.$(@element).off 'change','**'
 
 `export default PageEditorComponent`

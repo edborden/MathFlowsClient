@@ -3,48 +3,48 @@ saveModel = modeler.saveModel
 
 class NameEditorComponent extends Ember.Component
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	tagName: 'span'
-	size:14
-	model:null
-	isEditingName:null
-	handleNameClick: true
+  tagName: 'span'
+  size:14
+  model:null
+  isEditingName:null
+  handleNameClick: true
 
-	action: 'doneEditingName'
-	nameClicked: 'nameClicked'
+  action: 'doneEditingName'
+  nameClicked: 'nameClicked'
 
-	## EVENTS
+  ## EVENTS
 
-	onIsEditingNameChange: Ember.observer 'isEditingName', ->
-		Ember.run.next @, =>
-			if @isEditingName
-				input = Ember.$(@element).children().first()
-				@setKeyDownHandler input
-				input.focus()
+  onIsEditingNameChange: Ember.observer 'isEditingName', ->
+    Ember.run.next @, =>
+      if @isEditingName
+        input = Ember.$(@element).children().first()
+        @setKeyDownHandler input
+        input.focus()
 
-	focusOut: ->
-		@removeKeyDownHandler()
-		saveModel @model
-		@sendAction()
+  focusOut: ->
+    @removeKeyDownHandler()
+    saveModel @model
+    @sendAction()
 
-	## ACTIONS
+  ## ACTIONS
 
-	actions:
-		nameClicked: -> 
-			@sendAction 'nameClicked' if @handleNameClick
+  actions:
+    nameClicked: -> 
+      @sendAction 'nameClicked' if @handleNameClick
 
-	## HELPERS
+  ## HELPERS
 
-	setKeyDownHandler: (el) ->
-		onKeyDown = Ember.run.bind @,@onKeyDown
-		el.on 'keydown',onKeyDown
+  setKeyDownHandler: (el) ->
+    onKeyDown = Ember.run.bind @,@onKeyDown
+    el.on 'keydown',onKeyDown
 
-	onKeyDown: (ev) ->
-		@focusOut() if ev.keyCode is 13 #enter
+  onKeyDown: (ev) ->
+    @focusOut() if ev.keyCode is 13 #enter
 
-	removeKeyDownHandler: ->
-		input = Ember.$(@element).children().first()
-		input.off 'keydown', '**'
+  removeKeyDownHandler: ->
+    input = Ember.$(@element).children().first()
+    input.off 'keydown', '**'
 
 `export default NameEditorComponent`

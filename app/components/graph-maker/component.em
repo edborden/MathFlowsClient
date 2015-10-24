@@ -1,13 +1,13 @@
 class GraphMakerComponent extends Ember.Component
-	
-	classNames: ['calculator']
+  
+  classNames: ['calculator']
 
-	registerCalculator: 'registerCalculator'
+  registerCalculator: 'registerCalculator'
 
-	didInsertElement: ->
-		Ember.run.next @, =>
-			calculator = Desmos.Calculator @element
-			calculator.setExpression({id:'graph1', latex:'y=x^2'})
-			@sendAction 'registerCalculator',calculator
+  didInsertElement: ->
+    Ember.run.next @, =>
+      calculator = Desmos.Calculator @element
+      calculator.setExpression({id:'graph1', latex:'y=x^2'})
+      @sendAction 'registerCalculator',calculator
 
 `export default GraphMakerComponent`

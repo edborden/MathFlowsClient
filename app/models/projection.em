@@ -9,46 +9,46 @@ equal = computed.equal
 
 class Projection extends DS.Model with ModelName
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	axis: attr()
-	position: attr "number"
-	size: attr "number"
+  axis: attr()
+  position: attr "number"
+  size: attr "number"
 
-	## ASSOCIATIONS
+  ## ASSOCIATIONS
 
-	table: belongsTo 'table', {async:false}
-	cells: hasMany 'cells', { async:false,inverse:null }
+  table: belongsTo 'table', {async:false}
+  cells: hasMany 'cells', { async:false,inverse:null }
 
-	## COMPUTED
+  ## COMPUTED
 
-	row: equal 'axis','row'
-	col: equal 'axis','col'
+  row: equal 'axis','row'
+  col: equal 'axis','col'
 
-	projectionIndex: -> 
-		if @row 
-			@table.rows.indexOf @
-		else
-			@table.cols.indexOf @
-	
-	projectionAfter: ->
-		@table.get(@axis.pluralize()).objectAt @projectionIndex()+1
+  projectionIndex: -> 
+    if @row 
+      @table.rows.indexOf @
+    else
+      @table.cols.indexOf @
+  
+  projectionAfter: ->
+    @table.get(@axis.pluralize()).objectAt @projectionIndex()+1
 
-	projectionBefore: -> 
-		@table.get(@axis.pluralize()).objectAt @projectionIndex()-1
+  projectionBefore: -> 
+    @table.get(@axis.pluralize()).objectAt @projectionIndex()-1
 
-	newPreceedingPosition: ->
-		projectionBefore = @projectionBefore()
-		if projectionBefore
-			return (@position+projectionBefore.position)/2
-		else
-			return @position/2
+  newPreceedingPosition: ->
+    projectionBefore = @projectionBefore()
+    if projectionBefore
+      return (@position+projectionBefore.position)/2
+    else
+      return @position/2
 
-	newFollowingPosition: ->
-		projectionAfter = @projectionAfter()
-		if projectionAfter
-			return (@position+projectionAfter.position)/2
-		else
-			return @position+1
+  newFollowingPosition: ->
+    projectionAfter = @projectionAfter()
+    if projectionAfter
+      return (@position+projectionAfter.position)/2
+    else
+      return @position+1
 
 `export default Projection`

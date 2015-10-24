@@ -3,21 +3,21 @@
 
 class InviteBoxComponent extends Ember.Component with EmberValidations
 
-	validations:
-		email:
-			format: 
-				with: /@/
-				message: "Doesn't look like a valid email. Please try again."
+  validations:
+    email:
+      format: 
+        with: /@/
+        message: "Doesn't look like a valid email. Please try again."
 
-	invite: 'invite'
-	email: null
+  invite: 'invite'
+  email: null
 
-	actions:
-		inviteClicked: ->
-			if @isValid
-				@sendAction 'invite',@email.toLowerCase()
-				@email = null
-			else
-				growl @errors.email.firstObject
-		
+  actions:
+    inviteClicked: ->
+      if @isValid
+        @sendAction 'invite',@email.toLowerCase()
+        @email = null
+      else
+        growl @errors.email.firstObject
+    
 `export default InviteBoxComponent`

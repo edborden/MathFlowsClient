@@ -7,16 +7,16 @@ hasMany = DS.hasMany
 
 class Image extends DS.Model with ModelName,SetsPosition
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	height: attr "number"
-	width: attr "number"
-	cloudinaryId: attr()
-	blockPosition: attr "number"
+  height: attr "number"
+  width: attr "number"
+  cloudinaryId: attr()
+  blockPosition: attr "number"
 
-	# ASSOCIATIONS
+  # ASSOCIATIONS
 
-	block: belongsTo 'block', {async:false}
-	alignment: belongsTo 'alignment', { async:false }
+  block: belongsTo 'block', {async:false}
+  alignment: belongsTo 'alignment', { async:false }
 
 `export default Image`

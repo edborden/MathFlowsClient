@@ -5,20 +5,20 @@ computed = Ember.computed
 alias = computed.alias
 
 class ApplicationAdapter extends ActiveModelAdapter
-	host: config.apiHostName
-	session: Ember.inject.service()
-	token: alias 'session.token'
+  host: config.apiHostName
+  session: Ember.inject.service()
+  token: alias 'session.token'
 
-	#crossdomain
-	ajax: (url, method, hash) -> 
-		hash = hash || {}
-		hash.crossDomain = true
-		return @_super(url, method, hash)
+  #crossdomain
+  ajax: (url, method, hash) -> 
+    hash = hash || {}
+    hash.crossDomain = true
+    return @_super(url, method, hash)
 
-	headers: computed 'token', ->
-		if @token?
-			{'Authorization': 'Bearer ' + @token }
-		else
-			{}
+  headers: computed 'token', ->
+    if @token?
+      {'Authorization': 'Bearer ' + @token }
+    else
+      {}
 
 `export default ApplicationAdapter`

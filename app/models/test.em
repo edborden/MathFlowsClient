@@ -10,28 +10,28 @@ alias = computed.alias
 
 class Test extends DS.Model with ModelName
 
-	session: Ember.inject.service()
+  session: Ember.inject.service()
 
-	# ATTRIBUTES AND ASSOCIATIONS
+  # ATTRIBUTES AND ASSOCIATIONS
 
-	iconName: "fa-file-text-o"
-	pages: hasMany 'page', {async:true}
-	name: attr()
-	folder: belongsTo 'folder', {async:false}
+  iconName: "fa-file-text-o"
+  pages: hasMany 'page', {async:true}
+  name: attr()
+  folder: belongsTo 'folder', {async:false}
 
-	## COMPUTED
+  ## COMPUTED
 
-	pdfLink: computed 'session.token', -> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
-	multiplePages: computed 'pages.length', -> @pages.length > 1
+  pdfLink: computed 'session.token', -> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
+  multiplePages: computed 'pages.length', -> @pages.length > 1
 
-	questionBlocksSorted: computed 'pages.@each.blocks.length', -> 
-		blocks = []
-		@pages.getEach("blocks").forEach (blocksArray) -> blocks.pushObjects blocksArray.toArray()
-		blocks.filterBy('question').sortBy 'pageNumber','row','col'
+  questionBlocksSorted: computed 'pages.@each.blocks.length', -> 
+    blocks = []
+    @pages.getEach("blocks").forEach (blocksArray) -> blocks.pushObjects blocksArray.toArray()
+    blocks.filterBy('question').sortBy 'pageNumber','row','col'
 
-	## INVALID BLOCKS
+  ## INVALID BLOCKS
 
-	invalidPages: computed 'pages.@each.invalid', -> @pages.filterBy 'invalid'
-	invalid: computed 'invalidPages.length', -> @invalidPages.length isnt 0
+  invalidPages: computed 'pages.@each.invalid', -> @pages.filterBy 'invalid'
+  invalid: computed 'invalidPages.length', -> @invalidPages.length isnt 0
 
 `export default Test`

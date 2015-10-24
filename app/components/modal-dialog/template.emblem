@@ -1,9 +1,9 @@
 .modal-dialog class=large:modal-lg
-	.modal-content
-		if title
-			.modal-header
-				h4.modal-title = title
-		.modal-body = yield
-		.modal-footer
-			button.btn.btn-primary click='ok' OK
-			button.btn.btn-default.modal-cancel data-dismiss="modal" Cancel
+  .modal-content
+    if title
+      .modal-header
+        h4.modal-title = title
+    .modal-body = yield
+    .modal-footer
+      button.btn.btn-primary click='ok' OK
+      button.btn.btn-default.modal-cancel data-dismiss="modal" Cancel

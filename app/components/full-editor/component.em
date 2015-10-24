@@ -10,72 +10,72 @@ alias = computed.alias
 
 class FullEditorComponent extends Ember.Component with ActiveSetter
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	model: null
-	static: null
+  model: null
+  static: null
 
-	# SERVICES
+  # SERVICES
 
-	store: service()
-	session: service()
-	eventer: service()
-	keen: service()
+  store: service()
+  session: service()
+  eventer: service()
+  keen: service()
 
-	# COMPUTED
-	test: alias 'model.test'
+  # COMPUTED
+  test: alias 'model.test'
 
-	# SETUP
+  # SETUP
 
-	didInsertElement: ->
-		@eventer.on 'activeObjChanged', @, @setActiveItemNull
+  didInsertElement: ->
+    @eventer.on 'activeObjChanged', @, @setActiveItemNull
 
-	# BREAKDOWN
+  # BREAKDOWN
 
-	willDestroyElement: ->
-		@eventer.off 'activeObjChanged', @, @setActiveItemNull
+  willDestroyElement: ->
+    @eventer.off 'activeObjChanged', @, @setActiveItemNull
 
-	# HELPERS
+  # HELPERS
 
-	setActiveItemNull: ->
-		@send 'setActiveItem', null
-		
-	# ACTIONS
+  setActiveItemNull: ->
+    @send 'setActiveItem', null
+    
+  # ACTIONS
 
-	actions:
+  actions:
 
-		createPage: ->
-			@send 'setActiveItem', null
-			page = @store.createRecord 'page', {test:@test}
-			saveModel(page).then (response) =>
-				@model = response
-			@keen.addEditorEvent "createPage",@test
+    createPage: ->
+      @send 'setActiveItem', null
+      page = @store.createRecord 'page', {test:@test}
+      saveModel(page).then (response) =>
+        @model = response
+      @keen.addEditorEvent "createPage",@test
 
-		deletePage: ->
-			@send 'setActiveItem', null
-			model = @model
-			@send 'previousPage'
-			model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
-			destroyModel model
+    deletePage: ->
+      @send 'setActiveItem', null
+      model = @model
+      @send 'previousPage'
+      model.blocks.toArray().forEach (block) -> block.deleteRecord() #delete blocks locally so they don't go to clipboard
+      destroyModel model
 
-		createBlock: -> 
-			block = @store.createRecord 'block',{page:@model,rowSpan:3,colSpan:2,kind:'question'}
-			@keen.addEditorEvent 'createBlock', block
+    createBlock: -> 
+      block = @store.createRecord 'block',{page:@model,rowSpan:3,colSpan:2,kind:'question'}
+      @keen.addEditorEvent 'createBlock', block
 
-		paste: ->
-			page = @model
-			@session.me.clips.forEach (block) =>
-				block.set 'page', page
-			clipsArray = @session.me.clips.toArray()
-			@session.me.clips.removeObjects clipsArray
-			@keen.addEditorEvent 'pasteBlocks',page
+    paste: ->
+      page = @model
+      @session.me.clips.forEach (block) =>
+        block.set 'page', page
+      clipsArray = @session.me.clips.toArray()
+      @session.me.clips.removeObjects clipsArray
+      @keen.addEditorEvent 'pasteBlocks',page
 
-		previousPage: -> 
-			@send 'setActiveItem', null
-			@model = @model.previousPage
+    previousPage: -> 
+      @send 'setActiveItem', null
+      @model = @model.previousPage
 
-		nextPage: -> 
-			@send 'setActiveItem', null
-			@model = @model.nextPage
+    nextPage: -> 
+      @send 'setActiveItem', null
+      @model = @model.nextPage
 
 `export default FullEditorComponent`

@@ -1,89 +1,89 @@
 .splash
-	.left
-	.center
-		.content
-			h1.logo MathFlows
-			h1.tagline
-				p Drag and Drop
-				p Math Tests
-			p
-				try-button position=1
-			h5 A toolset designed specifically for math teachers to create and collaborate around tests faster and hassle-free.
+  .left
+  .center
+    .content
+      h1.logo MathFlows
+      h1.tagline
+        p Drag and Drop
+        p Math Tests
+      p
+        try-button position=1
+      h5 A toolset designed specifically for math teachers to create and collaborate around tests faster and hassle-free.
 
-	.right
+  .right
 
 .container
 
-	.row.intro-row
+  .row.intro-row
 
-		.col-md-12.text-center.tagline
-			h1.yellow If you're using a Word Processor to make tests, we need to talk...
-	.row.intro-row.text-center
-		.col-md-4
-			img.box src="../assets/images/word.jpg"
-			h3.tagline Word is built for longform writing
-		.col-md-4.arrow-div
-			.self-center
-				i.fa-5x.fa-long-arrow-right
-				ul.fa-ul.text-left
-					li 
-						i.fa-li.fa-check
-						|Drag and drop interface
-					li 
-						i.fa-li.fa-check
-						|Question numbers automatically sync to page position				
-					li 
-						i.fa-li.fa-check
-						|No more fighting table layouts with copy and paste
-				p
-					try-button position=2
+    .col-md-12.text-center.tagline
+      h1.yellow If you're using a Word Processor to make tests, we need to talk...
+  .row.intro-row.text-center
+    .col-md-4
+      img.box src="../assets/images/word.jpg"
+      h3.tagline Word is built for longform writing
+    .col-md-4.arrow-div
+      .self-center
+        i.fa-5x.fa-long-arrow-right
+        ul.fa-ul.text-left
+          li 
+            i.fa-li.fa-check
+            |Drag and drop interface
+          li 
+            i.fa-li.fa-check
+            |Question numbers automatically sync to page position       
+          li 
+            i.fa-li.fa-check
+            |No more fighting table layouts with copy and paste
+        p
+          try-button position=2
 
-		.col-md-4
-			img.box src="../assets/images/mathflows.jpg"
-			h3.tagline.orange Mathflows is built for test layouts!
+    .col-md-4
+      img.box src="../assets/images/mathflows.jpg"
+      h3.tagline.orange Mathflows is built for test layouts!
 
 .white-splash
-	.container.text-center
-		.row
-			.col-md-12.tagline
-				h1 Tools math teachers need right at your fingertips
-		.row
-			.col-md-4.col-lg-offset-1
-				img src="../assets/images/equations.jpg"
-			.col-md-8.col-lg-6
-				h2 Inline Equation Editor
-				p Mix and match text and math inline. Editing and changing equations is as easy as typing a sentence.
-		.row
-			.col-md-4.col-lg-offset-1
-				img src="../assets/images/desmos.jpg"
-			.col-md-8.col-lg-6
-				h2 Desmos Graphing Calculator
-				p Graph functions, plot tables of data, evaluate equations, explore transformations, and much more -- then export instantly right into your question block. Without leaving the screen.
-		.row
-			.col-md-4.col-lg-offset-1
-				img src="../assets/images/images.jpg"
-			.col-md-8.col-lg-6
-				h2 Powerful Image Tools
-				p Import images in any format from your computer or from anywhere on the web via URL. Crop right on the screen before you add to your test.
+  .container.text-center
+    .row
+      .col-md-12.tagline
+        h1 Tools math teachers need right at your fingertips
+    .row
+      .col-md-4.col-lg-offset-1
+        img src="../assets/images/equations.jpg"
+      .col-md-8.col-lg-6
+        h2 Inline Equation Editor
+        p Mix and match text and math inline. Editing and changing equations is as easy as typing a sentence.
+    .row
+      .col-md-4.col-lg-offset-1
+        img src="../assets/images/desmos.jpg"
+      .col-md-8.col-lg-6
+        h2 Desmos Graphing Calculator
+        p Graph functions, plot tables of data, evaluate equations, explore transformations, and much more -- then export instantly right into your question block. Without leaving the screen.
+    .row
+      .col-md-4.col-lg-offset-1
+        img src="../assets/images/images.jpg"
+      .col-md-8.col-lg-6
+        h2 Powerful Image Tools
+        p Import images in any format from your computer or from anywhere on the web via URL. Crop right on the screen before you add to your test.
 
 .container.tagline
 
-	.row.intro-row.text-center
-		.col-md-12
-			h1.yellow Streamline collaboration
-	.row.big-bullets
-		.col-md-5.left
-			i.icon-feature.fa-cogs
-		.col-md-6
-			h3 No more emailing docs around.
-			p MathFlows lets you share tests with your entire department. Your colleagues can copy entire tests or just grab snippets.
-			ul.fa-ul
-				li
-					i.fa-li.fa-lg.fa-cloud-download
-					|Always work with the latest versions
-				li
-					i.fa-li.fa-lg.fa-refresh
-					|Get feedback from colleagues
-			try-button position=3
-	.row.intro-row
-		.col-lg-6.col-lg-offset-3
+  .row.intro-row.text-center
+    .col-md-12
+      h1.yellow Streamline collaboration
+  .row.big-bullets
+    .col-md-5.left
+      i.icon-feature.fa-cogs
+    .col-md-6
+      h3 No more emailing docs around.
+      p MathFlows lets you share tests with your entire department. Your colleagues can copy entire tests or just grab snippets.
+      ul.fa-ul
+        li
+          i.fa-li.fa-lg.fa-cloud-download
+          |Always work with the latest versions
+        li
+          i.fa-li.fa-lg.fa-refresh
+          |Get feedback from colleagues
+      try-button position=3
+  .row.intro-row
+    .col-lg-6.col-lg-offset-3

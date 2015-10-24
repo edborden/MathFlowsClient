@@ -1,26 +1,26 @@
 & {
-    overflow-y: visible;
+  overflow-y: visible;
 }
 
 .block-children {
-    text-align:center;
-    width:100%;
-    height:100%;
+  text-align:center;
+  width:100%;
+  height:100%;
 }
 
 .question-number {
-    position:absolute;
-    margin-top:1px;
-    font-weight: bold;
+  position:absolute;
+  margin-top:1px;
+  font-weight: bold;
 }
 
 & > .grid-stack-item-content {
-    background: #DDD;
-    border:solid 1px transparent;
-    border-radius: 3px;
-    word-wrap: break-word;
-    cursor:pointer;
-    padding:2px;
+  background: #DDD;
+  border:solid 1px transparent;
+  border-radius: 3px;
+  word-wrap: break-word;
+  cursor:pointer;
+  padding:2px;
 }
 
 &.inactive > .ui-resizable-handle {display:none !important}
@@ -28,18 +28,18 @@
 &.active > .grid-stack-item-content {border-color: blue !important}
 
 &.active.editor {
-    > .grid-stack-item-content {cursor: move}
-    > .ui-resizable-handle {display:block !important}
+  > .grid-stack-item-content {cursor: move}
+  > .ui-resizable-handle {display:block !important}
 }
 
 &.active.preview {
-    > .ui-resizable-handle {display:none !important}
+  > .ui-resizable-handle {display:none !important}
 }
 
 &:focus {
-    //border-color:transparent;
-    box-shadow:transparent;
-    outline:0 none;
+  //border-color:transparent;
+  box-shadow:transparent;
+  outline:0 none;
 }
 
 &.invalid > .grid-stack-item-content {border-color: red !important}

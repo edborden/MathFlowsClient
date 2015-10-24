@@ -5,23 +5,23 @@ equal = computed.equal
 
 class Invitation extends DS.Model
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	referralEmail: attr "string"
-	status: attr "string"
-	updatedAt: attr "string"
+  referralEmail: attr "string"
+  status: attr "string"
+  updatedAt: attr "string"
 
-	## COMPUTED
+  ## COMPUTED
 
-	sent: equal "status","sent"
-	visited: equal 'status','visited'
-	signedUp: equal 'status','signed_up'
-	statusFormatted: computed 'status', ->
-		if @sent
-			"Sent"
-		else if @visited
-			"Visited"
-		else
-			"Signed Up!"
+  sent: equal "status","sent"
+  visited: equal 'status','visited'
+  signedUp: equal 'status','signed_up'
+  statusFormatted: computed 'status', ->
+    if @sent
+      "Sent"
+    else if @visited
+      "Visited"
+    else
+      "Signed Up!"
 
 `export default Invitation`

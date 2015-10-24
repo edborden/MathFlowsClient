@@ -1,62 +1,62 @@
 .container-fluid
 
-	directions-widget
+  directions-widget
 
-	.page-editor
+  .page-editor
 
-		.right-side
+    .right-side
 
-			if activeItem.isBlock
-				block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
+      if activeItem.isBlock
+        block-menu block=activeItem static=static setActiveItem=(action 'setActiveItem')
 
-			unless static
+      unless static
 
-				if activeItem.isImage
-					image-menu image=activeItem setActiveItem=(action 'setActiveItem')
+        if activeItem.isImage
+          image-menu image=activeItem setActiveItem=(action 'setActiveItem')
 
-				else if activeItem.isCell
-					cell-menu cell=activeItem setActiveItem=(action 'setActiveItem')
+        else if activeItem.isCell
+          cell-menu cell=activeItem setActiveItem=(action 'setActiveItem')
 
-				else if activeItem.isLine
-					line-menu line=activeItem
+        else if activeItem.isLine
+          line-menu line=activeItem
 
-		.left-side
+    .left-side
 
-			unless static
+      unless static
 
-				.btn-group-vertical.page-functions
-					button.btn.btn-default click="createBlock"
-						|Add Block&nbsp;&nbsp;
-						i.fa-plus
-					button.btn.btn-default click="createPage"
-						|Add Page&nbsp;&nbsp;
-						i.fa-plus	
-					unless test.invalid			
-						a.btn.btn-default href=test.pdfLink
-							|Get PDF&nbsp;&nbsp;
-							i.fa-download
-					else
-						button.btn.btn-default disabled=true
-							|Get PDF&nbsp;&nbsp;
-							i.fa-download
+        .btn-group-vertical.page-functions
+          button.btn.btn-default click="createBlock"
+            |Add Block&nbsp;&nbsp;
+            i.fa-plus
+          button.btn.btn-default click="createPage"
+            |Add Page&nbsp;&nbsp;
+            i.fa-plus 
+          unless test.invalid     
+            a.btn.btn-default href=test.pdfLink
+              |Get PDF&nbsp;&nbsp;
+              i.fa-download
+          else
+            button.btn.btn-default disabled=true
+              |Get PDF&nbsp;&nbsp;
+              i.fa-download
 
-					unless model.firstPage
-						.btn-group-vertical
-							button.btn.btn-default click="deletePage"
-								|Delete Page&nbsp;&nbsp;
-								i.fa-minus
+          unless model.firstPage
+            .btn-group-vertical
+              button.btn.btn-default click="deletePage"
+                |Delete Page&nbsp;&nbsp;
+                i.fa-minus
 
-			if session.me.clips
-				.btn-group-vertical.clipboard
-					p.text-center 
-						|Clipboard&nbsp;&nbsp;
-						span.badge = session.me.clips.length
-					unless static
-						button.btn.btn-warning click="paste"
-							|Paste&nbsp;&nbsp;
-							i.fa-paste
+      if session.me.clips
+        .btn-group-vertical.clipboard
+          p.text-center 
+            |Clipboard&nbsp;&nbsp;
+            span.badge = session.me.clips.length
+          unless static
+            button.btn.btn-warning click="paste"
+              |Paste&nbsp;&nbsp;
+              i.fa-paste
 
-		if test.multiplePages
-			page-navigator model=model
+    if test.multiplePages
+      page-navigator model=model
 
-		page-editor page=model activeItem=activeItem setActiveItem=(action 'setActiveItem') preview=static
+    page-editor page=model activeItem=activeItem setActiveItem=(action 'setActiveItem') preview=static

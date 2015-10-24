@@ -12,96 +12,96 @@ scheduleOnce = Ember.run.scheduleOnce
 
 class EquationRendererComponent extends Ember.Component with ActiveItem
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	line:null
-	preview:null
-	insideEquation: null
-	attributeBindings: ['style']
+  line:null
+  preview:null
+  insideEquation: null
+  attributeBindings: ['style']
 
-	# SERVICES
+  # SERVICES
 
-	store: service()
-	keyboarder: service()
-	eventer: service()
+  store: service()
+  keyboarder: service()
+  eventer: service()
 
-	# COMPUTED
+  # COMPUTED
 
-	model: alias 'line'
-	questionNumberWidth: alias 'line.block.questionNumberWidth'
-	style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
-	blockLine: computed -> @line.get('block')? is true
-	cell: alias 'line.cell'
+  model: alias 'line'
+  questionNumberWidth: alias 'line.block.questionNumberWidth'
+  style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
+  blockLine: computed -> @line.get('block')? is true
+  cell: alias 'line.cell'
 
-	# SETUP
+  # SETUP
 
-	didInitAttrs: ->
-		@line.renderer = @ if @blockLine
+  didInitAttrs: ->
+    @line.renderer = @ if @blockLine
 
-	didInsertElement: -> scheduleOnce 'afterRender', @, 'setupMathquill'
+  didInsertElement: -> scheduleOnce 'afterRender', @, 'setupMathquill'
 
-	setupMathquill: ->
-		@mathquill = Ember.$(@element).children(".content").first().mathquill('textbox')
-		@setMathQuillContent()
-		@setKeyDownHandler()
-		Ember.$(@element).find('.cursor').remove()	
+  setupMathquill: ->
+    @mathquill = Ember.$(@element).children(".content").first().mathquill('textbox')
+    @setMathQuillContent()
+    @setKeyDownHandler()
+    Ember.$(@element).find('.cursor').remove()  
 
-	# BREAKDOWN
+  # BREAKDOWN
 
-	willDestroyElement: -> @removeKeyDownHandler()
+  willDestroyElement: -> @removeKeyDownHandler()
 
-	##EVENTS
+  ##EVENTS
 
-	onKeyDown: (ev) ->
-		unless @preview
-			@keyboarder.process @line,ev.keyCode,@mathquill	if @blockLine
-			Ember.run.next @,@checkIfInsideEquation
-			true
+  onKeyDown: (ev) ->
+    unless @preview
+      @keyboarder.process @line,ev.keyCode,@mathquill if @blockLine
+      Ember.run.next @,@checkIfInsideEquation
+      true
 
-	focusOut: -> 
-		unless @preview
-			@insideEquation = false
-			clean @line,@mathquill
-			if @cell?
-				unless @cell.isNew and @line.content is ""
-					saveModel(@cell).then => saveModel(@line)
-			else
-				saveModel(@line)
+  focusOut: -> 
+    unless @preview
+      @insideEquation = false
+      clean @line,@mathquill
+      if @cell?
+        unless @cell.isNew and @line.content is ""
+          saveModel(@cell).then => saveModel(@line)
+      else
+        saveModel(@line)
 
-	click: -> 
-		@_super()
-		@checkIfInsideEquation()
-		false
+  click: -> 
+    @_super()
+    @checkIfInsideEquation()
+    false
 
-	contentChanged: observer 'line.content', -> 
-		@setMathQuillContent()
-		Ember.$(@element).find('.cursor').remove()
+  contentChanged: observer 'line.content', -> 
+    @setMathQuillContent()
+    Ember.$(@element).find('.cursor').remove()
 
-	##HELPERS
+  ##HELPERS
 
-	setMathQuillContent: -> @mathquill.mathquill 'latex',@line.content
+  setMathQuillContent: -> @mathquill.mathquill 'latex',@line.content
 
-	setKeyDownHandler: ->
-		#set handler
-		onKeyDown = Ember.run.bind @,@onKeyDown
-		@mathquill.on 'keydown',onKeyDown
+  setKeyDownHandler: ->
+    #set handler
+    onKeyDown = Ember.run.bind @,@onKeyDown
+    @mathquill.on 'keydown',onKeyDown
 
-		#reorder handlers for ember to run before mathquill
-		handlers = jQuery._data( @mathquill[0], "events" ).keydown
-		handler = handlers.pop()
-		handlers.splice(0, 0, handler)
+    #reorder handlers for ember to run before mathquill
+    handlers = jQuery._data( @mathquill[0], "events" ).keydown
+    handler = handlers.pop()
+    handlers.splice(0, 0, handler)
 
-	removeKeyDownHandler: ->
-		@mathquill.off 'keydown', '**'
+  removeKeyDownHandler: ->
+    @mathquill.off 'keydown', '**'
 
-	checkIfInsideEquation: ->
-		unless @isDestroyed
-			cursorElement = Ember.$('.hasCursor')
-			@insideEquation = cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
-			@eventer.triggerActiveEquationChanged()
+  checkIfInsideEquation: ->
+    unless @isDestroyed
+      cursorElement = Ember.$('.hasCursor')
+      @insideEquation = cursorElement.hasClass('mathquill-rendered-math') or cursorElement.parents('.mathquill-rendered-math').length isnt 0
+      @eventer.triggerActiveEquationChanged()
 
-	actions:
-		insertLatex: (latex) ->
-			@mathquill.mathquill 'cmd',latex
+  actions:
+    insertLatex: (latex) ->
+      @mathquill.mathquill 'cmd',latex
 
 `export default EquationRendererComponent`

@@ -1,75 +1,75 @@
 nav.navbar.navbar-default
-	.container
+  .container
 
-		unless indexRoute
-			.navbar-header
-				link-to "index" class="navbar-brand logo" |MathFlows
+    unless indexRoute
+      .navbar-header
+        link-to "index" class="navbar-brand logo" |MathFlows
 
-		unless loginRoute
-			ul.nav.navbar-nav.navbar-right
+    unless loginRoute
+      ul.nav.navbar-nav.navbar-right
 
-				if session.loggedIn
+        if session.loggedIn
 
-					if session.me.guest
-						p.navbar-text
-							|Save this test, create more, and share them with your colleagues. Free!&nbsp;&nbsp;
-							i.fa-hand-o-right
-						li: button.btn.btn-primary.navbar-btn click="authenticate"
-							|SignUp&nbsp;&nbsp;
-							i.fa-google
-					else
+          if session.me.guest
+            p.navbar-text
+              |Save this test, create more, and share them with your colleagues. Free!&nbsp;&nbsp;
+              i.fa-hand-o-right
+            li: button.btn.btn-primary.navbar-btn click="authenticate"
+              |SignUp&nbsp;&nbsp;
+              i.fa-google
+          else
 
-						li.dropdown 
+            li.dropdown 
 
-							a.dropdown-toggle.d-link href="#" data-toggle="dropdown"
-								i.fa-user
-								|&nbsp;&nbsp;
-								= session.me.name
-								i.fa-caret-down.fa-fw
+              a.dropdown-toggle.d-link href="#" data-toggle="dropdown"
+                i.fa-user
+                |&nbsp;&nbsp;
+                = session.me.name
+                i.fa-caret-down.fa-fw
 
-							ul.dropdown-menu.d-menu
+              ul.dropdown-menu.d-menu
 
-								li: link-to 'me' |Tests
+                li: link-to 'me' |Tests
 
-								li.dropdown-header 
-									.size10
-										= session.me.testsCount
-										|&nbsp;of&nbsp;
-										= session.me.testsQuota
-										|&nbsp;used
-									progress-bar fill=session.me.percentOfQuota
+                li.dropdown-header 
+                  .size10
+                    = session.me.testsCount
+                    |&nbsp;of&nbsp;
+                    = session.me.testsQuota
+                    |&nbsp;used
+                  progress-bar fill=session.me.percentOfQuota
 
-								li: link-to 'group' |Group
+                li: link-to 'group' |Group
 
-								li: link-to 'preferences.display' |Preferences
+                li: link-to 'preferences.display' |Preferences
 
-								li: link-to 'invitations' |Invitations
+                li: link-to 'invitations' |Invitations
 
-								li: a href=session.me.uservoiceURL Help & FAQ
+                li: a href=session.me.uservoiceURL Help & FAQ
 
-								li.divider
+                li.divider
 
-								li: a href="#" click="logout" Sign out
+                li: a href="#" click="logout" Sign out
 
-				else
+        else
 
-					li: button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
-						|Login&nbsp;&nbsp;
-						i.fa-google
+          li: button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
+            |Login&nbsp;&nbsp;
+            i.fa-google
 
 outlet
 
 .footer: .container
-	p.text-center.text-muted 
-		|©
-		|&nbsp;
-		year
-		|&nbsp;MathFlows |
-		|&nbsp;
-		link-to 'privacy' |Privacy Policy
-		|&nbsp;|&nbsp;
-		link-to 'terms' |Terms of Service
+  p.text-center.text-muted 
+    |©
+    |&nbsp;
+    year
+    |&nbsp;MathFlows |
+    |&nbsp;
+    link-to 'privacy' |Privacy Policy
+    |&nbsp;|&nbsp;
+    link-to 'terms' |Terms of Service
 
 
 if modaler.showModal
-	component modaler.modalName model=modaler.modalModel
+  component modaler.modalName model=modaler.modalModel

@@ -1,13 +1,13 @@
 radio-button value='left' groupValue=checked
 label click="'setValue' 'left'"
-	i.fa-align-left
+  i.fa-align-left
 
 radio-button value='center' groupValue=checked
 label click="'setValue' 'center'"
-	i.fa-align-center
+  i.fa-align-center
 
 radio-button value='right' groupValue=checked
 label click="'setValue' 'right'"
-	i.fa-align-right
+  i.fa-align-right
 
 a.btn.btn-default

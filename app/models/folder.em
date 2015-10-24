@@ -10,26 +10,26 @@ hasMany = DS.hasMany
 
 class Folder extends DS.Model with ModelName
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	iconName: "fa-folder" 
-	name: attr "string"
-	open: attr "boolean"
-	contents: attr "string"
+  iconName: "fa-folder" 
+  name: attr "string"
+  open: attr "boolean"
+  contents: attr "string"
 
-	## ASSOCIATIONS
+  ## ASSOCIATIONS
 
-	user: belongsTo 'user', {async:false}
-	tests: hasMany 'test', {async:true}
-	folder: belongsTo 'folder', {inverse: 'folders',async:false}
-	folders: hasMany 'folder', {inverse: 'folder',async:false}
+  user: belongsTo 'user', {async:false}
+  tests: hasMany 'test', {async:true}
+  folder: belongsTo 'folder', {inverse: 'folders',async:false}
+  folders: hasMany 'folder', {inverse: 'folder',async:false}
 
-	## COMPUTED
+  ## COMPUTED
 
-	testFolder: equal "contents","tests"
-	foldersLength: alias 'folders.length'
-	testsLength: alias 'tests.length'
-	hasChildren: computed 'foldersLength','testsLength', -> @foldersLength > 0 or @testsLength > 0
-	children: alias 'tests'
+  testFolder: equal "contents","tests"
+  foldersLength: alias 'folders.length'
+  testsLength: alias 'tests.length'
+  hasChildren: computed 'foldersLength','testsLength', -> @foldersLength > 0 or @testsLength > 0
+  children: alias 'tests'
 
 `export default Folder`

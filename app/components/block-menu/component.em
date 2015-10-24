@@ -8,67 +8,67 @@ alias = Ember.computed.alias
 
 class BlockMenuComponent extends Ember.Component
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	static:null
-	block:null
+  static:null
+  block:null
 
-	# SERVICES
+  # SERVICES
 
-	store: service()
-	modaler: service()
-	session: service()
-	server: service()
-	keen: service()
+  store: service()
+  modaler: service()
+  session: service()
+  server: service()
+  keen: service()
 
-	# COMPUTED
+  # COMPUTED
 
-	page: alias 'block.page'
+  page: alias 'block.page'
 
-	# ACTIONS
+  # ACTIONS
 
-	actions:
-		toggleNumber: ->
-			@keen.addEditorEvent 'toggleNumber', @block
-			if @block.question
-				@block.set 'kind','directions'
-			else
-				@block.set 'kind','question'
-			saveModel @block
-			@page.refreshQuestionNumbers() if @page?
+  actions:
+    toggleNumber: ->
+      @keen.addEditorEvent 'toggleNumber', @block
+      if @block.question
+        @block.set 'kind','directions'
+      else
+        @block.set 'kind','question'
+      saveModel @block
+      @page.refreshQuestionNumbers() if @page?
 
-		openFileDialog: ->
-			cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
-				newDimensions = newdimensions result[0]
-				image = @store.createRecord 'image',
-					block: @block
-					cloudinaryId: result[0].public_id
-					width: newDimensions.width
-					height: newDimensions.height
-				image.setPosition()
-				@keen.addEditorEvent 'createImage', image
+    openFileDialog: ->
+      cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
+        newDimensions = newdimensions result[0]
+        image = @store.createRecord 'image',
+          block: @block
+          cloudinaryId: result[0].public_id
+          width: newDimensions.width
+          height: newDimensions.height
+        image.setPosition()
+        @keen.addEditorEvent 'createImage', image
 
-		openGraphModal: -> @modaler.openModal 'graph-modal',@block
+    openGraphModal: -> @modaler.openModal 'graph-modal',@block
 
-		cutBlock: ->
-			page = @page
-			@keen.addEditorEvent 'cutBlock', @block
-			block = @block
-			@setActiveItem null
-			block.removeFromPage()
-			@session.me.clips.addObject block
-			saveModel block
-			page.notifyPropertyChange 'invalidBlocks'
+    cutBlock: ->
+      page = @page
+      @keen.addEditorEvent 'cutBlock', @block
+      block = @block
+      @setActiveItem null
+      block.removeFromPage()
+      @session.me.clips.addObject block
+      saveModel block
+      page.notifyPropertyChange 'invalidBlocks'
 
-		copyBlock: ->
-			@keen.addEditorEvent 'copyBlock', @block
-			@server.post('blocks/' + @block.id + '/copy').then (response) =>
-				newBlock = @store.peekRecord 'block',response.block.id
-				@session.me.clips.pushObject newBlock
+    copyBlock: ->
+      @keen.addEditorEvent 'copyBlock', @block
+      @server.post('blocks/' + @block.id + '/copy').then (response) =>
+        newBlock = @store.peekRecord 'block',response.block.id
+        @session.me.clips.pushObject newBlock
 
-		destroyBlock: ->
-			@setActiveItem null
-			destroyModel @block
-			@page.notifyPropertyChange 'invalidBlocks' if @page?
+    destroyBlock: ->
+      @setActiveItem null
+      destroyModel @block
+      @page.notifyPropertyChange 'invalidBlocks' if @page?
 
 `export default BlockMenuComponent`

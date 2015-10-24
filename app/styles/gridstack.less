@@ -2,12 +2,12 @@
 @horizontal_padding: 9px;
 @animation_speed: .3s;
 
-.vendor(@property, @value){
-    -webkit-@{property}:@value;
-       -moz-@{property}:@value;
-        -ms-@{property}:@value;
-         -o-@{property}:@value;
-            @{property}:@value;
+.vendor(@property, @value) {
+  -webkit-@{property}:@value;
+  -moz-@{property}:@value;
+  -ms-@{property}:@value;
+  -o-@{property}:@value;
+  @{property}:@value;
 }
 
 :root .grid-stack-item > .ui-resizable-handle { filter: none; }

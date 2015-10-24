@@ -1,33 +1,33 @@
 unless static
-	.btn-group-vertical.group
-		button.btn.btn-default click="toggleNumber" class=block.question:active
-			|Numbered
-			if block.question
-				|&nbsp;&nbsp;
-				i.fa-check
+  .btn-group-vertical.group
+    button.btn.btn-default click="toggleNumber" class=block.question:active
+      |Numbered
+      if block.question
+        |&nbsp;&nbsp;
+        i.fa-check
 
-	.btn-group-vertical.group
-		button.btn.btn-default click="openFileDialog"
-			|Add Image&nbsp;&nbsp;
-			i.fa-image	
-		button.btn.btn-default click="openGraphModal"
-			|Add Graph&nbsp;&nbsp;
-			i.fa-line-chart
-		table-adder block=block
+  .btn-group-vertical.group
+    button.btn.btn-default click="openFileDialog"
+      |Add Image&nbsp;&nbsp;
+      i.fa-image  
+    button.btn.btn-default click="openGraphModal"
+      |Add Graph&nbsp;&nbsp;
+      i.fa-line-chart
+    table-adder block=block
 
-	.btn-group-vertical.group
-		button.btn.btn-default click="destroyBlock"
-			|Delete&nbsp;&nbsp;
-			i.fa-trash.text-danger
-		button.btn.btn-default click="copyBlock"
-			|Copy&nbsp;&nbsp;
-			i.fa-copy
-		button.btn.btn-default click="cutBlock"
-			|Cut&nbsp;&nbsp;
-			i.fa-cut
+  .btn-group-vertical.group
+    button.btn.btn-default click="destroyBlock"
+      |Delete&nbsp;&nbsp;
+      i.fa-trash.text-danger
+    button.btn.btn-default click="copyBlock"
+      |Copy&nbsp;&nbsp;
+      i.fa-copy
+    button.btn.btn-default click="cutBlock"
+      |Cut&nbsp;&nbsp;
+      i.fa-cut
 
 else
-	.btn-group-vertical.group
-		button.btn.btn-default click="copyBlock"
-			|Copy&nbsp;&nbsp;
-			i.fa-copy
+  .btn-group-vertical.group
+    button.btn.btn-default click="copyBlock"
+      |Copy&nbsp;&nbsp;
+      i.fa-copy

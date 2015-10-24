@@ -1,15 +1,15 @@
 .tree-caret click="toggle"
-	if model.hasChildren
-		i.click-fix class=model.open:fa-caret-down:fa-caret-right
+  if model.hasChildren
+    i.click-fix class=model.open:fa-caret-down:fa-caret-right
 
 .tree-icon class=dragging:grabbing:grabbable
-	i class=model.iconName
+  i class=model.iconName
 
 name-editor model=model isEditingName=isEditingName nameClicked=nameClicked
-	= model.name
-	|&nbsp;
+  = model.name
+  |&nbsp;
 if showMenu
-	tree-menu target=element model=model indented=indented
-		unless static
-			li: a href="#" click="editName" Edit Name
-		yield
+  tree-menu target=element model=model indented=indented
+    unless static
+      li: a href="#" click="editName" Edit Name
+    yield

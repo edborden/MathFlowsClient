@@ -1,9 +1,9 @@
 .grid-stack
 
-	if headers
-		each page.headers as |block|
-			block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
+  if headers
+    each page.headers as |block|
+      block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
 
-	else
-		each page.blocks as |block|
-			block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
+  else
+    each page.blocks as |block|
+      block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview

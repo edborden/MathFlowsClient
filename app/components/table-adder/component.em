@@ -5,30 +5,30 @@ service = Ember.inject.service
 
 class TableAdderComponent extends Ember.Component
 
-	store: service()
-	keen: service()
+  store: service()
+  keen: service()
 
-	classNameBindings: ["addingTable:padded"]
+  classNameBindings: ["addingTable:padded"]
 
-	block:null
-	addingTable:false
-	rows: 2
-	cols: 3
+  block:null
+  addingTable:false
+  rows: 2
+  cols: 3
 
-	actions:
-		addTable: -> 
-			@addingTable = true
-			false
+  actions:
+    addTable: -> 
+      @addingTable = true
+      false
 
-		newTable: ->
-			table = @store.createRecord 'table',
-				rowsCount:@rows
-				colsCount:@cols
-				block:@block
-			table.setPosition()
-			saveModel table
-			@keen.addEditorEvent "createTable",table
+    newTable: ->
+      table = @store.createRecord 'table',
+        rowsCount:@rows
+        colsCount:@cols
+        block:@block
+      table.setPosition()
+      saveModel table
+      @keen.addEditorEvent "createTable",table
 
-			@addingTable = false
+      @addingTable = false
 
 `export default TableAdderComponent`

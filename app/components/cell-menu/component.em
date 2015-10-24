@@ -8,37 +8,37 @@ service = Ember.inject.service
 
 class CellMenuComponent extends Ember.Component
 
-	# ATTRIBUTES
+  # ATTRIBUTES
 
-	cell: null
+  cell: null
 
-	# SERVICES
+  # SERVICES
 
-	store: service()
+  store: service()
 
-	# COMPUTED
+  # COMPUTED
 
-	table: alias 'cell.table'
-	block: alias 'table.block'
+  table: alias 'cell.table'
+  block: alias 'table.block'
 
-	actions: 
-		newProjection: (axis,position) ->
-			currentProjection = @cell.get(axis)
-			newPosition = if position is 'before' then currentProjection.newPreceedingPosition() else currentProjection.newFollowingPosition()
-			projection = @store.createRecord 'projection', {axis:axis,position:newPosition,table:@table,size:15}
-			@table.projections.pushObject projection
-			saveModel(projection).then =>
-				@block.validate()
+  actions: 
+    newProjection: (axis,position) ->
+      currentProjection = @cell.get(axis)
+      newPosition = if position is 'before' then currentProjection.newPreceedingPosition() else currentProjection.newFollowingPosition()
+      projection = @store.createRecord 'projection', {axis:axis,position:newPosition,table:@table,size:15}
+      @table.projections.pushObject projection
+      saveModel(projection).then =>
+        @block.validate()
 
-		removeProjection: (axis) ->
-			projection = @cell.get(axis)
-			@table.projections.removeObject projection
-			@setActiveItem null
-			destroyModel(projection).then =>
-				@block.validate() if @block.contentInvalid
+    removeProjection: (axis) ->
+      projection = @cell.get(axis)
+      @table.projections.removeObject projection
+      @setActiveItem null
+      destroyModel(projection).then =>
+        @block.validate() if @block.contentInvalid
 
-		destroyTable: -> 
-			@setActiveItem null
-			destroyModel @table
+    destroyTable: -> 
+      @setActiveItem null
+      destroyModel @table
 
 `export default CellMenuComponent`

@@ -1,25 +1,25 @@
 .container
-	.row
+  .row
 
-		.col-xs-3
-			.account
-				button.btn.btn-xs.btn-primary click="newTestFolder"
-					i.fa-folder
-					|&nbsp;&nbsp;New Folder
-				droppable-target drop='deleteDrop' class="delete-drop" tooltipContent="Drag tests and folders here to delete them."
-					i.fa-lg.fa-trash-o
+    .col-xs-3
+      .account
+        button.btn.btn-xs.btn-primary click="newTestFolder"
+          i.fa-folder
+          |&nbsp;&nbsp;New Folder
+        droppable-target drop='deleteDrop' class="delete-drop" tooltipContent="Drag tests and folders here to delete them."
+          i.fa-lg.fa-trash-o
 
-			tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj preference=preference
+      tree-starter model=model children=model.topTestFolders somethingIsDragging=somethingIsDragging activeObj=activeObj preference=preference
 
-			each model.folderlessTests as |test|
-				div: tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="sendEditObj" activeObj=activeObj
-					li: a href="#" click="'copyObj' child" Copy Test
+      each model.folderlessTests as |test|
+        div: tree-over model=test somethingIsDragging=somethingIsDragging nameClicked="sendEditObj" activeObj=activeObj
+          li: a href="#" click="'copyObj' child" Copy Test
 
-			if group
-				if group.users
-					tree-starter model=group children=group.users somethingIsDragging=somethingIsDragging static=true activeObj=activeObj preference=preference
+      if group
+        if group.users
+          tree-starter model=group children=group.users somethingIsDragging=somethingIsDragging static=true activeObj=activeObj preference=preference
 
-		.col-xs-9
+    .col-xs-9
 
-			if activeObj
-				full-editor model=activeObj.pages.firstObject static=activeObjStatic
+      if activeObj
+        full-editor model=activeObj.pages.firstObject static=activeObjStatic

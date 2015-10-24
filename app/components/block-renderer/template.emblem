@@ -1,19 +1,19 @@
 if block.invalid
-	invalidation-popover block=block
+  invalidation-popover block=block
 
 .grid-stack-item-content
-	if block
-		if question
-			.question-number
-				block.questionNumber
-				|)
-		each block.sortedLines as |line| 
-			equation-renderer line=line preview=preview setActiveItem=setActiveItem activeItem=activeItem
-			br
-		if block.children
-			.block-children
-				each block.children as |child|
-					if child.isImage
-						block-image image=child preview=preview activeItem=activeItem setActiveItem=setActiveItem
-					else
-						block-table table=child preview=preview activeItem=activeItem setActiveItem=setActiveItem
+  if block
+    if question
+      .question-number
+        block.questionNumber
+        |)
+    each block.sortedLines as |line| 
+      equation-renderer line=line preview=preview setActiveItem=setActiveItem activeItem=activeItem
+      br
+    if block.children
+      .block-children
+        each block.children as |child|
+          if child.isImage
+            block-image image=child preview=preview activeItem=activeItem setActiveItem=setActiveItem
+          else
+            block-table table=child preview=preview activeItem=activeItem setActiveItem=setActiveItem

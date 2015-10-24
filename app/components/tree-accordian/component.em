@@ -3,18 +3,18 @@
 
 class TreeAccordianComponent extends Ember.Component with HandlesDragging,TreeObjects
 
-	model:null
-	static: null
-	folders: Ember.computed.alias 'model.folders'
-	children: Ember.computed.alias 'model.children'
-	activeObj:null
+  model:null
+  static: null
+  folders: Ember.computed.alias 'model.folders'
+  children: Ember.computed.alias 'model.children'
+  activeObj:null
 
-	mouseOver: false
+  mouseOver: false
 
-	mouseEnter: -> 
-		@mouseOver = true
-		false
-	mouseLeave: ->
-		@mouseOver = false
-			
+  mouseEnter: -> 
+    @mouseOver = true
+    false
+  mouseLeave: ->
+    @mouseOver = false
+      
 `export default TreeAccordianComponent`

@@ -1,30 +1,30 @@
 .container
 
-	p.larger-heading.bold Earn more space
+  p.larger-heading.bold Earn more space
 
-	hr
+  hr
 
-	p.size14 You can earn more space by referring other teachers to MathFlows! You'll BOTH get a 5 test bonus when they sign up.
+  p.size14 You can earn more space by referring other teachers to MathFlows! You'll BOTH get a 5 test bonus when they sign up.
 
-	invite-box
+  invite-box
 
-	if referredBy
+  if referredBy
 
-		hr
+    hr
 
-		.row.size12
-			.col-xs-4 = referredBy
-			.col-xs-4 = moment-from-now session.me.createdAt
-			.col-xs-3.green Referred you!
-			.col-xs-1.green +5		
+    .row.size12
+      .col-xs-4 = referredBy
+      .col-xs-4 = moment-from-now session.me.createdAt
+      .col-xs-3.green Referred you!
+      .col-xs-1.green +5    
 
-	each invitationsSent as |invitation|
-		.row: hr
-		.row.size12
-			.col-xs-4 = invitation.referralEmail
-			.col-xs-4 = moment-from-now invitation.updatedAt
-			.col-xs-3 class=invitation.signedUp:green
-				= invitation.statusFormatted
-			.col-xs-1.green
-				if invitation.signedUp
-					|+5
+  each invitationsSent as |invitation|
+    .row: hr
+    .row.size12
+      .col-xs-4 = invitation.referralEmail
+      .col-xs-4 = moment-from-now invitation.updatedAt
+      .col-xs-3 class=invitation.signedUp:green
+        = invitation.statusFormatted
+      .col-xs-1.green
+        if invitation.signedUp
+          |+5

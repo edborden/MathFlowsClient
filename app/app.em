@@ -5,9 +5,9 @@
 Ember.MODEL_FACTORY_INJECTIONS = true
 
 class App extends Ember.Application
-	modulePrefix: config.modulePrefix
-	podModulePrefix: config.podModulePrefix
-	Resolver: Resolver
+  modulePrefix: config.modulePrefix
+  podModulePrefix: config.podModulePrefix
+  Resolver: Resolver
 
 loadInitializers App, config.modulePrefix 
 

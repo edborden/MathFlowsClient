@@ -9,21 +9,21 @@ computed = Ember.computed
 
 class Table extends DS.Model with ModelName,SetsPosition
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	rowsCount: attr "number"
-	colsCount: attr "number"
-	blockPosition: attr "number"
+  rowsCount: attr "number"
+  colsCount: attr "number"
+  blockPosition: attr "number"
 
-	## ASSOCIATIONS
+  ## ASSOCIATIONS
 
-	block: belongsTo 'block', {async:false}
-	projections: hasMany 'projection', { async:false }
-	alignment: belongsTo 'alignment', { async:false }
+  block: belongsTo 'block', {async:false}
+  projections: hasMany 'projection', { async:false }
+  alignment: belongsTo 'alignment', { async:false }
 
-	## COMPUTED
+  ## COMPUTED
 
-	rows: computed 'projections.[]', -> @projections.filterBy('row').sortBy 'position'
-	cols: computed 'projections.[]', -> @projections.filterBy('col').sortBy 'position'
+  rows: computed 'projections.[]', -> @projections.filterBy('row').sortBy 'position'
+  cols: computed 'projections.[]', -> @projections.filterBy('col').sortBy 'position'
 
 `export default Table`

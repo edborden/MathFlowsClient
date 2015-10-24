@@ -1,56 +1,56 @@
 .content style=line.stylesCSS
-	line.content
+  line.content
 if active
-	if insideEquation
-		tethered-element target=mathquill
-			.btn-group
-				latex-button content='\frac' label="\frac{a}{b}" top=true
-					latex-button content='\sqrt' label="\sqrt{x}"
-					latex-button content='\nthroot' label="\sqrt[x]{y}"
-					latex-button content='\subscript' label="x_{2}"
-					latex-button content='\superscript' label="x^2"
-					latex-button content='\pm'
-					latex-button content='\neq'
-					latex-button content='\approx'
-					latex-button content='\sim'
-					latex-button content='\prop'
-					latex-button content='\le'
-					latex-button content='\ge'
-					latex-button content='\sub'
-					latex-button content='\sup'
-					latex-button content='\sube'
-					latex-button content='\supe'
-					latex-button content='\nsube'
-					latex-button content='\nsupe'
-					latex-button content='\degree'
-					latex-button content='\perp'
+  if insideEquation
+    tethered-element target=mathquill
+      .btn-group
+        latex-button content='\frac' label="\frac{a}{b}" top=true
+          latex-button content='\sqrt' label="\sqrt{x}"
+          latex-button content='\nthroot' label="\sqrt[x]{y}"
+          latex-button content='\subscript' label="x_{2}"
+          latex-button content='\superscript' label="x^2"
+          latex-button content='\pm'
+          latex-button content='\neq'
+          latex-button content='\approx'
+          latex-button content='\sim'
+          latex-button content='\prop'
+          latex-button content='\le'
+          latex-button content='\ge'
+          latex-button content='\sub'
+          latex-button content='\sup'
+          latex-button content='\sube'
+          latex-button content='\supe'
+          latex-button content='\nsube'
+          latex-button content='\nsupe'
+          latex-button content='\degree'
+          latex-button content='\perp'
 
-				latex-button content='\sum' top=true
-					latex-button content='\int'
-					latex-button content='\oint'
-					latex-button content='\product'
-					latex-button content='\coproduct'
-					latex-button content='\bigcap'
-					latex-button content='\bigcup'
+        latex-button content='\sum' top=true
+          latex-button content='\int'
+          latex-button content='\oint'
+          latex-button content='\product'
+          latex-button content='\coproduct'
+          latex-button content='\bigcap'
+          latex-button content='\bigcup'
 
-				latex-button content='\infty' top=true
-					latex-button content='\pi'
-					latex-button content='\lambda'
-					latex-button content='\alpha'
-					latex-button content='\beta'
-					latex-button content='\delta'
-					latex-button content='\zeta'
-					latex-button content='\eta'
-					latex-button content='\theta'
-					latex-button content='\mu'
-					latex-button content='\rho'
-					latex-button content='\sigma'
-					latex-button content='\Delta'
+        latex-button content='\infty' top=true
+          latex-button content='\pi'
+          latex-button content='\lambda'
+          latex-button content='\alpha'
+          latex-button content='\beta'
+          latex-button content='\delta'
+          latex-button content='\zeta'
+          latex-button content='\eta'
+          latex-button content='\theta'
+          latex-button content='\mu'
+          latex-button content='\rho'
+          latex-button content='\sigma'
+          latex-button content='\Delta'
 
-				latex-button content='\angle' top=true
-					latex-button content='\overline' label="\overline{ab}"
-					latex-button content='\vec' label="\vec{F}"
-					latex-button content='\degree'
-					latex-button content='\perp'
-					latex-button content='\parallel'
-					latex-button content='\bigtriangleup'
+        latex-button content='\angle' top=true
+          latex-button content='\overline' label="\overline{ab}"
+          latex-button content='\vec' label="\vec{F}"
+          latex-button content='\degree'
+          latex-button content='\perp'
+          latex-button content='\parallel'
+          latex-button content='\bigtriangleup'

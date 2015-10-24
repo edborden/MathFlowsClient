@@ -8,51 +8,51 @@ service = Ember.inject.service
 
 class GroupController extends Ember.Controller
 
-	## ATTRIBUTES
+  ## ATTRIBUTES
 
-	isEditingName: false
+  isEditingName: false
 
-	## SERVICES
+  ## SERVICES
 
-	server: service()
+  server: service()
 
-	## COMPUTED
+  ## COMPUTED
 
-	me: alias 'session.me'
-	group: alias 'me.group'
-	groupvitations: alias 'me.groupvitations'
-	groupvitationsSent: alias 'me.groupvitationsSent'
-	preference: alias 'me.preference'
-	groupHelp: alias 'preference.groupHelp'
+  me: alias 'session.me'
+  group: alias 'me.group'
+  groupvitations: alias 'me.groupvitations'
+  groupvitationsSent: alias 'me.groupvitationsSent'
+  preference: alias 'me.preference'
+  groupHelp: alias 'preference.groupHelp'
 
-	actions:
-		editName: ->
-			@isEditingName = true
-			false
+  actions:
+    editName: ->
+      @isEditingName = true
+      false
 
-		doneEditingName: ->
-			@isEditingName = false
+    doneEditingName: ->
+      @isEditingName = false
 
-		newGroup: ->
-			group = @store.createRecord 'group', {name:@session.me.name + "'s Group"}
-			@send 'saveModel',group
-			@session.me.group = group
+    newGroup: ->
+      group = @store.createRecord 'group', {name:@session.me.name + "'s Group"}
+      @send 'saveModel',group
+      @session.me.group = group
 
-		unjoin: ->
-			@server.post 'groups/unjoin'
-			@session.me.group = null
+    unjoin: ->
+      @server.post 'groups/unjoin'
+      @session.me.group = null
 
-		invite: (email) -> 
-			groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email.toLowerCase()}
-			saveModel(groupvitation).then => 
-				growl "Invitation sent!"
-				@session.me.groupvitationsSent.pushObject groupvitation
+    invite: (email) -> 
+      groupvitation = @store.createRecord 'groupvitation',{receiverEmail:email.toLowerCase()}
+      saveModel(groupvitation).then => 
+        growl "Invitation sent!"
+        @session.me.groupvitationsSent.pushObject groupvitation
 
-		remove: (groupvitation) ->
-			destroyModel groupvitation
+    remove: (groupvitation) ->
+      destroyModel groupvitation
 
-		groupHelpClick: ->
-			@groupHelp = false
-			saveModel @preference
+    groupHelpClick: ->
+      @groupHelp = false
+      saveModel @preference
 
 `export default GroupController`

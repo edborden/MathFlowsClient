@@ -1,72 +1,72 @@
 .container
-	.row
+  .row
 
-		div class=groupvitations:col-lg-9:col-lg-12
+    div class=groupvitations:col-lg-9:col-lg-12
 
-			if group
-				name-editor model=group isEditingName=isEditingName handleNameClick=false size=30
-					span.larger-heading.bold = group.name
-					group-buttons editName=(action 'editName') unjoin=(action 'unjoin')
+      if group
+        name-editor model=group isEditingName=isEditingName handleNameClick=false size=30
+          span.larger-heading.bold = group.name
+          group-buttons editName=(action 'editName') unjoin=(action 'unjoin')
 
-				hr
+        hr
 
-				h5.orange Members
+        h5.orange Members
 
-				if group.users
-					.row
-						.col-md-6
-							each group.users as |user|
-								p = user.name
-						.col-md-6
-							if groupHelp
-								.alert.alert-warning.alert-dismissible
-									button.close click="groupHelpClick" &times;
-									|The members of your group are listed here. Their content will now appear on your&nbsp;
-									link-to 'me' |Tests
-									|&nbsp;page.
+        if group.users
+          .row
+            .col-md-6
+              each group.users as |user|
+                p = user.name
+            .col-md-6
+              if groupHelp
+                .alert.alert-warning.alert-dismissible
+                  button.close click="groupHelpClick" &times;
+                  |The members of your group are listed here. Their content will now appear on your&nbsp;
+                  link-to 'me' |Tests
+                  |&nbsp;page.
 
-				else
-					p.size12 There isn't anyone in your group... Invite someone!
+        else
+          p.size12 There isn't anyone in your group... Invite someone!
 
-				hr
+        hr
 
-				h5.orange Invite members to your group
+        h5.orange Invite members to your group
 
-				invite-box
+        invite-box
 
-				if groupvitationsSent
+        if groupvitationsSent
 
-					hr
+          hr
 
-					h5.orange Invitations you've sent
+          h5.orange Invitations you've sent
 
-					each groupvitationsSent as |groupvitation|
-						.row: hr
-						.row.size12
-							.col-xs-4 = groupvitation.receiverEmail
-							.col-xs-4 = moment-from-now groupvitation.updatedAt
-							.col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
-								= groupvitation.statusFormatted
-							.col-xs-1
-								if groupvitation.completed
-									span.red click="'remove' groupvitation"
-										i.fa-close.click-fix
+          each groupvitationsSent as |groupvitation|
+            .row: hr
+            .row.size12
+              .col-xs-4 = groupvitation.receiverEmail
+              .col-xs-4 = moment-from-now groupvitation.updatedAt
+              .col-xs-3 class="{{if groupvitation.accepted 'green'}} {{if groupvitation.declined 'red'}}" 
+                = groupvitation.statusFormatted
+              .col-xs-1
+                if groupvitation.completed
+                  span.red click="'remove' groupvitation"
+                    i.fa-close.click-fix
 
-			else
+      else
 
-				span.larger-heading.bold You aren't part of a group!
+        span.larger-heading.bold You aren't part of a group!
 
-				hr
+        hr
 
-				p A group lets you share your tests with other teachers in your department. You can copy entire tests or just specific questions!
-				p If other teachers in your department have already started a group for your school, ask them to invite you.  Otherwise...
-				p
-					button.btn.btn-primary click="newGroup"
-						|Create a new Group&nbsp;&nbsp;
-						i.fa-plus
+        p A group lets you share your tests with other teachers in your department. You can copy entire tests or just specific questions!
+        p If other teachers in your department have already started a group for your school, ask them to invite you.  Otherwise...
+        p
+          button.btn.btn-primary click="newGroup"
+            |Create a new Group&nbsp;&nbsp;
+            i.fa-plus
 
-		if groupvitations
-			.col-lg-3
-				h5.orange Invitations you've received
-				each groupvitations as |groupvitation|
-					groupvitation-received groupvitation=groupvitation
+    if groupvitations
+      .col-lg-3
+        h5.orange Invitations you've received
+        each groupvitations as |groupvitation|
+          groupvitation-received groupvitation=groupvitation
