@@ -60,7 +60,7 @@ class TourEditorComponent extends FullEditorComponent
 		{}=
 			options:
 				attachTo:
-					element: Ember.$(".question-number")[2]
+					element: Ember.$(".question-number:contains('2')")
 					on: "left"
 				text: ["Numbering is taken care of for you.","Whenever you change the position of a block on the page, MathFlows will automatically update every block's number."]
 				builtInButtons: [@backButton(),@nextButton()]
