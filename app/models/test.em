@@ -7,22 +7,29 @@ hasMany = DS.hasMany
 
 computed = Ember.computed
 alias = computed.alias
+sort = computed.sort
+service = Ember.inject.service
 
 class Test extends DS.Model with ModelName
 
-  session: Ember.inject.service()
+  session: service()
 
-  # ATTRIBUTES AND ASSOCIATIONS
+  ## ATTRIBUTES
 
+  name: attr "string"
   iconName: "fa-file-text-o"
+  pagesSorting: ['id']
+
+  ## ASSOCIATIONS
+
   pages: hasMany 'page', {async:true}
-  name: attr()
   folder: belongsTo 'folder', {async:false}
 
   ## COMPUTED
 
   pdfLink: computed 'session.token', -> config.apiHostName+'/tests/'+@id+'.pdf?token='+@session.token
   multiplePages: computed 'pages.length', -> @pages.length > 1
+  pagesSorted: sort 'pages', 'pagesSorting'
 
   questionBlocksSorted: computed 'pages.@each.blocks.length', -> 
     blocks = []

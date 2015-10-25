@@ -7,7 +7,7 @@ class IntroRoute extends Ember.Route
         console.log error
         @session.open().then => @sessionSuccessHandler()
 
-  model: -> @session.me.folders.firstObject.tests.firstObject.pages.then => @session.me.folders.firstObject.tests.firstObject.pages.firstObject
+  model: -> @session.me.folders.firstObject.tests.firstObject.pages.then => @session.me.folders.firstObject.tests.firstObject.pagesSorted.firstObject
 
   sessionSuccessHandler: ->
     @keen.addEvent 'session'

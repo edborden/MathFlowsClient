@@ -14,7 +14,7 @@ class Page extends DS.Model with ModelName
 
   #HELPERS
 
-  pages: alias 'test.pages'
+  pages: alias 'test.pagesSorted'
   number: computed 'testIndex', -> @testIndex + 1
   testIndex: computed 'pages.[]', -> @pages.indexOf @
   firstPage: equal 'number', 1
