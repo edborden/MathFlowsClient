@@ -7,3 +7,6 @@
   else
     each page.blocks as |block|
       block-renderer block=block gridstack=gridstack activeItem=activeItem setActiveItem=setActiveItem preview=preview
+
+  if page.isLoading
+    .page-editor-spinner: i.fa.fa-4x.fa-spinner.fa-pulse
