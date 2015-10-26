@@ -22,4 +22,4 @@
     .col-xs-9
 
       if activeObj
-        full-editor model=activeObj.pagesSorted.firstObject static=activeObjStatic
+        full-editor model=activeObj.pages.firstObject static=activeObjStatic
