@@ -88,25 +88,22 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
   coords: -> Ember.$(@element).data('_gridstack_node')
 
   syncAttrsToEl: ->
-    return new Ember.RSVP.Promise (resolve) =>
-      coords = @coords()
-      @block.colSpan = coords.width
-      @block.rowSpan = coords.height
-      @block.row = coords.y
-      @block.col = coords.x
-      isNew = @block.isNew
-      console.log @block.hasDirtyAttributes
-      if @block.hasDirtyAttributes
-        changed = @block.changedAttributes()
-        if changed.rowSpan? or changed.colSpan?
-          validate = true
-        if @page?
-          @page.refreshQuestionNumbers()
-          @block.notifyPropertyChange 'invalid'
-          @page.notifyPropertyChange 'invalidBlocks'
-        saveModel(@block).then => 
-          @block.validate() if not isNew and validate?
-          resolve()
+    coords = @coords()
+    @block.colSpan = coords.width
+    @block.rowSpan = coords.height
+    @block.row = coords.y
+    @block.col = coords.x
+    isNew = @block.isNew
+    if @block.hasDirtyAttributes
+      changed = @block.changedAttributes()
+      if changed.rowSpan? or changed.colSpan?
+        validate = true
+      if @page?
+        @page.refreshQuestionNumbers()
+        @block.notifyPropertyChange 'invalid'
+        @page.notifyPropertyChange 'invalidBlocks'
+      saveModel(@block).then => 
+        @block.validate() if not isNew and validate?
 
   addToGrid: -> 
     assignPosition = not @block.col? or not @block.row?
