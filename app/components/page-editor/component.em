@@ -36,8 +36,9 @@ class PageEditorComponent extends Ember.Component
 
   setupGridstack: ->
     @gridstack = Ember.$(@element).children('.grid-stack').gridstack(@gridstackOptions).data 'gridstack'
-    Ember.$(@element).on 'change', => 
-      @eventer.triggerSyncBlocks()
+    triggerSyncBlocks = Ember.run.bind @eventer,@eventer.triggerSyncBlocks
+    Ember.$(@element).on 'dragstop', triggerSyncBlocks
+    Ember.$(@element).on 'resizestop', triggerSyncBlocks    
 
   # BREAKDOWN
 

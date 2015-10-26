@@ -14,7 +14,7 @@ class Page extends DS.Model with ModelName
 
   #HELPERS
 
-  pages: alias 'test.pages'
+  pages: alias 'test.content.pages'
   number: computed 'testIndex', -> @testIndex + 1
   testIndex: computed 'pages.[]', -> @pages.indexOf @
   firstPage: equal 'number', 1
@@ -24,8 +24,8 @@ class Page extends DS.Model with ModelName
 
   ## QUESTION NUMBERS
 
-  refreshQuestionNumbers: -> @test.notifyPropertyChange 'questionBlocksSorted'
-  questionBlocksSorted: alias 'test.questionBlocksSorted'
+  refreshQuestionNumbers: -> @test.content.notifyPropertyChange 'questionBlocksSorted'
+  questionBlocksSorted: alias 'test.content.questionBlocksSorted'
 
   ## INVALID BLOCKS
 

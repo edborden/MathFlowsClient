@@ -54,9 +54,10 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
   initializeRenderer: ->
     if @gridstack?
       @addToGrid() 
+      @syncAttrsToEl()
       if @block.isNew
-            @setActiveItem @model,@
-            Ember.$(@element).find(".content").mousedown().mouseup()
+        @setActiveItem @model,@
+        Ember.$(@element).find(".content").mousedown().mouseup()
   
   # BREAKDOWN
 
@@ -94,6 +95,7 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
       @block.row = coords.y
       @block.col = coords.x
       isNew = @block.isNew
+      console.log @block.hasDirtyAttributes
       if @block.hasDirtyAttributes
         changed = @block.changedAttributes()
         if changed.rowSpan? or changed.colSpan?

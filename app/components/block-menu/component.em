@@ -35,7 +35,7 @@ class BlockMenuComponent extends Ember.Component
       else
         @block.set 'kind','question'
       saveModel @block
-      @page.refreshQuestionNumbers() if @page?
+      @page.refreshQuestionNumbers()
 
     openFileDialog: ->
       cloudinary.openUploadWidget {upload_preset: 'fqd73ph6',cropping: 'server',show_powered_by:false}, (error, result) => 
@@ -59,6 +59,7 @@ class BlockMenuComponent extends Ember.Component
       @session.me.clips.addObject block
       saveModel block
       page.notifyPropertyChange 'invalidBlocks'
+      page.refreshQuestionNumbers()
 
     copyBlock: ->
       @keen.addEditorEvent 'copyBlock', @block
@@ -70,5 +71,6 @@ class BlockMenuComponent extends Ember.Component
       @setActiveItem null
       destroyModel @block
       @page.notifyPropertyChange 'invalidBlocks' if @page?
+      @page.refreshQuestionNumbers()
 
 `export default BlockMenuComponent`

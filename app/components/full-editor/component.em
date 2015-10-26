@@ -48,7 +48,7 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
       @send 'setActiveItem', null
       page = @store.createRecord 'page', {test:@test}
       saveModel(page).then (response) =>
-        @model = response
+        @model = page
       @keen.addEditorEvent "createPage",@test
 
     deletePage: ->
@@ -69,6 +69,7 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
       clipsArray = @session.me.clips.toArray()
       @session.me.clips.removeObjects clipsArray
       @keen.addEditorEvent 'pasteBlocks',page
+      page.refreshQuestionNumbers()
 
     previousPage: -> 
       @send 'setActiveItem', null
