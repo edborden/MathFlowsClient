@@ -40,11 +40,11 @@
               |Get PDF&nbsp;&nbsp;
               i.fa-download
 
-          unless model.firstPage
-            .btn-group-vertical
-              button.btn.btn-default click="deletePage"
-                |Delete Page&nbsp;&nbsp;
-                i.fa-minus
+        unless model.firstPage
+          .btn-group-vertical
+            button.btn.btn-default click="deletePage"
+              |Delete Page&nbsp;&nbsp;
+              i.fa-trash.text-danger
 
       if session.me.clips
         .btn-group-vertical.clipboard
