@@ -82,7 +82,6 @@ class BlockRendererComponent extends Ember.Component with ActiveItem,DestroyBloc
     false
 
   keyDown: (ev) ->
-    console.log document.activeElement
     @send 'destroyBlock' if ev.keyCode is 46 and document.activeElement is @element
 
   ## HELPERS

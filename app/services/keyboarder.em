@@ -72,7 +72,6 @@ class KeyboarderService extends Ember.Service
           if jqEl.children().first().hasClass "cursor" #cursor is at beginning of equation, take the equation to the next line
             stop = true
           else 
-            @incrementPosition()
             @equations.push @cursorPosition
         if jqEl.hasClass "cursor"
           stop = true 
@@ -84,8 +83,11 @@ class KeyboarderService extends Ember.Service
 
   setStringPosition: ->
     if @equations.length isnt 0
+      totalEquationLength = 0
       for equation in @equations
-        @stringPosition = @cursorPosition + @getLengthOfEquation(equation)
+        length = @getLengthOfEquation(equation + totalEquationLength)
+        totalEquationLength = totalEquationLength + length
+      @stringPosition = @cursorPosition + totalEquationLength
     else
       @stringPosition = @cursorPosition
 
@@ -93,7 +95,8 @@ class KeyboarderService extends Ember.Service
   substringAfterCursor: -> @line.content.substr @stringPosition
 
   getLengthOfEquation: (position) ->
-    ar = @line.content.split ""
+    content = @mathquill.mathquill "latex"
+    ar = content.split ""
     stop = false
     length = 0
     until stop
