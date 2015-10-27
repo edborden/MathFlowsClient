@@ -74,9 +74,11 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
     previousPage: -> 
       @send 'setActiveItem', null
       @model = @model.previousPage
+      @model.refreshQuestionNumbers()
 
     nextPage: -> 
       @send 'setActiveItem', null
       @model = @model.nextPage
+      @model.refreshQuestionNumbers()
 
 `export default FullEditorComponent`
