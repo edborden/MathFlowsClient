@@ -1,4 +1,5 @@
 `import ActiveItem from 'math-flows-client/mixins/active-item'`
+`import DestroyBlock from 'math-flows-client/mixins/destroy-block'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
@@ -8,7 +9,7 @@ alias = computed.alias
 scheduleOnce = Ember.run.scheduleOnce
 observer = Ember.observer
 
-class BlockRendererComponent extends Ember.Component with ActiveItem
+class BlockRendererComponent extends Ember.Component with ActiveItem,DestroyBlock
 
   # ATTRIBUTES
 
@@ -77,7 +78,12 @@ class BlockRendererComponent extends Ember.Component with ActiveItem
 
   click: -> 
     @setActiveItem @model, @ #override method for ActiveBlock mixin
+    Ember.$(@element).focus()
     false
+
+  keyDown: (ev) ->
+    console.log document.activeElement
+    @send 'destroyBlock' if ev.keyCode is 46 and document.activeElement is @element
 
   ## HELPERS
 

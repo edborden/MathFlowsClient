@@ -1,12 +1,12 @@
 `import newdimensions from 'math-flows-client/utils/newdimensions'`
+`import DestroyBlock from 'math-flows-client/mixins/destroy-block'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
-destroyModel = modeler.destroyModel
 
 service = Ember.inject.service
 alias = Ember.computed.alias
 
-class BlockMenuComponent extends Ember.Component
+class BlockMenuComponent extends Ember.Component with DestroyBlock
 
   # ATTRIBUTES
 
@@ -66,11 +66,5 @@ class BlockMenuComponent extends Ember.Component
       @server.post('blocks/' + @block.id + '/copy').then (response) =>
         newBlock = @store.peekRecord 'block',response.block.id
         @session.me.clips.pushObject newBlock
-
-    destroyBlock: ->
-      @setActiveItem null
-      destroyModel @block
-      @page.notifyPropertyChange 'invalidBlocks' if @page?
-      @page.refreshQuestionNumbers()
 
 `export default BlockMenuComponent`
