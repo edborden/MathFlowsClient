@@ -22,6 +22,8 @@ class User extends DS.Model with ModelName
   guest: attr 'boolean'
   referredBy: attr 'string'
   invitationId: attr 'number'
+  facebookReferrer: attr 'string'
+  googleReferrer: attr 'string'
 
   ## ASSOCIATIONS
 

@@ -12,6 +12,8 @@ StructureService = Ember.Service.extend
     premium: user.premium
     referred_by: user.referredBy
     invitation_id: user.invitationId
+    facebook_referrer: user.facebookReferrer
+    google_referrer: user.googleReferrer
 
   structuredBlock: (block) ->
     if block?
