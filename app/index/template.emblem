@@ -2,7 +2,7 @@
   .left
   .center
     .content
-      h1.logo MathFlows
+      h1.logo.orange MathFlows
       h1.tagline
         p Drag and Drop
         p Math Tests
