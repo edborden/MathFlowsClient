@@ -44,8 +44,8 @@
           page-deleter
 
       if session.me.clips
-        .btn-group-vertical.clipboard
-          p.text-center 
+        .btn-group-vertical.page-functions
+          .well.well-sm.text-center 
             |Clipboard&nbsp;&nbsp;
             span.badge = session.me.clips.length
           unless static
