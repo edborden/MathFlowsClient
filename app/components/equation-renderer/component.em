@@ -54,9 +54,16 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 
   onKeyDown: (ev) ->
     unless @preview
-      @keyboarder.process @line,ev.keyCode,@mathquill if @blockLine
-      Ember.run.next @,@checkIfInsideEquation
-      true
+
+      console.log ev.keyCode,ev.shiftKey
+      unless (ev.keyCode is 190 or ev.keyCode is 188) and ev.shiftKey is true #filter out < > while they are broken
+
+        @keyboarder.process @line,ev.keyCode,@mathquill if @blockLine
+        Ember.run.next @,@checkIfInsideEquation
+        true
+
+      else
+        false
 
   focusOut: -> 
     unless @preview
