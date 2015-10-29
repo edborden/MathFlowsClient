@@ -2,7 +2,7 @@ clean = (line,mathquill) ->
   content = mathquill.mathquill 'latex'
   content = removeDoubleDollars content
   content = pasteFix content
-  content = replaceLeadingSlashes content
+  #content = replaceLeadingSlashes content
   line.content = content 
 
 pasteFix = (string) -> #fix for pasted text adding in \text{}
