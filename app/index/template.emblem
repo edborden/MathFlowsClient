@@ -23,20 +23,19 @@
       img.box src="../assets/images/word.jpg"
       h3.tagline Word is built for longform writing
     .col-md-4.arrow-div
-      .self-center
-        i.fa-5x.fa-long-arrow-right
-        ul.fa-ul.text-left
-          li 
-            i.fa-li.fa-check
-            |Drag and drop interface
-          li 
-            i.fa-li.fa-check
-            |Question numbers automatically sync to page position       
-          li 
-            i.fa-li.fa-check
-            |No more fighting table layouts with copy and paste
-        p
-          try-button position=2
+      i.fa-5x.fa-long-arrow-right
+      ul.fa-ul.text-left
+        li 
+          i.fa-li.fa-check
+          |Drag and drop interface
+        li 
+          i.fa-li.fa-check
+          |Question numbers automatically sync to page position       
+        li 
+          i.fa-li.fa-check
+          |No more fighting table layouts with copy and paste
+      p
+        try-button position=2
 
     .col-md-4
       img.box src="../assets/images/mathflows.jpg"
