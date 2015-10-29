@@ -41,10 +41,7 @@
               i.fa-download
 
         unless model.firstPage
-          .btn-group-vertical
-            button.btn.btn-default click="deletePage"
-              |Delete Page&nbsp;&nbsp;
-              i.fa-trash.text-danger
+          page-deleter
 
       if session.me.clips
         .btn-group-vertical.clipboard

@@ -1,0 +1,11 @@
+if check
+  .well.well-sm
+    |Confirm&nbsp;
+    i.fa-check.green.click-fix click="confirm"
+    |&nbsp;&nbsp;
+    i.fa-close.red.click-fix click="cancel"
+else
+  .btn-group-vertical.page-functions
+    button.btn.btn-default click="deletePushed"
+      |Delete Page&nbsp;&nbsp;
+      i.fa-trash.text-danger
