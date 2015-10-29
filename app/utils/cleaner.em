@@ -20,7 +20,7 @@ removeDoubleDollars = (string) -> #fix for create math box then don't enter anyt
       shouldRun = char is "$" and ar[index+1] is "$"
   string = ar.join ""
 
-replaceLeadingSlashes = (string) ->
+replaceLeadingSlashes = (string) -> #this happens when entering '$' via mathquill('latex')
   replaced = 0
   dollarIndexes = findDollarIndexes string
   dollarIndexesInsideLatex = findDollarIndexesInsideLatex string

@@ -13,6 +13,8 @@ if active
           latex-button content='\neq'
           latex-button content='\approx'
           latex-button content='\sim'
+          latex-button content='\cong'
+          latex-button content='\equiv'
           latex-button content='\prop'
           latex-button content='\le'
           latex-button content='\ge'
@@ -23,7 +25,6 @@ if active
           latex-button content='\nsube'
           latex-button content='\nsupe'
           latex-button content='\degree'
-          latex-button content='\perp'
 
         latex-button content='\sum' top=true
           latex-button content='\int'

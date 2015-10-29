@@ -49,7 +49,6 @@ class BlockRendererComponent extends Ember.Component with ActiveItem,DestroyBloc
 
   setup: ->
     @eventer.on 'syncBlocks', @, @syncAttrsToEl
-    @active #initialize observer
     @initializeRenderer()
 
   initializeRenderer: ->
