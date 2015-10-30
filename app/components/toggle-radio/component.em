@@ -3,7 +3,7 @@ saveModel = modeler.saveModel
 
 class ToggleRadioComponent extends Ember.Component
 
-  classNames: ['switch-toggle','switch-3','well']
+  classNames: ['switch-toggle','switch-3']
   alignment: null
   checked: Ember.computed.alias 'alignment.side'
 
