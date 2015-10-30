@@ -59,11 +59,11 @@ class Block extends DS.Model with ModelName
   questionNumberWidth: computed 'question','questionNumber', ->
     questionNumberWidth = if @question
       if @questionNumber < 10
-        14
+        17
       else if @questionNumber < 100
-        24
+        27
       else
-        34
+        37
     else
       0
     questionNumberWidth.toString()

@@ -29,7 +29,9 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
 
   model: alias 'line'
   questionNumberWidth: alias 'line.block.questionNumberWidth'
-  style: computed 'questionNumberWidth', -> "padding-left:#{@questionNumberWidth}px".htmlSafe()
+  blockWidth: alias 'line.block.width'
+  width: computed 'questionNumberWidth','blockWidth', -> @blockWidth - @questionNumberWidth
+  style: computed 'width', -> "width:#{@width}px".htmlSafe()
   blockLine: computed -> @line.get('block')? is true
   cell: alias 'line.cell'
 
