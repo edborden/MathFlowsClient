@@ -1,5 +1,6 @@
 `import newdimensions from 'math-flows-client/utils/newdimensions'`
 `import DestroyBlock from 'math-flows-client/mixins/destroy-block'`
+`import focus from 'math-flows-client/utils/focus'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 
@@ -66,5 +67,13 @@ class BlockMenuComponent extends Ember.Component with DestroyBlock
       @server.post('blocks/' + @block.id + '/copy').then (response) =>
         newBlock = @store.peekRecord 'block',response.block.id
         @session.me.clips.pushObject newBlock
+
+    addText: ->
+      block = @get 'block'
+      @keen.addEditorEvent 'addText', block
+      line = @store.createRecord 'line', { block: block, position: 1, content: "" } 
+      block.lines.pushObject line
+      saveModel( line ).then => block.validate()
+      Ember.run.next @, -> focus.create line: line, cursorPosition: 'start'
 
 `export default BlockMenuComponent`

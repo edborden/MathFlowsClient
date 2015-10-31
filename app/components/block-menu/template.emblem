@@ -7,6 +7,10 @@ unless static
         i.fa-check
 
   .btn-group-vertical.group
+    unless block.lines
+      button.btn.btn-default click="addText"
+        |Add Text&nbsp;&nbsp;
+        i.fa-paragraph
     button.btn.btn-default click="openFileDialog"
       |Add Image&nbsp;&nbsp;
       i.fa-image  
