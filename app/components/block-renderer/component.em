@@ -95,22 +95,24 @@ class BlockRendererComponent extends Ember.Component with ActiveItem,DestroyBloc
   coords: -> Ember.$(@element).data('_gridstack_node')
 
   syncAttrsToEl: ->
+    block = @get 'block'
+    page = @get 'page'
     coords = @coords()
-    @block.colSpan = coords.width
-    @block.rowSpan = coords.height
-    @block.row = coords.y
-    @block.col = coords.x
+    block.colSpan = coords.width
+    block.rowSpan = coords.height
+    block.row = coords.y
+    block.col = coords.x
     isNew = @block.isNew
-    if @block.hasDirtyAttributes
-      changed = @block.changedAttributes()
+    if block.hasDirtyAttributes
+      changed = block.changedAttributes()
       if changed.rowSpan? or changed.colSpan?
         validate = true
-      if @page?
-        @page.refreshQuestionNumbers()
-        @block.notifyPropertyChange 'invalid'
-        @page.notifyPropertyChange 'invalidBlocks'
-      saveModel(@block).then => 
-        @block.validate() if not isNew and validate?
+      if page?
+        page.refreshQuestionNumbers()
+        block.notifyPropertyChange 'invalid'
+        page.notifyPropertyChange 'invalidBlocks'
+      saveModel(block).then => 
+        block.validate() if not isNew and validate?
 
   addToGrid: -> 
     assignPosition = not @block.col? or not @block.row?
