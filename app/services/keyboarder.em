@@ -117,17 +117,21 @@ class KeyboarderService extends Ember.Service
       Ember.run.next @,-> focus.create line: newLine,cursorPosition: 'start'
 
   backspace: ->
-    if @cursorPosition is 0 and @block.sortedLines.firstObject isnt @line #beginning of valid line
+    if @cursorPosition is 0 
 
       clean @line,@mathquill
       @setMetaData()
       lineBefore = @lineBefore
-      lineBefore.content = lineBefore.content + @line.content
-      @line.content = ""
-      focus.create line: lineBefore,cursorPosition: 'end'
-      destroyModel(@line).then =>
-        saveModel(lineBefore).then => 
-          @block.validate() if @block.contentInvalid
+      if lineBefore
+        lineBefore.content = lineBefore.content + @line.content
+        @line.content = ""
+        focus.create line: lineBefore,cursorPosition: 'end'
+        destroyModel(@line).then =>
+          saveModel(lineBefore).then => 
+            @block.validate() if @block.contentInvalid
+      else if @line.content.length is 0
+        @line.renderer.setActiveItem null
+        destroyModel(@line).then => @block.validate() if @block.contentInvalid
 
   delete: ->
     if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter? #end of valid line, with line after
