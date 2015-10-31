@@ -5,12 +5,10 @@ if block.invalid
   if block
     if question
       block-number number=block.questionNumber
-    each block.sortedLines as |line| 
-      equation-renderer line=line preview=preview setActiveItem=setActiveItem activeItem=activeItem
-      br
+      if block.lines
+        block-lines block=block preview=preview activeItem=activeItem setActiveItem=setActiveItem
     if block.children
       .block-children
-        /block-number number=block.questionNumber
         each block.children as |child|
           if child.isImage
             block-image image=child preview=preview activeItem=activeItem setActiveItem=setActiveItem

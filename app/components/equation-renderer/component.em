@@ -17,7 +17,7 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
   line:null
   preview:null
   insideEquation: null
-  attributeBindings: ['style']
+  #attributeBindings: ['style']
 
   # SERVICES
 
@@ -46,14 +46,12 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
     @mathquill = Ember.$(@element).children(".content").first().mathquill('textbox')
     @setMathQuillContent()
     @setKeyDownHandler()
-    @setClickHandler()
     Ember.$(@element).find('.cursor').remove()  
 
   # BREAKDOWN
 
   willDestroyElement: -> 
     @removeKeyDownHandler()
-    @removeClickHandler()
 
   ##EVENTS
 
@@ -80,13 +78,10 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
       else
         saveModel(@line)
 
-  click: (bubble=true) -> 
+  click: -> 
     @_super()
     @checkIfInsideEquation()
-    bubble
-
-  equationClick: ->
-    @click false
+    false
 
   contentChanged: observer 'line.content', -> 
     @setMathQuillContent()
@@ -106,15 +101,8 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
     handler = handlers.pop()
     handlers.splice(0, 0, handler)
 
-  setClickHandler: ->
-    onClick = Ember.run.bind @,@equationClick
-    @mathquill.on 'click',onClick
-
   removeKeyDownHandler: ->
     @mathquill.off 'keydown', '**'
-
-  removeClickHandler: ->
-    @mathquill.off 'click', '**'
 
   checkIfInsideEquation: ->
     unless @isDestroyed

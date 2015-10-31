@@ -1,0 +1,3 @@
+each block.sortedLines as |line| 
+  equation-renderer line=line preview=preview setActiveItem=setActiveItem activeItem=activeItem
+  br
