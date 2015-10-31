@@ -31,7 +31,7 @@ class BlockImageComponent extends Ember.Component with IsResizable,ActiveItem,Ac
 
   # RESIZABLE
 
-  resizeHandles: "se,sw"
+  resizeHandles: "s,se"
   resizeAspectRatio: true
   containmentId: computed 'invalid', -> 
     if @invalid then false else "#" + Ember.$(@element).parents(".grid-stack-item").attr 'id'
