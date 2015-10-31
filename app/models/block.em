@@ -26,6 +26,7 @@ class Block extends DS.Model with ModelName
   y: attr "number" #not used
   kind: attr "string"
   contentInvalid: attr "boolean"
+  renderer: null
 
   ## ASSOCIATIONS
 

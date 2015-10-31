@@ -130,7 +130,7 @@ class KeyboarderService extends Ember.Service
           saveModel(lineBefore).then => 
             @block.validate() if @block.contentInvalid
       else if @line.content.length is 0
-        @line.renderer.setActiveItem null
+        @line.block.renderer.click()
         destroyModel(@line).then => @block.validate() if @block.contentInvalid
 
   delete: ->

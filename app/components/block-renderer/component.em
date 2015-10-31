@@ -45,6 +45,9 @@ class BlockRendererComponent extends Ember.Component with ActiveItem,DestroyBloc
 
   # SETUP
 
+  didInitAttrs: ->
+    @block.renderer = @
+
   didInsertElement: -> scheduleOnce 'afterRender', @, 'setup'
 
   setup: ->
