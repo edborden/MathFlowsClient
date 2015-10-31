@@ -125,9 +125,9 @@ class KeyboarderService extends Ember.Service
       lineBefore.content = lineBefore.content + @line.content
       @line.content = ""
       focus.create line: lineBefore,cursorPosition: 'end'
-      destroyModel(@line)
-      saveModel(lineBefore).then => 
-        @block.validate() if @block.contentInvalid
+      destroyModel(@line).then =>
+        saveModel(lineBefore).then => 
+          @block.validate() if @block.contentInvalid
 
   delete: ->
     if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter? #end of valid line, with line after
@@ -136,9 +136,9 @@ class KeyboarderService extends Ember.Service
       clean @line,@mathquill
       @line.content = @line.content + @lineAfter.content
       focus.create line: @line,cursorPosition: @cursorPosition+1
-      saveModel(@line)
-      destroyModel(@lineAfter).then =>
-          @block.validate() if @block.contentInvalid
+      saveModel(@line).then =>
+        destroyModel(@lineAfter).then =>
+            @block.validate() if @block.contentInvalid
 
   leftArrow: ->
     if @cursorPosition is 0 and @lineBefore? #beginning of line with line before
