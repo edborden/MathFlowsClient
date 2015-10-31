@@ -5,8 +5,8 @@ if block.invalid
   if block
     if question
       block-number number=block.questionNumber
-      if block.lines
-        block-lines block=block preview=preview activeItem=activeItem setActiveItem=setActiveItem
+    if block.lines
+      block-lines block=block preview=preview activeItem=activeItem setActiveItem=setActiveItem
     if block.children
       .block-children
         each block.children as |child|

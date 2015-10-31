@@ -17,7 +17,6 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
   line:null
   preview:null
   insideEquation: null
-  #attributeBindings: ['style']
 
   # SERVICES
 
@@ -28,10 +27,6 @@ class EquationRendererComponent extends Ember.Component with ActiveItem
   # COMPUTED
 
   model: alias 'line'
-  questionNumberWidth: alias 'line.block.questionNumberWidth'
-  blockWidth: alias 'line.block.width'
-  width: computed 'questionNumberWidth','blockWidth', -> @blockWidth - @questionNumberWidth
-  style: computed 'width', -> "width:#{@width}px".htmlSafe()
   blockLine: computed -> @line.get('block')? is true
   cell: alias 'line.cell'
 
