@@ -1,3 +1,4 @@
+`import focus from 'math-flows-client/utils/focus'`
 `import modeler from 'math-flows-client/utils/modeler'`
 saveModel = modeler.saveModel
 destroyModel = modeler.destroyModel
@@ -60,6 +61,10 @@ class FullEditorComponent extends Ember.Component with ActiveSetter
 
     createBlock: -> 
       block = @store.createRecord 'block',{page:@model,rowSpan:3,colSpan:2,kind:'question'}
+      line = @store.createRecord 'line', {block:@block,content:"",position:1} 
+      block.lines.pushObject line
+      Ember.run.next @,-> focus.create line: line,cursorPosition: 'start'
+      saveModel(block).then -> saveModel line
       @keen.addEditorEvent 'createBlock', block
 
     paste: ->
