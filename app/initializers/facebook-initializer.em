@@ -13,6 +13,6 @@ initializer =
     if FB?
       fbInit()
     else
-      window.fbAsyncInit = fbInit
+      `window.fbAsyncInit = fbInit`
 
 `export default initializer`
