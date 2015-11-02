@@ -69,7 +69,8 @@ outlet
     link-to 'privacy' |Privacy Policy
     |&nbsp;|&nbsp;
     link-to 'terms' |Terms of Service
-
+    |&nbsp;|&nbsp;
+    facebook-page
 
 if modaler.showModal
   component modaler.modalName model=modaler.modalModel

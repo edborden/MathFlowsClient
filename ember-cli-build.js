@@ -17,6 +17,7 @@ module.exports = function(defaults) {
 	app.options.inlineContent['desmos'] = {content:"<script src='https://www.desmos.com/api/v0.4/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6'></script>"};
 	app.options.inlineContent['cloudinary'] = {content:"<script src='//widget.cloudinary.com/global/all.js' type='text/javascript'></script>"};
 	app.options.inlineContent['favicon'] = {content:"<link rel='icon' href='/assets/images/hourglass.ico'>"};
+	app.options.inlineContent['facebook'] = {file:"facebook.js"};
 
 	if (config.environment === 'production') {
 		app.options.inlineContent['inspectlet'] = {file:"inspectlet.js"};
