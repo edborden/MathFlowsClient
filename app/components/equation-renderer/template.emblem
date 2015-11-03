@@ -9,6 +9,12 @@ if active
           latex-button content='\nthroot' label="\sqrt[x]{y}"
           latex-button content='\subscript' label="x_{2}"
           latex-button content='\superscript' label="x^2"
+          latex-button content='\div'
+          latex-button content='\times'
+          latex-button content='\lowast'
+
+        latex-button content='\le' top=true
+          latex-button content='\ge'
           latex-button content='\pm'
           latex-button content='\neq'
           latex-button content='\approx'
@@ -16,15 +22,13 @@ if active
           latex-button content='\cong'
           latex-button content='\equiv'
           latex-button content='\prop'
-          latex-button content='\le'
-          latex-button content='\ge'
           latex-button content='\sub'
           latex-button content='\sup'
           latex-button content='\sube'
           latex-button content='\supe'
           latex-button content='\nsube'
           latex-button content='\nsupe'
-          latex-button content='\degree'
+
 
         latex-button content='\sum' top=true
           latex-button content='\int'
