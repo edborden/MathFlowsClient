@@ -130,8 +130,10 @@ class KeyboarderService extends Ember.Service
           saveModel(lineBefore).then => 
             @block.validate() if @block.contentInvalid
       else if @line.content.length is 0
-        @line.block.renderer.click()
+        console.log 'should destroy line'
+        blockRenderer = @line.block.renderer
         destroyModel(@line).then => @block.validate() if @block.contentInvalid
+        blockRenderer.click()
 
   delete: ->
     if Ember.$(@element).children('.content').children().last().hasClass("cursor") and @lineAfter? #end of valid line, with line after
