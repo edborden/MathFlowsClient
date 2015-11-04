@@ -13,6 +13,8 @@ if active
           latex-button content='\times'
           latex-button content='\lowast'
           latex-button content='\ring'
+          latex-button content='\therefore'
+          latex-button content='\because'
 
         latex-button content='\le' top=true
           latex-button content='\ge'
@@ -39,6 +41,12 @@ if active
           latex-button content='\bigcap'
           latex-button content='\bigcup'
           latex-button content='\lim'
+          latex-button content='\to'
+          latex-button content='\implies'
+          latex-button content='\gets'
+          latex-button content='\impliedby'
+          latex-button content='\harr'
+          latex-button content='\iff'
 
         latex-button content='\infty' top=true
           latex-button content='\pi'
