@@ -38,6 +38,7 @@ if active
           latex-button content='\coproduct'
           latex-button content='\bigcap'
           latex-button content='\bigcup'
+          latex-button content='\lim'
 
         latex-button content='\infty' top=true
           latex-button content='\pi'
