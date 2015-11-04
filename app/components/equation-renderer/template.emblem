@@ -12,6 +12,7 @@ if active
           latex-button content='\div'
           latex-button content='\times'
           latex-button content='\lowast'
+          latex-button content='\ring'
 
         latex-button content='\le' top=true
           latex-button content='\ge'
