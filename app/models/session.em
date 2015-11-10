@@ -6,5 +6,6 @@ class Session extends DS.Model
   redirectUri: attr "string"
   googleReferrer: attr "string"
   facebookReferrer: attr "string"
+  kickstarterReferrer: attr "string"
 
 `export default Session`

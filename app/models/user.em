@@ -24,6 +24,7 @@ class User extends DS.Model with ModelName
   invitationId: attr 'number'
   facebookReferrer: attr 'string'
   googleReferrer: attr 'string'
+  kickstarterReferrer: attr 'string'
 
   ## ASSOCIATIONS
 

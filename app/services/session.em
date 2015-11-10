@@ -18,6 +18,7 @@ class SessionService extends Ember.Service
   me: alias 'model.user'
   googleReferrer: alias 'keen.googleReferrer'
   facebookReferrer: alias 'keen.facebookReferrer'
+  kickstarterReferrer: alias 'keen.kickstarterReferrer'
   
   open: ->
     return new Ember.RSVP.Promise (resolve,reject) =>
@@ -44,6 +45,7 @@ class SessionService extends Ember.Service
         redirectUri:redirectUri
         googleReferrer: @get('googleReferrer')
         facebookReferrer: @get('facebookReferrer')
+        kickstarterReferrer: @get('kickstarterReferrer')
       saveModel(session).then(
         (response) => 
           @model = response

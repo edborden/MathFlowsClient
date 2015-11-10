@@ -15,6 +15,7 @@ Router.map ->
   @route 'invitation', {path: '/invitation/:invitation_id'}
   @route 'google', {path: '/google/:id/:keyword/:adgroupid'}
   @route 'facebook'
+  @route 'kickstarter', {path: '/kickstarter/:target'}
   @route 'privacy'
   @route 'terms'
 
