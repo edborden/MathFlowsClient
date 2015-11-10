@@ -33,7 +33,7 @@ class TourEditorComponent extends FullEditorComponent
     {}=
       options:
         attachTo:
-          element: Ember.$(".grid-stack").children()[6]
+          element: Ember.$(".question-number:contains('2')").parent()
           on: "right"
         text: ["This is the MathFlows test editor!", "You'll find it is made up of 'drag-and-drop' blocks of content, like this one, which is much better suited to creating test layouts than a word processor."]
         builtInButtons: [@nextButton()]
