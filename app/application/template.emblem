@@ -19,6 +19,8 @@ nav.navbar.navbar-default
               i.fa-google
           else
 
+            li: kickstarter-ad
+
             li.dropdown 
 
               a.dropdown-toggle.d-link href="#" data-toggle="dropdown"

@@ -1,0 +1,5 @@
+span.wrapper
+  span Support us on&nbsp;&nbsp;
+  img src="assets/images/kickstarter-logo-light.png"
+/p Help us reach our goal to add grading & analytics to MathFlows!
+/p: moment-from-now endDate
