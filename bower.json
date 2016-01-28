@@ -17,7 +17,7 @@
     "bootstrap": "*",
     "components-font-awesome": "*",
     "keen-js": "~3.2.2",
-    "cloudinary_js": "*",
+    "cloudinary_js": "1.0.25",
     "gridstack": "https://github.com/troolee/gridstack.js.git#master",
     "jquery-ui": "*",
     "active-model-adapter": "1.13.6",

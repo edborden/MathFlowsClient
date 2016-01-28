@@ -51,26 +51,7 @@ nav.navbar.navbar-default
 
                 li: a href="#" click="logout" Sign out
 
-        else
-
-          li: button.btn.btn-primary.btn-xs.navbar-btn click="authenticate"
-            |Login&nbsp;&nbsp;
-            i.fa-google
-
 outlet
-
-.footer: .container
-  p.text-center.text-muted 
-    |©
-    |&nbsp;
-    year
-    |&nbsp;MathFlows |
-    |&nbsp;
-    link-to 'privacy' |Privacy Policy
-    |&nbsp;|&nbsp;
-    link-to 'terms' |Terms of Service
-    |&nbsp;|&nbsp;
-    facebook-page
 
 if modaler.showModal
   component modaler.modalName model=modaler.modalModel
