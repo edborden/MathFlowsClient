@@ -47,17 +47,7 @@ class ApplicationRoute extends Ember.Route
               @transitionTo 'me'
               @voicer.setup()
           (error) => growl error
-        )
-
-    authenticateForUservoice: ->
-      @transitionTo('loading').then =>
-        @torii.open('google-oauth2').then( 
-          (authData) => 
-            growl authData, 'muted'
-            @session.post(authData.authorizationCode,authData.redirectUri).then => 
-              window.location.href = "http://support.mathflows.com/login_success?sso=" + @session.me.uservoiceToken
-          (error) => growl error
-        )     
+        )   
 
     closeModal: -> @modaler.closeModal()
 
