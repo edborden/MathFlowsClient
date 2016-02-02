@@ -40,7 +40,7 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
-    ENV.apiHostName = 'https://www.stackflows.com',
+    ENV.apiHostName = 'http://www.stackflows.com',
     ENV.redirectUri = 'http://mathflows.com',
     ENV.fbAppId = '559189347566503'
   }
